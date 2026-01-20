@@ -1,6 +1,6 @@
 import AdLabel from "@/components/ui/AdLabel";
 import { getActiveCampaign } from "@/lib/ads/campaigns";
-import { urlFor } from "@/lib/sanity/image";
+import { urlForImage } from "@/lib/sanity/image";
 import Image from "next/image";
 
 interface AdSlotProps {
@@ -44,7 +44,7 @@ export default async function AdSlot({
             campaign.creative.image?.asset ? (
               <div className="relative w-full aspect-[16/9] overflow-hidden">
                 <Image
-                  src={urlFor(campaign.creative.image)
+                  src={urlForImage(campaign.creative.image)
                     .width(600)
                     .height(338)
                     .url()}

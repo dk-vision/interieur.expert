@@ -15,9 +15,9 @@ export async function GET(request: NextRequest) {
       `*[
         _type in ["article", "video"] && 
         (
-          title match $query + "*" ||
-          excerpt match $query + "*" ||
-          tags[] match $query + "*"
+          title match $searchQuery + "*" ||
+          excerpt match $searchQuery + "*" ||
+          tags[] match $searchQuery + "*"
         )
       ] | order(_score desc) [0...10] {
         _id,
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
         excerpt,
         category
       }`,
-      { query }
+      { searchQuery: query }
     );
 
     return NextResponse.json({ results });
