@@ -23,8 +23,10 @@ export default function VideoPage() {
       {/* Video Grid */}
       <Section spacing="lg">
         <Container>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-            <ContentCard
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Main content */}
+            <div className="flex-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">\n            <ContentCard
               title="Interieur tour: Modern landelijk in Utrecht"
               excerpt="Bekijk hoe Sarah haar jaren '30 huis transformeerde naar een moderne landelijke stijl met respect voor originele details. Van keuken tot badkamer, een complete rondleiding door haar zorgvuldig gerenoveerde woning."
               href="/video/tour-utrecht"
@@ -57,9 +59,6 @@ export default function VideoPage() {
               readingTime={12}
               image="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80"
             />
-
-            {/* Ad slot after 3rd video */}
-            <AdSlot position="listing-inline" />
 
             <ContentCard
               title="Voor en na: Compacte stadskeuken"
@@ -130,6 +129,13 @@ export default function VideoPage() {
               readingTime={13}
               image="https://images.unsplash.com/photo-1600494603989-9650cf6ddd3d?w=800&q=80"
             />
+              </div>
+            </div>
+            
+            {/* Sidebar */}
+            <aside className="lg:w-80 space-y-8">
+              <AdSlot position="sidebar" />
+            </aside>
           </div>
         </Container>
       </Section>
