@@ -11,6 +11,7 @@ const footerLinks = {
   about: [
     { label: "Over ons", href: "/over" },
     { label: "Contact", href: "/contact" },
+    { label: "Adverteren", href: "/adverteren" },
   ],
 };
 
