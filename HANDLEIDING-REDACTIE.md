@@ -851,4 +851,75 @@ Voor vragen over het CMS of problemen met content/advertenties:
 
 ---
 
+# Deel 3: Zoekfunctie
+
+## Smart Search (⌘K)
+
+De website heeft een krachtige zoekfunctie waarmee bezoekers snel content kunnen vinden.
+
+### Hoe Werkt de Zoekfunctie?
+
+**Voor bezoekers:**
+- Druk op **⌘K** (Mac) of **Ctrl+K** (Windows) om het zoekveld te openen
+- Of klik op het zoek-icoon in de header
+- Type een zoekterm (minimaal 2 karakters)
+- Resultaten verschijnen direct tijdens het typen
+- Gebruik **pijltjestoetsen** (↑↓) om door resultaten te navigeren
+- Druk **Enter** om naar het geselecteerde artikel/video te gaan
+- Druk **Escape** om te sluiten
+
+**Wat wordt doorzocht:**
+- Artikel titels
+- Artikel samenvattingen (excerpts)
+- Artikel tags
+- Video titels
+- Video samenvattingen
+
+**Resultaten:**
+- Maximaal 10 meest relevante resultaten
+- Gesorteerd op relevantie (Sanity's `_score`)
+- Toont: titel, type (artikel/video), excerpt, categorie
+
+### Tips voor Betere Vindbaarheid
+
+Om ervoor te zorgen dat jouw content goed vindbaar is:
+
+1. **Gebruik duidelijke titels**
+   - Vermijd cryptische of creatieve titels die de inhoud verhullen
+   - Gebruik woorden die bezoekers zouden zoeken
+   - ✅ Goed: "Kleine ruimtes groter laten lijken"
+   - ❌ Minder goed: "De kunst van ruimtelijke magie"
+
+2. **Schrijf informatieve excerpts**
+   - De excerpt wordt doorzocht én getoond in resultaten
+   - Gebruik relevante zoektermen
+   - Maak het prikkelend maar duidelijk
+
+3. **Voeg relevante tags toe**
+   - Tags worden ook doorzocht
+   - Denk aan synoniemen (bijv. "woonkamer" én "living")
+   - Denk aan verschillende schrijfwijzen
+   - Voorbeelden: "minimalisme" + "minimalistisch", "kleur" + "kleuren"
+
+4. **Gebruik consistente termen**
+   - Als je over hetzelfde onderwerp schrijft, gebruik dezelfde termen
+   - Dit helpt bezoekers gerelateerde content te vinden
+   - Maak eventueel een lijst met standaard tags per onderwerp
+
+### Zoekgedrag Analyseren (Toekomstig)
+
+*Let op: Deze functionaliteit komt in een toekomstige update*
+
+In de toekomst kun je mogelijk zien:
+- Meest gezochte termen
+- Zoekopdrachten zonder resultaten
+- Populaire content via zoeken
+
+Dit helpt om:
+- Content te maken over populaire onderwerpen
+- Gaten in je content te identificeren
+- Tags en titels te optimaliseren
+
+---
+
 **Veel succes met het maken van geweldige content! 🎨✨**
