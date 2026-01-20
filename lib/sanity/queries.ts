@@ -146,3 +146,13 @@ export const dossiersListingQuery = groq`
     ${dossierFields}
   }
 `;
+
+// Related articles query - finds articles with matching tags
+export const relatedArticlesQuery = groq`
+  *[_type == "article" 
+    && _id != $currentId
+    && count((tags[])[@ in $tags]) > 0
+  ] | order(count((tags[])[@ in $tags]) desc, publishedAt desc) [0..2] {
+    ${articleFields}
+  }
+`;

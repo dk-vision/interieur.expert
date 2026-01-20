@@ -87,10 +87,12 @@ const components: PortableTextComponents = {
   },
 };
 
-export default function PortableText({ value }: PortableTextProps) {
+export function PortableText({ value }: PortableTextProps) {
   return (
     <div className="prose-custom">
       <BasePortableText value={value} components={components} />
     </div>
   );
 }
+
+export default PortableText;

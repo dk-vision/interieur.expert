@@ -33,7 +33,7 @@ export default function FeaturedCard({
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
         {/* Image */}
-        <div className="aspect-[16/9] lg:aspect-square bg-accent/10 rounded-sm overflow-hidden relative">
+        <div className="aspect-[16/9] lg:aspect-square bg-text/5 rounded-sm overflow-hidden relative">
           {image && (
             <Image
               src={image}

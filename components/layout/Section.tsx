@@ -21,7 +21,7 @@ export default function Section({
 
   const backgroundClasses = {
     default: "bg-background",
-    accent: "bg-accent/5",
+    accent: "bg-text/5",
   };
 
   return (

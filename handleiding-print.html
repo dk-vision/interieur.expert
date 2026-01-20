@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handleiding voor Redacteuren — interieur.expert</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm 2cm 2.5cm 2cm;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #2A2A2A;
+            background: #F6F4F1;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+        }
+        
+        /* Header */
+        .header {
+            border-bottom: 2px solid #0000ff;
+            padding-bottom: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2A2A2A;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #2A2A2A;
+            page-break-after: avoid;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-top: 0;
+            color: #0000ff;
+            border-bottom: 3px solid #0000ff;
+            padding-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: #0000ff;
+            margin-top: 3rem;
+            page-break-before: auto;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: #2A2A2A;
+        }
+        
+        h4 {
+            font-size: 1.2rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            orphans: 3;
+            widows: 3;
+        }
+        
+        /* Links */
+        a {
+            color: #0000ff;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Code blocks */
+        code, pre {
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+            background: #F6F4F1;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+        }
+        
+        /* Boxes and callouts */
+        .info-box {
+            background: #E8F4FF;
+            border-left: 4px solid #0000ff;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            page-break-inside: avoid;
+        }
+        
+        .warning-box {
+            background: #FFF4E8;
+            border-left: 4px solid #ff6666;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            page-break-inside: avoid;
+        }
+        
+        /* Strong text */
+        strong {
+            font-weight: 600;
+            color: #2A2A2A;
+        }
+        
+        em {
+            font-style: italic;
+        }
+        
+        /* Horizontal rules */
+        hr {
+            border: none;
+            border-top: 1px solid #E0E0E0;
+            margin: 2rem 0;
+        }
+        
+        /* Blockquotes */
+        blockquote {
+            border-left: 4px solid #0000ff;
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+            color: #666;
+            font-style: italic;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            page-break-inside: avoid;
+        }
+        
+        th, td {
+            border: 1px solid #E0E0E0;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        th {
+            background: #F6F4F1;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid #0000ff;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Page break utilities */
+        .page-break {
+            page-break-after: always;
+        }
+        
+        .no-break {
+            page-break-inside: avoid;
+        }
+        
+        /* Emojis in headings */
+        .emoji {
+            font-style: normal;
+        }
+        
+        /* Checklist styling */
+        ul li:has(input[type="checkbox"]) {
+            list-style: none;
+            margin-left: -1.5rem;
+        }
+        
+        input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .container {
+                padding: 0;
+            }
+            
+            a {
+                color: #0000ff;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">interieur.expert</div>
+            <div class="subtitle">Handleiding voor Redacteuren — Januari 2026</div>
+        </div>
+
+        <h1>Handleiding voor Redacteuren</h1>
+
+        <div class="info-box">
+            <p><strong>Welkom bij de Sanity CMS handleiding voor interieur.expert.</strong> Deze handleiding legt uit hoe je content kunt maken, bewerken en publiceren via het Sanity Studio. Het systeem is intuïtief en gebruiksvriendelijk, maar deze gids helpt je alle functies optimaal te benutten.</p>
+            <p><strong>Toegang tot Sanity Studio:</strong></p>
+            <ul>
+                <li>Lokaal: <code>http://localhost:3001/studio</code> (tijdens ontwikkeling)</li>
+                <li>Productie: <a href="https://interieurexpert.vercel.app/studio">https://interieurexpert.vercel.app/studio</a></li>
+            </ul>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h1>Deel 1: Organische Content</h1>
+
+        <h2>1. Overzicht Content Types</h2>
+        <p>Het platform heeft drie hoofdtypes voor organische content:</p>
+
+        <h3>📄 Articles (Artikelen)</h3>
+        <p>Reguliere geschreven artikelen met tekst, afbeeldingen en formattering. Dit zijn de standaard blogposts op de website.</p>
+
+        <h3>🎥 Videos (Video's)</h3>
+        <p>Video-content van YouTube met thumbnail, transcript en metadata. Perfect voor tutorials, tours en visuele content.</p>
+
+        <h3>📁 Dossiers</h3>
+        <p>Verzamelingen van gerelateerde artikelen en video's rond een specifiek onderwerp. Een dossier bundelt meerdere content items.</p>
+
+        <h2>2. Een Artikel Maken</h2>
+
+        <h3>Basis Informatie</h3>
+
+        <div class="no-break">
+            <h4>1. Title (Titel)</h4>
+            <ul>
+                <li>De hoofdtitel van je artikel</li>
+                <li>Wordt getoond als H1 op de pagina</li>
+                <li>Houd het kort en krachtig (max. 60 karakters voor SEO)</li>
+            </ul>
+        </div>
+
+        <div class="no-break">
+            <h4>2. Slug</h4>
+            <ul>
+                <li>De URL-vriendelijke versie van de titel</li>
+                <li>Klik op "Generate" om automatisch een slug te maken</li>
+                <li>Voorbeeld: <code>natuurlijke-materialen-modern-interieur</code></li>
+            </ul>
+            <div class="warning-box">
+                <strong>Let op:</strong> Wijzig de slug niet nadat het artikel gepubliceerd is!
+            </div>
+        </div>
+
+        <div class="no-break">
+            <h4>3. Excerpt (Samenvatting)</h4>
+            <ul>
+                <li>Korte beschrijving van het artikel (max. 200 karakters)</li>
+                <li>Wordt getoond in lijstweergaves en in SEO previews</li>
+                <li>Maak het prikkelend en informatief</li>
+            </ul>
+        </div>
+
+        <div class="no-break">
+            <h4>4. Featured Image (Hoofdafbeelding)</h4>
+            <ul>
+                <li>Upload een aantrekkelijke hoofdafbeelding</li>
+                <li>Klik op "hotspot" om het belangrijkste deel van de afbeelding te markeren</li>
+                <li>Aanbevolen formaat: 1200x800 pixels of hoger</li>
+                <li>Gebruik kwalitatieve afbeeldingen (bijv. Unsplash)</li>
+            </ul>
+        </div>
+
+        <h3>Content Schrijven</h3>
+
+        <h4>5. Body (Artikel inhoud)</h4>
+        <p>Het body-veld is een rijke teksteditor met de volgende opties:</p>
+
+        <p><strong>Tekststijlen:</strong></p>
+        <ul>
+            <li><strong>Normal</strong>: Reguliere paragraaftekst</li>
+            <li><strong>H2</strong>: Hoofdkop voor secties</li>
+            <li><strong>H3</strong>: Subkop binnen secties</li>
+            <li><strong>Quote</strong>: Blokquote voor citaten</li>
+        </ul>
+
+        <p><strong>Tekstopmaak:</strong></p>
+        <ul>
+            <li><strong>Strong</strong> (vet): Voor nadruk en belangrijke punten</li>
+            <li><em>Emphasis</em> (cursief): Voor subtiele nadruk</li>
+        </ul>
+
+        <p><strong>Links toevoegen:</strong></p>
+        <ol>
+            <li>Selecteer de tekst die een link moet worden</li>
+            <li>Klik op het link-icoon</li>
+            <li>Voer de URL in (moet beginnen met http:// of https://)</li>
+            <li>Klik op "Add"</li>
+        </ol>
+
+        <p><strong>Afbeeldingen toevoegen:</strong></p>
+        <ol>
+            <li>Klik op het "+" icoon in de editor</li>
+            <li>Selecteer "Image"</li>
+            <li>Upload een afbeelding</li>
+            <li>Gebruik hotspot om het belangrijkste deel te markeren</li>
+            <li>Afbeeldingen worden automatisch geoptimaliseerd</li>
+        </ol>
+
+        <div class="info-box">
+            <p><strong>Best Practices voor schrijven:</strong></p>
+            <ul>
+                <li>Begin met een sterke inleiding (eerste paragraaf)</li>
+                <li>Gebruik H2 koppen om het artikel in secties te verdelen</li>
+                <li>Voeg afbeeldingen toe om de tekst te onderbreken (om de 2-3 paragrafen)</li>
+                <li>Gebruik quotes om belangrijke inzichten te benadrukken</li>
+                <li>Houd paragrafen kort (3-5 zinnen)</li>
+            </ul>
+        </div>
+
+        <div class="page-break"></div>
+
+        <h3>Categorieën en Tags</h3>
+
+        <h4>6. Category (Categorie)</h4>
+        <p>Selecteer één hoofdcategorie:</p>
+        <ul>
+            <li><strong>Stijlen</strong>: Over interieurstijlen (minimalistisch, Scandinavisch, etc.)</li>
+            <li><strong>Advies</strong>: Praktische tips en adviezen</li>
+            <li><strong>Materialen</strong>: Over specifieke materialen (hout, steen, textiel)</li>
+            <li><strong>Techniek</strong>: Technische aspecten (verlichting, akoestiek)</li>
+            <li><strong>Kleur</strong>: Alles over kleuren en kleurcombinaties</li>
+            <li><strong>Tips</strong>: Praktische tips en tricks</li>
+            <li><strong>Trends</strong>: Actuele trends in interieurdesign</li>
+            <li><strong>Duurzaamheid</strong>: Duurzaam wonen en inrichten</li>
+            <li><strong>Ambacht</strong>: Ambachtelijk werk en vakmanschap</li>
+        </ul>
+
+        <h4>7. Tags</h4>
+        <ul>
+            <li>Voeg meerdere tags toe voor betere vindbaarheid</li>
+            <li>Gebruik specifieke, beschrijvende termen</li>
+            <li>Voorbeelden: "minimalisme", "warm", "DIY", "budget", "kleine ruimte"</li>
+            <li>Typ een tag en druk op Enter om toe te voegen</li>
+            <li>Tags helpen lezers gerelateerde content te vinden</li>
+        </ul>
+
+        <h3>Metadata</h3>
+
+        <h4>8. Published At (Publicatiedatum)</h4>
+        <ul>
+            <li>Selecteer de datum en tijd van publicatie</li>
+            <li>Content wordt alleen zichtbaar na deze datum</li>
+            <li>Gebruik de toekomst voor geplande publicaties</li>
+        </ul>
+
+        <h4>9. Author (Auteur)</h4>
+        <ul>
+            <li>Optioneel: Naam van de auteur</li>
+            <li>Laat leeg voor algemene "interieur.expert" attributie</li>
+        </ul>
+
+        <h4>10. Reading Time (Leestijd)</h4>
+        <ul>
+            <li>Geschatte leestijd in minuten</li>
+            <li>Regel van duim: 200-250 woorden = 1 minuut</li>
+            <li>Wordt getoond bij het artikel</li>
+        </ul>
+
+        <h3>SEO Optimalisatie (Optioneel)</h3>
+
+        <h4>11. SEO Title (SEO Titel)</h4>
+        <ul>
+            <li>Alleen invullen als je een afwijkende titel wilt voor zoekmachines</li>
+            <li>Max. 60 karakters</li>
+            <li>Laat leeg om de standaard titel te gebruiken</li>
+        </ul>
+
+        <h4>12. SEO Description (SEO Beschrijving)</h4>
+        <ul>
+            <li>Alleen invullen voor een afwijkende meta description</li>
+            <li>Max. 160 karakters</li>
+            <li>Laat leeg om de excerpt te gebruiken</li>
+        </ul>
+
+        <h3>Publiceren</h3>
+        <p>Na het invullen van alle velden:</p>
+        <ol>
+            <li>Klik op <strong>"Publish"</strong> rechtsbovenin om te publiceren</li>
+            <li>Het artikel verschijnt op de website na de publicatiedatum</li>
+            <li>Je kunt later altijd wijzigingen maken (klik dan "Update")</li>
+        </ol>
+
+        <div class="page-break"></div>
+
+        <h2>3. Een Video Maken</h2>
+        <p>Videos werken vergelijkbaar met artikelen, met enkele specifieke velden:</p>
+
+        <h3>Unieke Video Velden</h3>
+
+        <h4>1. Thumbnail Image</h4>
+        <ul>
+            <li>Voorbeeldafbeelding van de video</li>
+            <li>Wordt getoond in lijstweergaves</li>
+            <li>Meestal een screenshot uit de video</li>
+        </ul>
+
+        <h4>2. YouTube Video ID</h4>
+        <ul>
+            <li>Het ID van je YouTube video</li>
+            <li>Te vinden in de YouTube URL na <code>v=</code></li>
+            <li>Voorbeeld: In <code>https://youtube.com/watch?v=dQw4w9WgXcQ</code> is het ID: <code>dQw4w9WgXcQ</code></li>
+        </ul>
+        <div class="warning-box">
+            <strong>Let op:</strong> Plak alleen het ID, niet de volledige URL!
+        </div>
+
+        <h4>3. Transcript (Optioneel)</h4>
+        <ul>
+            <li>Tekstversie van de video</li>
+            <li>Goed voor toegankelijkheid en SEO</li>
+            <li>Gebruik dezelfde editor als bij artikelen</li>
+        </ul>
+
+        <h4>4. Duration (Duur)</h4>
+        <ul>
+            <li>Lengte van de video in minuten</li>
+            <li>Wordt getoond bij de video</li>
+        </ul>
+
+        <h4>5. Category (Categorie)</h4>
+        <p>Video-specifieke categorieën:</p>
+        <ul>
+            <li><strong>Tours</strong>: Interieur tours en rondleidingen</li>
+            <li><strong>DIY</strong>: Doe-het-zelf projecten</li>
+            <li><strong>Advies</strong>: Advies en tips in video vorm</li>
+            <li><strong>Voor & Na</strong>: Transformaties en make-overs</li>
+            <li><strong>Styling</strong>: Styling tips en tricks</li>
+        </ul>
+
+        <p><em>Overige velden (tags, publicatiedatum, etc.) werken hetzelfde als bij artikelen.</em></p>
+
+        <div class="page-break"></div>
+
+        <h2>4. Een Dossier Maken</h2>
+        <p>Een dossier is een verzameling van gerelateerde content rond één thema.</p>
+
+        <h3>Dossier-specifieke Velden</h3>
+
+        <h4>1. Introduction (Introductie)</h4>
+        <ul>
+            <li>Uitleg over wat het dossier behandelt</li>
+            <li>Waarom is dit onderwerp relevant?</li>
+            <li>Wat kan de lezer verwachten?</li>
+        </ul>
+
+        <h4>2. Articles (Artikelen)</h4>
+        <ul>
+            <li>Selecteer gerelateerde artikelen en video's</li>
+            <li>Klik op "Add item" om content toe te voegen</li>
+            <li>Sleep items om de volgorde te wijzigen</li>
+            <li>Verwijder items met het prullenbak-icoon</li>
+        </ul>
+
+        <h4>3. Category (Categorie)</h4>
+        <p>Dossier-specifieke categorieën:</p>
+        <ul>
+            <li><strong>Verlichting</strong>: Alles over verlichting</li>
+            <li><strong>Duurzaamheid</strong>: Duurzaam wonen</li>
+            <li><strong>Wonen</strong>: Algemeen wonen</li>
+            <li><strong>Materialen</strong>: Focus op materialen</li>
+        </ul>
+
+        <div class="warning-box">
+            <strong>Let op:</strong> Dossiers hebben geen <code>sponsored</code> optie — ze bundelen bestaande content.
+        </div>
+
+        <h2>5. Sponsored Content</h2>
+        <p>Artikelen en video's kunnen gesponsord zijn door partners.</p>
+
+        <h3>Sponsored Content Maken</h3>
+
+        <h4>1. Sponsored Content (checkbox)</h4>
+        <ul>
+            <li>Vink deze aan voor gesponsorde content</li>
+            <li>Extra velden worden nu zichtbaar</li>
+        </ul>
+
+        <h4>2. Partner</h4>
+        <ul>
+            <li>Selecteer de sponsor/partner uit de lijst</li>
+            <li>Als de partner nog niet bestaat, maak deze eerst aan onder "Partners"</li>
+        </ul>
+
+        <h4>3. Sponsor Disclosure (Verplicht!)</h4>
+        <ul>
+            <li>Schrijf een duidelijke disclosure</li>
+            <li><strong>Voorbeeld:</strong> "Dit artikel is gemaakt in samenwerking met [Partner]. Onze mening blijft onafhankelijk en we raden alleen producten aan waar we echt in geloven."</li>
+            <li>Dit wordt prominent getoond bij het artikel</li>
+            <li><strong>Transparantie is essentieel!</strong></li>
+        </ul>
+
+        <div class="info-box">
+            Gesponsorde content wordt gemarkeerd met een 🔖 badge in het overzicht.
+        </div>
+
+        <div class="page-break"></div>
+
+        <h2>6. Tips voor Goede Content</h2>
+
+        <h3>Algemene Richtlijnen</h3>
+
+        <p><strong>✅ DO:</strong></p>
+        <ul>
+            <li>Schrijf helder en toegankelijk</li>
+            <li>Gebruik actieve zinnen</li>
+            <li>Voeg kwalitatieve afbeeldingen toe</li>
+            <li>Verdeel lange teksten met koppen</li>
+            <li>Denk aan SEO (maar schrijf voor mensen!)</li>
+            <li>Controleer op spelfouten voor publicatie</li>
+            <li>Preview je artikel voordat je publiceert</li>
+        </ul>
+
+        <p><strong>❌ DON'T:</strong></p>
+        <ul>
+            <li>Lange zinnen van 3+ regels</li>
+            <li>Te veel jargon zonder uitleg</li>
+            <li>Afbeeldingen van lage kwaliteit</li>
+            <li>Clickbait titels</li>
+            <li>Vergeten om een excerpt in te vullen</li>
+            <li>Slugs wijzigen na publicatie</li>
+        </ul>
+
+        <h3>Content Checklist</h3>
+        <p>Voor <strong>elk artikel</strong> check:</p>
+        <ul>
+            <li>☐ Pakkende titel (50-60 karakters)</li>
+            <li>☐ Informatieve excerpt (max 200 karakters)</li>
+            <li>☐ Kwalitatieve featured image met hotspot</li>
+            <li>☐ Minstens 3 paragrafen body content</li>
+            <li>☐ Minimaal 1 H2 kop</li>
+            <li>☐ Juiste categorie geselecteerd</li>
+            <li>☐ 3-5 relevante tags toegevoegd</li>
+            <li>☐ Publicatiedatum ingesteld</li>
+            <li>☐ Leestijd ingevuld</li>
+            <li>☐ (Bij sponsored) Partner en disclosure toegevoegd</li>
+        </ul>
+
+        <div class="page-break"></div>
+
+        <h1>Deel 2: Advertising</h1>
+
+        <h2>1. Overzicht Advertising System</h2>
+        <p>Het platform heeft een geavanceerd advertising systeem met drie componenten:</p>
+        <ol>
+            <li><strong>Partners</strong>: De adverteerders/sponsors</li>
+            <li><strong>Ad Creatives</strong>: De advertentie-ontwerpen (afbeeldingen of HTML)</li>
+            <li><strong>Ad Campaigns</strong>: Campagnes die creatives koppelen aan posities en timing</li>
+        </ol>
+
+        <h2>2. Partners Beheren</h2>
+
+        <h3>Een Partner Toevoegen</h3>
+        <p>Partners zijn de bedrijven of organisaties die adverteren op het platform.</p>
+
+        <ol>
+            <li>Ga naar <strong>"Partner"</strong> in het menu</li>
+            <li>Klik op <strong>"Create"</strong></li>
+            <li>Vul de velden in:</li>
+        </ol>
+
+        <h4>Velden:</h4>
+
+        <p><strong>1. Partner Name</strong></p>
+        <ul>
+            <li>Officiële naam van het bedrijf</li>
+            <li>Voorbeeld: "Lumina Lighting", "IKEA Nederland"</li>
+        </ul>
+
+        <p><strong>2. Website URL</strong></p>
+        <ul>
+            <li>Volledige website URL</li>
+            <li>Moet beginnen met http:// of https://</li>
+            <li>Voorbeeld: https://www.luminalighting.nl</li>
+        </ul>
+
+        <p><strong>3. Logo (Optioneel)</strong></p>
+        <ul>
+            <li>Upload het logo van de partner</li>
+            <li>Wordt gebruikt in sponsored content badges</li>
+            <li>Aanbevolen: PNG met transparante achtergrond</li>
+        </ul>
+
+        <p><strong>4. Brand Color (Optioneel)</strong></p>
+        <ul>
+            <li>Merkkleur in hex formaat</li>
+            <li>Voorbeeld: #ff6666 (rood), #00aaff (blauw)</li>
+            <li>Wordt gebruikt voor kleuraccenten</li>
+        </ul>
+
+        <ol start="5">
+            <li>Klik op <strong>"Publish"</strong></li>
+        </ol>
+
+        <div class="info-box">
+            Partners kunnen worden hergebruikt voor meerdere gesponsorde artikelen en advertentiecampagnes.
+        </div>
+
+        <div class="page-break"></div>
+
+        <h2>3. Ad Creatives Maken</h2>
+        <p>Ad Creatives zijn de daadwerkelijke advertentie-ontwerpen.</p>
+
+        <h3>Types Creatives</h3>
+        <p>Het systeem ondersteunt twee formats:</p>
+        <ul>
+            <li><strong>Image</strong>: Een afbeelding (banner)</li>
+            <li><strong>HTML</strong>: Aangepaste HTML code (voor complexe advertenties)</li>
+        </ul>
+
+        <h3>Image Creative Maken</h3>
+
+        <ol>
+            <li>Ga naar <strong>"Ad Creative"</strong> in het menu</li>
+            <li>Klik op <strong>"Create"</strong></li>
+            <li>Vul de velden in:</li>
+        </ol>
+
+        <h4>Velden voor Image Creative:</h4>
+
+        <p><strong>1. Title</strong></p>
+        <ul>
+            <li>Interne naam voor de creative</li>
+            <li>Voorbeeld: "Lumina Zomer Sale Banner"</li>
+            <li>Alleen zichtbaar in het CMS</li>
+        </ul>
+
+        <p><strong>2. Format</strong></p>
+        <ul>
+            <li>Selecteer <strong>"Image"</strong></li>
+        </ul>
+
+        <p><strong>3. Image</strong></p>
+        <ul>
+            <li>Upload de advertentie-afbeelding</li>
+            <li>Aanbevolen formaten:
+                <ul>
+                    <li>Listing Inline: 800x600 pixels (4:3)</li>
+                    <li>Article Inline: 1200x400 pixels (3:1)</li>
+                    <li>Sidebar: 300x600 pixels (1:2)</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p><strong>4. Link URL</strong></p>
+        <ul>
+            <li>De URL waar de advertentie naartoe linkt</li>
+            <li>Voorbeeld: https://www.partner.nl/actie</li>
+            <li>Moet beginnen met http:// of https://</li>
+        </ul>
+
+        <p><strong>5. Alt Text</strong></p>
+        <ul>
+            <li>Beschrijving voor toegankelijkheid</li>
+            <li>Voorbeeld: "Lumina verlichting korting 30%"</li>
+            <li>Belangrijk voor screenreaders</li>
+        </ul>
+
+        <ol start="6">
+            <li>Klik op <strong>"Publish"</strong></li>
+        </ol>
+
+        <h3>HTML Creative Maken</h3>
+        <p>Voor geavanceerde advertenties (bijv. Google Ads, interactieve elementen).</p>
+
+        <ol>
+            <li>Volg stappen 1-2 zoals hierboven</li>
+            <li><strong>Format</strong>: Selecteer <strong>"HTML"</strong></li>
+            <li><strong>HTML Code</strong>:
+                <ul>
+                    <li>Plak de HTML/JavaScript code</li>
+                    <li>Bijvoorbeeld Google AdSense code</li>
+                    <li>Test goed voordat je publiceert!</li>
+                </ul>
+            </li>
+            <li><strong>Link URL</strong>: (Optioneel, als het niet in de HTML zit)</li>
+            <li>Klik op <strong>"Publish"</strong></li>
+        </ol>
+
+        <div class="page-break"></div>
+
+        <h2>4. Ad Campaigns Maken</h2>
+        <p>Campaigns combineren creatives met plaatsing, timing en targeting.</p>
+
+        <h3>Campaign Opzetten</h3>
+
+        <ol>
+            <li>Ga naar <strong>"Ad Campaign"</strong> in het menu</li>
+            <li>Klik op <strong>"Create"</strong></li>
+            <li>Configureer de campagne:</li>
+        </ol>
+
+        <h3>Basis Configuratie</h3>
+
+        <p><strong>1. Campaign Title</strong></p>
+        <ul>
+            <li>Interne naam voor de campagne</li>
+            <li>Voorbeeld: "Lumina Q1 2026 - Homepage"</li>
+        </ul>
+
+        <p><strong>2. Ad Slot (Verplicht)</strong></p>
+        <p>Kies de vaste positie waar de advertentie verschijnt:</p>
+        <ul>
+            <li><strong>Listing Inline</strong>: Tussen content cards in lijstweergaves (homepage)</li>
+            <li><strong>Article Inline</strong>: Binnen artikel content (tussen paragrafen)</li>
+            <li><strong>Sidebar</strong>: In de sidebar (desktop only)</li>
+        </ul>
+        <div class="warning-box">
+            <strong>Let op:</strong> Elke slot heeft één actieve advertentie tegelijk
+        </div>
+
+        <p><strong>3. Creative</strong></p>
+        <ul>
+            <li>Selecteer de Ad Creative die je eerder hebt gemaakt</li>
+            <li>Klik op "Select" en kies de juiste creative</li>
+        </ul>
+
+        <h3>Timing</h3>
+
+        <p><strong>4. Start Date</strong></p>
+        <ul>
+            <li>Wanneer de campagne start</li>
+            <li>Selecteer datum en tijd</li>
+        </ul>
+
+        <p><strong>5. End Date</strong></p>
+        <ul>
+            <li>Wanneer de campagne eindigt</li>
+            <li>De advertentie verdwijnt automatisch na deze datum</li>
+        </ul>
+
+        <h3>Targeting (Optioneel)</h3>
+        <p>Advertenties kunnen worden getarget op specifieke content:</p>
+
+        <p><strong>6. Target Category (Optioneel)</strong></p>
+        <ul>
+            <li>Toon alleen op pagina's met deze categorie</li>
+            <li>Voorbeeld: Toon verlichting-advertentie alleen bij "Techniek" artikelen</li>
+            <li>Laat leeg voor alle categorieën</li>
+        </ul>
+
+        <p><strong>7. Target Tags (Optioneel)</strong></p>
+        <ul>
+            <li>Toon alleen op pagina's met deze tags</li>
+            <li>Voeg meerdere tags toe voor bredere targeting</li>
+            <li>Voorbeeld: "verlichting", "lamp", "licht"</li>
+            <li>Laat leeg voor alle tags</li>
+        </ul>
+
+        <h3>Prioriteit en Status</h3>
+
+        <p><strong>8. Priority (Prioriteit)</strong></p>
+        <ul>
+            <li>Getal tussen 1-10</li>
+            <li>Hoger nummer = hogere prioriteit</li>
+            <li>Bij overlap krijgt de hoogste prioriteit voorrang</li>
+            <li>Standaard: 5</li>
+        </ul>
+
+        <p><strong>9. Active (Actief)</strong></p>
+        <ul>
+            <li>Vink aan om de campagne actief te maken</li>
+            <li>Uitvinken om te pauzeren (bijv. voor tijdelijk stop)</li>
+            <li>Gepauzeerde campaigns worden gemarkeerd met ⏸️</li>
+        </ul>
+
+        <ol start="10">
+            <li>Klik op <strong>"Publish"</strong></li>
+        </ol>
+
+        <div class="page-break"></div>
+
+        <h2>5. Campaign Management</h2>
+
+        <h3>Overzicht</h3>
+        <p>In de Ad Campaign lijst zie je:</p>
+        <ul>
+            <li>Campagne naam</li>
+            <li>Ad Slot (waar het verschijnt)</li>
+            <li>Status (actief of gepauzeerd ⏸️)</li>
+        </ul>
+
+        <h3>Best Practices</h3>
+
+        <p><strong>Planning:</strong></p>
+        <ul>
+            <li>Plan campagnes minimaal 1 week van tevoren</li>
+            <li>Controleer of er geen overlappende campagnes zijn voor dezelfde slot</li>
+            <li>Gebruik duidelijke, beschrijvende titels</li>
+        </ul>
+
+        <p><strong>Targeting:</strong></p>
+        <ul>
+            <li>Gebruik targeting voor relevantie (verlichting-ads bij verlichting-content)</li>
+            <li>Laat targeting leeg voor maximale reach</li>
+            <li>Test verschillende targeting strategieën</li>
+        </ul>
+
+        <p><strong>Prioriteit:</strong></p>
+        <ul>
+            <li>Prioriteit 8-10: Premium adverteerders</li>
+            <li>Prioriteit 5-7: Reguliere adverteerders</li>
+            <li>Prioriteit 1-4: Filler/backup advertenties</li>
+        </ul>
+
+        <p><strong>Monitoring:</strong></p>
+        <ul>
+            <li>Check regelmatig of campagnes nog actief zijn</li>
+            <li>Verwijder of pauzeer verlopen campagnes</li>
+            <li>Update creatives als ze verouderd raken</li>
+        </ul>
+
+        <h3>Campagne Bewerken</h3>
+        <ol>
+            <li>Open een bestaande campagne</li>
+            <li>Wijzig de gewenste velden</li>
+            <li>Klik op <strong>"Update"</strong></li>
+            <li>Wijzigingen zijn direct zichtbaar op de website</li>
+        </ol>
+
+        <h3>Campagne Pauzeren</h3>
+        <p>Om een campagne tijdelijk te stoppen zonder te verwijderen:</p>
+        <ol>
+            <li>Open de campagne</li>
+            <li>Vink <strong>"Active"</strong> uit</li>
+            <li>Klik op <strong>"Update"</strong></li>
+            <li>De campagne is nu gepauzeerd (⏸️ badge)</li>
+        </ol>
+
+        <h3>Campagne Verlengen</h3>
+        <p>Als een campagne moet worden verlengd:</p>
+        <ol>
+            <li>Open de campagne</li>
+            <li>Wijzig de <strong>"End Date"</strong> naar een latere datum</li>
+            <li>Klik op <strong>"Update"</strong></li>
+        </ol>
+
+        <div class="page-break"></div>
+
+        <h2>6. Ad Slots Uitgelegd</h2>
+
+        <h3>Available Slots</h3>
+
+        <div class="no-break">
+            <p><strong>Listing Inline:</strong></p>
+            <ul>
+                <li><strong>Locatie</strong>: Homepage en overzichtspagina's, tussen content cards</li>
+                <li><strong>Visibility</strong>: Hoge visibility, prime positie</li>
+                <li><strong>Format</strong>: Card-formaat, past tussen content</li>
+                <li><strong>Best voor</strong>: Brand awareness, belangrijke campagnes</li>
+            </ul>
+        </div>
+
+        <div class="no-break">
+            <p><strong>Article Inline:</strong></p>
+            <ul>
+                <li><strong>Locatie</strong>: Binnen artikel content, na X paragrafen</li>
+                <li><strong>Visibility</strong>: Middel, maar hoge engagement</li>
+                <li><strong>Format</strong>: Full-width binnen artikel</li>
+                <li><strong>Best voor</strong>: Contextual ads, relevante producten</li>
+            </ul>
+        </div>
+
+        <div class="no-break">
+            <p><strong>Sidebar:</strong></p>
+            <ul>
+                <li><strong>Locatie</strong>: Rechter sidebar op desktop</li>
+                <li><strong>Visibility</strong>: Lager, maar altijd zichtbaar tijdens scrollen</li>
+                <li><strong>Format</strong>: Verticaal, smaller</li>
+                <li><strong>Best voor</strong>: Long-tail campagnes, secundaire adverteerders</li>
+            </ul>
+            <div class="warning-box">
+                <strong>Let op:</strong> Niet zichtbaar op mobile!
+            </div>
+        </div>
+
+        <h3>Slot Selection Tips</h3>
+        <ul>
+            <li><strong>Premium adverteerders</strong>: Listing Inline</li>
+            <li><strong>Content-gerelateerd</strong>: Article Inline + targeting</li>
+            <li><strong>Budget/filler ads</strong>: Sidebar</li>
+            <li><strong>Maximale visibility</strong>: Meerdere slots voor dezelfde adverteerder (verschillende creatives!)</li>
+        </ul>
+
+        <div class="page-break"></div>
+
+        <h2>7. Advertising Checklist</h2>
+        <p>Voor <strong>elke campaign</strong> check:</p>
+
+        <h3>Creative</h3>
+        <ul>
+            <li>☐ Creative is gemaakt en gepubliceerd</li>
+            <li>☐ Afbeelding is juiste formaat voor slot</li>
+            <li>☐ Link URL is correct en getest</li>
+            <li>☐ Alt text is ingevuld (voor images)</li>
+        </ul>
+
+        <h3>Campaign Setup</h3>
+        <ul>
+            <li>☐ Duidelijke campaign title</li>
+            <li>☐ Juiste ad slot geselecteerd</li>
+            <li>☐ Correcte creative gekoppeld</li>
+            <li>☐ Start date is correct</li>
+            <li>☐ End date is in de toekomst</li>
+            <li>☐ Prioriteit is logisch ingesteld</li>
+            <li>☐ Active is aangevinkt</li>
+        </ul>
+
+        <h3>Optional Targeting</h3>
+        <ul>
+            <li>☐ Targeting matches adverteerder (of bewust leeg gelaten)</li>
+            <li>☐ Geen conflicten met andere actieve campaigns</li>
+        </ul>
+
+        <h3>After Publishing</h3>
+        <ul>
+            <li>☐ Preview op website (check alle devices!)</li>
+            <li>☐ Link werkt correct</li>
+            <li>☐ Creative wordt correct getoond</li>
+            <li>☐ Tracking is actief (indien van toepassing)</li>
+        </ul>
+
+        <div class="page-break"></div>
+
+        <h2>8. Troubleshooting</h2>
+
+        <h3>Advertentie verschijnt niet</h3>
+
+        <p><strong>Mogelijke oorzaken:</strong></p>
+
+        <p><strong>1. Campaign niet actief</strong></p>
+        <ul>
+            <li>Check of "Active" is aangevinkt</li>
+            <li>Check of start date al is geweest</li>
+            <li>Check of end date niet al verstreken is</li>
+        </ul>
+
+        <p><strong>2. Verkeerde slot</strong></p>
+        <ul>
+            <li>Je kijkt op verkeerde pagina (bijv. sidebar op mobile)</li>
+            <li>Andere campagne heeft hogere prioriteit</li>
+        </ul>
+
+        <p><strong>3. Targeting te specifiek</strong></p>
+        <ul>
+            <li>Check of je op een pagina bent die matcht met de targeting</li>
+            <li>Probeer targeting tijdelijk uit te schakelen voor test</li>
+        </ul>
+
+        <p><strong>4. Creative ontbreekt</strong></p>
+        <ul>
+            <li>Check of creative correct is gekoppeld</li>
+            <li>Check of creative zelf gepubliceerd is</li>
+        </ul>
+
+        <h3>Verkeerde advertentie verschijnt</h3>
+
+        <p><strong>Oplossing:</strong></p>
+        <ul>
+            <li>Check prioriteit van campaigns</li>
+            <li>Hoogste prioriteit wint altijd</li>
+            <li>Check of er meerdere actieve campaigns zijn voor deze slot</li>
+        </ul>
+
+        <h3>Advertentie verouderd</h3>
+
+        <p><strong>Oplossing:</strong></p>
+        <ul>
+            <li>Update de creative (niet de hele campaign)</li>
+            <li>Of maak nieuwe creative en link deze aan de campaign</li>
+            <li>Oude creative blijft beschikbaar voor archief</li>
+        </ul>
+
+        <div class="page-break"></div>
+
+        <h2>9. Advanced: Campaign Strategy</h2>
+
+        <h3>Seasonal Campaigns</h3>
+        <p>Voor seizoensgebonden content:</p>
+        <pre>Winter Sale Campaign:
+- Start: 1 december
+- End: 31 januari  
+- Target: "winterwonen", "verwarming"
+- Priority: 8</pre>
+
+        <h3>Product Launch</h3>
+        <p>Voor productlanceringen:</p>
+        <pre>Launch Campaign:
+- Start: Launch dag - 1 week
+- End: Launch dag + 1 maand
+- All categories (max reach)
+- Priority: 9</pre>
+
+        <h3>A/B Testing</h3>
+        <p>Test verschillende creatives:</p>
+        <ol>
+            <li>Maak 2 identieke campaigns (zelfde slot, dates)</li>
+            <li>Verschillende creatives</li>
+            <li>Verschillende prioriteit (één moet hoger zijn)</li>
+            <li>Monitor performance</li>
+            <li>Pauzeer de slechtere, verhoog prioriteit van betere</li>
+        </ol>
+
+        <h3>Rotation</h3>
+        <p>Voor adverteerders met meerdere creatives:</p>
+        <ol>
+            <li>Zelfde campaign settings</li>
+            <li>Verschillende end dates (1 week verschil)</li>
+            <li>Creative roteert automatisch na end date eerste campaign</li>
+        </ol>
+
+        <hr>
+
+        <h2>Contact en Support</h2>
+        <p>Voor vragen over het CMS of problemen met content/advertenties:</p>
+
+        <ul>
+            <li><strong>Technische vragen</strong>: Neem contact op met de ontwikkelaar</li>
+            <li><strong>Content vragen</strong>: Overleg met hoofdredacteur</li>
+            <li><strong>Advertentie vragen</strong>: Overleg met advertentie manager</li>
+        </ul>
+
+        <p><strong>Handige links:</strong></p>
+        <ul>
+            <li>Sanity Studio: <a href="https://interieurexpert.vercel.app/studio">https://interieurexpert.vercel.app/studio</a></li>
+            <li>Website: <a href="https://interieurexpert.vercel.app">https://interieurexpert.vercel.app</a></li>
+            <li>Sanity Dashboard: <a href="https://www.sanity.io/manage">https://www.sanity.io/manage</a></li>
+        </ul>
+
+        <div class="footer">
+            <p><strong>Veel succes met het maken van geweldige content! 🎨✨</strong></p>
+            <p style="margin-top: 1rem;">interieur.expert — Januari 2026</p>
+        </div>
+    </div>
+</body>
+</html>

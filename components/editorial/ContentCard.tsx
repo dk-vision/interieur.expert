@@ -44,7 +44,7 @@ export default function ContentCard({
         href={href}
         className={`group block md:col-span-2 ${isSponsored ? "border-t-2 border-brand/40 pt-4" : ""}`}
       >
-        <div className="aspect-[4/3] bg-accent/10 rounded-sm overflow-hidden relative">
+        <div className="aspect-[4/3] bg-text/5 rounded-sm overflow-hidden relative">
           {image && (
             <Image
               src={image}
@@ -94,8 +94,8 @@ export default function ContentCard({
       className={`group block hover:opacity-75 transition-opacity ${isLarge ? "md:col-span-2" : ""} ${isSponsored ? "border-t-2 border-brand/40 pt-4" : ""}`}
     >
       <div className={`${isLarge ? "grid grid-cols-1 md:grid-cols-2 gap-6" : "space-y-4"}`}>
-        {/* Image */}
-        <div className={`${isLarge ? "aspect-[16/9] md:aspect-square" : "aspect-[4/3]"} bg-accent/10 rounded-sm overflow-hidden relative`}>
+      {/* Image */}
+      <div className={`${isLarge ? "aspect-[16/9] md:aspect-square" : "aspect-[4/3]"} bg-text/5 rounded-sm overflow-hidden relative`}>
           {image && (
             <Image
               src={image}

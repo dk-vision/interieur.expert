@@ -18,40 +18,54 @@ function getConfig() {
   return { projectId, dataset, apiVersion, token };
 }
 
-export const client = new Proxy({} as SanityClient, {
-  get(_target, prop) {
-    if (!clientInstance) {
-      const config = getConfig();
-      clientInstance = createClient({
-        projectId: config.projectId,
-        dataset: config.dataset,
-        apiVersion: config.apiVersion,
-        useCdn: false,
-        token: config.token,
-        perspective: "published",
-      });
-    }
-    return (clientInstance as any)[prop];
-  },
-});
+function getClientInstance(): SanityClient {
+  if (!clientInstance) {
+    const config = getConfig();
+    clientInstance = createClient({
+      projectId: config.projectId,
+      dataset: config.dataset,
+      apiVersion: config.apiVersion,
+      useCdn: false,
+      token: config.token,
+      perspective: "published",
+    });
+  }
+  return clientInstance;
+}
 
-export const previewClient = new Proxy({} as SanityClient, {
-  get(_target, prop) {
-    if (!previewClientInstance) {
-      const config = getConfig();
-      previewClientInstance = createClient({
-        projectId: config.projectId,
-        dataset: config.dataset,
-        apiVersion: config.apiVersion,
-        useCdn: false,
-        token: config.token,
-        perspective: "previewDrafts",
-      });
-    }
-    return (previewClientInstance as any)[prop];
-  },
-});
+function getPreviewClientInstance(): SanityClient {
+  if (!previewClientInstance) {
+    const config = getConfig();
+    previewClientInstance = createClient({
+      projectId: config.projectId,
+      dataset: config.dataset,
+      apiVersion: config.apiVersion,
+      useCdn: false,
+      token: config.token,
+      perspective: "previewDrafts",
+    });
+  }
+  return previewClientInstance;
+}
+
+export const client = getClientInstance();
+export const previewClient = getPreviewClientInstance();
 
 export function getClient(preview = false) {
-  return preview ? previewClient : client;
+  return preview ? getPreviewClientInstance() : getClientInstance();
+}
+
+type SanityFetchOptions<T> = {
+  query: string;
+  params?: Record<string, unknown>;
+  preview?: boolean;
+};
+
+export async function sanityFetch<T>({
+  query,
+  params = {},
+  preview = false,
+}: SanityFetchOptions<T>): Promise<T> {
+  const activeClient = getClient(preview);
+  return activeClient.fetch<T>(query, params);
 }
