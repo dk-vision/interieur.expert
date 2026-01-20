@@ -8,7 +8,7 @@ import { Mail } from "lucide-react";
 import { sanityFetch } from "@/lib/sanity/client";
 import { featuredArticleQuery, latestArticlesQuery, latestVideosQuery } from "@/lib/sanity/queries";
 import { urlForImage } from "@/lib/sanity/image";
-import type { Article } from "@/lib/content/types";
+import type { Article, Video } from "@/lib/content/types";
 
 function NewsletterCTA() {
   return (
@@ -51,7 +51,7 @@ export default async function HomePage() {
     query: latestArticlesQuery,
   });
 
-  const latestVideos = await sanityFetch<Article[]>({
+  const latestVideos = await sanityFetch<Video[]>({
     query: latestVideosQuery,
   });
 
@@ -82,7 +82,6 @@ export default async function HomePage() {
                 publishedAt={new Date(featuredArticle.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
                 readingTime={featuredArticle.readingTime}
                 isSponsored={featuredArticle.sponsored || false}
-                partnerName={featuredArticle.partner?.name}
                 image={featuredArticle.featuredImage ? urlForImage(featuredArticle.featuredImage).width(1200).height(600).url() : undefined}
               />
             )}
@@ -146,7 +145,7 @@ export default async function HomePage() {
                   type="video"
                   category={video.category}
                   publishedAt={new Date(video.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
-                  readingTime={video.readingTime}
+                  readingTime={video.duration}
                   image={video.thumbnail ? urlForImage(video.thumbnail).width(800).height(600).url() : undefined}
                 />
               ))}
