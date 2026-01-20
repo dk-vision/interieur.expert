@@ -1,3 +1,7 @@
+"use client";
+
+"use client";
+
 import Link from "next/link";
 import MetaRow from "./MetaRow";
 import Pill from "@/components/ui/Pill";
