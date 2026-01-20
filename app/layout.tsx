@@ -23,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="nl" className={spaceGrotesk.variable}>
-      <body suppressHydrationWarning className="bg-background text-text">
+      <body>
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />
