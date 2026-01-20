@@ -30,7 +30,18 @@ const baseContentFields = groq`
 const articleFields = groq`
   ${baseContentFields},
   featuredImage,
-  body,
+  body[]{
+    ...,
+    markDefs[]{
+      ...,
+      _type == "internalArticleLink" => {
+        ...,
+        "reference": reference->{
+          "slug": slug
+        }
+      }
+    }
+  },
   author,
   readingTime
 `;

@@ -1,34 +1,51 @@
-import React from "react";
+import { notFound } from "next/navigation";
+import Link from "next/link";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import ContentCard from "@/components/editorial/ContentCard";
 import AdSlot from "@/components/ads/AdSlot";
 import { sanityFetch } from "@/lib/sanity/client";
-import { groq } from "next-sanity";
 import { urlForImage } from "@/lib/sanity/image";
 import type { Article } from "@/lib/content/types";
+import { groq } from "next-sanity";
 
-const inspiratieQuery = groq`
-  *[_type == "article" && category == "inspiratie"] | order(publishedAt desc) {
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+const articlesByTagQuery = groq`
+  *[_type == "article" && $tag in tags] | order(publishedAt desc) {
     _id,
-    _type,
     title,
-    "slug": slug.current,
+    slug,
     excerpt,
     category,
     tags,
     publishedAt,
+    readingTime,
     sponsored,
-    "partner": partner->{_id, name, website},
-    featuredImage,
-    readingTime
+    "partner": partner->{
+      name,
+      website
+    },
+    "featuredImage": featuredImage.asset
   }
 `;
 
-export default async function InspiratiePage() {
+export default async function TagPage({ params }: PageProps) {
+  const { slug } = await params;
+  
+  // Decode and normalize the tag
+  const tag = decodeURIComponent(slug);
+  
   const articles = await sanityFetch<Article[]>({
-    query: inspiratieQuery,
+    query: articlesByTagQuery,
+    params: { tag },
   });
+
+  if (!articles || articles.length === 0) {
+    notFound();
+  }
 
   return (
     <div>
@@ -36,18 +53,26 @@ export default async function InspiratiePage() {
       <Section spacing="lg">
         <Container>
           <div className="space-y-4">
+            <div className="inline-flex items-center gap-2 text-sm text-text/60">
+              <Link href="/" className="hover:text-accent transition-colors">
+                Home
+              </Link>
+              <span>/</span>
+              <span className="text-text">Tag: {tag}</span>
+            </div>
+            
             <h1 className="text-4xl lg:text-5xl font-semibold text-text leading-tight">
-              Inspiratie
+              #{tag}
             </h1>
+            
             <p className="text-xl text-text/70 leading-relaxed max-w-2xl">
-              Ontdek stijlen, kleuren en materialen die je interieur naar een hoger
-              niveau tillen. Van tijdloze klassiekers tot verfrissende nieuwe trends.
+              {articles.length} {articles.length === 1 ? 'artikel' : 'artikelen'} met de tag <strong>{tag}</strong>
             </p>
           </div>
         </Container>
       </Section>
 
-      {/* Content Grid */}
+      {/* Articles Grid */}
       <Section spacing="lg">
         <Container>
           <div className="flex flex-col lg:flex-row gap-8">
@@ -62,7 +87,11 @@ export default async function InspiratiePage() {
                     href={`/artikels/${article.slug}`}
                     type="article"
                     category={article.category}
-                    publishedAt={new Date(article.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    publishedAt={new Date(article.publishedAt).toLocaleDateString('nl-NL', { 
+                      day: 'numeric', 
+                      month: 'long', 
+                      year: 'numeric' 
+                    })}
                     readingTime={article.readingTime}
                     tags={article.tags}
                     isSponsored={article.sponsored || false}
@@ -83,4 +112,15 @@ export default async function InspiratiePage() {
       </Section>
     </div>
   );
+}
+
+// Generate metadata for SEO
+export async function generateMetadata({ params }: PageProps) {
+  const { slug } = await params;
+  const tag = decodeURIComponent(slug);
+  
+  return {
+    title: `Tag: ${tag} — interieur.expert`,
+    description: `Ontdek alle artikelen over ${tag}. Praktisch advies en inspiratie voor je interieur.`,
+  };
 }

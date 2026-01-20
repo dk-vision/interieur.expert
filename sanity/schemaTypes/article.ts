@@ -56,12 +56,13 @@ export default defineType({
             decorators: [
               { title: "Strong", value: "strong" },
               { title: "Emphasis", value: "em" },
+              { title: "Highlight", value: "highlight" },
             ],
             annotations: [
               {
                 name: "link",
                 type: "object",
-                title: "URL",
+                title: "External URL",
                 fields: [
                   {
                     name: "href",
@@ -69,6 +70,19 @@ export default defineType({
                     title: "URL",
                     validation: (Rule) =>
                       Rule.uri({ scheme: ["http", "https", "mailto"] }),
+                  },
+                ],
+              },
+              {
+                name: "internalArticleLink",
+                type: "object",
+                title: "Internal Article Link",
+                fields: [
+                  {
+                    name: "reference",
+                    type: "reference",
+                    title: "Article",
+                    to: [{ type: "article" }],
                   },
                 ],
               },
@@ -88,15 +102,9 @@ export default defineType({
       type: "string",
       options: {
         list: [
-          { title: "Stijlen", value: "Stijlen" },
-          { title: "Advies", value: "Advies" },
-          { title: "Materialen", value: "Materialen" },
-          { title: "Techniek", value: "Techniek" },
-          { title: "Kleur", value: "Kleur" },
-          { title: "Tips", value: "Tips" },
-          { title: "Trends", value: "Trends" },
-          { title: "Duurzaamheid", value: "Duurzaamheid" },
-          { title: "Ambacht", value: "Ambacht" },
+          { title: "Inspiratie", value: "inspiratie" },
+          { title: "Advies", value: "advies" },
+          { title: "Trends", value: "trends" },
         ],
       },
       validation: (Rule) => Rule.required(),

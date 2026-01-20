@@ -68,12 +68,22 @@ Het body-veld is een rijke teksteditor met de volgende opties:
 **Tekstopmaak:**
 - **Strong** (vet): Voor nadruk en belangrijke punten
 - **Emphasis** (cursief): Voor subtiele nadruk
+- **Highlight** (markering): Geeft tekst een gele achtergrond voor extra nadruk
 
 **Links toevoegen:**
+
+*Externe links:*
 1. Selecteer de tekst die een link moet worden
-2. Klik op het link-icoon
+2. Klik op "External URL"
 3. Voer de URL in (moet beginnen met http:// of https://)
 4. Klik op "Add"
+
+*Interne links naar andere artikelen:*
+1. Selecteer de tekst die een link moet worden
+2. Klik op "Internal Article Link"
+3. Selecteer het artikel waar je naar wilt linken
+4. Klik op "Add"
+5. De link krijgt automatisch een onderstreepte stijl
 
 **Afbeeldingen toevoegen:**
 1. Klik op het "+" icoon in de editor
@@ -82,11 +92,51 @@ Het body-veld is een rijke teksteditor met de volgende opties:
 4. Gebruik hotspot om het belangrijkste deel te markeren
 5. Afbeeldingen worden automatisch geoptimaliseerd
 
+**💡 Callout Boxes toevoegen (NIEUW!):**
+
+Gebruik callout boxes om belangrijke informatie op te lichten:
+
+1. Klik op het "+" icoon in de editor
+2. Selecteer "Callout Box"
+3. Kies het type:
+   - **💡 Info (Blauw)**: Voor algemene informatie
+   - **⚠️ Waarschuwing (Geel)**: Voor dingen waar lezers op moeten letten
+   - **✅ Tip (Groen)**: Voor handige tips en adviezen
+   - **❌ Let op (Rood)**: Voor belangrijke waarschuwingen
+4. Voeg optioneel een titel toe (bijv. "Pro tip", "Let op")
+5. Schrijf de inhoud van de callout
+6. Klik op "Add"
+
+*Voorbeeld wanneer te gebruiken:*
+- Info: "Wist je dat natuurlijk licht de kleur van verf beïnvloedt?"
+- Tip: "Begin altijd met een moodboard voordat je materialen koopt"
+- Waarschuwing: "Test verf altijd op een klein stukje muur eerst"
+- Let op: "Sommige planten zijn giftig voor huisdieren"
+
+**📝 Pull Quotes toevoegen (NIEUW!):**
+
+Gebruik pull quotes om belangrijke uitspraken of citaten te benadrukken:
+
+1. Klik op het "+" icoon in de editor
+2. Selecteer "Pull Quote"
+3. Voer de quote tekst in
+4. Voeg optioneel de auteur toe (naam van expert/bron)
+5. Voeg optioneel de rol toe (bijv. "Interieurontwerper", "Expert")
+6. Klik op "Add"
+
+*Voorbeeld:*
+- Quote: "Minder is meer, maar alleen als 'minder' bewust gekozen is"
+- Auteur: "Marie Kondo"
+- Rol: "Opruimexpert"
+
 **Best Practices voor schrijven:**
 - Begin met een sterke inleiding (eerste paragraaf)
 - Gebruik H2 koppen om het artikel in secties te verdelen
 - Voeg afbeeldingen toe om de tekst te onderbreken (om de 2-3 paragrafen)
-- Gebruik quotes om belangrijke inzichten te benadrukken
+- Gebruik callout boxes voor belangrijke tips of waarschuwingen
+- Gebruik pull quotes om kerninzichten te benadrukken
+- Gebruik internal article links om lezers naar gerelateerde content te leiden
+- Markeer (highlight) de allerbelangrijkste zinnen
 - Houd paragrafen kort (3-5 zinnen)
 
 ### Categorieën en Tags
@@ -508,7 +558,141 @@ Als een campagne moet worden verlengd:
 
 ---
 
-## 6. Ad Slots Uitgelegd
+## 6. Hoe Werken Advertenties op de Website?
+
+### Dynamische Advertentieselectie
+
+De website toont advertenties op een slimme manier:
+
+**Automatische selectie:**
+- Het systeem kijkt welke campagnes actief zijn op dit moment
+- Het checkt welke campagnes geschikt zijn voor de huidige pagina
+- Het kiest dan één advertentie om te tonen
+
+**Wanneer komt een advertentie in aanmerking?**
+Een campagne wordt alleen getoond als:
+- ✅ **Active** is aangevinkt (campagne is actief)
+- ✅ De huidige datum tussen **Start Date** en **End Date** ligt
+- ✅ De **Ad Slot** overeenkomt met de positie op de pagina
+- ✅ De targeting klopt (als ingesteld)
+
+### Meerdere Advertenties voor Dezelfde Positie
+
+**Wat gebeurt er als meerdere campagnes actief zijn voor dezelfde positie?**
+
+Het systeem gebruikt een **slim rotatie-systeem** op basis van prioriteit:
+
+**Voorbeeld:**
+- Campagne A heeft prioriteit **8**
+- Campagne B heeft prioriteit **6**
+- Totaal gewicht = 8 + 6 = **14**
+
+**Verdelingskansen:**
+- Campagne A: 8 ÷ 14 = **57%** kans om getoond te worden
+- Campagne B: 6 ÷ 14 = **43%** kans om getoond te worden
+
+**Wat betekent dit in de praktijk?**
+- Bij 100 bezoekers ziet ~57 personen advertentie A
+- En ~43 personen zien advertentie B
+- Welke advertentie iemand ziet is willekeurig (maar wel gewogen)
+
+**Waarom is dit handig?**
+- Hogere prioriteit = vaker getoond (voor premium adverteerders)
+- Maar ook lagere prioriteit krijgt nog steeds vertoningen
+- Eerlijke verdeling op basis van belang/prijs
+
+### Prioriteit Instellen
+
+**Gebruik deze richtlijnen:**
+
+- **Prioriteit 9-10**: Top adverteerders, hoge betaling, belangrijkste campagnes
+  - Voorbeeld: Hoofdsponsor, grote productlancering
+  
+- **Prioriteit 6-8**: Reguliere adverteerders, standaard campagnes
+  - Voorbeeld: Vaste partners, langlopende deals
+  
+- **Prioriteit 3-5**: Kleinere adverteerders, test-campagnes
+  - Voorbeeld: Nieuwe partners, proefperiodes
+  
+- **Prioriteit 1-2**: Filler advertenties, eigen promotie
+  - Voorbeeld: Eigen nieuwsbrief, lege plekken opvullen
+
+**Tip:** Als je twee adverteerders ongeveer gelijk wilt behandelen, geef ze dezelfde prioriteit (bijv. beiden 7). Dan krijgen ze elk ongeveer 50% van de vertoningen.
+
+### Targeting: Waar Verschijnt een Advertentie?
+
+**Zonder targeting:**
+- Advertentie kan op elke pagina verschijnen (waar de Ad Slot aanwezig is)
+- Maximale bereik
+- Geschikt voor algemene advertenties
+
+**Met category targeting:**
+- Alleen op pagina's met die specifieke categorie
+- Voorbeeld: "Techniek" → Alleen op techniek-artikelen
+- Geschikt voor specialistische adverteerders
+
+**Met tag targeting:**
+- Alleen op pagina's met één van die tags
+- Voorbeeld: Tags "verlichting, lamp" → Alleen bij verlichting-gerelateerde content
+- Nóg specifieker dan category
+
+**Combinatie:**
+- Je kunt category EN tags gebruiken
+- Dan moet de pagina aan beide voorwaarden voldoen
+- Zeer gericht, maar minder bereik
+
+### Praktijkvoorbeelden
+
+**Voorbeeld 1: Breed bereik**
+```
+Campagne: "Meubel Outlet Winter Sale"
+- Slot: Sidebar
+- Priority: 7
+- Target Category: [leeg]
+- Target Tags: [leeg]
+- Result: Toont op alle pagina's in de sidebar
+```
+
+**Voorbeeld 2: Specifieke targeting**
+```
+Campagne: "Design Lampen Shop"
+- Slot: Article Inline
+- Priority: 8
+- Target Category: "Techniek"
+- Target Tags: "verlichting", "lamp", "licht"
+- Result: Toont alleen in techniek-artikelen over verlichting
+```
+
+**Voorbeeld 3: Concurrerende campagnes**
+```
+Campagne A: "Premium Meubels" - Priority 9
+Campagne B: "Budget Meubels" - Priority 4
+Beide: Sidebar, geen targeting
+Total weight: 9 + 4 = 13
+- Premium verschijnt in ~69% van de gevallen (9÷13)
+- Budget verschijnt in ~31% van de gevallen (4÷13)
+```
+
+### Veelgestelde Vragen
+
+**Q: Waarom zie ik steeds dezelfde advertentie?**
+A: De advertentie met hoogste prioriteit heeft de grootste kans. Als er maar één actieve campagne is, zie je altijd die.
+
+**Q: Kan ik ervoor zorgen dat twee advertenties afwisselen (50/50)?**
+A: Ja! Geef beide campagnes dezelfde prioriteit.
+
+**Q: Hoeveel advertenties kan ik tegelijk actief hebben?**
+A: Onbeperkt! Je kunt zoveel campagnes als je wilt tegelijk actief hebben. Het systeem selecteert er automatisch één per pagina-bezoek.
+
+**Q: Verdwijnt een advertentie automatisch na de end date?**
+A: Ja, zodra de end date bereikt is, wordt de campagne niet meer getoond (ook al staat Active nog aan).
+
+**Q: Kan ik zien hoe vaak een advertentie is getoond?**
+A: Momenteel niet, maar dit is in ontwikkeling voor een toekomstige update.
+
+---
+
+## 7. Ad Slots Uitgelegd
 
 ### Available Slots
 
@@ -540,7 +724,7 @@ Als een campagne moet worden verlengd:
 
 ---
 
-## 7. Advertising Checklist
+## 8. Advertising Checklist
 
 Voor **elke campaign** check:
 
@@ -571,7 +755,7 @@ Voor **elke campaign** check:
 
 ---
 
-## 8. Troubleshooting
+## 9. Troubleshooting
 
 ### Advertentie verschijnt niet
 
@@ -610,7 +794,7 @@ Voor **elke campaign** check:
 
 ---
 
-## 9. Advanced: Campaign Strategy
+## 10. Advanced: Campaign Strategy
 
 ### Seasonal Campaigns
 

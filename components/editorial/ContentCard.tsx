@@ -143,11 +143,17 @@ export default function ContentCard({
           )}
 
           {tags && tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2" onClick={(e) => e.stopPropagation()}>
               {tags.map((tag) => (
-                <Pill key={tag} variant="subtle" size="sm">
-                  {tag}
-                </Pill>
+                <Link 
+                  key={tag} 
+                  href={`/tags/${encodeURIComponent(tag.toLowerCase())}`}
+                  className="hover:scale-105 transition-transform"
+                >
+                  <Pill variant="subtle" size="sm">
+                    {tag}
+                  </Pill>
+                </Link>
               ))}
             </div>
           )}

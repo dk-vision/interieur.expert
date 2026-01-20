@@ -10,7 +10,7 @@ import { urlForImage } from "@/lib/sanity/image";
 import type { Article } from "@/lib/content/types";
 
 const trendsQuery = groq`
-  *[_type == "article" && category == "Trends"] | order(publishedAt desc) {
+  *[_type == "article" && category == "trends"] | order(publishedAt desc) {
     _id,
     _type,
     title,
