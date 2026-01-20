@@ -1,13 +1,18 @@
+import React from "react";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import FeaturedCard from "@/components/editorial/FeaturedCard";
 import ContentCard from "@/components/editorial/ContentCard";
 import AdSlot from "@/components/ads/AdSlot";
 import { Mail } from "lucide-react";
+import { sanityFetch } from "@/lib/sanity/client";
+import { featuredArticleQuery, latestArticlesQuery, latestVideosQuery } from "@/lib/sanity/queries";
+import { urlForImage } from "@/lib/sanity/image";
+import type { Article } from "@/lib/content/types";
 
 function NewsletterCTA() {
   return (
-    <div className="bg-accent/5 border border-accent/10 rounded-sm p-8 lg:p-12">
+    <div className="bg-text/5 border border-text/10 rounded-sm p-8 lg:p-12">
       <div className="max-w-2xl mx-auto text-center space-y-6">
         <div className="flex justify-center">
           <Mail size={32} className="text-accent" />
@@ -36,7 +41,20 @@ function NewsletterCTA() {
   );
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Fetch featured article and latest content from Sanity
+  const featuredArticle = await sanityFetch<Article>({
+    query: featuredArticleQuery,
+  });
+
+  const latestArticles = await sanityFetch<Article[]>({
+    query: latestArticlesQuery,
+  });
+
+  const latestVideos = await sanityFetch<Article[]>({
+    query: latestVideosQuery,
+  });
+
   return (
     <div>
       {/* Hero Section */}
@@ -54,17 +72,20 @@ export default function HomePage() {
             </div>
 
             {/* Featured Article */}
-            <FeaturedCard
-              title="De kracht van natuurlijke materialen in moderne interieurs"
-              excerpt="Natuurlijke materialen brengen niet alleen warmte en karakter, maar ook een gevoel van rust en authenticiteit. Ontdek waarom hout, steen en linnen meer zijn dan een trend."
-              href="/artikels/natuurlijke-materialen"
-              type="article"
-              category="Materialen"
-              publishedAt="12 januari 2026"
-              readingTime={7}
-              isSponsored={false}
-              image="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200&q=80"
-            />
+            {featuredArticle && (
+              <FeaturedCard
+                title={featuredArticle.title}
+                excerpt={featuredArticle.excerpt}
+                href={`/artikels/${featuredArticle.slug}`}
+                type="article"
+                category={featuredArticle.category}
+                publishedAt={new Date(featuredArticle.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                readingTime={featuredArticle.readingTime}
+                isSponsored={featuredArticle.sponsored || false}
+                partnerName={featuredArticle.partner?.name}
+                image={featuredArticle.featuredImage ? urlForImage(featuredArticle.featuredImage).width(1200).height(600).url() : undefined}
+              />
+            )}
           </div>
         </Container>
       </Section>
@@ -76,81 +97,26 @@ export default function HomePage() {
             <h2 className="text-3xl font-semibold text-text">Recent</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-              <ContentCard
-                title="Minimalisme zonder koud te worden"
-                excerpt="Hoe je een minimalistisch interieur creëert dat warm en uitnodigend blijft, zonder in clichés te vervallen."
-                href="/artikels/warm-minimalisme"
-                type="article"
-                category="Stijlen"
-                publishedAt="10 januari 2026"
-                readingTime={5}
-                tags={["Minimalisme", "Warmte"]}
-                image="https://images.unsplash.com/photo-1615874694520-474822394e73?w=800&q=80"
-                size="wide"
-              />
-
-              <ContentCard
-                title="Kleur kiezen voor je woonkamer"
-                excerpt="Een praktische gids om de juiste kleuren te vinden die bij jouw ruimte en levensstijl passen."
-                href="/artikels/kleur-kiezen"
-                type="article"
-                category="Advies"
-                publishedAt="8 januari 2026"
-                readingTime={6}
-                tags={["Kleur", "Woonkamer"]}
-                image="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80"
-              />
-
-              <ContentCard
-                title="Verlichting als basis van je interieur"
-                excerpt="Waarom goede verlichting het fundament is van elk geslaagd interieur, en hoe je het goed aanpakt."
-                href="/artikels/verlichting-basis"
-                type="article"
-                category="Techniek"
-                publishedAt="5 januari 2026"
-                readingTime={8}
-                tags={["Verlichting", "Basis"]}
-                isSponsored={true}
-                partnerName="Lumina Lighting"
-                partnerUrl="https://lumina-lighting.example"
-                image="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=800&q=80"
-              />
-
-              <ContentCard
-                title="Kleine ruimtes groter laten lijken"
-                excerpt="Slimme inrichtingstips die écht werken, zonder trucjes of gimmicks."
-                href="/artikels/kleine-ruimtes"
-                type="article"
-                category="Tips"
-                publishedAt="2 januari 2026"
-                readingTime={5}
-                image="https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=800&q=80"
-              />
-
-              <ContentCard
-                title="Duurzaam inrichten zonder concessies"
-                excerpt="Kwaliteit en duurzaamheid hoeven elkaar niet uit te sluiten. Zo kies je meubels die een leven lang meegaan."
-                href="/artikels/duurzaam-inrichten"
-                type="dossier"
-                category="Duurzaamheid"
-                publishedAt="30 december 2025"
-                readingTime={12}
-                image="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=800&q=80"
-              />
-
-              {/* Ad Slot after 5th card */}
-              <AdSlot position="listing-inline" />
-
-              <ContentCard
-                title="De comeback van ambachtelijk meubelwerk"
-                excerpt="Waarom steeds meer mensen kiezen voor op maat gemaakt meubilair, en wat je moet weten voordat je begint."
-                href="/artikels/ambachtelijk-meubelwerk"
-                type="article"
-                category="Ambacht"
-                publishedAt="28 december 2025"
-                readingTime={6}
-                image="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&q=80"
-              />
+              {latestArticles.map((article, index) => (
+                <React.Fragment key={article._id}>
+                  <ContentCard
+                    title={article.title}
+                    excerpt={article.excerpt}
+                    href={`/artikels/${article.slug}`}
+                    type="article"
+                    category={article.category}
+                    publishedAt={new Date(article.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    readingTime={article.readingTime}
+                    tags={article.tags}
+                    isSponsored={article.sponsored || false}
+                    partnerName={article.partner?.name}
+                    partnerUrl={article.partner?.website}
+                    image={article.featuredImage ? urlForImage(article.featuredImage).width(800).height(600).url() : undefined}
+                  />
+                  {/* Ad Slot after 5th card */}
+                  {index === 4 && <AdSlot position="listing-inline" />}
+                </React.Fragment>
+              ))}
             </div>
           </div>
         </Container>
@@ -171,38 +137,19 @@ export default function HomePage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-              <ContentCard
-                title="Interieur tour: Modern landelijk in Utrecht"
-                excerpt="Bekijk hoe Sarah haar jaren '30 huis transformeerde naar een moderne landelijke stijl met respect voor originele details."
-                href="/video/tour-utrecht"
-                type="video"
-                category="Tours"
-                publishedAt="11 januari 2026"
-                readingTime={15}
-                image="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80"
-              />
-
-              <ContentCard
-                title="DIY: Industriële wandkast maken"
-                excerpt="Stap voor stap uitleg om zelf een industriële wandkast te bouwen met staal en hout."
-                href="/video/diy-wandkast"
-                type="video"
-                category="DIY"
-                publishedAt="7 januari 2026"
-                readingTime={22}
-                image="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&q=80"
-              />
-
-              <ContentCard
-                title="Kleuradvies voor kleine ruimtes"
-                excerpt="Interieurstyliste Lisa legt uit welke kleuren kleine ruimtes groter en luchtiger maken."
-                href="/video/kleuradvies"
-                type="video"
-                category="Advies"
-                publishedAt="3 januari 2026"
-                readingTime={12}
-                image="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80"
-              />
+              {latestVideos.map((video) => (
+                <ContentCard
+                  key={video._id}
+                  title={video.title}
+                  excerpt={video.excerpt}
+                  href={`/video/${video.slug}`}
+                  type="video"
+                  category={video.category}
+                  publishedAt={new Date(video.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                  readingTime={video.readingTime}
+                  image={video.thumbnail ? urlForImage(video.thumbnail).width(800).height(600).url() : undefined}
+                />
+              ))}
             </div>
           </div>
         </Container>
