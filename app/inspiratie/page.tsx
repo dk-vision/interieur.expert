@@ -1,5 +1,4 @@
-import React from "react";
-import { Metadata } from "next";
+import React from "next";
 import { Metadata } from "next";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
@@ -15,14 +14,7 @@ export const metadata: Metadata = {
   description: "Ontdek stijlen, kleuren en materialen die je interieur naar een hoger niveau tillen. Van tijdloze klassiekers tot verfrissende nieuwe trends.",
 };
 
-export const revalidate = 3600; // Revalidate every hour
-
-export const metadata: Metadata = {
-  title: "Inspiratie | Interieur.Expert",
-  description: "Ontdek stijlen, kleuren en materialen die je interieur naar een hoger niveau tillen. Van tijdloze klassiekers tot verfrissende nieuwe trends.",
-};
-
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 3600;
 
 const inspiratieQuery = groq`
   *[_type == "article" && category == "inspiratie"] | order(publishedAt desc) {
@@ -48,7 +40,6 @@ export default async function InspiratiePage() {
 
   return (
     <div>
-      {/* Hero */}
       <Section spacing="lg">
         <Container>
           <div className="space-y-4">
@@ -63,11 +54,9 @@ export default async function InspiratiePage() {
         </Container>
       </Section>
 
-      {/* Content Grid */}
       <Section spacing="lg">
         <Container>
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Main content */}
             <div className="flex-1">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
                 {articles.map((article) => (
@@ -90,7 +79,6 @@ export default async function InspiratiePage() {
               </div>
             </div>
             
-            {/* Sidebar */}
             <aside className="lg:w-80 space-y-8">
               <AdSlot position="sidebar" />
             </aside>
