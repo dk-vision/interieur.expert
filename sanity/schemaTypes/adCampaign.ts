@@ -14,6 +14,14 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "partner",
+      title: "Partner",
+      type: "reference",
+      to: [{ type: "partner" }],
+      validation: (Rule) => Rule.required(),
+      description: "Link this campaign to a partner for tracking",
+    }),
+    defineField({
       name: "slot",
       title: "Ad Slot",
       type: "string",
@@ -35,20 +43,29 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "campaignType",
+      title: "Campaign Type",
+      type: "string",
+      options: {
+        list: [
+          { title: "Standard Display", value: "display" },
+          { title: "Sponsored Content Promo", value: "sponsored-promo" },
+          { title: "Product Launch", value: "product-launch" },
+          { title: "Seasonal Campaign", value: "seasonal" },
+        ],
+      },
+      initialValue: "display",
+    }),
+    defineField({
       name: "targetCategory",
       title: "Target Category (optional)",
       type: "string",
       description: "Show only on pages with this category",
       options: {
         list: [
-          { title: "Stijlen", value: "Stijlen" },
-          { title: "Advies", value: "Advies" },
-          { title: "Materialen", value: "Materialen" },
-          { title: "Techniek", value: "Techniek" },
-          { title: "Kleur", value: "Kleur" },
-          { title: "Tips", value: "Tips" },
-          { title: "Trends", value: "Trends" },
-          { title: "Duurzaamheid", value: "Duurzaamheid" },
+          { title: "Inspiratie", value: "inspiratie" },
+          { title: "Advies", value: "advies" },
+          { title: "Trends", value: "trends" },
         ],
       },
     }),
@@ -95,11 +112,20 @@ export default defineType({
       title: "title",
       slot: "slot",
       active: "active",
+      partnerName: "partner.name",
+      campaignType: "campaignType",
     },
-    prepare({ title, slot, active }) {
+    prepare({ title, slot, active, partnerName, campaignType }) {
+      const typeEmoji: Record<string, string> = {
+        display: "📢",
+        "sponsored-promo": "📝",
+        "product-launch": "🚀",
+        seasonal: "🎯",
+      };
+      
       return {
         title: active ? title : `⏸️ ${title}`,
-        subtitle: slot,
+        subtitle: `${typeEmoji[campaignType || "display"]} ${slot} • ${partnerName || "No partner"}`,
       };
     },
   },

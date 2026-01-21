@@ -1,4 +1,5 @@
 import React from "react";
+import { Metadata } from "next";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import ContentCard from "@/components/editorial/ContentCard";
@@ -7,6 +8,13 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
 import { urlForImage } from "@/lib/sanity/image";
 import type { Article } from "@/lib/content/types";
+
+export const metadata: Metadata = {
+  title: "Advies | Interieur.Expert",
+  description: "Praktisch en eerlijk advies voor het inrichten van je huis. Van budgetvriendelijke tips tot grondige uitleg over materialen en technieken.",
+};
+
+export const revalidate = 3600; // Revalidate every hour
 
 const adviesQuery = groq`
   *[_type == "article" && category == "advies"] | order(publishedAt desc) {

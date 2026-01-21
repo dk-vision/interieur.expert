@@ -4,9 +4,22 @@ import { groq } from "next-sanity";
 const partnerFragment = groq`
   _id,
   name,
+  "slug": slug.current,
+  description,
   website,
   logo,
-  brandColor
+  brandColor,
+  partnerType,
+  featured
+`;
+
+const fullPartnerFragment = groq`
+  ${partnerFragment},
+  about,
+  socialMedia,
+  showrooms,
+  contractStart,
+  contractEnd
 `;
 
 // Base content fields
@@ -165,5 +178,43 @@ export const relatedArticlesQuery = groq`
     && count((tags[])[@ in $tags]) > 0
   ] | order(count((tags[])[@ in $tags]) desc, publishedAt desc) [0..2] {
     ${articleFields}
+  }
+`;
+
+// Partner queries
+export const allPartnersQuery = groq`
+  *[_type == "partner"] | order(featured desc, name asc) {
+    ${partnerFragment}
+  }
+`;
+
+export const featuredPartnersQuery = groq`
+  *[_type == "partner" && featured == true] | order(name asc) {
+    ${partnerFragment}
+  }
+`;
+
+export const partnerBySlugQuery = groq`
+  *[_type == "partner" && slug.current == $slug][0] {
+    ${fullPartnerFragment},
+    "sponsoredArticles": *[_type == "article" && sponsored == true && references(^._id)] | order(publishedAt desc) [0..9] {
+      ${baseContentFields},
+      featuredImage,
+      readingTime
+    },
+    "activeCampaigns": *[_type == "adCampaign" && references(^._id) && active == true] | order(priority desc) {
+      _id,
+      title,
+      slot,
+      startDate,
+      endDate,
+      priority
+    }
+  }
+`;
+
+export const partnersByTypeQuery = groq`
+  *[_type == "partner" && partnerType == $type] | order(name asc) {
+    ${partnerFragment}
   }
 `;

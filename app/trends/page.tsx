@@ -1,4 +1,5 @@
 import React from "react";
+import { Metadata } from "next";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import ContentCard from "@/components/editorial/ContentCard";
@@ -8,6 +9,13 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
 import { urlForImage } from "@/lib/sanity/image";
 import type { Article } from "@/lib/content/types";
+
+export const metadata: Metadata = {
+  title: "Trends | Interieur.Expert",
+  description: "Blijf op de hoogte van de nieuwste interieur trends. Van kleurtrends tot nieuwe materialen en designrichtingen.",
+};
+
+export const revalidate = 3600; // Revalidate every hour
 
 const trendsQuery = groq`
   *[_type == "article" && category == "trends"] | order(publishedAt desc) {

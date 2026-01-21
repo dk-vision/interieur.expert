@@ -14,16 +14,22 @@ Welkom bij de Sanity CMS handleiding voor interieur.expert. Deze handleiding leg
 
 ## 1. Overzicht Content Types
 
-Het platform heeft drie hoofdtypes voor organische content:
+Het platform heeft vijf hoofdtypes voor content:
 
 ### 📄 **Articles** (Artikelen)
-Reguliere geschreven artikelen met tekst, afbeeldingen en formattering. Dit zijn de standaard blogposts op de website.
+Reguliere geschreven artikelen met tekst, afbeeldingen en formattering. Dit zijn de standaard blogposts op de website. Artikelen kunnen optioneel gesponsord worden door partners.
 
 ### 🎥 **Videos** (Video's)
 Video-content van YouTube met thumbnail, transcript en metadata. Perfect voor tutorials, tours en visuele content.
 
 ### 📁 **Dossiers**
 Verzamelingen van gerelateerde artikelen en video's rond een specifiek onderwerp. Een dossier bundelt meerdere content items.
+
+### 🤝 **Partners** (NIEUW!)
+Bedrijven en merken waarmee interieur.expert samenwerkt. Partners krijgen een profiel pagina en kunnen content sponsoren. Zie Deel 2 voor meer info.
+
+### 📢 **Advertising** 
+Ad campaigns, ad creatives en sponsored content. Voor commerciële content. Zie Deel 2 voor adverteerder info.
 
 ---
 
@@ -175,6 +181,39 @@ Gebruik pull quotes om belangrijke uitspraken of citaten te benadrukken:
     - Geschatte leestijd in minuten
     - Regel van duim: 200-250 woorden = 1 minuut
     - Wordt getoond bij het artikel
+
+### Gesponsorde Content (NIEUW!)
+
+11. **Sponsored Content**
+    - Toggle deze aan als het artikel gesponsord is door een partner
+    - **BELANGRIJK**: Alleen gebruiken bij officiële partnerships
+    
+12. **Partner** (verschijnt als Sponsored Content aan staat)
+    - Selecteer de partner die het artikel sponsort
+    - Partner moet eerst aangemaakt zijn in het systeem
+    - Voorbeeld partners: XOOON, BoConcept, etc.
+    
+13. **Sponsor Disclosure** (verschijnt als Sponsored Content aan staat)
+    - **VERPLICHT** voor sponsored content
+    - Voeg transparante disclosure tekst toe
+    - Voorbeeld: "Dit artikel is mogelijk gemaakt door [Partner]. Alle meningen en aanbevelingen zijn onafhankelijk en objectief."
+    - Deze tekst verschijnt onderaan het artikel
+
+**Gesponsorde Content Richtlijnen:**
+- ✅ Content moet redactioneel kwalitatief blijven
+- ✅ Educatieve waarde voorop
+- ✅ Eerlijke meningen en onafhankelijke aanbevelingen
+- ✅ Duidelijke disclosure altijd verplicht
+- ❌ Geen directe productverkooppraatjes
+- ❌ Niet meer dan 2-3 gesponsorde artikelen per partner per kwartaal
+- ❌ Content mag niet volledig product-focused zijn
+
+**Zichtbaarheid:**
+- "Gesponsord door [Partner]" badge bovenaan artikel
+- Partner logo naast badge
+- Disclosure text onderaan artikel
+- Link naar partner profiel pagina
+- Artikel verschijnt op partner profiel pagina (`/partners/[slug]`)
 
 ### SEO Optimalisatie (Optioneel)
 
@@ -851,7 +890,234 @@ Voor vragen over het CMS of problemen met content/advertenties:
 
 ---
 
-# Deel 3: Zoekfunctie
+# Deel 3: Partners & Sponsored Content
+
+## 1. Partner Systeem Overzicht
+
+Interieur.expert werkt met drie types partners:
+
+### 🌟 Premium Partners
+- Langdurige samenwerking (6-12+ maanden)
+- Eigen profiel pagina op `/partners/[slug]`
+- Kunnen meerdere artikelen sponsoren
+- Permanente ad presence
+- Featured op partner overzichtspagina
+
+**Voorbeelden:** XOOON, BoConcept, Karwei
+
+### 📅 Campaign Partners
+- Kortere campagnes (1-3 maanden)
+- Optionele profiel pagina
+- Tijdelijke ads met hoge priority
+- Focus op specifieke content
+
+### 🤝 Affiliate Partners
+- Content partnerships
+- Geen directe ads
+- Affiliate links in content
+- Optionele light profiel pagina
+
+---
+
+## 2. Partner Aanmaken
+
+### Nieuwe Partner Toevoegen
+
+1. Ga naar **Sanity Studio → Content → Partner → Create New**
+
+### Vereiste Velden
+
+**Name**: Volledige partnernaam
+- Voorbeeld: "XOOON"
+
+**Slug**: URL-vriendelijke versie
+- Klik "Generate" voor automatische slug
+- Voorbeeld: "xooon"
+- **Let op:** Niet meer wijzigen na publicatie!
+
+**Description**: Korte beschrijving (max 200 karakters)
+- Voor partner overzichtspagina en preview
+- Voorbeeld: "Modern Nederlands design met industriële twist. Robuuste materialen en verfijnde details."
+
+**Website URL**: Link naar partner website
+- Moet starten met https://
+- Voorbeeld: https://www.xooon.nl
+
+**Logo**: Partner logo
+- Upload vierkant formaat (aanbevolen)
+- Minimaal 400x400px
+- PNG met transparante achtergrond werkt het beste
+
+### Optionele Velden
+
+**About**: Uitgebreide beschrijving
+- Gebruikt portable text editor (zoals bij artikelen)
+- Verschijnt op partner profiel pagina
+- 200-400 woorden aanbevolen
+- Vertel over:
+  - Wie is de partner?
+  - Waarom relevant voor lezers?
+  - Wat maakt hen uniek?
+  - Missie/visie
+
+**Partner Type**: 
+- Premium Partner (langdurig)
+- Campaign Partner (tijdelijk)
+- Affiliate Partner (commissie-based)
+
+**Featured**: Ja/Nee
+- Featured partners worden highlighted op `/partners`
+- Maximaal 3-4 featured partners tegelijk
+
+**Brand Color**: Hex color code
+- Optioneel accent kleur voor styling
+- Voorbeeld: #FF6B6B
+- Wordt gebruikt op partner pagina
+
+**Social Media**: Links naar social accounts
+- Instagram URL
+- Facebook URL
+- Pinterest URL
+
+**Showrooms**: Fysieke locaties
+- Stad
+- Adres
+- Telefoonnummer
+- Kan meerdere showrooms toevoegen
+
+**Contract Start/End**: Administratie
+- Voor intern gebruik
+- Helpt bij planning en renewal
+
+### Partner Pagina Preview
+
+Na publicatie verschijnt de partner op:
+- `/partners` - Overzichtspagina alle partners
+- `/partners/[slug]` - Individuele partner pagina
+
+**Partner pagina toont automatisch:**
+- Logo en beschrijving
+- Uitgebreide "Over" sectie
+- Alle gesponsorde artikelen
+- Website link en social media
+- Showroom informatie
+- "Gesponsord door [Partner]" badges
+
+---
+
+## 3. Content Sponsoren
+
+### Artikel aan Partner Koppelen
+
+1. Open een bestaand artikel of maak nieuw artikel
+2. Scroll naar **Sponsored Content** sectie
+3. Toggle **Sponsored Content** aan
+4. Selecteer **Partner** uit dropdown
+5. Voeg **Sponsor Disclosure** toe (verplicht!)
+
+### Disclosure Text Voorbeelden
+
+Goede disclosure texts:
+- "Dit artikel is mogelijk gemaakt door [Partner]. Alle meningen en aanbevelingen zijn onafhankelijk."
+- "In samenwerking met [Partner]. Onze editorial standards blijven ongewijzigd."
+- "Gesponsord door [Partner]. Content en aanbevelingen zijn objectief en onafhankelijk bepaald."
+
+### Gesponsorde Content Richtlijnen
+
+**DO's:**
+✅ Behoud redactionele kwaliteit
+✅ Educatieve waarde voorop
+✅ Eerlijke, onafhankelijke meningen
+✅ Duidelijke disclosure verplicht
+✅ Relevant voor lezers
+✅ Voldoet aan normale content standards
+
+**DON'TS:**
+❌ Directe productverkooppraatjes
+❌ Overdreven lovend zonder nuance
+❌ Te product-focused (moet educatief zijn)
+❌ Meer dan 2-3 gesponsorde artikelen per partner per kwartaal
+❌ Verborgen partnerships (altijd transparent)
+
+### Zichtbaarheid Sponsored Content
+
+Gesponsorde artikelen zijn duidelijk gelabeld:
+- "Gesponsord door [Partner]" badge bovenaan
+- Partner logo naast badge
+- Disclosure text onderaan artikel
+- Link naar partner profiel
+- Verschijnt op partner pagina
+- Labeled in search results
+
+---
+
+## 4. Partner Pagina Onderhouden
+
+### Content Up-to-Date Houden
+
+**Regelmatig checken:**
+- Is About sectie nog actueel?
+- Logo correct en current?
+- Website link werkt nog?
+- Social media links correct?
+- Showroom info klopt nog?
+
+**Bij wijzigingen:**
+1. Open Partner document in Sanity
+2. Pas relevante velden aan
+3. Klik "Update" rechtsboven
+4. Wijzigingen zijn direct live
+
+### Featured Partners Roteren
+
+Om overzichtspagina fris te houden:
+- Roteer Featured status elk kwartaal
+- Max 3-4 Featured partners tegelijk
+- Geef premium partners voorrang
+- Overleg met advertentie manager
+
+---
+
+## 5. Best Practices Partner Content
+
+### Voor Redacteuren
+
+**Bij Gesponsorde Artikelen:**
+1. Schrijf eerst het artikel (normale standaard)
+2. Pas aan het einde partner toe
+3. Check: blijft content objectief?
+4. Voeg disclosure toe
+5. Review met hoofdredacteur
+
+**Content Quality:**
+- Sponsored = niet lower quality
+- Zelfde editorial standards
+- Geen uitzonderingen op fact-checking
+- Independence voorop
+
+**Transparantie:**
+- Altijd disclosure toevoegen
+- Duidelijk labelen in CMS
+- Overleg bij twijfel
+
+### Voor Partner Managers
+
+**Partner Onboarding:**
+1. Maak partner document aan
+2. Vraag alle info en assets
+3. Setup partner pagina
+4. Review met partner
+5. Publish
+
+**Partnership Onderhoud:**
+- Maandelijkse content review
+- Kwartaal check partner info
+- Jaarlijkse contract renewal check
+- Performance tracking (handmatig voor nu)
+
+---
+
+# Deel 4: Zoekfunctie
 
 ## Smart Search (⌘K)
 

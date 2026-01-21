@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "studio": "sanity dev",
-    "studio:deploy": "sanity deploy"
+    "studio:deploy": "sanity deploy",
+    "add-stock-photos": "tsx scripts/add-stock-photos.ts"
   },
   "dependencies": {
     "@portabletext/react": "^3.1.0",

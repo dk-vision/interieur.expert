@@ -1,4 +1,6 @@
 import React from "react";
+import { Metadata } from "next";
+import { Metadata } from "next";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import ContentCard from "@/components/editorial/ContentCard";
@@ -7,6 +9,20 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
 import { urlForImage } from "@/lib/sanity/image";
 import type { Article } from "@/lib/content/types";
+
+export const metadata: Metadata = {
+  title: "Inspiratie | Interieur.Expert",
+  description: "Ontdek stijlen, kleuren en materialen die je interieur naar een hoger niveau tillen. Van tijdloze klassiekers tot verfrissende nieuwe trends.",
+};
+
+export const revalidate = 3600; // Revalidate every hour
+
+export const metadata: Metadata = {
+  title: "Inspiratie | Interieur.Expert",
+  description: "Ontdek stijlen, kleuren en materialen die je interieur naar een hoger niveau tillen. Van tijdloze klassiekers tot verfrissende nieuwe trends.",
+};
+
+export const revalidate = 3600; // Revalidate every hour
 
 const inspiratieQuery = groq`
   *[_type == "article" && category == "inspiratie"] | order(publishedAt desc) {
