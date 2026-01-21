@@ -27,11 +27,80 @@
             padding: 0;
         }
         
-        .container {
-            max-width: 800px;
+        .wrapper {
+            display: flex;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: #F6F4F1;
+            padding: 2rem 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+        
+        .sidebar-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+        }
+        
+        .toc {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .toc-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .toc-part {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #0000ff;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            color: #2A2A2A;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.2s;
+            margin-bottom: 0.25rem;
+        }
+        
+        .toc-link:hover {
+            background: #E0E0E0;
+            color: #0000ff;
+        }
+        
+        .toc-link.active {
+            background: #0000ff;
+            color: white;
+        }
+        
+        .container {
+            flex: 1;
             padding: 3rem;
+            min-width: 0;
         }
         
         /* Header */
@@ -227,6 +296,14 @@
         }
         
         @media print {
+            .sidebar {
+                display: none;
+            }
+            
+            .wrapper {
+                display: block;
+            }
+            
             body {
                 background: white;
             }
@@ -239,10 +316,103 @@
                 color: #0000ff;
             }
         }
+        
+        /* Mobile responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                display: none;
+            }
+            
+            .wrapper {
+                display: block;
+            }
+            
+            .container {
+                padding: 2rem 1.5rem;
+            }
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Scroll margin for anchor links */
+        h1, h2, h3 {
+            scroll-margin-top: 2rem;
+        }
     </style>
+    <script>
+        // Active link highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const tocLinks = document.querySelectorAll('.toc-link');
+            const sections = document.querySelectorAll('h2[id]');
+            
+            function setActiveLink() {
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (window.scrollY >= sectionTop - 100) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                
+                tocLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', setActiveLink);
+            setActiveLink();
+        });
+    </script>
 </head>
 <body>
-    <div class="container">
+    <div class="wrapper">
+        <!-- Sidebar with Table of Contents -->
+        <nav class="sidebar">
+            <div class="sidebar-title">Inhoudsopgave</div>
+            
+            <ul class="toc">
+                <li class="toc-section">
+                    <div class="toc-part">Deel 1: Content</div>
+                    <a href="#overzicht-content" class="toc-link">Overzicht Content Types</a>
+                    <a href="#artikel-maken" class="toc-link">Artikel Maken</a>
+                    <a href="#video-maken" class="toc-link">Video Maken</a>
+                    <a href="#dossier-maken" class="toc-link">Dossier Maken</a>
+                    <a href="#sponsored-content" class="toc-link">Sponsored Content</a>
+                    <a href="#tips-content" class="toc-link">Tips voor Goede Content</a>
+                </li>
+                
+                <li class="toc-section">
+                    <div class="toc-part">Deel 2: Advertising</div>
+                    <a href="#advertising-overzicht" class="toc-link">Overzicht System</a>
+                    <a href="#partners-beheren" class="toc-link">Partners Beheren</a>
+                    <a href="#ad-creatives" class="toc-link">Ad Creatives Maken</a>
+                    <a href="#ad-campaigns" class="toc-link">Ad Campaigns Maken</a>
+                    <a href="#campaign-management" class="toc-link">Campaign Management</a>
+                    <a href="#ad-slots" class="toc-link">Ad Slots Uitgelegd</a>
+                    <a href="#advertising-checklist" class="toc-link">Advertising Checklist</a>
+                    <a href="#troubleshooting" class="toc-link">Troubleshooting</a>
+                    <a href="#campaign-strategy" class="toc-link">Campaign Strategy</a>
+                </li>
+                
+                <li class="toc-section">
+                    <div class="toc-part">Extra</div>
+                    <a href="#zoekfunctie" class="toc-link">Zoekfunctie</a>
+                    <a href="#contact-support" class="toc-link">Contact & Support</a>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- Main Content -->
+        <div class="container">
         <div class="header">
             <div class="logo">interieur.expert</div>
             <div class="subtitle">Handleiding voor Redacteuren — Januari 2026</div>
@@ -263,7 +433,7 @@
 
         <h1>Deel 1: Organische Content</h1>
 
-        <h2>1. Overzicht Content Types</h2>
+        <h2 id="overzicht-content">1. Overzicht Content Types</h2>
         <p>Het platform heeft drie hoofdtypes voor organische content:</p>
 
         <h3>📄 Articles (Artikelen)</h3>
@@ -275,7 +445,7 @@
         <h3>📁 Dossiers</h3>
         <p>Verzamelingen van gerelateerde artikelen en video's rond een specifiek onderwerp. Een dossier bundelt meerdere content items.</p>
 
-        <h2>2. Een Artikel Maken</h2>
+        <h2 id="artikel-maken">2. Een Artikel Maken</h2>
 
         <h3>Basis Informatie</h3>
 
@@ -441,7 +611,7 @@
 
         <div class="page-break"></div>
 
-        <h2>3. Een Video Maken</h2>
+        <h2 id="video-maken">3. Een Video Maken</h2>
         <p>Videos werken vergelijkbaar met artikelen, met enkele specifieke velden:</p>
 
         <h3>Unieke Video Velden</h3>
@@ -490,7 +660,7 @@
 
         <div class="page-break"></div>
 
-        <h2>4. Een Dossier Maken</h2>
+        <h2 id="dossier-maken">4. Een Dossier Maken</h2>
         <p>Een dossier is een verzameling van gerelateerde content rond één thema.</p>
 
         <h3>Dossier-specifieke Velden</h3>
@@ -523,7 +693,7 @@
             <strong>Let op:</strong> Dossiers hebben geen <code>sponsored</code> optie — ze bundelen bestaande content.
         </div>
 
-        <h2>5. Sponsored Content</h2>
+        <h2 id="sponsored-content">5. Sponsored Content</h2>
         <p>Artikelen en video's kunnen gesponsord zijn door partners.</p>
 
         <h3>Sponsored Content Maken</h3>
@@ -554,7 +724,7 @@
 
         <div class="page-break"></div>
 
-        <h2>6. Tips voor Goede Content</h2>
+        <h2 id="tips-content">6. Tips voor Goede Content</h2>
 
         <h3>Algemene Richtlijnen</h3>
 
@@ -598,7 +768,7 @@
 
         <h1>Deel 2: Advertising</h1>
 
-        <h2>1. Overzicht Advertising System</h2>
+        <h2 id="advertising-overzicht">1. Overzicht Advertising System</h2>
         <p>Het platform heeft een geavanceerd advertising systeem met drie componenten:</p>
         <ol>
             <li><strong>Partners</strong>: De adverteerders/sponsors</li>
@@ -606,7 +776,7 @@
             <li><strong>Ad Campaigns</strong>: Campagnes die creatives koppelen aan posities en timing</li>
         </ol>
 
-        <h2>2. Partners Beheren</h2>
+        <h2 id="partners-beheren">2. Partners Beheren</h2>
 
         <h3>Partner Types: Wat is het verschil?</h3>
         <p>Het platform kent drie soorten partners, elk met een andere rol en samenwerking:</p>
@@ -779,7 +949,7 @@
 
         <div class="page-break"></div>
 
-        <h2>3. Ad Creatives Maken</h2>
+        <h2 id="ad-creatives">3. Ad Creatives Maken</h2>
         <p>Ad Creatives zijn de daadwerkelijke advertentie-ontwerpen.</p>
 
         <h3>Types Creatives</h3>
@@ -860,7 +1030,7 @@
 
         <div class="page-break"></div>
 
-        <h2>4. Ad Campaigns Maken</h2>
+        <h2 id="ad-campaigns">4. Ad Campaigns Maken</h2>
         <p>Campaigns combineren creatives met plaatsing, timing en targeting.</p>
 
         <h3>Campaign Opzetten</h3>
@@ -951,7 +1121,7 @@
 
         <div class="page-break"></div>
 
-        <h2>5. Campaign Management</h2>
+        <h2 id="campaign-management">5. Campaign Management</h2>
 
         <h3>Overzicht</h3>
         <p>In de Ad Campaign lijst zie je:</p>
@@ -1018,7 +1188,7 @@
 
         <div class="page-break"></div>
 
-        <h2>6. Ad Slots Uitgelegd</h2>
+        <h2 id="ad-slots">6. Ad Slots Uitgelegd</h2>
 
         <h3>Available Slots</h3>
 
@@ -1065,7 +1235,7 @@
 
         <div class="page-break"></div>
 
-        <h2>7. Advertising Checklist</h2>
+        <h2 id="advertising-checklist">7. Advertising Checklist</h2>
         <p>Voor <strong>elke campaign</strong> check:</p>
 
         <h3>Creative</h3>
@@ -1103,7 +1273,7 @@
 
         <div class="page-break"></div>
 
-        <h2>8. Troubleshooting</h2>
+        <h2 id="troubleshooting">8. Troubleshooting</h2>
 
         <h3>Advertentie verschijnt niet</h3>
 
@@ -1154,7 +1324,7 @@
 
         <div class="page-break"></div>
 
-        <h2>9. Advanced: Campaign Strategy</h2>
+        <h2 id="campaign-strategy">9. Advanced: Campaign Strategy</h2>
 
         <h3>Seasonal Campaigns</h3>
         <p>Voor seizoensgebonden content:</p>
@@ -1192,7 +1362,7 @@
 
         <hr>
 
-        <h2>Deel 3: Zoekfunctie</h2>
+        <h2 id="zoekfunctie">Deel 3: Zoekfunctie</h2>
 
         <h3>Smart Search (⌘K)</h3>
         <p>De website heeft een krachtige zoekfunctie waarmee bezoekers snel content kunnen vinden.</p>
@@ -1261,7 +1431,7 @@
 
         <hr>
 
-        <h2>Contact en Support</h2>
+        <h2 id="contact-support">Contact en Support</h2>
         <p>Voor vragen over het CMS of problemen met content/advertenties:</p>
 
         <ul>
@@ -1280,6 +1450,7 @@
         <div class="footer">
             <p><strong>Veel succes met het maken van geweldige content! 🎨✨</strong></p>
             <p style="margin-top: 1rem;">interieur.expert — Januari 2026</p>
+        </div>
         </div>
     </div>
 </body>
