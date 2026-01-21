@@ -608,6 +608,65 @@
 
         <h2>2. Partners Beheren</h2>
 
+        <h3>Partner Types: Wat is het verschil?</h3>
+        <p>Het platform kent drie soorten partners, elk met een andere rol en samenwerking:</p>
+
+        <div class="info-box">
+            <h4>🌟 Premium Partners (Langdurig)</h4>
+            <p><strong>Karakteristiek:</strong></p>
+            <ul>
+                <li>Langdurige samenwerking (minimaal 6-12 maanden)</li>
+                <li>Eigen profiel pagina op de website (/partners/naam)</li>
+                <li>Kunnen meerdere artikelen sponsoren</li>
+                <li>Permanente advertenties met baseline priority (5-6)</li>
+                <li>Featured positie op partners overzichtspagina</li>
+                <li>Showroom informatie en social media links</li>
+            </ul>
+            <p><strong>Voorbeelden:</strong> XOOON, BoConcept, Karwei, IKEA</p>
+            <p><strong>Revenue model:</strong> Vast maandbedrag + performance bonussen</p>
+        </div>
+
+        <div class="info-box">
+            <h4>📅 Campaign Partners (Periodiek)</h4>
+            <p><strong>Karakteristiek:</strong></p>
+            <ul>
+                <li>Kortere campagnes (1-3 maanden)</li>
+                <li>Gerichte targeting op specifieke categorieën of tags</li>
+                <li>Ad slots met duidelijke start- en einddatum</li>
+                <li>Hogere advertentie priority tijdens campagne (7-10)</li>
+                <li>Optioneel: één gesponsord artikel</li>
+                <li>Geen permanente profiel pagina (optioneel light version)</li>
+            </ul>
+            <p><strong>Voorbeelden:</strong> Nieuwe merken, seizoenscampagnes, product launches</p>
+            <p><strong>Revenue model:</strong> Per campagne pricing</p>
+        </div>
+
+        <div class="info-box">
+            <h4>🤝 Affiliate Partners (Commissie)</h4>
+            <p><strong>Karakteristiek:</strong></p>
+            <ul>
+                <li>Content partnerships zonder directe betaling</li>
+                <li>Affiliate links in artikelen</li>
+                <li>Geen dedicated advertenties</li>
+                <li>Kunnen wel een light profiel pagina krijgen</li>
+                <li>Focus op product reviews en aanbevelingen</li>
+            </ul>
+            <p><strong>Voorbeelden:</strong> Online retailers met affiliate programma's</p>
+            <p><strong>Revenue model:</strong> Commissie per verkoop/klik</p>
+        </div>
+
+        <h4>Partner Type Kiezen</h4>
+        <p>Bij het aanmaken van een partner selecteer je het type in het veld <strong>"Partner Type"</strong>:</p>
+        <ul>
+            <li><strong>Premium Partner</strong> - Voor langdurige partnerships</li>
+            <li><strong>Campaign Partner</strong> - Voor tijdelijke campagnes</li>
+            <li><strong>Affiliate Partner</strong> - Voor commissie-based partnerships</li>
+        </ul>
+
+        <div class="warning-box">
+            <strong>Let op:</strong> Het partner type bepaalt hoe de partner verschijnt op de website en welke advertentie priority standaard wordt gebruikt. Kies het juiste type voor de beste resultaten.
+        </div>
+
         <h3>Een Partner Toevoegen</h3>
         <p>Partners zijn de bedrijven of organisaties die adverteren op het platform.</p>
 
@@ -619,31 +678,95 @@
 
         <h4>Velden:</h4>
 
-        <p><strong>1. Partner Name</strong></p>
+        <p><strong>1. Partner Name</strong> (Verplicht)</p>
         <ul>
             <li>Officiële naam van het bedrijf</li>
-            <li>Voorbeeld: "Lumina Lighting", "IKEA Nederland"</li>
+            <li>Voorbeeld: "XOOON", "IKEA Nederland"</li>
         </ul>
 
-        <p><strong>2. Website URL</strong></p>
+        <p><strong>2. Slug</strong> (Verplicht)</p>
+        <ul>
+            <li>URL-vriendelijke versie van de naam</li>
+            <li>Wordt automatisch gegenereerd, maar kan aangepast worden</li>
+            <li>Voorbeeld: "xooon", "ikea-nederland"</li>
+            <li>Gebruikt in de URL: /partners/xooon</li>
+        </ul>
+
+        <p><strong>3. Short Description</strong> (Verplicht, max 200 karakters)</p>
+        <ul>
+            <li>Korte beschrijving voor op de partners overzichtspagina</li>
+            <li>Voorbeeld: "Nederlands design merk voor eigenzinnig woonplezier. Stijlvolle meubels die jouw persoonlijkheid weerspiegelen."</li>
+        </ul>
+
+        <p><strong>4. About Partner</strong> (Optioneel)</p>
+        <ul>
+            <li>Uitgebreide beschrijving met rich text editor</li>
+            <li>Gebruikt op de partner detail pagina</li>
+            <li>Kan kopjes (H2, H3) en styling bevatten</li>
+            <li>Vertel het verhaal van het merk, filosofie, USPs</li>
+        </ul>
+
+        <p><strong>5. Website URL</strong> (Verplicht)</p>
         <ul>
             <li>Volledige website URL</li>
             <li>Moet beginnen met http:// of https://</li>
-            <li>Voorbeeld: https://www.luminalighting.nl</li>
+            <li>Voorbeeld: https://www.xooon.nl</li>
         </ul>
 
-        <p><strong>3. Logo (Optioneel)</strong></p>
+        <p><strong>6. Logo</strong> (Verplicht)</p>
         <ul>
             <li>Upload het logo van de partner</li>
-            <li>Wordt gebruikt in sponsored content badges</li>
-            <li>Aanbevolen: PNG met transparante achtergrond</li>
+            <li>Wordt gebruikt in profiel, sponsored content badges en advertenties</li>
+            <li>Aanbevolen: PNG met transparante achtergrond, vierkant formaat (min 400x400px)</li>
         </ul>
 
-        <p><strong>4. Brand Color (Optioneel)</strong></p>
+        <p><strong>7. Partner Type</strong> (Verplicht)</p>
         <ul>
-            <li>Merkkleur in hex formaat</li>
-            <li>Voorbeeld: #ff6666 (rood), #00aaff (blauw)</li>
-            <li>Wordt gebruikt voor kleuraccenten</li>
+            <li>Kies uit: Premium Partner, Campaign Partner, of Affiliate Partner</li>
+            <li>Zie sectie hierboven voor de verschillen</li>
+            <li>Bepaalt zichtbaarheid en advertentie strategie</li>
+        </ul>
+
+        <p><strong>8. Featured Partner</strong> (Optioneel)</p>
+        <ul>
+            <li>Vink aan om de partner prominent te tonen op /partners</li>
+            <li>Featured partners krijgen een grotere card met featured badge</li>
+            <li>Gebruik voor belangrijkste/hoogste betalende partners</li>
+        </ul>
+
+        <p><strong>9. Brand Color</strong> (Optioneel)</p>
+        <ul>
+            <li>Merkkleur in hex formaat voor visuele accenten</li>
+            <li>Voorbeeld: #D4A574 (XOOON goud), #00aaff (blauw)</li>
+            <li>Wordt gebruikt voor borders en kleuraccenten</li>
+        </ul>
+
+        <p><strong>10. Social Media</strong> (Optioneel)</p>
+        <ul>
+            <li>Instagram URL: https://www.instagram.com/xooon_nl</li>
+            <li>Facebook URL: https://www.facebook.com/xooon.nl</li>
+            <li>Pinterest URL: https://www.pinterest.com/xooon_nl</li>
+            <li>Social links verschijnen op de partner detail pagina</li>
+        </ul>
+
+        <p><strong>11. Showrooms</strong> (Optioneel)</p>
+        <ul>
+            <li>Voeg fysieke locaties toe met "Add item"</li>
+            <li>Per showroom: City (Stad), Address (Adres), Phone (Telefoonnummer)</li>
+            <li>Voorbeeld:
+                <ul>
+                    <li>City: Amsterdam</li>
+                    <li>Address: Europaboulevard 1, 1083 AD Amsterdam</li>
+                    <li>Phone: 020 - 123 4567</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p><strong>12. Contract Start/End</strong> (Optioneel, alleen voor admin)</p>
+        <ul>
+            <li>Administratieve velden voor contractbeheer</li>
+            <li>Niet zichtbaar op de website</li>
+            <li>Gebruik voor interne planning en reminders</li>
         </ul>
 
         <ol start="5">
