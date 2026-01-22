@@ -90,6 +90,13 @@ export default defineType({
       description: "Video duration in minutes",
     }),
     defineField({
+      name: "featured",
+      title: "Featured Video",
+      type: "boolean",
+      description: "Mark as featured video",
+      initialValue: false,
+    }),
+    defineField({
       name: "sponsored",
       title: "Sponsored Content",
       type: "boolean",

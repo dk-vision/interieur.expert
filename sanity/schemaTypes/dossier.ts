@@ -79,6 +79,13 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "featured",
+      title: "Featured Dossier",
+      type: "boolean",
+      description: "Mark as featured dossier",
+      initialValue: false,
+    }),
+    defineField({
       name: "seoTitle",
       title: "SEO Title",
       type: "string",
