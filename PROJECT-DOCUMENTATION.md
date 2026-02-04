@@ -43,6 +43,7 @@ interieur.expert/
 │   ├── trends/                # Trends category page
 │   ├── video/                 # Video overview + detail pages
 │   ├── artikels/[slug]/       # Article detail pages
+│   ├── dossiers/              # Dossier overview + detail pages
 │   ├── tags/[tag]/            # Tag filtering pages
 │   ├── contact/               # Contact page
 │   ├── over/                  # About page

@@ -300,6 +300,16 @@ Een dossier is een verzameling van gerelateerde content rond één thema.
 
 **Let op:** Dossiers hebben geen `sponsored` optie — ze bundelen bestaande content.
 
+### Waar Verschijnen Dossiers?
+
+Gepubliceerde dossiers zijn te vinden op:
+
+- **Overzichtspagina:** `/dossiers` — toont alle dossiers in een grid
+- **Navigatie:** "Dossiers" link in het hoofdmenu
+- **Detail pagina:** `/dossiers/[slug]` — individuele dossier met alle artikelen
+
+**Tip:** Gebruik dossiers om gerelateerde content rond een thema te bundelen, zoals "Verlichting Trends 2026" of "Duurzaam Wonen Guide". Dit helpt bezoekers om diepgaandere kennis op te doen over specifieke onderwerpen.
+
 ---
 
 ## 5. Sponsored Content
