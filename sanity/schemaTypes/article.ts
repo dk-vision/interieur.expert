@@ -136,6 +136,13 @@ export default defineType({
       description: "Estimated reading time in minutes",
     }),
     defineField({
+      name: "featured",
+      title: "Featured Article",
+      type: "boolean",
+      description: "Mark as featured article",
+      initialValue: false,
+    }),
+    defineField({
       name: "sponsored",
       title: "Sponsored Content",
       type: "boolean",

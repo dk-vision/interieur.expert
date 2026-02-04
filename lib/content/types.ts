@@ -46,6 +46,7 @@ export interface Dossier extends BaseContent {
   _type: "dossier";
   featuredImage: SanityImageSource;
   intro?: PortableTextBlock[];
+  theme?: string;
   articles?: (Article | Video)[];
 }
 

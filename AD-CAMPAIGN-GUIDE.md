@@ -122,10 +122,34 @@ De partner pagina (`/partners/xooon`) toont automatisch:
 
 ### Advertising Slots
 
-Het platform heeft 3 vaste ad slots:
-- **Sidebar**: Rechterkolom op artikel pagina's
+Het platform heeft 4 vaste ad slots:
+- **Sidebar**: Rechterkolom op artikel en listing pagina's
 - **Listing Inline**: Tussen artikelen in overzichten
 - **Article Inline**: Binnen artikel content
+- **Dossier Banner**: Full-width banner op dossier pagina's (nieuw!)
+
+**Wanneer welke slot gebruiken:**
+
+**Sidebar** - Beste all-round placement voor baseline campaigns
+- Altijd zichtbaar op desktop
+- Niet storend voor leeservaring
+- Ideaal voor: Premium partners baseline (priority 5-6)
+
+**Article Inline** - High engagement placement binnen content
+- Zichtbaar tijdens het lezen
+- Hogere click-through rate
+- Ideaal voor: Gerichte campaigns (priority 7-9)
+
+**Listing Inline** - Visibility op overzichtspagina's
+- Tussen content cards op overview pages
+- Goed voor brand awareness
+- Ideaal voor: Campaign partners (priority 7-8)
+
+**Dossier Banner** - Premium placement op thema dossiers
+- Full-width banner tussen hero image en content
+- Themagerichte content = betere match
+- Kan targeten op dossier categorie (Verlichting, Duurzaamheid, etc.)
+- Ideaal voor: Thematische campaigns, product launches (priority 8-10)
 
 ### Campaign Setup
 
@@ -164,7 +188,7 @@ Ga naar **Sanity Studio → Content → Ad Campaign → Create New**
 **Vereiste velden:**
 - **Campaign Title**: Intern naam voor de campagne
 - **Partner**: Selecteer partner uit lijst
-- **Ad Slot**: Kies waar de ad verschijnt (Sidebar / Listing Inline / Article Inline)
+- **Ad Slot**: Kies waar de ad verschijnt (Sidebar / Listing Inline / Article Inline / Dossier Banner)
 - **Creative**: Selecteer de ad creative
 - **Start Date**: Wanneer begint de campagne
 - **End Date**: Wanneer eindigt de campagne
@@ -172,7 +196,9 @@ Ga naar **Sanity Studio → Content → Ad Campaign → Create New**
 - **Active**: Ja/Nee (on/off switch)
 
 **Optionele targeting:**
-- **Target Category**: Toon alleen op inspiratie / advies / trends
+- **Target Category**: Toon alleen op specifieke categorieën
+  - Voor artikelen: inspiratie / advies / trends
+  - Voor dossiers: Verlichting / Duurzaamheid / Wonen / Materialen
 - **Target Tags**: Toon alleen op artikelen met specifieke tags
 
 **Voorbeeld Premium Partner Baseline Campaign:**
@@ -202,6 +228,21 @@ Active: Yes
 Target Category: inspiratie
 Target Tags: scandinavisch, minimalistisch
 ```
+
+**Voorbeeld Dossier Banner Campaign:**
+```
+Campaign Title: LED Lampen NL - Verlichting Dossier
+Partner: LED Lampen NL
+Ad Slot: Dossier Banner
+Creative: LED Verlichting Banner
+Start Date: 01-02-2026
+End Date: 31-03-2026
+Priority: 9
+Active: Yes
+Target Category: Verlichting
+Target Tags: [leeg]
+```
+*Deze banner verschijnt alleen op dossiers met categorie "Verlichting"*
 
 ### Priority Weging Uitgelegd
 

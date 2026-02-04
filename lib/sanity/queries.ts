@@ -73,6 +73,7 @@ const dossierFields = groq`
   ${baseContentFields},
   featuredImage,
   intro,
+  theme,
   "articles": articles[]->{
     ${baseContentFields},
     featuredImage,

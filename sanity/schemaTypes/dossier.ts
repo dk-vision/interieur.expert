@@ -73,6 +73,13 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "theme",
+      title: "Theme / Periode (optioneel)",
+      type: "string",
+      description: "Thematische periode of seizoen, bijv. 'Black Friday 2026', 'Slaapmaand Februari', 'Batibouw 2026'",
+      placeholder: "bijv. Black Friday 2026, Kerst Special, etc.",
+    }),
+    defineField({
       name: "publishedAt",
       title: "Published At",
       type: "datetime",

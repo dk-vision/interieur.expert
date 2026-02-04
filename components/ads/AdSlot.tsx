@@ -4,7 +4,7 @@ import { urlForImage } from "@/lib/sanity/image";
 import Image from "next/image";
 
 interface AdSlotProps {
-  position: "listing-inline" | "article-inline" | "sidebar";
+  position: "listing-inline" | "article-inline" | "sidebar" | "dossier-banner";
   className?: string;
   category?: string;
   tags?: string[];
@@ -20,6 +20,7 @@ export default async function AdSlot({
     "listing-inline": "w-full",
     "article-inline": "w-full max-w-content mx-auto",
     sidebar: "hidden lg:block w-full",
+    "dossier-banner": "w-full",
   };
 
   // Fetch active campaign for this slot

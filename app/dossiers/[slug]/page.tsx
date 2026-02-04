@@ -134,6 +134,13 @@ export default async function DossierDetailPage({
         </Container>
       </Section>
 
+      {/* Dossier Banner Ad */}
+      <Section spacing="md">
+        <Container size="layout">
+          <AdSlot position="dossier-banner" category={dossier.category} />
+        </Container>
+      </Section>
+
       {/* Introduction */}
       {dossier.intro && (
         <Section spacing="md">
@@ -185,6 +192,12 @@ export default async function DossierDetailPage({
                           <span className="text-text/60">Categorie:</span>{" "}
                           <span className="text-text">{dossier.category}</span>
                         </div>
+                        {dossier.theme && (
+                          <div>
+                            <span className="text-text/60">Thema:</span>{" "}
+                            <span className="text-text">{dossier.theme}</span>
+                          </div>
+                        )}
                         <div>
                           <span className="text-text/60">Gepubliceerd:</span>{" "}
                           <span className="text-text">

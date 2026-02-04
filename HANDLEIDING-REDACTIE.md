@@ -298,6 +298,17 @@ Een dossier is een verzameling van gerelateerde content rond één thema.
      - **Wonen**: Algemeen wonen
      - **Materialen**: Focus op materialen
 
+4. **Theme / Periode** (optioneel)
+   - Vrij tekstveld voor thematische periodes of seizoenen
+   - Voorbeelden:
+     - "Black Friday 2026"
+     - "Slaapmaand Februari"
+     - "Batibouw 2026"
+     - "Kerst Special"
+     - "Zomer 2026"
+   - Verschijnt in de sidebar van de dossier detail pagina
+   - Handig voor tijdelijke acties en events
+
 **Let op:** Dossiers hebben geen `sponsored` optie — ze bundelen bestaande content.
 
 ### Waar Verschijnen Dossiers?
