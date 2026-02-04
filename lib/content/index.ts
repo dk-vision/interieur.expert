@@ -120,6 +120,15 @@ export async function getDossierBySlug(
   return client.fetch<Dossier | null>(dossierBySlugQuery, { slug });
 }
 
+// Get all dossiers
+export async function getDossiers(
+  options: QueryOptions = {}
+): Promise<ContentCardData[]> {
+  const client = getClient(options.draft);
+  const dossiers = await client.fetch<Dossier[]>(dossiersListingQuery);
+  return dossiers.map((dossier) => toContentCardData(dossier));
+}
+
 // Get listing
 export async function getListing(
   options: ListingOptions
