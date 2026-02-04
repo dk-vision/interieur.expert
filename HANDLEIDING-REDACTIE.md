@@ -17,7 +17,7 @@ Welkom bij de Sanity CMS handleiding voor interieur.expert. Deze handleiding leg
 Het platform heeft vijf hoofdtypes voor content:
 
 ### 📄 **Articles** (Artikelen)
-Reguliere geschreven artikelen met tekst, afbeeldingen en formattering. Dit zijn de standaard blogposts op de website. Artikelen kunnen optioneel gesponsord worden door partners.
+Reguliere geschreven artikelen met tekst, afbeeldingen en formattering. Dit zijn de standaard blogposts op de website.
 
 ### 🎥 **Videos** (Video's)
 Video-content van YouTube met thumbnail, transcript en metadata. Perfect voor tutorials, tours en visuele content.
@@ -25,11 +25,8 @@ Video-content van YouTube met thumbnail, transcript en metadata. Perfect voor tu
 ### 📁 **Dossiers**
 Verzamelingen van gerelateerde artikelen en video's rond een specifiek onderwerp. Een dossier bundelt meerdere content items.
 
-### 🤝 **Partners** (NIEUW!)
-Bedrijven en merken waarmee interieur.expert samenwerkt. Partners krijgen een profiel pagina en kunnen content sponsoren. Zie Deel 2 voor meer info.
-
-### 📢 **Advertising** 
-Ad campaigns, ad creatives en sponsored content. Voor commerciële content. Zie Deel 2 voor adverteerder info.
+### 🤝 **Partners**
+Bedrijven en merken waarmee interieur.expert samenwerkt. Partners krijgen een profiel pagina. Zie Deel 2 voor advertising en sponsored content.
 
 ---
 
@@ -182,38 +179,7 @@ Gebruik pull quotes om belangrijke uitspraken of citaten te benadrukken:
     - Regel van duim: 200-250 woorden = 1 minuut
     - Wordt getoond bij het artikel
 
-### Gesponsorde Content (NIEUW!)
-
-11. **Sponsored Content**
-    - Toggle deze aan als het artikel gesponsord is door een partner
-    - **BELANGRIJK**: Alleen gebruiken bij officiële partnerships
-    
-12. **Partner** (verschijnt als Sponsored Content aan staat)
-    - Selecteer de partner die het artikel sponsort
-    - Partner moet eerst aangemaakt zijn in het systeem
-    - Voorbeeld partners: XOOON, BoConcept, etc.
-    
-13. **Sponsor Disclosure** (verschijnt als Sponsored Content aan staat)
-    - **VERPLICHT** voor sponsored content
-    - Voeg transparante disclosure tekst toe
-    - Voorbeeld: "Dit artikel is mogelijk gemaakt door [Partner]. Alle meningen en aanbevelingen zijn onafhankelijk en objectief."
-    - Deze tekst verschijnt onderaan het artikel
-
-**Gesponsorde Content Richtlijnen:**
-- ✅ Content moet redactioneel kwalitatief blijven
-- ✅ Educatieve waarde voorop
-- ✅ Eerlijke meningen en onafhankelijke aanbevelingen
-- ✅ Duidelijke disclosure altijd verplicht
-- ❌ Geen directe productverkooppraatjes
-- ❌ Niet meer dan 2-3 gesponsorde artikelen per partner per kwartaal
-- ❌ Content mag niet volledig product-focused zijn
-
-**Zichtbaarheid:**
-- "Gesponsord door [Partner]" badge bovenaan artikel
-- Partner logo naast badge
-- Disclosure text onderaan artikel
-- Link naar partner profiel pagina
-- Artikel verschijnt op partner profiel pagina (`/partners/[slug]`)
+**Let op:** Voor gesponsorde artikelen, zie Deel 2: Advertising → Sponsored Content.
 
 ### SEO Optimalisatie (Optioneel)
 
@@ -329,31 +295,7 @@ Gepubliceerde dossiers zijn te vinden op:
 
 ---
 
-## 5. Sponsored Content
-
-Artikelen en video's kunnen gesponsord zijn door partners.
-
-### Sponsored Content Maken
-
-1. **Sponsored Content** (checkbox)
-   - Vink deze aan voor gesponsorde content
-   - Extra velden worden nu zichtbaar
-
-2. **Partner**
-   - Selecteer de sponsor/partner uit de lijst
-   - Als de partner nog niet bestaat, maak deze eerst aan onder "Partners"
-
-3. **Sponsor Disclosure** (Verplicht!)
-   - Schrijf een duidelijke disclosure
-   - Voorbeeld: "Dit artikel is gemaakt in samenwerking met [Partner]. Onze mening blijft onafhankelijk en we raden alleen producten aan waar we echt in geloven."
-   - Dit wordt prominent getoond bij het artikel
-   - Transparantie is essentieel!
-
-**Let op:** Gesponsorde content wordt gemarkeerd met een 🔖 badge in het overzicht.
-
----
-
-## 6. Tips voor Goede Content
+## 5. Tips voor Goede Content
 
 ### Algemene Richtlijnen
 
@@ -500,7 +442,106 @@ Voor geavanceerde advertenties (bijv. Google Ads, interactieve elementen).
 
 ---
 
-## 4. Ad Campaigns Maken
+## 4. Sponsored Content
+
+**Let op:** Sponsored Content is een advertising vorm waarbij partners betalen voor content die door de redactie wordt gemaakt. Het lijkt op organische content maar is commercieel.
+
+### Wat is Sponsored Content?
+
+Sponsored Content is:
+- ✅ **Betaalde content**: Partner betaalt voor het artikel/video
+- ✅ **Redactioneel gemaakt**: Door redactie geschreven met redactionele vrijheid
+- ✅ **Duidelijk gelabeld**: Transparant gecommuniceerd als "gesponsord"
+- ✅ **Educatief**: Moet waarde bieden aan lezers, geen advertorial
+- ✅ **Onafhankelijk**: Redactie behoudt editorial control
+
+**Verschil met andere content types:**
+- **Organische content**: Volledig onafhankelijk, geen betaling
+- **Sponsored content**: Partner betaalt, maar redactie bepaalt inhoud
+- **Display ads**: Puur commerciële banners zonder redactionele vorm
+
+### Sponsored Content Maken
+
+**Stap 1: Partner Aanmaken (indien nog niet bestaat)**
+1. Zie sectie "Partners Beheren" hierboven
+2. Zorg dat de partner in het systeem staat
+
+**Stap 2: Artikel/Video Aanmaken**
+1. Ga naar **Articles** of **Videos**
+2. Maak nieuw artikel aan (zie Deel 1 voor volledige instructies)
+3. Schrijf hoogwaardige, educatieve content
+
+**Stap 3: Markeren als Sponsored**
+1. Scroll naar **Sponsored Content** sectie in artikel
+2. Toggle **Sponsored Content** aan
+3. Selecteer **Partner** uit dropdown
+4. Voeg **Sponsor Disclosure** toe (**VERPLICHT!**)
+
+### Sponsor Disclosure Tekst
+
+**Voorbeelden van goede disclosure:**
+- "Dit artikel is mogelijk gemaakt door [Partner]. Alle meningen en aanbevelingen zijn onafhankelijk."
+- "In samenwerking met [Partner]. Onze editorial standards blijven ongewijzigd."
+- "Gesponsord door [Partner]. Content en aanbevelingen zijn objectief en onafhankelijk bepaald."
+
+**Vereisten:**
+- Duidelijk vermelden dat het gesponsord is
+- Partner naam noemen
+- Benadrukken dat meningen onafhankelijk zijn
+- Transparantie voorop
+
+### Sponsored Content Richtlijnen
+
+**✅ DO:**
+- Behoud redactionele kwaliteit
+- Educatieve waarde voorop stellen
+- Eerlijke, onafhankelijke meningen geven
+- Duidelijke disclosure verplicht gebruiken
+- Relevant maken voor lezers
+- Voldoen aan normale content standards
+- Objectieve productaanbevelingen
+
+**❌ DON'T:**
+- Directe productverkooppraatjes maken
+- Overdreven lovend schrijven zonder nuance
+- Te product-focused zijn (moet educatief blijven)
+- Meer dan 2-3 gesponsorde artikelen per partner per kwartaal
+- Verborgen partnerships (altijd transparant)
+- Redactionele onafhankelijkheid opgeven
+
+### Zichtbaarheid Sponsored Content
+
+Gesponsorde artikelen worden duidelijk gelabeld:
+- 🔖 **Badge**: "Gesponsord door [Partner]" bovenaan artikel
+- **Partner logo**: Naast de badge
+- **Disclosure**: Tekst onderaan artikel
+- **Partner link**: Link naar partner profiel pagina
+- **Partner pagina**: Artikel verschijnt op `/partners/[slug]`
+- **Overzichten**: Gelabeld in lijstweergaves en zoekresultaten
+
+### Best Practices
+
+**Content Kwaliteit:**
+- Schrijf alsof het een normaal artikel is
+- Laat niet merken dat het gesponsord is (behalve in disclosure)
+- Focus op educatie, niet verkoop
+- Geef concrete tips en adviezen
+- Wees eerlijk over voor- en nadelen
+
+**Frequentie:**
+- Maximum 2-3 gesponsorde artikelen per partner per kwartaal
+- Spread gesponsorde content uit
+- Houd balans met organische content (max 20% sponsored)
+
+**Partner Relatie:**
+- Communiceer editorial guidelines duidelijk
+- Leg uit dat redactie final say heeft
+- Review drafts met partner, maar behoud controle
+- Weiger content die niet aan standards voldoet
+
+---
+
+## 5. Ad Campaigns Maken
 
 Campaigns combineren creatives met plaatsing, timing en targeting.
 
@@ -917,7 +958,7 @@ Voor vragen over het CMS of problemen met content/advertenties:
 
 ---
 
-# Deel 3: Partners & Sponsored Content
+# Deel 3: Partners
 
 ## 1. Partner Systeem Overzicht
 
@@ -1034,6 +1075,8 @@ Na publicatie verschijnt de partner op:
 
 ## 3. Content Sponsoren
 
+**Let op:** Voor gedetailleerde instructies over Sponsored Content, zie Deel 2: Advertising → Sponsored Content.
+
 ### Artikel aan Partner Koppelen
 
 1. Open een bestaand artikel of maak nieuw artikel
@@ -1042,39 +1085,7 @@ Na publicatie verschijnt de partner op:
 4. Selecteer **Partner** uit dropdown
 5. Voeg **Sponsor Disclosure** toe (verplicht!)
 
-### Disclosure Text Voorbeelden
-
-Goede disclosure texts:
-- "Dit artikel is mogelijk gemaakt door [Partner]. Alle meningen en aanbevelingen zijn onafhankelijk."
-- "In samenwerking met [Partner]. Onze editorial standards blijven ongewijzigd."
-- "Gesponsord door [Partner]. Content en aanbevelingen zijn objectief en onafhankelijk bepaald."
-
-### Gesponsorde Content Richtlijnen
-
-**DO's:**
-✅ Behoud redactionele kwaliteit
-✅ Educatieve waarde voorop
-✅ Eerlijke, onafhankelijke meningen
-✅ Duidelijke disclosure verplicht
-✅ Relevant voor lezers
-✅ Voldoet aan normale content standards
-
-**DON'TS:**
-❌ Directe productverkooppraatjes
-❌ Overdreven lovend zonder nuance
-❌ Te product-focused (moet educatief zijn)
-❌ Meer dan 2-3 gesponsorde artikelen per partner per kwartaal
-❌ Verborgen partnerships (altijd transparent)
-
-### Zichtbaarheid Sponsored Content
-
-Gesponsorde artikelen zijn duidelijk gelabeld:
-- "Gesponsord door [Partner]" badge bovenaan
-- Partner logo naast badge
-- Disclosure text onderaan artikel
-- Link naar partner profiel
-- Verschijnt op partner pagina
-- Labeled in search results
+Voor volledige richtlijnen en best practices, zie **Deel 2 sectie 4**.
 
 ---
 
