@@ -292,11 +292,17 @@ Een dossier is een verzameling van gerelateerde content rond één thema.
    - Verwijder items met het prullenbak-icoon
 
 3. **Category** (Categorie)
-   - Dossier-specifieke categorieën:
-     - **Verlichting**: Alles over verlichting
-     - **Duurzaamheid**: Duurzaam wonen
-     - **Wonen**: Algemeen wonen
-     - **Materialen**: Focus op materialen
+   - Vrij tekstveld - typ je eigen categorie (max 50 karakters)
+   - **Voorbeelden:**
+     - Verlichting
+     - Duurzaamheid
+     - Wonen
+     - Materialen
+     - Kleuren
+     - Textiel
+     - Meubels
+     - Keuken & Badkamer
+   - Tip: Gebruik consistente schrijfwijze voor herkenning
 
 4. **Theme / Periode** (optioneel)
    - Vrij tekstveld voor thematische periodes of seizoenen

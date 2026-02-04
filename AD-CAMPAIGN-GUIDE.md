@@ -198,7 +198,8 @@ Ga naar **Sanity Studio → Content → Ad Campaign → Create New**
 **Optionele targeting:**
 - **Target Category**: Toon alleen op specifieke categorieën
   - Voor artikelen: inspiratie / advies / trends
-  - Voor dossiers: Verlichting / Duurzaamheid / Wonen / Materialen
+  - Voor dossiers: Kies uit lijst of typ eigen categorie (bijv. Verlichting, Duurzaamheid, Kleuren, Textiel, etc.)
+  - **Let op:** Categorie moet exact matchen met dossier categorie (hoofdlettergevoelig)
 - **Target Tags**: Toon alleen op artikelen met specifieke tags
 
 **Voorbeeld Premium Partner Baseline Campaign:**

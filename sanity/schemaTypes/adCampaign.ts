@@ -61,18 +61,26 @@ export default defineType({
       name: "targetCategory",
       title: "Target Category (optional)",
       type: "string",
-      description: "Show only on pages with this category",
+      description: "Show only on pages with this category. Kies uit lijst of typ eigen waarde.",
       options: {
         list: [
-          { title: "Inspiratie", value: "inspiratie" },
-          { title: "Advies", value: "advies" },
-          { title: "Trends", value: "trends" },
+          { title: "Inspiratie (Artikel)", value: "inspiratie" },
+          { title: "Advies (Artikel)", value: "advies" },
+          { title: "Trends (Artikel)", value: "trends" },
           { title: "Verlichting (Dossier)", value: "Verlichting" },
           { title: "Duurzaamheid (Dossier)", value: "Duurzaamheid" },
           { title: "Wonen (Dossier)", value: "Wonen" },
           { title: "Materialen (Dossier)", value: "Materialen" },
+          { title: "Kleuren (Dossier)", value: "Kleuren" },
+          { title: "Textiel (Dossier)", value: "Textiel" },
         ],
+        layout: "dropdown",
       },
+      validation: (Rule) => Rule.custom((value) => {
+        if (!value) return true; // Optional field
+        if (value.length > 50) return "Maximum 50 karakters";
+        return true;
+      }),
     }),
     defineField({
       name: "targetTags",

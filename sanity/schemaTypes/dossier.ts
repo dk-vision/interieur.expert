@@ -62,15 +62,9 @@ export default defineType({
       name: "category",
       title: "Category",
       type: "string",
-      options: {
-        list: [
-          { title: "Verlichting", value: "Verlichting" },
-          { title: "Duurzaamheid", value: "Duurzaamheid" },
-          { title: "Wonen", value: "Wonen" },
-          { title: "Materialen", value: "Materialen" },
-        ],
-      },
-      validation: (Rule) => Rule.required(),
+      description: "Vrij tekstveld - typ je eigen categorie. Voorbeelden: Verlichting, Duurzaamheid, Wonen, Materialen, Kleuren, Textiel, etc.",
+      placeholder: "bijv. Verlichting, Duurzaamheid, Kleuren...",
+      validation: (Rule) => Rule.required().max(50),
     }),
     defineField({
       name: "theme",
