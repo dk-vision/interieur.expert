@@ -164,9 +164,7 @@ export const videosListingQuery = groq`
 `;
 
 export const dossiersListingQuery = groq`
-  *[_type == "dossier"
-    ${`&& (!defined($category) || category == $category)`}
-  ] | order(publishedAt desc) {
+  *[_type == "dossier"] | order(publishedAt desc) {
     ${dossierFields}
   }
 `;
