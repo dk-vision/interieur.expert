@@ -45,7 +45,7 @@ Ga naar **Sanity Studio → Content → Partner → Create New**
 
 **Optionele velden:**
 - **About**: Uitgebreide beschrijving voor partner pagina (portable text)
-- **Featured**: Ja/Nee (tonen als featured partner)
+- **Featured**: Ja/Nee (visuele highlight op partners pagina - niet advertising!)
 - **Brand Color**: Hex code (bijv. #FF6B6B) voor accenten
 - **Social Media**: Instagram, Facebook, Pinterest links
 - **Showrooms**: Fysieke locaties met adres en telefoonnummer

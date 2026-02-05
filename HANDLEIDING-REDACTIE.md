@@ -1091,8 +1091,13 @@ Interieur.expert werkt met partners (sponsors) zonder type-indeling. Elke partne
   - Missie/visie
 
 **Featured**: Ja/Nee
-- Featured partners worden highlighted op `/partners`
-- Maximaal 3-4 featured partners tegelijk
+- Featured partners krijgen extra zichtbaarheid op `/partners` overzichtspagina
+- Verschijnen bovenaan in een aparte highlighted sectie
+- Krijgen grotere cards met "Featured Partner" badge
+- **Let op:** Dit is GEEN advertising - het is een visuele highlight op de partners pagina
+- Maximaal 3-4 featured partners tegelijk aanbevolen
+- Gebruik voor langdurige strategische partners
+- Featured status heeft geen invloed op ad priority of campagnes
 
 **Brand Color**: Hex color code
 - Optioneel accent kleur voor styling
