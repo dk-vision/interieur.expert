@@ -76,6 +76,7 @@ async function createSponsoredDossier() {
     console.log(`   Title: ${dossier.title}`);
     console.log(`   ID: ${dossier._id}`);
     console.log(`   Sponsors: ${sponsors.map((s: any) => s.name).join(", ")}`);
+    console.log(`\n⚠️  Note: Add a featured image via Sanity Studio for best results`);
     console.log(`\n📍 View at: http://localhost:3001/dossiers/${dossier.slug.current}`);
   } catch (error) {
     console.error("❌ Error creating sponsored dossier:", error);

@@ -59,13 +59,18 @@ function toContentCardData(
     baseData.sponsorNames = content.sponsors.map((s) => s.name).join(", ");
   }
 
-  // Add image URL
-  if (content._type === "article" || content._type === "dossier") {
+  // Add image URL with null checks
+  if (content._type === "article" && content.featuredImage) {
     baseData.image = urlForImage(content.featuredImage)
       .width(1200)
       .height(800)
       .url();
-  } else if (content._type === "video") {
+  } else if (content._type === "dossier" && content.featuredImage) {
+    baseData.image = urlForImage(content.featuredImage)
+      .width(1200)
+      .height(800)
+      .url();
+  } else if (content._type === "video" && content.thumbnail) {
     baseData.image = urlForImage(content.thumbnail).width(1200).height(800).url();
   }
 
