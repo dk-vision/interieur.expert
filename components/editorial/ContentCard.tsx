@@ -19,6 +19,7 @@ interface ContentCardProps {
   isSponsored?: boolean;
   partnerName?: string;
   partnerUrl?: string;
+  sponsorNames?: string; // For dossiers with multiple sponsors
   size?: "normal" | "large" | "wide";
   image?: string;
 }
@@ -35,6 +36,7 @@ export default function ContentCard({
   isSponsored = false,
   partnerName,
   partnerUrl,
+  sponsorNames,
   size = "normal",
   image,
 }: ContentCardProps) {
@@ -132,6 +134,12 @@ export default function ContentCard({
           </h3>
 
           <p className={`text-text/70 leading-relaxed ${isLarge ? "text-lg line-clamp-4" : "line-clamp-3"}`}>{excerpt}</p>
+
+          {sponsorNames && type === "dossier" && (
+            <p className="text-sm text-text/60">
+              Mogelijk gemaakt door <span className="font-medium text-text">{sponsorNames}</span>
+            </p>
+          )}
 
           {isSponsored && partnerName && (
             <p className="text-sm text-text/60">

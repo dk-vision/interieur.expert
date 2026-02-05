@@ -81,6 +81,7 @@ export interface ContentCardData {
   isSponsored?: boolean;
   partnerName?: string;
   partnerUrl?: string;
+  sponsorNames?: string; // For dossiers with multiple sponsors
   image?: string;
   size?: "normal" | "large";
 }

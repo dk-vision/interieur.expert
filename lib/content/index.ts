@@ -54,6 +54,11 @@ function toContentCardData(
     size,
   };
 
+  // Add dossier sponsors if available
+  if (content._type === "dossier" && content.sponsors && content.sponsors.length > 0) {
+    baseData.sponsorNames = content.sponsors.map((s) => s.name).join(", ");
+  }
+
   // Add image URL
   if (content._type === "article" || content._type === "dossier") {
     baseData.image = urlForImage(content.featuredImage)
