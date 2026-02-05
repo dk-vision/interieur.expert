@@ -281,7 +281,41 @@ Een dossier is een verzameling van gerelateerde content rond één thema.
    - Verschijnt in de sidebar van de dossier detail pagina
    - Handig voor tijdelijke acties en events
 
-**Let op:** Dossiers hebben geen `sponsored` optie — ze bundelen bestaande content.
+5. **Sponsors** (optioneel - nieuw!)
+   - Voeg één of meerdere partners toe die dit dossier sponsoren
+   - Klik op "Add item" en selecteer een partner
+   - Maximum 3 sponsors aanbevolen voor overzicht
+   - Sponsor logo's verschijnen onder de hero image met "Mogelijk gemaakt door" header
+   - Logo's zijn clickable naar partner profiel pagina
+   - Sponsor namen verschijnen in dossier metadata op listing pages
+
+**Let op:** Dossiers hebben geen `sponsored` optie zoals artikelen — in plaats daarvan gebruik je het **Sponsors** veld voor partner logo display.
+
+### Gesponsorde Dossiers Setup
+
+Voor een gesponsord dossier:
+
+1. **Maak of bewerk een dossier**
+2. **Scroll naar "Sponsors" sectie**
+3. **Klik "Add item"**
+4. **Selecteer partner uit dropdown**
+5. **Herhaal voor meerdere sponsors** (max 3 aanbevolen)
+6. **Publish**
+
+**Resultaat:**
+- "Mogelijk gemaakt door" sectie verschijnt onder hero image
+- Partner logo's in grid layout (200x80px)
+- Clickable naar partner profiel
+- Sponsor namen zichtbaar op listing cards: "Mogelijk gemaakt door [Partner 1], [Partner 2]"
+
+**Voorbeeld:**
+Dossier: "Duurzaamheid in Interieur 2026"
+Sponsors: Joli, Vincent Sheppard, Vij5
+
+**Wanneer gebruiken:**
+- Thematische dossiers met relevante sponsors
+- Partners die willen associëren met een thema
+- Niet voor elk dossier — alleen bij echte partnerships
 
 ### Waar Verschijnen Dossiers?
 
@@ -360,24 +394,33 @@ Partners zijn de bedrijven of organisaties die adverteren op het platform.
    - Officiële naam van het bedrijf
    - Voorbeeld: "Lumina Lighting", "IKEA Nederland"
 
-2. **Website URL**
+2. **Partner Type** (nieuw!)
+   - Selecteer het type partner:
+     - **Adverteerder**: Betaalde advertising campaigns (display ads)
+     - **Affiliate**: Commissie-based partnerships (geen ads)
+   - Bepaalt welke opties beschikbaar zijn
+
+3. **Website URL**
    - Volledige website URL
    - Moet beginnen met http:// of https://
    - Voorbeeld: https://www.luminalighting.nl
 
-3. **Logo** (Optioneel)
+4. **Logo** (Optioneel)
    - Upload het logo van de partner
-   - Wordt gebruikt in sponsored content badges
-   - Aanbevolen: PNG met transparante achtergrond
+   - Wordt gebruikt in sponsored content badges en dossier sponsoring
+   - Aanbevolen: PNG met transparante achtergrond, 400x160px
 
-4. **Brand Color** (Optioneel)
+5. **Brand Color** (Optioneel)
    - Merkkleur in hex formaat
    - Voorbeeld: #ff6666 (rood), #00aaff (blauw)
    - Wordt gebruikt voor kleuraccenten
 
-5. Klik op **"Publish"**
+6. Klik op **"Publish"**
 
-**Let op:** Partners kunnen worden hergebruikt voor meerdere gesponsorde artikelen en advertentiecampagnes.
+**Let op:** Partners kunnen worden hergebruikt voor:
+- Meerdere gesponsorde artikelen
+- Meerdere advertentiecampagnes
+- Dossier sponsoring (logo display)
 
 ---
 
@@ -409,10 +452,13 @@ Het systeem ondersteunt twee formats:
 
 3. **Image**
    - Upload de advertentie-afbeelding
-   - Aanbevolen formaten:
-     - Listing Inline: 800x600 pixels (4:3)
-     - Article Inline: 1200x400 pixels (3:1)
-     - Sidebar: 300x600 pixels (1:2)
+   - **Aanbevolen formaten per slot:**
+     - **Homepage Hero**: 1280x400 pixels
+     - **Homepage Newsletter**: 1280x200 pixels
+     - **Homepage Card**: 600x400 pixels
+     - **Listing Sidebar**: 400x600 pixels
+     - **Article Inline**: 1000x200 pixels
+     - **Article Sidebar**: 400x600 pixels
 
 4. **Link URL**
    - De URL waar de advertentie naartoe linkt
@@ -558,11 +604,14 @@ Campaigns combineren creatives met plaatsing, timing en targeting.
    - Voorbeeld: "Lumina Q1 2026 - Homepage"
 
 2. **Ad Slot** (Verplicht)
-   - Kies de vaste positie waar de advertentie verschijnt:
-     - **Listing Inline**: Tussen content cards in lijstweergaves (homepage)
-     - **Article Inline**: Binnen artikel content (tussen paragrafen)
-     - **Sidebar**: In de sidebar (desktop only)
-   - **Let op:** Elke slot heeft één actieve advertentie tegelijk
+   - Kies de strategische positie waar de advertentie verschijnt:
+     - **homepage-hero**: Large banner onder homepage hero (1280x400px)
+     - **homepage-newsletter**: Medium banner boven newsletter signup (1280x200px)
+     - **homepage-card**: Card tussen featured content (600x400px)
+     - **listing-sidebar**: Sticky sidebar op listing pages (400x600px)
+     - **article-inline**: Horizontale banner binnen artikel (1000x200px)
+     - **article-sidebar**: Sticky sidebar naast artikel (400x600px)
+   - Meerdere campaigns kunnen actief zijn per slot (rotatie op basis van priority)
 
 3. **Creative**
    - Selecteer de Ad Creative die je eerder hebt gemaakt
@@ -597,16 +646,40 @@ Advertenties kunnen worden getarget op specifieke content:
 
 8. **Priority** (Prioriteit)
    - Getal tussen 1-10
-   - Hoger nummer = hogere prioriteit
-   - Bij overlap krijgt de hoogste prioriteit voorrang
+   - Hoger nummer = hogere prioriteit voor rotatie
+   - Bij meerdere actieve campaigns in dezelfde slot worden ze gewogen op priority
+   - Voorbeeld: Priority 8 krijgt vaker getoond dan priority 5
+   - **Aanbevolen waardes:**
+     - Homepage campaigns: 7-10 (high visibility)
+     - Sidebar baseline: 5-7 (consistent presence)
+     - Tactical campaigns: 8-9 (launches, events)
+     - Filler/test: 3-5 (low priority)
    - Standaard: 5
 
 9. **Active** (Actief)
    - Vink aan om de campagne actief te maken
    - Uitvinken om te pauzeren (bijv. voor tijdelijk stop)
-   - Gepauzeerde campaigns worden gemarkeerd met ⏸️
+   - Gepauzeerde campaigns worden niet getoond
+   
+10. **Partner** (Verplicht)
+   - Selecteer de partner/adverteerder
+   - Moet al bestaan in het systeem (zie "Partners Beheren")
 
-10. Klik op **"Publish"**
+11. Klik op **"Publish"**
+
+### Fallback Ads
+
+Als er **geen actieve campaign** is voor een slot, wordt automatisch een **fallback ad** getoond:
+- Gradient background in huisstijlkleuren
+- Tekst: "Jouw advertentie hier?"
+- CTA: "Word partner" → partnerships@interieur.expert
+- Automatische dimensie-aanpassing per slot
+- Geen lege ruimtes, professionele uitstraling
+
+**Waarom?**
+- Website ziet er altijd gevuld uit
+- Actieve acquisitie van nieuwe partners
+- Beter dan lege ruimtes
 
 ---
 
@@ -632,9 +705,20 @@ In de Ad Campaign lijst zie je:
 - Test verschillende targeting strategieën
 
 **Prioriteit:**
-- Prioriteit 8-10: Premium adverteerders
-- Prioriteit 5-7: Reguliere adverteerders  
-- Prioriteit 1-4: Filler/backup advertenties
+- Prioriteit 8-10: Premium/high-impact campaigns (launches, homepage)
+- Prioriteit 6-8: Standard campaigns (ongoing, targeted)
+- Prioriteit 5-7: Baseline/always-on (sidebar presence)  
+- Prioriteit 3-5: Filler/backup/seasonal
+- **Tip:** Homepage slots gebruiken priority 7-10 voor maximale impact
+- **Tip:** Sidebar baseline campaigns op priority 5-6 voor consistentie
+
+**Ad Slots Strategie:**
+- **Homepage Hero**: Grote launches, brand awareness (priority 8-10)
+- **Homepage Newsletter**: Email-focused partnerships (priority 7-9)
+- **Homepage Card**: Product showcases (priority 6-8)
+- **Listing Sidebar**: Always-on baseline presence (priority 5-7)
+- **Article Inline**: Targeted in-content engagement (priority 7-9)
+- **Article Sidebar**: Non-intrusive companion (priority 5-7)
 
 **Monitoring:**
 - Check regelmatig of campagnes nog actief zijn

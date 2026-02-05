@@ -28,46 +28,35 @@ Het ad systeem gebruikt:
 
 ## Partner Types
 
-### 🌟 Premium Partners
+### 📢 Adverteerders (Advertisers)
 
 **Kenmerken:**
-- Langdurige samenwerking (6-12+ maanden)
+- Betaalde advertising campaigns
 - Eigen profiel pagina op `/partners/[slug]`
-- Permanent aanwezig via baseline ad campaigns
-- Priority 5-6 voor consistente zichtbaarheid
-- Kunnen meerdere artikelen sponsoren
+- Kunnen meerdere ad campaigns hebben (homepage, sidebar, inline)
+- Kunnen dossiers sponsoren met logo placement
 - Featured op partner overzicht pagina
+- Langdurige partnerships of tijdelijke campaigns
 
 **Advertising strategie:**
-- Baseline campaign: altijd actief, moderate priority (5-6)
-- Tactical boost campaigns: tijdelijk high priority (8-10) voor launches
-- Voorbeeld: XOOON heeft permanent sidebar ad (priority 6) + launch campaign (priority 9, 2 weken)
+- **Baseline campaigns**: Langdurige presence (3-12+ maanden), priority 5-6
+- **Tactical campaigns**: Kortere periodes (1-3 maanden) voor launches, priority 7-10
+- **Dossier sponsorship**: Logo placement op gerelateerde thematische dossiers
+- Voorbeeld: XOOON heeft homepage hero ad (priority 7) + sidebar baseline (priority 6) + sponsort "Woonkamer Inspiratie" dossier
 
-**Pricing:** €500-2000/maand afhankelijk van exposure
+**Pricing:** 
+- Homepage ads: €800-2000/maand
+- Sidebar/Inline ads: €400-1000/maand  
+- Dossier sponsorship: €200-600 per dossier
+- Packages beschikbaar
 
-### 📅 Campaign Partners
-
-**Kenmerken:**
-- Kortere campagnes (1-3 maanden)
-- Optionele profiel pagina (lichtere versie)
-- High-priority ads tijdens campagne periode (7-9)
-- Gerichte targeting op specifieke categorieën/tags
-- Na campagne: archiveren of verlengen
-
-**Advertising strategie:**
-- Fixed start/einddatum
-- Hoge priority voor impact (7-9)
-- Vaak gericht op specifieke content
-
-**Pricing:** €300-1000 per campagne + optioneel sponsored artikel (€150-500)
-
-### 🤝 Affiliate Partners
+### 🤝 Affiliates
 
 **Kenmerken:**
-- Geen directe advertising
 - Affiliate links in content
 - Optionele light profiel pagina
 - Commissie-based model
+- Geen directe advertising campaigns
 
 **Pricing:** 10-15% commissie op verkopen
 
@@ -122,34 +111,83 @@ De partner pagina (`/partners/xooon`) toont automatisch:
 
 ### Advertising Slots
 
-Het platform heeft 4 vaste ad slots:
-- **Sidebar**: Rechterkolom op artikel en listing pagina's
-- **Listing Inline**: Tussen artikelen in overzichten
-- **Article Inline**: Binnen artikel content
-- **Dossier Banner**: Full-width banner op dossier pagina's (nieuw!)
+Het platform heeft **6 strategische ad slots** verdeeld over homepage, listings en artikelen:
 
-**Wanneer welke slot gebruiken:**
+#### Homepage Slots (3 posities)
+- **Homepage Hero**: Large banner onder de hero section (1280x400px)
+- **Homepage Newsletter**: Medium banner boven newsletter signup (1280x200px)  
+- **Homepage Card**: Card-formaat tussen featured content (600x400px)
 
-**Sidebar** - Beste all-round placement voor baseline campaigns
-- Altijd zichtbaar op desktop
+#### Listing Slots (1 positie)
+- **Listing Sidebar**: Sticky sidebar op alle listing pages (400x600px)
+
+#### Article Slots (2 posities)
+- **Article Inline**: Horizontale banner binnen artikel content (1000x200px)
+- **Article Sidebar**: Sticky sidebar naast artikel (400x600px)
+
+### Slot Dimensies & Gebruik
+
+| Slot | Afmeting | Format | Beste voor |
+|------|----------|--------|-----------|
+| Homepage Hero | 1280x400px | Horizontal | Brand awareness, launches |
+| Homepage Newsletter | 1280x200px | Horizontal | Nieuwsbriefpartners, events |
+| Homepage Card | 600x400px | Vertical | Product showcases |
+| Listing Sidebar | 400x600px | Vertical | Baseline presence, always-on |
+| Article Inline | 1000x200px | Horizontal | In-content engagement |
+| Article Sidebar | 400x600px | Vertical | Non-intrusive presence |
+
+### Fallback Ads
+
+Als er geen actieve campaign is voor een slot, wordt automatisch een **fallback ad** getoond:
+- Gradient background in huisstijl kleuren
+- "Jouw advertentie hier?" tekst
+- CTA: "Word partner"  
+- Link naar: partnerships@interieur.expert
+- Automatische dimensie-aanpassing per slot
+
+**Waarom fallback ads?**
+- Geen lege ruimtes op de website
+- Actief werven van nieuwe adverteerders
+- Professionele uitstraling
+
+### Wanneer welke slot gebruiken:
+
+**Homepage Hero** - Maximum visibility en impact
+- Eerste wat bezoekers zien
+- Groot formaat voor brand storytelling
+- Ideaal voor: Product launches, major campaigns, brand awareness
+- Aanbevolen priority: 8-10
+
+**Homepage Newsletter** - High-value plaatsing bij signup
+- Zichtbaar tijdens nieuwsbrief interactie
+- Goed voor partnerschappen met email focus
+- Ideaal voor: Webshops, events, seasonal campaigns
+- Aanbevolen priority: 7-9
+
+**Homepage Card** - Native tussen content
+- Blend in met organic content cards
+- Visueel product showcase formaat
+- Ideaal voor: Product-focused advertisers, visual brands
+- Aanbevolen priority: 6-8
+
+**Listing Sidebar** - Beste all-round placement
+- Sticky positioning (blijft zichtbaar tijdens scrollen)
+- Desktop-only (niet storend op mobile)
 - Niet storend voor leeservaring
-- Ideaal voor: Premium partners baseline (priority 5-6)
+- Ideaal voor: Baseline campaigns, always-on presence
+- Aanbevolen priority: 5-7
 
-**Article Inline** - High engagement placement binnen content
-- Zichtbaar tijdens het lezen
-- Hogere click-through rate
-- Ideaal voor: Gerichte campaigns (priority 7-9)
+**Article Inline** - High engagement binnen content
+- Tussen paragrafen tijdens het lezen
+- Hogere click-through rate door context
+- Ideaal voor: Gerichte campaigns met targeting
+- Aanbevolen priority: 7-9
 
-**Listing Inline** - Visibility op overzichtspagina's
-- Tussen content cards op overview pages
-- Goed voor brand awareness
-- Ideaal voor: Campaign partners (priority 7-8)
-
-**Dossier Banner** - Premium placement op thema dossiers
-- Full-width banner tussen hero image en content
-- Themagerichte content = betere match
-- Kan targeten op dossier categorie (Verlichting, Duurzaamheid, etc.)
-- Ideaal voor: Thematische campaigns, product launches (priority 8-10)
+**Article Sidebar** - Non-intrusive companion
+- Sticky positioning naast artikel
+- Leest mee zonder te storen
+- Ideaal voor: Baseline campaigns, premium partners
+- Aanbevolen priority: 5-7
 
 ### Campaign Setup
 
@@ -188,7 +226,13 @@ Ga naar **Sanity Studio → Content → Ad Campaign → Create New**
 **Vereiste velden:**
 - **Campaign Title**: Intern naam voor de campagne
 - **Partner**: Selecteer partner uit lijst
-- **Ad Slot**: Kies waar de ad verschijnt (Sidebar / Listing Inline / Article Inline / Dossier Banner)
+- **Ad Slot**: Kies waar de ad verschijnt:
+  - homepage-hero
+  - homepage-newsletter  
+  - homepage-card
+  - listing-sidebar
+  - article-inline
+  - article-sidebar
 - **Creative**: Selecteer de ad creative
 - **Start Date**: Wanneer begint de campagne
 - **End Date**: Wanneer eindigt de campagne
@@ -197,31 +241,41 @@ Ga naar **Sanity Studio → Content → Ad Campaign → Create New**
 
 **Optionele targeting:**
 - **Target Category**: Toon alleen op specifieke categorieën
-  - Voor artikelen: inspiratie / advies / trends
-  - Voor dossiers: Kies uit lijst of typ eigen categorie (bijv. Verlichting, Duurzaamheid, Kleuren, Textiel, etc.)
-  - **Let op:** Categorie moet exact matchen met dossier categorie (hoofdlettergevoelig)
+  - Voor artikelen: inspiratie / advies / trends / stijlen
+  - Voor dossiers: Gebruik de dossier categorie (Verlichting, Kleuren, etc.)
 - **Target Tags**: Toon alleen op artikelen met specifieke tags
 
-**Voorbeeld Premium Partner Baseline Campaign:**
+**Voorbeeld Baseline Campaign (Homepage Hero):**
 ```
-Campaign Title: XOOON Sidebar Baseline 2026
+Campaign Title: XOOON Homepage Hero 2026
 Partner: XOOON
-Ad Slot: Sidebar
-Creative: XOOON Sidebar - Q1 2026
+Ad Slot: homepage-hero
+Creative: XOOON Spring Collection Hero
 Start Date: 01-01-2026
 End Date: 31-12-2026
-Priority: 6
+Priority: 7
 Active: Yes
 Target Category: [leeg - show everywhere]
 Target Tags: [leeg]
 ```
 
-**Voorbeeld Campaign Partner Launch:**
+**Voorbeeld Product Launch (Homepage + Article):**
 ```
-Campaign Title: BoConcept Spring Collection Launch
+Campaign Title: BoConcept Copenhagen Launch - Homepage
 Partner: BoConcept
-Ad Slot: Article Inline
-Creative: Spring Collection 2026
+Ad Slot: homepage-card
+Creative: Copenhagen Collection Card
+Start Date: 01-03-2026
+End Date: 30-04-2026
+Priority: 9
+Active: Yes
+Target Category: stijlen
+Target Tags: scandinavisch, minimalistisch
+
+Campaign Title: BoConcept Copenhagen Launch - Articles
+Partner: BoConcept
+Ad Slot: article-inline
+Creative: Copenhagen Collection Inline
 Start Date: 01-03-2026
 End Date: 30-04-2026
 Priority: 9
@@ -230,20 +284,19 @@ Target Category: inspiratie
 Target Tags: scandinavisch, minimalistisch
 ```
 
-**Voorbeeld Dossier Banner Campaign:**
+**Voorbeeld Baseline Sidebar:**
 ```
-Campaign Title: LED Lampen NL - Verlichting Dossier
-Partner: LED Lampen NL
-Ad Slot: Dossier Banner
-Creative: LED Verlichting Banner
-Start Date: 01-02-2026
-End Date: 31-03-2026
-Priority: 9
+Campaign Title: Flexa Sidebar Always-On
+Partner: Flexa  
+Ad Slot: listing-sidebar
+Creative: Flexa Paint Sidebar
+Start Date: 01-01-2026
+End Date: 31-12-2026
+Priority: 6
 Active: Yes
-Target Category: Verlichting
+Target Category: [leeg]
 Target Tags: [leeg]
 ```
-*Deze banner verschijnt alleen op dossiers met categorie "Verlichting"*
 
 ### Priority Weging Uitgelegd
 
@@ -256,17 +309,56 @@ Meerdere campaigns voor dezelfde slot worden gewogen op basis van priority.
 - Seasonal Campaign (priority 4): 4/15 = **27% kans**
 
 **Best Practices:**
-- **Premium partners baseline**: Priority 5-6 (consistente presence)
-- **Premium boost campaigns**: Priority 8-9 (tactical pushes)
-- **Campaign partners standard**: Priority 7-8 (strong presence)
-- **Campaign partners high-impact**: Priority 9-10 (launches, limited time)
-- **Seasonal/fill**: Priority 3-5 (altijd iets tonen)
+- **Homepage campaigns**: Priority 7-10 (high visibility, premium placement)
+- **Sidebar campaigns baseline**: Priority 5-7 (always-on presence)
+- **Inline campaigns**: Priority 7-9 (tactical, targeted)
+- **Seasonal/test campaigns**: Priority 4-6 (lower budget, fill)
+
+### Multi-Slot Campaigns
+
+Voor maximum impact kan één adverteerder meerdere slots tegelijk gebruiken:
+
+**Voorbeeld: Product Launch (3 slots):**
+1. **Homepage Hero** (priority 9): Brand awareness
+2. **Homepage Card** (priority 8): Product showcase
+3. **Article Inline** (priority 9): Targeted engagement met tags
+
+**Voorbeeld: Always-On Presence (2 slots):**
+1. **Listing Sidebar** (priority 6): Baseline visibility
+2. **Article Sidebar** (priority 6): In-content presence
+
+**Pricing tip:** Multi-slot packages met korting
 
 ---
 
-## Gesponsorde Content
+## Gesponsorde Dossiers
 
-### Artikel Sponsoren
+### Dossier Sponsorship Setup
+
+Dossiers kunnen gesponsord worden door één of meerdere partners. Dit geeft extra zichtbaarheid via logo placement.
+
+**Setup:**
+1. Open een dossier in Sanity Studio
+2. Scroll naar **Sponsors** sectie
+3. Klik op "Add" om een partner toe te voegen
+4. Selecteer partner uit dropdown
+5. Herhaal voor meerdere sponsors (max. 3 aanbevolen)
+
+**Zichtbaarheid:**
+- "Mogelijk gemaakt door" sectie onder hero image
+- Partner logo's in grid (200x80px sizing)
+- Clickable naar partner profiel pagina
+- Sponsor naam in dossier metadata
+
+**Wanneer gebruiken:**
+- Thematische dossiers met relevante sponsors
+- Voorbeeld: "Duurzaamheid 2026" gesponsord door WOOD Meubelen + Vij5
+- Voorbeeld: "Verlichting Trends" gesponsord door Modular Lighting
+- Partners moeten relevant zijn voor het dossier thema
+
+**Pricing:** €200-600 per dossier (afhankelijk van visibility)
+
+### Gesponsorde Artikelen
 
 Artikelen kunnen gesponsord worden door partners. Dit geeft extra zichtbaarheid aan de partner.
 
@@ -296,35 +388,22 @@ Artikelen kunnen gesponsord worden door partners. Dit geeft extra zichtbaarheid 
 
 ## Best Practices
 
-### Voor Premium Partners
+### Voor Adverteerders (All Types)
 
 **Do's:**
-✅ Setup baseline campaign met moderate priority (5-6)
-✅ Geef geen einddatum (of verleng jaarlijks)
-✅ Add tactical boost campaigns voor launches (priority 8-10)
-✅ Sponsor 2-4 kwalitatieve artikelen per jaar
-✅ Houd partner pagina up-to-date
+✅ Start met 1-2 slots en test performance
+✅ Gebruik homepage slots voor launches en brand awareness  
+✅ Gebruik sidebar slots voor always-on baseline presence
+✅ Target specifieke categorieën/tags voor relevantie
+✅ Sponsor dossiers die relevant zijn voor je merk
+✅ Multi-slot campaigns voor maximum impact
 
 **Don'ts:**
-❌ Priority te laag zetten (<4) - weinig visibility
-❌ Priority te hoog baseline (>7) - te dominant
-❌ Teveel sponsored content - verliest geloofwaardigheid
-❌ Slechte kwaliteit ads - reflecteert op merk
-
-### Voor Campaign Partners
-
-**Do's:**
-✅ Duidelijke start/einddatum (1-3 maanden)
-✅ High priority voor impact (7-9)
-✅ Gerichte targeting voor relevantie
-✅ Optioneel sponsored artikel tijdens campagne
-✅ Evalueer performance na afloop
-
-**Don'ts:**
-❌ Te lange campagnes (>3 maanden) - ad fatigue
-❌ Te lage priority (<6) - weinig impact
-❌ Geen targeting - geld verspillen
-❌ Na afloop campaign actief laten - vervuiling
+❌ Te veel slots tegelijk - kan overweldigend zijn
+❌ Homepage slots voor lange tijd - ad fatigue
+❌ Priority te laag op homepage (<7) - weinig visibility
+❌ Geen targeting - geld verspillen op irrelevante content
+❌ Dossiers sponsoren zonder thematische match
 
 ### Transparantie & Compliance
 
@@ -339,6 +418,70 @@ Artikelen kunnen gesponsord worden door partners. Dit geeft extra zichtbaarheid 
 - Kwaliteit boven kwantiteit
 - Editorial standards handhaven
 - Regelmatige review van ad performance
+
+---
+
+## Testing & Scripts
+
+### Test Data Scripts
+
+Voor development en demo purposes zijn er handige scripts beschikbaar:
+
+**Cleanup Script:**
+```bash
+pnpm cleanup-ads
+```
+- Verwijdert ALLE ad campaigns en creatives
+- Gebruik voor clean slate testing
+- **Waarschuwing:** Kan niet ongedaan gemaakt worden!
+
+**Create Test Ads:**
+```bash
+pnpm create-test-ads
+```
+- Maakt 6 test campaigns aan (één per slot)
+- HTML creatives met gradients en emojis
+- Verschillende priorities voor rotatie testing
+- Active status en realistic date ranges
+
+**Create Sponsored Dossier:**
+```bash
+pnpm create-sponsored-dossier
+```
+- Maakt een voorbeeld dossier met 3 sponsors
+- Gebruikt bestaande partners (Joli, Vincent Sheppard, Magnitude)
+- Perfect voor testing sponsor logo display
+
+### Manual Testing Checklist
+
+**Homepage Ads:**
+1. Ga naar homepage (http://localhost:3001)
+2. Check Homepage Hero ad onder hero section
+3. Scroll naar newsletter → Check Homepage Newsletter ad
+4. Check Homepage Card tussen featured articles (6e positie)
+5. Refresh meerdere keren → Ads moeten roteren
+
+**Listing Ads:**
+1. Ga naar /artikels of /inspiratie
+2. Check Listing Sidebar (sticky op desktop)
+3. Scroll omlaag → Sidebar blijft mee scrollen
+
+**Article Ads:**
+1. Open een artikel
+2. Check Article Sidebar (rechts, sticky)
+3. Scroll door content → Check Article Inline ad tussen paragrafen
+4. Test met/zonder category/tag targeting
+
+**Dossier Sponsors:**
+1. Ga naar een gesponsord dossier
+2. Check "Mogelijk gemaakt door" sectie onder hero
+3. Check clickable logos (200x80px)
+
+**Fallback Ads:**
+1. Disable alle campaigns in Sanity
+2. Refresh pages → Moet fallback ads zien
+3. Check "Jouw advertentie hier?" + CTA
+4. Different fallback formats per slot
 
 ---
 
