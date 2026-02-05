@@ -7,6 +7,8 @@ import Link from "next/link";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 
+export const revalidate = 0; // Force dynamic rendering
+
 export const metadata: Metadata = {
   title: "Onze Partners | Interieur.Expert",
   description:
