@@ -82,7 +82,7 @@ export default async function TagPage({
                 />
                 {(index + 1) % 6 === 0 && (
                   <div className="md:col-span-2 lg:col-span-3">
-                    <AdSlot position="listing-inline" />
+                  <AdSlot position="homepage-card" />
                   </div>
                 )}
               </React.Fragment>
