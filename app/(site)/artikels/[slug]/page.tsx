@@ -121,9 +121,11 @@ export default async function ArtikelPage({ params }: PageProps) {
 
             {/* Sidebar */}
             <aside className="lg:col-span-4">
-              <div className="lg:sticky lg:top-8 space-y-8">
-                {/* Ad Slot in Sidebar */}
-                <AdSlot position="article-sidebar" category={article.category} tags={article.tags} />
+              <div className="space-y-8">
+                {/* Ad Slot in Sidebar - not sticky */}
+                <div className="lg:sticky lg:top-8">
+                  <AdSlot position="article-sidebar" category={article.category} tags={article.tags} />
+                </div>
                 
                 {/* Article Info Card */}
                 <div className="bg-background border border-text/10 rounded-sm p-6 space-y-4">
