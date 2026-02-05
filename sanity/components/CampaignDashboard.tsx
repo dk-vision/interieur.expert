@@ -45,9 +45,9 @@ export function CampaignDashboard() {
   }
 
   return (
-    <Stack space={4}>
-      <Card padding={4} tone="primary">
-        <Text size={2} weight="bold">
+    <Stack space={5}>
+      <Card padding={5} tone="primary">
+        <Text size={4} weight="bold">
           Campaign Dashboard
         </Text>
       </Card>
@@ -75,45 +75,44 @@ export function CampaignDashboard() {
           : "🟢 Active";
 
         return (
-          <Card key={campaign._id} padding={4} shadow={1} radius={2}>
-            <Stack space={3}>
+          <Card key={campaign._id} padding={5} shadow={1} radius={2}>
+            <Stack space={4}>
               <Flex justify="space-between" align="center">
-                <Text size={1} weight="bold">
+                <Text size={3} weight="bold">
                   {campaign.title}
                 </Text>
-                <Text size={1}>{status}</Text>
+                <Text size={2}>{status}</Text>
               </Flex>
 
-              <Flex gap={3} wrap="wrap">
+              <Flex gap={4} wrap="wrap">
                 <Box flex={1}>
-                  <Text size={0} muted>
+                  <Text size={1} muted style={{ marginBottom: "0.25rem" }}>
                     Partner
                   </Text>
-                  <Text size={1}>{campaign.partner?.name || "No partner"}</Text>
+                  <Text size={2} weight="medium">{campaign.partner?.name || "No partner"}</Text>
                 </Box>
                 <Box flex={1}>
-                  <Text size={0} muted>
+                  <Text size={1} muted style={{ marginBottom: "0.25rem" }}>
                     Slot
                   </Text>
-                  <Text size={1}>{campaign.slot}</Text>
+                  <Text size={2} weight="medium">{campaign.slot}</Text>
                 </Box>
               </Flex>
 
-              <Box>
-                <Flex justify="space-between">
-                  <Text size={1} weight="semibold">
+              <Box style={{ marginTop: "0.5rem" }}>
+                <Flex justify="space-between" style={{ marginBottom: "0.5rem" }}>
+                  <Text size={2} weight="semibold">
                     Progress: {progress.toFixed(0)}%
                   </Text>
-                  <Text size={1}>
+                  <Text size={2}>
                     {campaign.currentImpressions} / {campaign.maxImpressions}
                   </Text>
                 </Flex>
                 <Box
-                  marginTop={2}
                   style={{
-                    height: "8px",
+                    height: "12px",
                     backgroundColor: "#e0e0e0",
-                    borderRadius: "4px",
+                    borderRadius: "6px",
                     overflow: "hidden",
                   }}
                 >
@@ -128,24 +127,24 @@ export function CampaignDashboard() {
                 </Box>
               </Box>
 
-              <Flex gap={4}>
+              <Flex gap={5} style={{ marginTop: "0.5rem" }}>
                 <Box>
-                  <Text size={0} muted>
+                  <Text size={1} muted style={{ marginBottom: "0.25rem" }}>
                     Clicks
                   </Text>
-                  <Text size={1}>{campaign.impressionClicks}</Text>
+                  <Text size={2} weight="semibold">{campaign.impressionClicks}</Text>
                 </Box>
                 <Box>
-                  <Text size={0} muted>
+                  <Text size={1} muted style={{ marginBottom: "0.25rem" }}>
                     CTR
                   </Text>
-                  <Text size={1}>{ctr}%</Text>
+                  <Text size={2} weight="semibold">{ctr}%</Text>
                 </Box>
                 <Box>
-                  <Text size={0} muted>
+                  <Text size={1} muted style={{ marginBottom: "0.25rem" }}>
                     Days Left
                   </Text>
-                  <Text size={1}>{daysLeft > 0 ? daysLeft : "Ended"}</Text>
+                  <Text size={2} weight="semibold">{daysLeft > 0 ? daysLeft : "Ended"}</Text>
                 </Box>
               </Flex>
             </Stack>
@@ -154,8 +153,8 @@ export function CampaignDashboard() {
       })}
 
       {campaigns.length === 0 && (
-        <Card padding={4}>
-          <Text>No campaigns yet.</Text>
+        <Card padding={5}>
+          <Text size={2}>No campaigns yet.</Text>
         </Card>
       )}
     </Stack>
