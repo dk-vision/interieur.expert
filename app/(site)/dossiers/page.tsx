@@ -57,46 +57,9 @@ export default async function DossiersPage() {
             </div>
 
             {/* Sidebar */}
-            <aside className="w-full lg:w-80 space-y-8">
-              <AdSlot position="listing-sidebar" />
-
-              {/* Categories */}
-              <div className="bg-surface p-6 rounded-sm">
-                <h3 className="font-semibold mb-4">Categorieën</h3>
-                <ul className="space-y-2">
-                  <li>
-                    <a
-                      href="/dossiers?category=Verlichting"
-                      className="text-text/70 hover:text-text transition-colors"
-                    >
-                      Verlichting
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/dossiers?category=Duurzaamheid"
-                      className="text-text/70 hover:text-text transition-colors"
-                    >
-                      Duurzaamheid
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/dossiers?category=Wonen"
-                      className="text-text/70 hover:text-text transition-colors"
-                    >
-                      Wonen
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/dossiers?category=Materialen"
-                      className="text-text/70 hover:text-text transition-colors"
-                    >
-                      Materialen
-                    </a>
-                  </li>
-                </ul>
+            <aside className="w-full lg:w-80">
+              <div className="sticky top-8">
+                <AdSlot position="listing-sidebar" />
               </div>
             </aside>
           </div>
