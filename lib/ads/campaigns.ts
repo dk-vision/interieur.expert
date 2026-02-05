@@ -27,7 +27,11 @@ const activeCampaignsQuery = groq`
     && startDate <= now()
     && endDate >= now()
     && slot == $slot
-    && (currentImpressions < maxImpressions)
+    && (
+      !defined(maxImpressions) 
+      || !defined(currentImpressions) 
+      || currentImpressions < maxImpressions
+    )
   ] {
     _id,
     title,
