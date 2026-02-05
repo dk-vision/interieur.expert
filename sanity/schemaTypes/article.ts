@@ -117,7 +117,7 @@ export default defineType({
         type: "string",
         options: {
           // This will enable autocomplete for existing tags
-          list: async (context) => {
+          list: async (context: any) => {
             const client = context.getClient({ apiVersion: '2024-01-01' });
             const tags = await client.fetch(
               `array::unique(*[_type == "article" && defined(tags)].tags[])`
