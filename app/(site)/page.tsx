@@ -96,17 +96,77 @@ export default async function HomePage() {
         </Container>
       </Section>
 
-      {/* Recent Articles Grid */}
+      {/* Recent Articles - Magazine Style Layout */}
       <Section spacing="lg">
         <Container>
           <div className="space-y-12">
             <h2 className="text-3xl font-semibold text-text">Recent</h2>
             
             <div className="flex flex-col lg:flex-row gap-8">
-              {/* Main content */}
+              {/* Main content - Dynamic grid */}
               <div className="flex-1">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
-                  {latestArticles.slice(0, 5).map((article) => (
+                  {/* First article: Large featured card (2 cols) */}
+                  {latestArticles[0] && (
+                    <ContentCard
+                      key={latestArticles[0]._id}
+                      title={latestArticles[0].title}
+                      excerpt={latestArticles[0].excerpt}
+                      href={`/artikels/${latestArticles[0].slug}`}
+                      type="article"
+                      category={latestArticles[0].category}
+                      publishedAt={new Date(latestArticles[0].publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                      readingTime={latestArticles[0].readingTime}
+                      tags={latestArticles[0].tags}
+                      isSponsored={latestArticles[0].sponsored || false}
+                      partnerName={latestArticles[0].partner?.name}
+                      partnerUrl={latestArticles[0].partner?.website}
+                      image={latestArticles[0].featuredImage ? urlForImage(latestArticles[0].featuredImage).width(1200).height(800).url() : undefined}
+                      size="large"
+                    />
+                  )}
+                  
+                  {/* Articles 2-3: Regular cards */}
+                  {latestArticles.slice(1, 3).map((article) => (
+                    <ContentCard
+                      key={article._id}
+                      title={article.title}
+                      excerpt={article.excerpt}
+                      href={`/artikels/${article.slug}`}
+                      type="article"
+                      category={article.category}
+                      publishedAt={new Date(article.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                      readingTime={article.readingTime}
+                      tags={article.tags}
+                      isSponsored={article.sponsored || false}
+                      partnerName={article.partner?.name}
+                      partnerUrl={article.partner?.website}
+                      image={article.featuredImage ? urlForImage(article.featuredImage).width(800).height(600).url() : undefined}
+                    />
+                  ))}
+                  
+                  {/* Article 4: Wide card with overlay (2 cols) */}
+                  {latestArticles[3] && (
+                    <ContentCard
+                      key={latestArticles[3]._id}
+                      title={latestArticles[3].title}
+                      excerpt={latestArticles[3].excerpt}
+                      href={`/artikels/${latestArticles[3].slug}`}
+                      type="article"
+                      category={latestArticles[3].category}
+                      publishedAt={new Date(latestArticles[3].publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                      readingTime={latestArticles[3].readingTime}
+                      tags={latestArticles[3].tags}
+                      isSponsored={latestArticles[3].sponsored || false}
+                      partnerName={latestArticles[3].partner?.name}
+                      partnerUrl={latestArticles[3].partner?.website}
+                      image={latestArticles[3].featuredImage ? urlForImage(latestArticles[3].featuredImage).width(1200).height(600).url() : undefined}
+                      size="wide"
+                    />
+                  )}
+                  
+                  {/* Articles 5-6: Regular cards */}
+                  {latestArticles.slice(4, 6).map((article) => (
                     <ContentCard
                       key={article._id}
                       title={article.title}
@@ -129,7 +189,8 @@ export default async function HomePage() {
                     <AdSlot position="homepage-card" />
                   </div>
                   
-                  {latestArticles.slice(5).map((article) => (
+                  {/* Remaining articles: Regular cards */}
+                  {latestArticles.slice(6).map((article) => (
                     <ContentCard
                       key={article._id}
                       title={article.title}
