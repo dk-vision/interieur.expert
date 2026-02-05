@@ -9,7 +9,9 @@
     "lint": "eslint",
     "studio": "sanity dev",
     "studio:deploy": "sanity deploy",
-    "add-stock-photos": "tsx scripts/add-stock-photos.ts"
+    "add-stock-photos": "tsx scripts/add-stock-photos.ts",
+    "cleanup-ads": "tsx scripts/cleanup-ads.ts",
+    "create-test-ads": "tsx scripts/create-new-test-ads.ts"
   },
   "dependencies": {
     "@portabletext/react": "^3.1.0",
