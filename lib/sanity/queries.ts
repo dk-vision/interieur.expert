@@ -182,13 +182,13 @@ export const relatedArticlesQuery = groq`
 
 // Partner queries
 export const allPartnersQuery = groq`
-  *[_type == "partner"] | order(featured desc, name asc) {
+  *[_type == "partner" && defined(slug.current) && defined(partnerType)] | order(featured desc, name asc) {
     ${partnerFragment}
   }
 `;
 
 export const featuredPartnersQuery = groq`
-  *[_type == "partner" && featured == true] | order(name asc) {
+  *[_type == "partner" && featured == true && defined(slug.current) && defined(partnerType)] | order(name asc) {
     ${partnerFragment}
   }
 `;
