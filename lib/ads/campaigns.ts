@@ -53,6 +53,7 @@ export async function getActiveCampaign(
     const campaigns = await sanityFetch<AdCampaign[]>({
       query: activeCampaignsQuery,
       params: { slot },
+      revalidate: 0, // Always fetch fresh data for ads
     });
 
     if (!campaigns || campaigns.length === 0) {
