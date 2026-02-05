@@ -1,0 +1,13 @@
+/* Ensure Sanity Studio has full height and proper scroll behavior */
+html,
+body,
+#__next {
+  height: 100%;
+  overflow: auto;
+}
+
+/* Prevent any interference with Sanity's internal layout */
+body {
+  margin: 0;
+  padding: 0;
+}
