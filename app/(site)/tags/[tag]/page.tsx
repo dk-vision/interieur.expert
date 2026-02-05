@@ -39,7 +39,8 @@ export default async function TagPage({
 }: {
   params: Promise<{ tag: string }>;
 }) {
-  const { tag } = await params;
+  const { tag: encodedTag } = await params;
+  const tag = decodeURIComponent(encodedTag);
   const articles = await sanityFetch<Article[]>({
     query: tagQuery,
     params: { tag },

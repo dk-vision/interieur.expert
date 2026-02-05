@@ -154,7 +154,7 @@ export default async function ArtikelPage({ params }: PageProps) {
                         {article.tags.map((tag) => (
                           <Link
                             key={tag}
-                            href={`/tags/${tag}`}
+                            href={`/tags/${encodeURIComponent(tag)}`}
                             className="text-xs px-3 py-1.5 bg-text/5 hover:bg-text/10 rounded-full text-text/70 hover:text-text transition-colors"
                           >
                             {tag}
