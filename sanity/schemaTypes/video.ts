@@ -9,7 +9,7 @@ export default defineType({
   fields: [
     defineField({
       name: "title",
-      title: "Title",
+      title: "Titel",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
@@ -25,14 +25,14 @@ export default defineType({
     }),
     defineField({
       name: "excerpt",
-      title: "Excerpt",
+      title: "Samenvatting",
       type: "text",
       rows: 3,
       validation: (Rule) => Rule.required().max(200),
     }),
     defineField({
       name: "thumbnail",
-      title: "Thumbnail Image",
+      title: "Thumbnail Afbeelding",
       type: "image",
       options: {
         hotspot: true,
@@ -48,14 +48,14 @@ export default defineType({
     }),
     defineField({
       name: "transcript",
-      title: "Transcript",
+      title: "Transcriptie",
       type: "array",
       of: [{ type: "block" }],
-      description: "Optional transcript or additional text content",
+      description: "Optionele transcriptie of extra tekstinhoud",
     }),
     defineField({
       name: "category",
-      title: "Category",
+      title: "Categorie",
       type: "string",
       options: {
         list: [
@@ -79,26 +79,26 @@ export default defineType({
     }),
     defineField({
       name: "publishedAt",
-      title: "Published At",
+      title: "Gepubliceerd op",
       type: "datetime",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "duration",
-      title: "Duration (minutes)",
+      title: "Duur (minuten)",
       type: "number",
-      description: "Video duration in minutes",
+      description: "Videoduur in minuten",
     }),
     defineField({
       name: "featured",
-      title: "Featured Video",
+      title: "Uitgelichte Video",
       type: "boolean",
-      description: "Mark as featured video",
+      description: "Markeer als uitgelichte video",
       initialValue: false,
     }),
     defineField({
       name: "sponsored",
-      title: "Sponsored Content",
+      title: "Gesponsorde Inhoud",
       type: "boolean",
       initialValue: false,
     }),
@@ -112,39 +112,39 @@ export default defineType({
         Rule.custom((partner, context) => {
           const sponsored = (context.document as { sponsored?: boolean })?.sponsored;
           if (sponsored && !partner) {
-            return "Partner is required for sponsored content";
+            return "Partner is verplicht voor gesponsorde inhoud";
           }
           return true;
         }),
     }),
     defineField({
       name: "sponsorDisclosure",
-      title: "Sponsor Disclosure",
+      title: "Sponsorvermelding",
       type: "text",
       rows: 2,
-      description: "Required disclosure text for sponsored content",
+      description: "Verplichte vermelding voor gesponsorde inhoud",
       hidden: ({ document }) => !document?.sponsored,
       validation: (Rule) =>
         Rule.custom((disclosure, context) => {
           const sponsored = (context.document as { sponsored?: boolean })?.sponsored;
           if (sponsored && !disclosure) {
-            return "Sponsor disclosure is required for sponsored content";
+            return "Sponsorvermelding is verplicht voor gesponsorde inhoud";
           }
           return true;
         }),
     }),
     defineField({
       name: "seoTitle",
-      title: "SEO Title",
+      title: "SEO Titel",
       type: "string",
-      description: "Override title for SEO (optional)",
+      description: "Overschrijf titel voor SEO (optioneel)",
     }),
     defineField({
       name: "seoDescription",
-      title: "SEO Description",
+      title: "SEO Beschrijving",
       type: "text",
       rows: 2,
-      description: "Meta description for SEO (optional)",
+      description: "Meta beschrijving voor SEO (optioneel)",
     }),
   ],
   preview: {

@@ -3,13 +3,13 @@ import { FileText } from "lucide-react";
 
 export default defineType({
   name: "article",
-  title: "Article",
+  title: "Artikel",
   type: "document",
   icon: FileText,
   fields: [
     defineField({
       name: "title",
-      title: "Title",
+      title: "Titel",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
@@ -25,14 +25,14 @@ export default defineType({
     }),
     defineField({
       name: "excerpt",
-      title: "Excerpt",
+      title: "Samenvatting",
       type: "text",
       rows: 3,
       validation: (Rule) => Rule.required().max(200),
     }),
     defineField({
       name: "featuredImage",
-      title: "Featured Image",
+      title: "Hoofdafbeelding",
       type: "image",
       options: {
         hotspot: true,
@@ -41,28 +41,28 @@ export default defineType({
     }),
     defineField({
       name: "body",
-      title: "Body",
+      title: "Inhoud",
       type: "array",
       of: [
         {
           type: "block",
           styles: [
-            { title: "Normal", value: "normal" },
+            { title: "Normaal", value: "normal" },
             { title: "H2", value: "h2" },
             { title: "H3", value: "h3" },
-            { title: "Quote", value: "blockquote" },
+            { title: "Citaat", value: "blockquote" },
           ],
           marks: {
             decorators: [
-              { title: "Strong", value: "strong" },
-              { title: "Emphasis", value: "em" },
-              { title: "Highlight", value: "highlight" },
+              { title: "Vet", value: "strong" },
+              { title: "Cursief", value: "em" },
+              { title: "Markeren", value: "highlight" },
             ],
             annotations: [
               {
                 name: "link",
                 type: "object",
-                title: "External URL",
+                title: "Externe URL",
                 fields: [
                   {
                     name: "href",
@@ -76,12 +76,12 @@ export default defineType({
               {
                 name: "internalArticleLink",
                 type: "object",
-                title: "Internal Article Link",
+                title: "Interne Artikel Link",
                 fields: [
                   {
                     name: "reference",
                     type: "reference",
-                    title: "Article",
+                    title: "Artikel",
                     to: [{ type: "article" }],
                   },
                 ],
@@ -98,7 +98,7 @@ export default defineType({
     }),
     defineField({
       name: "category",
-      title: "Category",
+      title: "Categorie",
       type: "string",
       options: {
         list: [
@@ -120,31 +120,31 @@ export default defineType({
     }),
     defineField({
       name: "publishedAt",
-      title: "Published At",
+      title: "Gepubliceerd op",
       type: "datetime",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "author",
-      title: "Author",
+      title: "Auteur",
       type: "string",
     }),
     defineField({
       name: "readingTime",
-      title: "Reading Time (minutes)",
+      title: "Leestijd (minuten)",
       type: "number",
-      description: "Estimated reading time in minutes",
+      description: "Geschatte leestijd in minuten",
     }),
     defineField({
       name: "featured",
-      title: "Featured Article",
+      title: "Uitgelicht Artikel",
       type: "boolean",
-      description: "Mark as featured article",
+      description: "Markeer als uitgelicht artikel",
       initialValue: false,
     }),
     defineField({
       name: "sponsored",
-      title: "Sponsored Content",
+      title: "Gesponsorde Inhoud",
       type: "boolean",
       initialValue: false,
     }),
@@ -158,39 +158,39 @@ export default defineType({
         Rule.custom((partner, context) => {
           const sponsored = (context.document as { sponsored?: boolean })?.sponsored;
           if (sponsored && !partner) {
-            return "Partner is required for sponsored content";
+            return "Partner is verplicht voor gesponsorde inhoud";
           }
           return true;
         }),
     }),
     defineField({
       name: "sponsorDisclosure",
-      title: "Sponsor Disclosure",
+      title: "Sponsorvermelding",
       type: "text",
       rows: 2,
-      description: "Required disclosure text for sponsored content",
+      description: "Verplichte vermelding voor gesponsorde inhoud",
       hidden: ({ document }) => !document?.sponsored,
       validation: (Rule) =>
         Rule.custom((disclosure, context) => {
           const sponsored = (context.document as { sponsored?: boolean })?.sponsored;
           if (sponsored && !disclosure) {
-            return "Sponsor disclosure is required for sponsored content";
+            return "Sponsorvermelding is verplicht voor gesponsorde inhoud";
           }
           return true;
         }),
     }),
     defineField({
       name: "seoTitle",
-      title: "SEO Title",
+      title: "SEO Titel",
       type: "string",
-      description: "Override title for SEO (optional)",
+      description: "Overschrijf titel voor SEO (optioneel)",
     }),
     defineField({
       name: "seoDescription",
-      title: "SEO Description",
+      title: "SEO Beschrijving",
       type: "text",
       rows: 2,
-      description: "Meta description for SEO (optional)",
+      description: "Meta beschrijving voor SEO (optioneel)",
     }),
   ],
   preview: {

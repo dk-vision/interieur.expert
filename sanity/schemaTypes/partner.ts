@@ -9,7 +9,7 @@ export default defineType({
   fields: [
     defineField({
       name: "name",
-      title: "Partner Name",
+      title: "Partner Naam",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
@@ -22,19 +22,19 @@ export default defineType({
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
-      description: "URL-friendly version of partner name",
+      description: "URL-vriendelijke versie van partner naam",
     }),
     defineField({
       name: "description",
-      title: "Short Description",
+      title: "Korte Beschrijving",
       type: "text",
       rows: 3,
       validation: (Rule) => Rule.required().max(200),
-      description: "Brief description for partner overview page (max 200 characters)",
+      description: "Korte beschrijving voor partner overzichtspagina (max 200 karakters)",
     }),
     defineField({
       name: "about",
-      title: "About Partner",
+      title: "Over Partner",
       type: "array",
       of: [
         {
@@ -52,7 +52,7 @@ export default defineType({
           },
         },
       ],
-      description: "Extended description for partner profile page",
+      description: "Uitgebreide beschrijving voor partner profielpagina",
     }),
     defineField({
       name: "website",
@@ -68,7 +68,7 @@ export default defineType({
         hotspot: true,
       },
       validation: (Rule) => Rule.required(),
-      description: "Square format recommended (min 400x400px)",
+      description: "Vierkant formaat aanbevolen (min 400x400px)",
     }),
     defineField({
       name: "partnerType",
@@ -77,7 +77,7 @@ export default defineType({
       options: {
         list: [
           { title: "Premium Partner", value: "premium" },
-          { title: "Campaign Partner", value: "campaign" },
+          { title: "Campagne Partner", value: "campaign" },
           { title: "Affiliate Partner", value: "affiliate" },
         ],
       },
@@ -86,16 +86,16 @@ export default defineType({
     }),
     defineField({
       name: "featured",
-      title: "Featured Partner",
+      title: "Uitgelichte Partner",
       type: "boolean",
-      description: "Show as featured partner on overview page",
+      description: "Toon als uitgelichte partner op overzichtspagina",
       initialValue: false,
     }),
     defineField({
       name: "brandColor",
-      title: "Brand Color",
+      title: "Merkkleur",
       type: "string",
-      description: "Hex color code for accents, e.g. #FF6B6B",
+      description: "Hex kleurcode voor accenten, bijv. #FF6B6B",
     }),
     defineField({
       name: "socialMedia",
@@ -129,18 +129,18 @@ export default defineType({
           fields: [
             {
               name: "city",
-              title: "City",
+              title: "Stad",
               type: "string",
             },
             {
               name: "address",
-              title: "Address",
+              title: "Adres",
               type: "text",
               rows: 2,
             },
             {
               name: "phone",
-              title: "Phone",
+              title: "Telefoon",
               type: "string",
             },
           ],
@@ -163,13 +163,13 @@ export default defineType({
       name: "contractStart",
       title: "Contract Start",
       type: "date",
-      description: "For admin - when partnership starts",
+      description: "Voor admin - wanneer het partnerschap start",
     }),
     defineField({
       name: "contractEnd",
-      title: "Contract End",
+      title: "Contract Eind",
       type: "date",
-      description: "For admin - when partnership ends",
+      description: "Voor admin - wanneer het partnerschap eindigt",
     }),
   ],
   preview: {

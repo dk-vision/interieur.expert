@@ -9,7 +9,7 @@ export default defineType({
   fields: [
     defineField({
       name: "title",
-      title: "Title",
+      title: "Titel",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
@@ -25,14 +25,14 @@ export default defineType({
     }),
     defineField({
       name: "excerpt",
-      title: "Excerpt",
+      title: "Samenvatting",
       type: "text",
       rows: 3,
       validation: (Rule) => Rule.required().max(200),
     }),
     defineField({
       name: "featuredImage",
-      title: "Featured Image",
+      title: "Hoofdafbeelding",
       type: "image",
       options: {
         hotspot: true,
@@ -41,14 +41,14 @@ export default defineType({
     }),
     defineField({
       name: "intro",
-      title: "Introduction",
+      title: "Introductie",
       type: "array",
       of: [{ type: "block" }],
-      description: "Introduction text for the dossier",
+      description: "Introductietekst voor het dossier",
     }),
     defineField({
       name: "articles",
-      title: "Articles",
+      title: "Artikelen",
       type: "array",
       of: [
         {
@@ -56,11 +56,11 @@ export default defineType({
           to: [{ type: "article" }, { type: "video" }],
         },
       ],
-      description: "Related articles and videos in this dossier",
+      description: "Gerelateerde artikelen en video's in dit dossier",
     }),
     defineField({
       name: "category",
-      title: "Category",
+      title: "Categorie",
       type: "string",
       description: "Vrij tekstveld - typ je eigen categorie. Voorbeelden: Verlichting, Duurzaamheid, Wonen, Materialen, Kleuren, Textiel, etc.",
       placeholder: "bijv. Verlichting, Duurzaamheid, Kleuren...",
@@ -75,29 +75,29 @@ export default defineType({
     }),
     defineField({
       name: "publishedAt",
-      title: "Published At",
+      title: "Gepubliceerd op",
       type: "datetime",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "featured",
-      title: "Featured Dossier",
+      title: "Uitgelicht Dossier",
       type: "boolean",
-      description: "Mark as featured dossier",
+      description: "Markeer als uitgelicht dossier",
       initialValue: false,
     }),
     defineField({
       name: "seoTitle",
-      title: "SEO Title",
+      title: "SEO Titel",
       type: "string",
-      description: "Override title for SEO (optional)",
+      description: "Overschrijf titel voor SEO (optioneel)",
     }),
     defineField({
       name: "seoDescription",
-      title: "SEO Description",
+      title: "SEO Beschrijving",
       type: "text",
       rows: 2,
-      description: "Meta description for SEO (optional)",
+      description: "Meta beschrijving voor SEO (optioneel)",
     }),
   ],
   preview: {

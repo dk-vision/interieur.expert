@@ -3,24 +3,24 @@ import { Image } from "lucide-react";
 
 export default defineType({
   name: "adCreative",
-  title: "Ad Creative",
+  title: "Advertentie Ontwerp",
   type: "document",
   icon: Image,
   fields: [
     defineField({
       name: "title",
-      title: "Title",
+      title: "Titel",
       type: "string",
-      description: "Internal name for this creative",
+      description: "Interne naam voor dit ontwerp",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "format",
-      title: "Format",
+      title: "Formaat",
       type: "string",
       options: {
         list: [
-          { title: "Image", value: "image" },
+          { title: "Afbeelding", value: "image" },
           { title: "HTML", value: "html" },
         ],
       },
@@ -28,7 +28,7 @@ export default defineType({
     }),
     defineField({
       name: "image",
-      title: "Image",
+      title: "Afbeelding",
       type: "image",
       options: {
         hotspot: true,
@@ -38,7 +38,7 @@ export default defineType({
         Rule.custom((image, context) => {
           const format = (context.document as { format?: string })?.format;
           if (format === "image" && !image) {
-            return "Image is required for image format";
+            return "Afbeelding is verplicht voor afbeeldingsformaat";
           }
           return true;
         }),
@@ -53,7 +53,7 @@ export default defineType({
         Rule.custom((html, context) => {
           const format = (context.document as { format?: string })?.format;
           if (format === "html" && !html) {
-            return "HTML code is required for html format";
+            return "HTML code is verplicht voor HTML formaat";
           }
           return true;
         }),
@@ -66,9 +66,9 @@ export default defineType({
     }),
     defineField({
       name: "altText",
-      title: "Alt Text",
+      title: "Alt Tekst",
       type: "string",
-      description: "For image format, used for accessibility",
+      description: "Voor afbeelding formaat, gebruikt voor toegankelijkheid",
     }),
   ],
   preview: {
@@ -80,7 +80,7 @@ export default defineType({
     prepare({ title, format }) {
       return {
         title,
-        subtitle: format === "image" ? "Image Ad" : "HTML Ad",
+        subtitle: format === "image" ? "Afbeelding Advertentie" : "HTML Advertentie",
       };
     },
   },

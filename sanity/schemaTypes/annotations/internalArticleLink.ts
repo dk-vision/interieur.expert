@@ -3,13 +3,13 @@ import { Link as LinkIcon } from "lucide-react";
 
 export default defineType({
   name: "internalArticleLink",
-  title: "Internal Article Link",
+  title: "Interne Artikel Link",
   type: "object",
   icon: LinkIcon,
   fields: [
     {
       name: "reference",
-      title: "Article",
+      title: "Artikel",
       type: "reference",
       to: [{ type: "article" }],
       validation: (Rule) => Rule.required(),
