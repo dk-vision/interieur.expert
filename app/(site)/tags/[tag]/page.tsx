@@ -31,15 +31,15 @@ const allTagsQuery = groq`
 
 export async function generateStaticParams() {
   const tags = await sanityFetch<string[]>({ query: allTagsQuery });
-  return tags.map((tag) => ({ tag }));
+  return tags.filter(tag => typeof tag === 'string').map((tag) => ({ tag: tag }));
 }
 
 export default async function TagPage({
   params,
 }: {
-  params: { tag: string };
+  params: Promise<{ tag: string }>;
 }) {
-  const { tag } = params;
+  const { tag } = await params;
   const articles = await sanityFetch<Article[]>({
     query: tagQuery,
     params: { tag },
