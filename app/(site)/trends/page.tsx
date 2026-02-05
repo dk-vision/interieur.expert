@@ -79,14 +79,12 @@ export default async function TrendsPage() {
       {/* Current Trends Grid */}
       <Section spacing="lg">
         <Container>
-          <div className="space-y-12">
-            <h2 className="text-3xl font-semibold text-text">Actuele trends</h2>
-            
-            <div className="flex flex-col lg:flex-row gap-8">
-              {/* Main content */}
-              <div className="flex-1">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
-                  {otherArticles.map((article) => (
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Main content */}
+            <div className="flex-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+                {/* Standard 2-col grid */}
+                {otherArticles.map((article) => (
                     <ContentCard
                       key={article._id}
                       title={article.title}

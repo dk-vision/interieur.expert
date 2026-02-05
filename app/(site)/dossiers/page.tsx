@@ -44,12 +44,12 @@ export default async function DossiersPage() {
                   </p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
-                  {dossiers.map((dossier, index) => (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">
+                  {/* 3-col grid for more visual variety - dossiers are collections */}
+                  {dossiers.map((dossier) => (
                     <ContentCard
                       key={dossier.href}
                       {...dossier}
-                      size={index % 4 === 0 ? "large" : "normal"}
                     />
                   ))}
                 </div>

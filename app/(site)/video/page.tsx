@@ -2,8 +2,37 @@ import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import ContentCard from "@/components/editorial/ContentCard";
 import AdSlot from "@/components/ads/AdSlot";
+import { sanityFetch } from "@/lib/sanity/client";
+import { groq } from "next-sanity";
+import { urlForImage } from "@/lib/sanity/image";
+import type { Video } from "@/lib/content/types";
 
-export default function VideoPage() {
+export const metadata = {
+  title: "Video's | Interieur.Expert",
+  description: "Inspirerende interieur tours, praktische DIY-projecten en advies van experts.",
+};
+
+export const revalidate = 3600;
+
+const videosQuery = groq`
+  *[_type == "video"] | order(publishedAt desc) {
+    _id,
+    _type,
+    title,
+    "slug": slug.current,
+    excerpt,
+    category,
+    publishedAt,
+    thumbnail,
+    duration
+  }
+`;
+
+export default async function VideoPage() {
+  const videos = await sanityFetch<Video[]>({
+    query: videosQuery,
+  });
+
   return (
     <div>
       {/* Header */}
@@ -20,117 +49,54 @@ export default function VideoPage() {
         </Container>
       </Section>
 
-      {/* Video Grid */}
+      {/* Video Grid - unified layout like other pages */}
       <Section spacing="lg">
         <Container>
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Main content */}
-            <div className="flex-1">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">\n            <ContentCard
-              title="Interieur tour: Modern landelijk in Utrecht"
-              excerpt="Bekijk hoe Sarah haar jaren '30 huis transformeerde naar een moderne landelijke stijl met respect voor originele details. Van keuken tot badkamer, een complete rondleiding door haar zorgvuldig gerenoveerde woning."
-              href="/video/tour-utrecht"
-              type="video"
-              category="Tours"
-              publishedAt="11 januari 2026"
-              readingTime={15}
-              size="large"
-              image="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80"
-            />
-
-            <ContentCard
-              title="DIY: Industriële wandkast maken"
-              excerpt="Stap voor stap uitleg om zelf een industriële wandkast te bouwen met staal en hout."
-              href="/video/diy-wandkast"
-              type="video"
-              category="DIY"
-              publishedAt="7 januari 2026"
-              readingTime={22}
-              image="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&q=80"
-            />
-
-            <ContentCard
-              title="Kleuradvies voor kleine ruimtes"
-              excerpt="Interieurstyliste Lisa legt uit welke kleuren kleine ruimtes groter en luchtiger maken."
-              href="/video/kleuradvies"
-              type="video"
-              category="Advies"
-              publishedAt="3 januari 2026"
-              readingTime={12}
-              image="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80"
-            />
-
-            <ContentCard
-              title="Voor en na: Compacte stadskeuken"
-              excerpt="Transformatie van een kleine keuken van 6m² naar een functionele en stijlvolle ruimte. Zie hoe slimme opbergoplossingen, kleurgebruik en materiaalkeuze een kleine ruimte groter en luchtiger maken."
-              href="/video/stadskeuken"
-              type="video"
-              category="Voor & Na"
-              publishedAt="29 december 2025"
-              readingTime={18}
-              size="large"
-              image="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=1200&q=80"
-            />
-
-            <ContentCard
-              title="Materialen vergelijken: Hout vs Composiet"
-              excerpt="Wat zijn de echte voor- en nadelen van natuurlijk hout versus composiet materialen?"
-              href="/video/materialen-vergelijken"
-              type="video"
-              category="Advies"
-              publishedAt="25 december 2025"
-              readingTime={14}
-              isSponsored={true}
-              partnerName="TimberTech"
-              partnerUrl="https://timbertech.example"
-              image="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&q=80"
-            />
-
-            <ContentCard
-              title="Styling tips voor een knusse leeshoek"
-              excerpt="Creëer de perfecte plek om te ontspannen met een boek. Advies over verlichting, zitcomfort en sfeer."
-              href="/video/leeshoek"
-              type="video"
-              category="Styling"
-              publishedAt="21 december 2025"
-              readingTime={10}
-              image="https://images.unsplash.com/photo-1615876063052-0534733c35b6?w=800&q=80"
-            />
-
-            <ContentCard
-              title="Tour: Minimalistisch appartement in Amsterdam"
-              excerpt="Monique laat zien hoe ze op 55m² een rustig en licht interieur creëerde met slimme opbergoplossingen."
-              href="/video/minimalistisch-amsterdam"
-              type="video"
-              category="Tours"
-              publishedAt="18 december 2025"
-              readingTime={16}
-              image="https://images.unsplash.com/photo-1615874694520-474822394e73?w=800&q=80"
-            />
-
-            <ContentCard
-              title="DIY: Betonnen plantenbakken gieten"
-              excerpt="Maak zelf unieke betonnen plantenbakken voor binnen en buiten. Geen speciale gereedschap nodig."
-              href="/video/diy-plantenbakken"
-              type="video"
-              category="DIY"
-              publishedAt="15 december 2025"
-              readingTime={20}
-              image="https://images.unsplash.com/photo-1545241047-6083a3684587?w=800&q=80"
-            />
-
-            <ContentCard
-              title="Gordijnen en raamdecoratie kiezen"
-              excerpt="Expert advies over het kiezen van de juiste raamdecoratie voor functie én esthetiek."
-              href="/video/raamdecoratie"
-              type="video"
-              category="Advies"
-              publishedAt="12 december 2025"
-              readingTime={13}
-              image="https://images.unsplash.com/photo-1600494603989-9650cf6ddd3d?w=800&q=80"
-            />
+          <div className="space-y-12">
+            {/* Featured video - wide format */}
+            {videos[0] && (
+              <ContentCard
+                key={videos[0]._id}
+                title={videos[0].title}
+                excerpt={videos[0].excerpt}
+                href={`/video/${videos[0].slug}`}
+                type="video"
+                category={videos[0].category}
+                publishedAt={new Date(videos[0].publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                readingTime={videos[0].duration}
+                image={videos[0].thumbnail ? urlForImage(videos[0].thumbnail).width(1200).height(600).url() : undefined}
+                size="wide"
+              />
+            )}
+            
+            <div className="flex flex-col lg:flex-row gap-8">
+              {/* Main content */}
+              <div className="flex-1">
+                {videos.length > 1 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+                    {/* Remaining videos: Regular 2-col grid */}
+                    {videos.slice(1).map((video) => (
+                      <ContentCard
+                        key={video._id}
+                        title={video.title}
+                        excerpt={video.excerpt}
+                        href={`/video/${video.slug}`}
+                        type="video"
+                        category={video.category}
+                        publishedAt={new Date(video.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                        readingTime={video.duration}
+                        image={video.thumbnail ? urlForImage(video.thumbnail).width(800).height(600).url() : undefined}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-12">
+                    <p className="text-xl text-text/70">
+                      Er zijn nog geen video&apos;s gepubliceerd.
+                    </p>
+                  </div>
+                )}
               </div>
-            </div>
             
             {/* Sidebar */}
             <aside className="lg:w-80 space-y-8">
