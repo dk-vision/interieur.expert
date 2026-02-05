@@ -43,15 +43,11 @@ export default async function AdSlot({
           >
             {campaign.creative.format === "image" &&
             campaign.creative.image?.asset ? (
-              <div className="relative w-full aspect-[16/9] overflow-hidden">
-                <Image
-                  src={urlForImage(campaign.creative.image)
-                    .width(600)
-                    .height(338)
-                    .url()}
+              <div className="relative w-full overflow-hidden">
+                <img
+                  src={urlForImage(campaign.creative.image).url()}
                   alt={campaign.creative.altText || campaign.creative.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-auto group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
             ) : campaign.creative.format === "html" &&
