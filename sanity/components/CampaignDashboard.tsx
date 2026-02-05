@@ -1,5 +1,5 @@
-import { Card, Stack, Text, Flex, Box, Button } from "@sanity/ui";
-import { useEffect, useState } from "react";
+import { Card, Stack, Text, Flex, Box, Button, Select } from "@sanity/ui";
+import { useEffect, useState, useMemo } from "react";
 import { useClient } from "sanity";
 
 interface Campaign {
@@ -19,6 +19,7 @@ export function CampaignDashboard() {
   const client = useClient({ apiVersion: "2024-01-01" });
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedPartner, setSelectedPartner] = useState<string>("all");
 
   useEffect(() => {
     const query = `*[_type == "adCampaign"] | order(active desc, currentImpressions desc) {
@@ -40,6 +41,16 @@ export function CampaignDashboard() {
     });
   }, [client]);
 
+  const partners = useMemo(() => {
+    const uniquePartners = [...new Set(campaigns.map((c) => c.partner?.name).filter(Boolean))];
+    return uniquePartners.sort();
+  }, [campaigns]);
+
+  const filteredCampaigns = useMemo(() => {
+    if (selectedPartner === "all") return campaigns;
+    return campaigns.filter((c) => c.partner?.name === selectedPartner);
+  }, [campaigns, selectedPartner]);
+
   if (loading) {
     return <Text>Loading campaigns...</Text>;
   }
@@ -47,12 +58,29 @@ export function CampaignDashboard() {
   return (
     <Stack space={5}>
       <Card padding={5} tone="primary">
-        <Text size={4} weight="bold">
-          Campaign Dashboard
-        </Text>
+        <Flex justify="space-between" align="center">
+          <Text size={4} weight="bold">
+            Campaign Dashboard
+          </Text>
+          <Box style={{ minWidth: "200px" }}>
+            <Select
+              fontSize={2}
+              padding={3}
+              value={selectedPartner}
+              onChange={(e) => setSelectedPartner(e.currentTarget.value)}
+            >
+              <option value="all">Alle partners</option>
+              {partners.map((partner) => (
+                <option key={partner} value={partner}>
+                  {partner}
+                </option>
+              ))}
+            </Select>
+          </Box>
+        </Flex>
       </Card>
 
-      {campaigns.map((campaign) => {
+      {filteredCampaigns.map((campaign) => {
         const progress =
           campaign.maxImpressions > 0
             ? (campaign.currentImpressions / campaign.maxImpressions) * 100
@@ -152,9 +180,13 @@ export function CampaignDashboard() {
         );
       })}
 
-      {campaigns.length === 0 && (
+      {filteredCampaigns.length === 0 && (
         <Card padding={5}>
-          <Text size={2}>No campaigns yet.</Text>
+          <Text size={2}>
+            {selectedPartner === "all" 
+              ? "No campaigns yet." 
+              : `Geen campagnes gevonden voor ${selectedPartner}.`}
+          </Text>
         </Card>
       )}
     </Stack>
