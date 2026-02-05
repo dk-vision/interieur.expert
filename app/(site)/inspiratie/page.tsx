@@ -1,4 +1,4 @@
-import React from "next";
+import React from "react";
 import { Metadata } from "next";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
@@ -54,7 +54,7 @@ export default async function InspiratiePage() {
         </Container>
       </Section>
 
-      <Section spacing="lg">
+      <Section spacing="sm" className="!pt-0">
         <Container>
           <div className="space-y-12">
             {/* Featured article - wide format */}
@@ -101,9 +101,10 @@ export default async function InspiratiePage() {
                 </div>
               </div>
             
-            <aside className="lg:w-80 space-y-8">
-              <AdSlot position="listing-sidebar" />
-            </aside>
+              <aside className="lg:w-80 space-y-8">
+                <AdSlot position="listing-sidebar" />
+              </aside>
+            </div>
           </div>
         </Container>
       </Section>

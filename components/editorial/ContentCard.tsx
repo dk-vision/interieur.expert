@@ -1,8 +1,7 @@
 "use client";
 
-"use client";
-
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import MetaRow from "./MetaRow";
 import Pill from "@/components/ui/Pill";
 import Image from "next/image";
@@ -40,15 +39,24 @@ export default function ContentCard({
   size = "normal",
   image,
 }: ContentCardProps) {
+  const router = useRouter();
   const isLarge = size === "large";
   const isWide = size === "wide";
+  
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Don't navigate if clicking on a link inside the card
+    if ((e.target as HTMLElement).closest('a[href]')) {
+      return;
+    }
+    router.push(href);
+  };
   
   // Wide variant: 2 columns, same height, content overlay on image
   if (isWide) {
     return (
-      <Link
-        href={href}
-        className={`group block md:col-span-2 ${isSponsored ? "border-t-2 border-brand/40 pt-4" : ""}`}
+      <div
+        onClick={handleCardClick}
+        className={`group block md:col-span-2 cursor-pointer ${isSponsored ? "border-t-2 border-brand/40 pt-4" : ""}`}
       >
         <div className="aspect-[4/3] bg-text/5 rounded-sm overflow-hidden relative">
           {image && (
@@ -90,14 +98,14 @@ export default function ContentCard({
             </p>
           </div>
         </div>
-      </Link>
+      </div>
     );
   }
   
   return (
-    <Link
-      href={href}
-      className={`group block hover:opacity-75 transition-opacity ${isLarge ? "md:col-span-2" : ""} ${isSponsored ? "border-t-2 border-brand/40 pt-4" : ""}`}
+    <div
+      onClick={handleCardClick}
+      className={`group block hover:opacity-75 transition-opacity cursor-pointer ${isLarge ? "md:col-span-2" : ""} ${isSponsored ? "border-t-2 border-brand/40 pt-4" : ""}`}
     >
       <div className={`${isLarge ? "grid grid-cols-1 md:grid-cols-2 gap-6" : "space-y-4"}`}>
       {/* Image */}
@@ -143,7 +151,6 @@ export default function ContentCard({
                   <Link 
                     href={`/partners/${sponsor.slug}`}
                     className="font-medium text-[#dc2626] hover:underline"
-                    onClick={(e) => e.stopPropagation()}
                   >
                     {sponsor.name}
                   </Link>
@@ -156,18 +163,14 @@ export default function ContentCard({
           {isSponsored && partnerName && (
             <p className="text-sm text-text/60">
               In samenwerking met{" "}
-              {partnerUrl ? (
-                <span className="font-medium text-brand hover:underline">
-                  {partnerName}
-                </span>
-              ) : (
-                <span className="font-medium text-text">{partnerName}</span>
-              )}
+              <span className="font-medium text-brand">
+                {partnerName}
+              </span>
             </p>
           )}
 
           {tags && tags.length > 0 && (
-            <div className="flex flex-wrap gap-2" onClick={(e) => e.stopPropagation()}>
+            <div className="flex flex-wrap gap-2">
               {tags.map((tag) => (
                 <Link 
                   key={tag} 
@@ -183,6 +186,6 @@ export default function ContentCard({
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

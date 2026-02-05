@@ -40,6 +40,15 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "previewVideo",
+      title: "Preview Video (optioneel)",
+      type: "file",
+      description: "Korte preview clip (5-10 sec, MP4) voor hover effect. Max 10MB voor goede performance.",
+      options: {
+        accept: "video/mp4,video/webm",
+      },
+    }),
+    defineField({
       name: "youtubeId",
       title: "YouTube Video ID",
       type: "string",

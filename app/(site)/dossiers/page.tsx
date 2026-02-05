@@ -32,7 +32,7 @@ export default async function DossiersPage() {
       </Section>
 
       {/* Dossiers Grid */}
-      <Section spacing="lg">
+      <Section spacing="sm" className="!pt-0">
         <Container>
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Main content */}

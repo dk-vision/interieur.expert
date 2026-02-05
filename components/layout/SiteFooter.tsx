@@ -15,11 +15,54 @@ const footerLinks = {
   ],
 };
 
+const popularTags = [
+  "scandinavisch",
+  "verlichting",
+  "kleuren",
+  "duurzaam",
+  "minimalistisch",
+  "woonkamer",
+  "keuken",
+  "slaapkamer",
+  "industrieel",
+  "vintage",
+  "modern",
+  "natuurlijk",
+  "budget",
+  "japandi",
+  "boho",
+  "stijlen",
+  "materialen",
+  "interieur",
+];
+
 export default function SiteFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="border-t border-text/10 bg-background">
+      {/* Popular Tags Doormat */}
+      <div className="bg-[#0000FF] border-b border-white/10">
+        <Container>
+          <div className="py-16 text-center">
+            <h3 className="text-sm font-semibold text-white mb-6 uppercase tracking-wider">
+              Ontdek per onderwerp
+            </h3>
+            <div className="flex flex-wrap gap-3 justify-center">
+              {popularTags.map((tag) => (
+                <Link
+                  key={tag}
+                  href={`/tags/${encodeURIComponent(tag.toLowerCase())}`}
+                  className="inline-flex items-center rounded-full font-medium bg-[#0000FF] text-white backdrop-blur-sm shadow-sm font-heading hover:bg-white hover:text-[#0000FF] transition-colors text-sm px-3 py-1 border border-white/50"
+                >
+                  #{tag}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </div>
+
       <Container>
         <div className="py-16 space-y-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">

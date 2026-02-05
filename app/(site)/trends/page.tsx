@@ -3,7 +3,6 @@ import { Metadata } from "next";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import ContentCard from "@/components/editorial/ContentCard";
-import FeaturedCard from "@/components/editorial/FeaturedCard";
 import AdSlot from "@/components/ads/AdSlot";
 import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
@@ -47,20 +46,26 @@ export default async function TrendsPage() {
       {/* Hero */}
       <Section spacing="lg">
         <Container>
-          <div className="space-y-12">
-            <div className="space-y-4">
-              <h1 className="text-4xl lg:text-5xl font-semibold text-text leading-tight">
-                Trends
-              </h1>
-              <p className="text-xl text-text/70 leading-relaxed max-w-2xl">
-                De laatste ontwikkelingen in interieurdesign. We volgen trends kritisch:
-                wat is écht vernieuwend en wat verdwijnt weer snel?
-              </p>
-            </div>
+          <div className="space-y-4">
+            <h1 className="text-4xl lg:text-5xl font-semibold text-text leading-tight">
+              Trends
+            </h1>
+            <p className="text-xl text-text/70 leading-relaxed max-w-2xl">
+              De laatste ontwikkelingen in interieurdesign. We volgen trends kritisch:
+              wat is écht vernieuwend en wat verdwijnt weer snel?
+            </p>
+          </div>
+        </Container>
+      </Section>
 
-            {/* Featured Trend */}
+      {/* Current Trends Grid */}
+      <Section spacing="sm" className="!pt-0">
+        <Container>
+          <div className="space-y-12">
+            {/* Featured article - wide format */}
             {featuredArticle && (
-              <FeaturedCard
+              <ContentCard
+                key={featuredArticle._id}
                 title={featuredArticle.title}
                 excerpt={featuredArticle.excerpt}
                 href={`/artikels/${featuredArticle.slug}`}
@@ -68,23 +73,21 @@ export default async function TrendsPage() {
                 category={featuredArticle.category}
                 publishedAt={new Date(featuredArticle.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
                 readingTime={featuredArticle.readingTime}
+                tags={featuredArticle.tags}
                 isSponsored={featuredArticle.sponsored || false}
+                partnerName={featuredArticle.partner?.name}
+                partnerUrl={featuredArticle.partner?.website}
                 image={featuredArticle.featuredImage ? urlForImage(featuredArticle.featuredImage).width(1200).height(600).url() : undefined}
+                size="wide"
               />
             )}
-          </div>
-        </Container>
-      </Section>
-
-      {/* Current Trends Grid */}
-      <Section spacing="lg">
-        <Container>
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Main content */}
-            <div className="flex-1">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
-                {/* Standard 2-col grid */}
-                {otherArticles.map((article) => (
+            
+            <div className="flex flex-col lg:flex-row gap-8">
+              {/* Main content */}
+              <div className="flex-1">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+                  {/* Remaining articles: Regular 2-col grid */}
+                  {otherArticles.map((article) => (
                     <ContentCard
                       key={article._id}
                       title={article.title}

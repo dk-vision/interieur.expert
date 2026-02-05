@@ -54,10 +54,12 @@ export default async function DossierDetailPage({
     notFound();
   }
 
-  const imageUrl = urlForImage(dossier.featuredImage)
-    .width(1600)
-    .height(900)
-    .url();
+  const imageUrl = dossier.featuredImage
+    ? urlForImage(dossier.featuredImage)
+        .width(1600)
+        .height(900)
+        .url()
+    : null;
 
   // Get content card data for articles
   const articleCards = dossier.articles
@@ -119,19 +121,21 @@ export default async function DossierDetailPage({
       </Section>
 
       {/* Featured Image */}
-      <Section spacing="md">
-        <Container size="layout">
-          <div className="aspect-video bg-surface rounded-sm overflow-hidden relative">
-            <Image
-              src={imageUrl}
-              alt={dossier.title}
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-        </Container>
-      </Section>
+      {imageUrl && (
+        <Section spacing="md">
+          <Container size="layout">
+            <div className="aspect-video bg-surface rounded-sm overflow-hidden relative">
+              <Image
+                src={imageUrl}
+                alt={dossier.title}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+          </Container>
+        </Section>
+      )}
 
       {/* Sponsors Section */}
       {dossier.sponsors && dossier.sponsors.length > 0 && (

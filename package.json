@@ -10,6 +10,10 @@
     "studio": "sanity dev",
     "studio:deploy": "sanity deploy",
     "add-stock-photos": "tsx scripts/add-stock-photos.ts",
+    "add-video-thumbnails": "tsx scripts/add-video-thumbnails.ts",
+    "add-dossier-images": "tsx scripts/add-dossier-images.ts",
+    "add-all-images": "tsx scripts/add-stock-photos.ts && tsx scripts/add-video-thumbnails.ts && tsx scripts/add-dossier-images.ts",
+    "generate-video-previews": "tsx scripts/generate-video-previews.ts",
     "cleanup-ads": "tsx scripts/cleanup-ads.ts",
     "create-test-ads": "tsx scripts/create-new-test-ads.ts",
     "create-sponsored-dossier": "tsx scripts/create-sponsored-dossier.ts"

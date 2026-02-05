@@ -56,7 +56,7 @@ export default async function AdviesPage() {
       </Section>
 
       {/* Content Grid */}
-      <Section spacing="lg">
+      <Section spacing="sm" className="!pt-0">
         <Container>
           <div className="space-y-12">
             {/* Featured article - wide format */}
@@ -104,10 +104,11 @@ export default async function AdviesPage() {
                 </div>
               </div>
             
-            {/* Sidebar */}
-            <aside className="lg:w-80 space-y-8">
-              <AdSlot position="listing-sidebar" />
-            </aside>
+              {/* Sidebar */}
+              <aside className="lg:w-80 space-y-8">
+                <AdSlot position="listing-sidebar" />
+              </aside>
+            </div>
           </div>
         </Container>
       </Section>
