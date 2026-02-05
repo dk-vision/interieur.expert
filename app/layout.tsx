@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Inter, Playfair_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import SiteHeader from "@/components/layout/SiteHeader";
-import SiteFooter from "@/components/layout/SiteFooter";
-import "./globals.css";
+import "./(site)/globals.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -38,9 +36,7 @@ export default function RootLayout({
   return (
     <html lang="nl" className={`${spaceGrotesk.variable} ${inter.variable} ${playfairDisplay.variable}`}>
       <body>
-        <SiteHeader />
-        <main>{children}</main>
-        <SiteFooter />
+        {children}
         <Analytics />
         <SpeedInsights />
       </body>
