@@ -5,6 +5,7 @@ import { SanityImageSource } from "@sanity/image-url/lib/types/types";
 export interface Partner {
   _id: string;
   name: string;
+  slug?: string;
   website: string;
   logo?: SanityImageSource;
   brandColor?: string;
@@ -42,11 +43,19 @@ export interface Video extends BaseContent {
   duration?: number;
 }
 
-export interface Dossier extends BaseContent {
+export interface Dossier {
+  _id: string;
   _type: "dossier";
+  title: string;
+  slug: string;
+  excerpt: string;
+  tags?: string[];
+  publishedAt: string;
+  seoTitle?: string;
+  seoDescription?: string;
   featuredImage: SanityImageSource;
   intro?: PortableTextBlock[];
-  theme?: string;
+  themes?: string[];
   sponsors?: Partner[];
   articles?: (Article | Video)[];
 }
@@ -81,7 +90,7 @@ export interface ContentCardData {
   isSponsored?: boolean;
   partnerName?: string;
   partnerUrl?: string;
-  sponsorNames?: string; // For dossiers with multiple sponsors
+  sponsors?: Array<{ name: string; slug: string }>; // For dossiers with multiple sponsors
   image?: string;
   size?: "normal" | "large";
 }

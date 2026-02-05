@@ -70,18 +70,34 @@ const videoFields = groq`
 
 // Dossier fields
 const dossierFields = groq`
-  ${baseContentFields},
+  _id,
+  _type,
+  title,
+  "slug": slug.current,
+  excerpt,
+  tags,
+  publishedAt,
+  seoTitle,
+  seoDescription,
   featuredImage,
   intro,
-  theme,
+  themes,
   "sponsors": sponsors[]->{
     _id,
     name,
+    "slug": slug.current,
     website,
     logo
   },
   "articles": articles[]->{
-    ${baseContentFields},
+    _id,
+    _type,
+    title,
+    "slug": slug.current,
+    excerpt,
+    category,
+    tags,
+    publishedAt,
     featuredImage,
     readingTime
   }

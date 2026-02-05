@@ -105,7 +105,6 @@ export default async function DossierDetailPage({
                 }
               )}
               type="dossier"
-              isSponsored={dossier.sponsored}
             />
 
             <h1 className="text-4xl lg:text-5xl font-semibold text-text leading-tight">
@@ -168,13 +167,6 @@ export default async function DossierDetailPage({
         </Section>
       )}
 
-      {/* Dossier Banner Ad - Removed (no longer in schema) */}
-      {/* <Section spacing="md">
-        <Container size="layout">
-          <AdSlot position="dossier-banner" category={dossier.category} />
-        </Container>
-      </Section> */}
-
       {/* Introduction */}
       {dossier.intro && (
         <Section spacing="md">
@@ -220,14 +212,10 @@ export default async function DossierDetailPage({
                     <div className="bg-surface p-6 rounded-sm">
                       <h3 className="font-semibold mb-4">Over dit dossier</h3>
                       <div className="space-y-2 text-sm">
-                        <div>
-                          <span className="text-text/60">Categorie:</span>{" "}
-                          <span className="text-text">{dossier.category}</span>
-                        </div>
-                        {dossier.theme && (
+                        {dossier.themes && dossier.themes.length > 0 && (
                           <div>
-                            <span className="text-text/60">Thema:</span>{" "}
-                            <span className="text-text">{dossier.theme}</span>
+                            <span className="text-text/60">Thema's:</span>{" "}
+                            <span className="text-text">{dossier.themes.join(", ")}</span>
                           </div>
                         )}
                         <div>

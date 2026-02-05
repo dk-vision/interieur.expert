@@ -59,19 +59,15 @@ export default defineType({
       description: "Gerelateerde artikelen en video's in dit dossier",
     }),
     defineField({
-      name: "category",
-      title: "Categorie",
-      type: "string",
-      description: "Vrij tekstveld - typ je eigen categorie. Voorbeelden: Verlichting, Duurzaamheid, Wonen, Materialen, Kleuren, Textiel, etc.",
-      placeholder: "bijv. Verlichting, Duurzaamheid, Kleuren...",
-      validation: (Rule) => Rule.required().max(50),
-    }),
-    defineField({
-      name: "theme",
-      title: "Theme / Periode (optioneel)",
-      type: "string",
-      description: "Thematische periode of seizoen, bijv. 'Black Friday 2026', 'Slaapmaand Februari', 'Batibouw 2026'",
-      placeholder: "bijv. Black Friday 2026, Kerst Special, etc.",
+      name: "themes",
+      title: "Thema's",
+      type: "array",
+      of: [{ type: "string" }],
+      description: "Thema labels voor dit dossier. Typ en druk Enter om nieuwe thema's toe te voegen.",
+      options: {
+        layout: "tags",
+      },
+      validation: (Rule) => Rule.required().min(1),
     }),
     defineField({
       name: "sponsors",
@@ -115,8 +111,15 @@ export default defineType({
   preview: {
     select: {
       title: "title",
-      subtitle: "category",
+      themes: "themes",
       media: "featuredImage",
+    },
+    prepare({ title, themes, media }) {
+      return {
+        title,
+        subtitle: themes?.join(", ") || "Geen thema's",
+        media,
+      };
     },
   },
 });

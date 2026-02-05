@@ -41,22 +41,25 @@ function toContentCardData(
           ? `/video/${content.slug}`
           : `/dossiers/${content.slug}`,
     type: content._type,
-    category: content.category,
+    category: content._type !== "dossier" ? (content as Article | Video).category : undefined,
     tags: content.tags,
     publishedAt: new Date(content.publishedAt).toLocaleDateString("nl-NL", {
       day: "numeric",
       month: "long",
       year: "numeric",
     }),
-    isSponsored: content.sponsored,
-    partnerName: content.partner?.name,
-    partnerUrl: content.partner?.website,
+    isSponsored: content._type !== "dossier" && (content as Article | Video).sponsored,
+    partnerName: content._type !== "dossier" ? (content as Article | Video).partner?.name : undefined,
+    partnerUrl: content._type !== "dossier" ? (content as Article | Video).partner?.website : undefined,
     size,
   };
 
   // Add dossier sponsors if available
   if (content._type === "dossier" && content.sponsors && content.sponsors.length > 0) {
-    baseData.sponsorNames = content.sponsors.map((s) => s.name).join(", ");
+    baseData.sponsors = content.sponsors.map((s) => ({ 
+      name: s.name, 
+      slug: s.slug || s._id 
+    }));
   }
 
   // Add image URL with null checks

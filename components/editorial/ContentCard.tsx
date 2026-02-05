@@ -19,7 +19,7 @@ interface ContentCardProps {
   isSponsored?: boolean;
   partnerName?: string;
   partnerUrl?: string;
-  sponsorNames?: string; // For dossiers with multiple sponsors
+  sponsors?: Array<{ name: string; slug: string }>; // For dossiers with multiple sponsors
   size?: "normal" | "large" | "wide";
   image?: string;
 }
@@ -36,7 +36,7 @@ export default function ContentCard({
   isSponsored = false,
   partnerName,
   partnerUrl,
-  sponsorNames,
+  sponsors,
   size = "normal",
   image,
 }: ContentCardProps) {
@@ -135,9 +135,21 @@ export default function ContentCard({
 
           <p className={`text-text/70 leading-relaxed ${isLarge ? "text-lg line-clamp-4" : "line-clamp-3"}`}>{excerpt}</p>
 
-          {sponsorNames && type === "dossier" && (
+          {sponsors && sponsors.length > 0 && type === "dossier" && (
             <p className="text-sm text-text/60">
-              Mogelijk gemaakt door <span className="font-medium text-text">{sponsorNames}</span>
+              Mogelijk gemaakt door{" "}
+              {sponsors.map((sponsor, idx) => (
+                <span key={sponsor.slug}>
+                  <Link 
+                    href={`/partners/${sponsor.slug}`}
+                    className="font-medium text-[#dc2626] hover:underline"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {sponsor.name}
+                  </Link>
+                  {idx < sponsors.length - 1 && ", "}
+                </span>
+              ))}
             </p>
           )}
 
