@@ -27,10 +27,12 @@ export default defineType({
       type: "string",
       options: {
         list: [
-          { title: "Listing Inline", value: "listing-inline" },
-          { title: "Article Inline", value: "article-inline" },
-          { title: "Sidebar", value: "sidebar" },
-          { title: "Dossier Banner", value: "dossier-banner" },
+          { title: "Homepage - Boven Recent Articles", value: "homepage-hero" },
+          { title: "Homepage - Boven Newsletter", value: "homepage-newsletter" },
+          { title: "Homepage - Article Card Replacement", value: "homepage-card" },
+          { title: "Overzicht - Sidebar", value: "listing-sidebar" },
+          { title: "Artikel - Inline Banner", value: "article-inline" },
+          { title: "Artikel - Sidebar", value: "article-sidebar" },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -42,20 +44,6 @@ export default defineType({
       type: "reference",
       to: [{ type: "adCreative" }],
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "campaignType",
-      title: "Campaign Type",
-      type: "string",
-      options: {
-        list: [
-          { title: "Standard Display", value: "display" },
-          { title: "Sponsored Content Promo", value: "sponsored-promo" },
-          { title: "Product Launch", value: "product-launch" },
-          { title: "Seasonal Campaign", value: "seasonal" },
-        ],
-      },
-      initialValue: "display",
     }),
     defineField({
       name: "targetCategory",

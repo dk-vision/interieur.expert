@@ -1,10 +1,17 @@
 import AdLabel from "@/components/ui/AdLabel";
 import AdTracker from "@/components/ads/AdTracker";
+import { FallbackAd } from "@/components/ads/FallbackAd";
 import { getActiveCampaign } from "@/lib/ads/campaigns";
 import { urlForImage } from "@/lib/sanity/image";
 
 interface AdSlotProps {
-  position: "listing-inline" | "article-inline" | "sidebar" | "dossier-banner";
+  position:
+    | "homepage-hero"
+    | "homepage-newsletter"
+    | "homepage-card"
+    | "listing-sidebar"
+    | "article-inline"
+    | "article-sidebar";
   className?: string;
   category?: string;
   tags?: string[];
@@ -17,10 +24,21 @@ export default async function AdSlot({
   tags,
 }: AdSlotProps) {
   const positionClasses = {
-    "listing-inline": "w-full",
-    "article-inline": "w-full max-w-content mx-auto",
-    sidebar: "hidden lg:block w-full",
-    "dossier-banner": "w-full",
+    "homepage-hero": "w-full",
+    "homepage-newsletter": "w-full",
+    "homepage-card": "w-full",
+    "listing-sidebar": "hidden lg:block w-full lg:sticky lg:top-24",
+    "article-inline": "w-full max-w-content mx-auto my-8",
+    "article-sidebar": "hidden lg:block w-full lg:sticky lg:top-24",
+  };
+
+  const fallbackType = {
+    "homepage-hero": "horizontal" as const,
+    "homepage-newsletter": "horizontal" as const,
+    "homepage-card": "card" as const,
+    "listing-sidebar": "vertical" as const,
+    "article-inline": "horizontal" as const,
+    "article-sidebar": "vertical" as const,
   };
 
   // Fetch active campaign for this slot
@@ -65,11 +83,7 @@ export default async function AdSlot({
             </a>
           </AdTracker>
         ) : (
-          <div className="block bg-background border-2 border-brand/20 rounded-sm p-8 min-h-[250px] flex items-center justify-center">
-            <p className="text-text/30 text-sm font-medium">
-              Advertentieruimte
-            </p>
-          </div>
+          <FallbackAd slot={fallbackType[position]} />
         )}
       </div>
     </div>

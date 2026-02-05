@@ -134,12 +134,46 @@ export default async function DossierDetailPage({
         </Container>
       </Section>
 
-      {/* Dossier Banner Ad */}
-      <Section spacing="md">
+      {/* Sponsors Section */}
+      {dossier.sponsors && dossier.sponsors.length > 0 && (
+        <Section spacing="sm">
+          <Container size="layout">
+            <div className="bg-background border-t border-b border-text/10 py-8">
+              <div className="max-w-4xl mx-auto space-y-6">
+                <p className="text-center text-sm text-text/60 uppercase tracking-wide">
+                  Mogelijk gemaakt door
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-12">
+                  {dossier.sponsors.map((sponsor) => (
+                    <a
+                      key={sponsor._id}
+                      href={sponsor.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="opacity-70 hover:opacity-100 transition-opacity"
+                    >
+                      {sponsor.logo && (
+                        <img
+                          src={urlForImage(sponsor.logo).width(200).height(80).fit("max").url()}
+                          alt={sponsor.name}
+                          className="h-12 w-auto object-contain"
+                        />
+                      )}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Container>
+        </Section>
+      )}
+
+      {/* Dossier Banner Ad - Removed (no longer in schema) */}
+      {/* <Section spacing="md">
         <Container size="layout">
           <AdSlot position="dossier-banner" category={dossier.category} />
         </Container>
-      </Section>
+      </Section> */}
 
       {/* Introduction */}
       {dossier.intro && (

@@ -76,13 +76,13 @@ export default defineType({
       type: "string",
       options: {
         list: [
-          { title: "Premium Partner", value: "premium" },
-          { title: "Campagne Partner", value: "campaign" },
-          { title: "Affiliate Partner", value: "affiliate" },
+          { title: "Adverteerder", value: "advertiser" },
+          { title: "Affiliate", value: "affiliate" },
         ],
       },
       validation: (Rule) => Rule.required(),
-      initialValue: "campaign",
+      initialValue: "advertiser",
+      description: "Adverteerder = betaalde campagnes, Affiliate = commissie-based",
     }),
     defineField({
       name: "featured",

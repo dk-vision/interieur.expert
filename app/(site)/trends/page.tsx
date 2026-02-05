@@ -108,7 +108,7 @@ export default async function TrendsPage() {
               
               {/* Sidebar */}
               <aside className="lg:w-80 space-y-8">
-                <AdSlot position="sidebar" />
+                <AdSlot position="listing-sidebar" />
               </aside>
             </div>
           </div>

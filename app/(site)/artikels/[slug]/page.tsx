@@ -112,11 +112,19 @@ export default async function ArtikelPage({ params }: PageProps) {
               <ArticleBody>
                 <PortableText value={article.body} />
               </ArticleBody>
+              
+              {/* Inline Ad Banner */}
+              <div className="my-12">
+                <AdSlot position="article-inline" category={article.category} tags={article.tags} />
+              </div>
             </div>
 
             {/* Sidebar */}
             <aside className="lg:col-span-4">
               <div className="lg:sticky lg:top-8 space-y-8">
+                {/* Ad Slot in Sidebar */}
+                <AdSlot position="article-sidebar" category={article.category} tags={article.tags} />
+                
                 {/* Article Info Card */}
                 <div className="bg-background border border-text/10 rounded-sm p-6 space-y-4">
                   <h3 className="text-sm font-semibold uppercase tracking-wide text-text/60">

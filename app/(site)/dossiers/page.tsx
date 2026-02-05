@@ -58,7 +58,7 @@ export default async function DossiersPage() {
 
             {/* Sidebar */}
             <aside className="w-full lg:w-80 space-y-8">
-              <AdSlot position="sidebar" />
+              <AdSlot position="listing-sidebar" />
 
               {/* Categories */}
               <div className="bg-surface p-6 rounded-sm">

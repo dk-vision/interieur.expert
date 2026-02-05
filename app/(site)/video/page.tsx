@@ -134,7 +134,7 @@ export default function VideoPage() {
             
             {/* Sidebar */}
             <aside className="lg:w-80 space-y-8">
-              <AdSlot position="sidebar" />
+              <AdSlot position="listing-sidebar" />
             </aside>
           </div>
         </Container>

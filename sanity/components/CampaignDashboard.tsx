@@ -1,4 +1,4 @@
-import { Card, Stack, Text, Flex, Box, Button, Select } from "@sanity/ui";
+import { Card, Stack, Text, Flex, Box, Select } from "@sanity/ui";
 import { useEffect, useState, useMemo } from "react";
 import { useClient } from "sanity";
 
@@ -20,6 +20,7 @@ export function CampaignDashboard() {
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedPartner, setSelectedPartner] = useState<string>("all");
+  const [now, setNow] = useState(() => Date.now());
 
   useEffect(() => {
     const query = `*[_type == "adCampaign"] | order(active desc, currentImpressions desc) {
@@ -39,6 +40,10 @@ export function CampaignDashboard() {
       setCampaigns(data);
       setLoading(false);
     });
+    
+    // Update now every minute for accurate countdown
+    const interval = setInterval(() => setNow(Date.now()), 60000);
+    return () => clearInterval(interval);
   }, [client]);
 
   const partners = useMemo(() => {
@@ -91,7 +96,7 @@ export function CampaignDashboard() {
             : "0.00";
 
         const daysLeft = Math.ceil(
-          (new Date(campaign.endDate).getTime() - Date.now()) / (1000 * 60 * 60 * 24)
+          (new Date(campaign.endDate).getTime() - now) / (1000 * 60 * 60 * 24)
         );
 
         const status = !campaign.active

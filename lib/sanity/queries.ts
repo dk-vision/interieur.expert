@@ -74,6 +74,12 @@ const dossierFields = groq`
   featuredImage,
   intro,
   theme,
+  "sponsors": sponsors[]->{
+    _id,
+    name,
+    website,
+    logo
+  },
   "articles": articles[]->{
     ${baseContentFields},
     featuredImage,

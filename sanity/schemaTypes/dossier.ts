@@ -74,6 +74,18 @@ export default defineType({
       placeholder: "bijv. Black Friday 2026, Kerst Special, etc.",
     }),
     defineField({
+      name: "sponsors",
+      title: "Sponsors",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "partner" }],
+        },
+      ],
+      description: "Sponsor partners die dit dossier ondersteunen (logo's worden getoond)",
+    }),
+    defineField({
       name: "publishedAt",
       title: "Gepubliceerd op",
       type: "datetime",
