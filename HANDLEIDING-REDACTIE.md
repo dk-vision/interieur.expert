@@ -372,7 +372,7 @@ Voor **elk artikel** check:
 
 Het platform heeft een geavanceerd advertising systeem met drie componenten:
 
-1. **Partners**: De adverteerders/sponsors
+1. **Partners**: De sponsors
 2. **Ad Creatives**: De advertentie-ontwerpen (afbeeldingen of HTML)
 3. **Ad Campaigns**: Campagnes die creatives koppelen aan posities en timing
 
@@ -394,28 +394,22 @@ Partners zijn de bedrijven of organisaties die adverteren op het platform.
    - Officiële naam van het bedrijf
    - Voorbeeld: "Lumina Lighting", "IKEA Nederland"
 
-2. **Partner Type** (nieuw!)
-   - Selecteer het type partner:
-     - **Adverteerder**: Betaalde advertising campaigns (display ads)
-     - **Affiliate**: Commissie-based partnerships (geen ads)
-   - Bepaalt welke opties beschikbaar zijn
-
-3. **Website URL**
+2. **Website URL**
    - Volledige website URL
    - Moet beginnen met http:// of https://
    - Voorbeeld: https://www.luminalighting.nl
 
-4. **Logo** (Optioneel)
+3. **Logo** (Optioneel)
    - Upload het logo van de partner
    - Wordt gebruikt in sponsored content badges en dossier sponsoring
    - Aanbevolen: PNG met transparante achtergrond, 400x160px
 
-5. **Brand Color** (Optioneel)
+4. **Brand Color** (Optioneel)
    - Merkkleur in hex formaat
    - Voorbeeld: #ff6666 (rood), #00aaff (blauw)
    - Wordt gebruikt voor kleuraccenten
 
-6. Klik op **"Publish"**
+5. Klik op **"Publish"**
 
 **Let op:** Partners kunnen worden hergebruikt voor:
 - Meerdere gesponsorde artikelen
@@ -662,7 +656,7 @@ Advertenties kunnen worden getarget op specifieke content:
    - Gepauzeerde campaigns worden niet getoond
    
 10. **Partner** (Verplicht)
-   - Selecteer de partner/adverteerder
+   - Selecteer de partner
    - Moet al bestaan in het systeem (zie "Partners Beheren")
 
 11. Klik op **"Publish"**
@@ -705,7 +699,7 @@ In de Ad Campaign lijst zie je:
 - Test verschillende targeting strategieën
 
 **Prioriteit:**
-- Prioriteit 8-10: Premium/high-impact campaigns (launches, homepage)
+- Prioriteit 8-10: High-impact campaigns (launches, homepage)
 - Prioriteit 6-8: Standard campaigns (ongoing, targeted)
 - Prioriteit 5-7: Baseline/always-on (sidebar presence)  
 - Prioriteit 3-5: Filler/backup/seasonal
@@ -788,7 +782,7 @@ Het systeem gebruikt een **slim rotatie-systeem** op basis van prioriteit:
 - Welke advertentie iemand ziet is willekeurig (maar wel gewogen)
 
 **Waarom is dit handig?**
-- Hogere prioriteit = vaker getoond (voor premium adverteerders)
+- Hogere prioriteit = vaker getoond (voor belangrijke partners)
 - Maar ook lagere prioriteit krijgt nog steeds vertoningen
 - Eerlijke verdeling op basis van belang/prijs
 
@@ -796,19 +790,19 @@ Het systeem gebruikt een **slim rotatie-systeem** op basis van prioriteit:
 
 **Gebruik deze richtlijnen:**
 
-- **Prioriteit 9-10**: Top adverteerders, hoge betaling, belangrijkste campagnes
+- **Prioriteit 9-10**: Top partners, hoge betaling, belangrijkste campagnes
   - Voorbeeld: Hoofdsponsor, grote productlancering
   
-- **Prioriteit 6-8**: Reguliere adverteerders, standaard campagnes
+- **Prioriteit 6-8**: Reguliere partners, standaard campagnes
   - Voorbeeld: Vaste partners, langlopende deals
   
-- **Prioriteit 3-5**: Kleinere adverteerders, test-campagnes
+- **Prioriteit 3-5**: Kleinere partners, test-campagnes
   - Voorbeeld: Nieuwe partners, proefperiodes
   
 - **Prioriteit 1-2**: Filler advertenties, eigen promotie
   - Voorbeeld: Eigen nieuwsbrief, lege plekken opvullen
 
-**Tip:** Als je twee adverteerders ongeveer gelijk wilt behandelen, geef ze dezelfde prioriteit (bijv. beiden 7). Dan krijgen ze elk ongeveer 50% van de vertoningen.
+**Tip:** Als je twee partners ongeveer gelijk wilt behandelen, geef ze dezelfde prioriteit (bijv. beiden 7). Dan krijgen ze elk ongeveer 50% van de vertoningen.
 
 ### Targeting: Waar Verschijnt een Advertentie?
 
@@ -820,7 +814,7 @@ Het systeem gebruikt een **slim rotatie-systeem** op basis van prioriteit:
 **Met category targeting:**
 - Alleen op pagina's met die specifieke categorie
 - Voorbeeld: "Techniek" → Alleen op techniek-artikelen
-- Geschikt voor specialistische adverteerders
+- Geschikt voor specialistische partners
 
 **Met tag targeting:**
 - Alleen op pagina's met één van die tags
@@ -856,11 +850,11 @@ Campagne: "Design Lampen Shop"
 
 **Voorbeeld 3: Concurrerende campagnes**
 ```
-Campagne A: "Premium Meubels" - Priority 9
+Campagne A: "Top Meubels" - Priority 9
 Campagne B: "Budget Meubels" - Priority 4
 Beide: Sidebar, geen targeting
 Total weight: 9 + 4 = 13
-- Premium verschijnt in ~69% van de gevallen (9÷13)
+- Top verschijnt in ~69% van de gevallen (9÷13)
 - Budget verschijnt in ~31% van de gevallen (4÷13)
 ```
 
@@ -903,15 +897,15 @@ A: Momenteel niet, maar dit is in ontwikkeling voor een toekomstige update.
 - **Locatie**: Rechter sidebar op desktop
 - **Visibility**: Lager, maar altijd zichtbaar tijdens scrollen
 - **Format**: Verticaal, smaller
-- **Best voor**: Long-tail campagnes, secundaire adverteerders
+- **Best voor**: Long-tail campagnes, secundaire partners
 - **Let op**: Niet zichtbaar op mobile!
 
 ### Slot Selection Tips
 
-- **Premium adverteerders**: Listing Inline
+- **Top partners**: Listing Inline
 - **Content-gerelateerd**: Article Inline + targeting
 - **Budget/filler ads**: Sidebar
-- **Maximale visibility**: Meerdere slots voor dezelfde adverteerder (verschillende creatives!)
+- **Maximale visibility**: Meerdere slots voor dezelfde partner (verschillende creatives!)
 
 ---
 
@@ -935,7 +929,7 @@ Voor **elke campaign** check:
 - [ ] Active is aangevinkt
 
 ### Optional Targeting
-- [ ] Targeting matches adverteerder (of bewust leeg gelaten)
+- [ ] Targeting matches partner (of bewust leeg gelaten)
 - [ ] Geen conflicten met andere actieve campaigns
 
 ### After Publishing
@@ -1020,7 +1014,7 @@ Test verschillende creatives:
 
 ### Rotation
 
-Voor adverteerders met meerdere creatives:
+Voor partners met meerdere creatives:
 1. Zelfde campaign settings
 2. Verschillende end dates (1 week verschil)
 3. Creative roteert automatisch na end date eerste campaign
@@ -1046,28 +1040,12 @@ Voor vragen over het CMS of problemen met content/advertenties:
 
 ## 1. Partner Systeem Overzicht
 
-Interieur.expert werkt met drie types partners:
-
-### 🌟 Premium Partners
-- Langdurige samenwerking (6-12+ maanden)
-- Eigen profiel pagina op `/partners/[slug]`
-- Kunnen meerdere artikelen sponsoren
-- Permanente ad presence
-- Featured op partner overzichtspagina
+Interieur.expert werkt met partners (sponsors) zonder type-indeling. Elke partner kan:
+- Display advertising campaigns draaien (homepage, sidebar, inline)
+- Sponsored content ondersteunen (artikelen/video's)
+- Dossiers sponsoren via logo placement
 
 **Voorbeelden:** XOOON, BoConcept, Karwei
-
-### 📅 Campaign Partners
-- Kortere campagnes (1-3 maanden)
-- Optionele profiel pagina
-- Tijdelijke ads met hoge priority
-- Focus op specifieke content
-
-### 🤝 Affiliate Partners
-- Content partnerships
-- Geen directe ads
-- Affiliate links in content
-- Optionele light profiel pagina
 
 ---
 
@@ -1111,11 +1089,6 @@ Interieur.expert werkt met drie types partners:
   - Waarom relevant voor lezers?
   - Wat maakt hen uniek?
   - Missie/visie
-
-**Partner Type**: 
-- Premium Partner (langdurig)
-- Campaign Partner (tijdelijk)
-- Affiliate Partner (commissie-based)
 
 **Featured**: Ja/Nee
 - Featured partners worden highlighted op `/partners`
@@ -1195,7 +1168,7 @@ Voor volledige richtlijnen en best practices, zie **Deel 2 sectie 4**.
 Om overzichtspagina fris te houden:
 - Roteer Featured status elk kwartaal
 - Max 3-4 Featured partners tegelijk
-- Geef premium partners voorrang
+- Geef belangrijkste partners voorrang
 - Overleg met advertentie manager
 
 ---

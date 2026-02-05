@@ -77,7 +77,6 @@ async function createTestPartner() {
       },
     ],
     website: "https://www.xooon.nl",
-    partnerType: "premium",
     featured: true,
     brandColor: "#D4A574",
     socialMedia: {

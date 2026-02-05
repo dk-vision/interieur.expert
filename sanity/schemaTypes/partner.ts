@@ -71,20 +71,6 @@ export default defineType({
       description: "Vierkant formaat aanbevolen (min 400x400px)",
     }),
     defineField({
-      name: "partnerType",
-      title: "Partner Type",
-      type: "string",
-      options: {
-        list: [
-          { title: "Adverteerder", value: "advertiser" },
-          { title: "Affiliate", value: "affiliate" },
-        ],
-      },
-      validation: (Rule) => Rule.required(),
-      initialValue: "advertiser",
-      description: "Adverteerder = betaalde campagnes, Affiliate = commissie-based",
-    }),
-    defineField({
       name: "featured",
       title: "Uitgelichte Partner",
       type: "boolean",
@@ -176,19 +162,12 @@ export default defineType({
     select: {
       title: "name",
       media: "logo",
-      partnerType: "partnerType",
       featured: "featured",
     },
-    prepare({ title, media, partnerType, featured }) {
-      const typeEmoji: Record<string, string> = {
-        premium: "🌟",
-        campaign: "📅",
-        affiliate: "🤝",
-      };
-      
+    prepare({ title, media, featured }) {
       return {
         title: featured ? `⭐ ${title}` : title,
-        subtitle: `${typeEmoji[partnerType] || ""} ${partnerType || "Partner"}`,
+        subtitle: "Partner",
         media,
       };
     },

@@ -2,63 +2,31 @@
 
 ## Inhoudsopgave
 1. [Partner Systeem Overzicht](#partner-systeem-overzicht)
-2. [Partner Types](#partner-types)
-3. [Partner Aanmaken](#partner-aanmaken)
-4. [Ad Campaign Systeem](#ad-campaign-systeem)
-5. [Gesponsorde Content](#gesponsorde-content)
-6. [Best Practices](#best-practices)
+2. [Partner Aanmaken](#partner-aanmaken)
+3. [Ad Campaign Systeem](#ad-campaign-systeem)
+4. [Gesponsorde Content](#gesponsorde-content)
+5. [Best Practices](#best-practices)
 
 ---
 
 ## Partner Systeem Overzicht
 
-Interieur.expert werkt met drie types partners, elk met hun eigen advertising model:
+Interieur.expert werkt met partners (sponsors) die het platform ondersteunen via verschillende vormen van advertising:
 
-**🌟 Premium Partners** - Langdurige partnerships met permanente aanwezigheid
-**📅 Campaign Partners** - Tijdelijke campagnes met intensieve exposure  
-**🤝 Affiliate Partners** - Content partnerships op commissiebasis
+- **Display advertising**: Betaalde ad campaigns op homepage, sidebar, en inline
+- **Sponsored content**: Gesponsorde artikelen en video's
+- **Dossier sponsorship**: Logo placement op thematische dossiers
 
-Het ad systeem gebruikt:
+**Partner profiel:**
+- Eigen profiel pagina op `/partners/[slug]`
+- Featured partners krijgen extra zichtbaarheid op overzichtspagina
+- Alle gesponsorde content verzameld op partner pagina
+
+**Advertising systeem:**
 - **Active status** en **date ranges** (alleen actief tussen start- en einddatum)
 - **Priority weighting** (1-10 schaal, hoger = vaker getoond)
 - **Optional targeting** (categorie en tags)
 - **Partner linking** (alle campaigns gekoppeld aan partners)
-
----
-
-## Partner Types
-
-### 📢 Adverteerders (Advertisers)
-
-**Kenmerken:**
-- Betaalde advertising campaigns
-- Eigen profiel pagina op `/partners/[slug]`
-- Kunnen meerdere ad campaigns hebben (homepage, sidebar, inline)
-- Kunnen dossiers sponsoren met logo placement
-- Featured op partner overzicht pagina
-- Langdurige partnerships of tijdelijke campaigns
-
-**Advertising strategie:**
-- **Baseline campaigns**: Langdurige presence (3-12+ maanden), priority 5-6
-- **Tactical campaigns**: Kortere periodes (1-3 maanden) voor launches, priority 7-10
-- **Dossier sponsorship**: Logo placement op gerelateerde thematische dossiers
-- Voorbeeld: XOOON heeft homepage hero ad (priority 7) + sidebar baseline (priority 6) + sponsort "Woonkamer Inspiratie" dossier
-
-**Pricing:** 
-- Homepage ads: €800-2000/maand
-- Sidebar/Inline ads: €400-1000/maand  
-- Dossier sponsorship: €200-600 per dossier
-- Packages beschikbaar
-
-### 🤝 Affiliates
-
-**Kenmerken:**
-- Affiliate links in content
-- Optionele light profiel pagina
-- Commissie-based model
-- Geen directe advertising campaigns
-
-**Pricing:** 10-15% commissie op verkopen
 
 ---
 
@@ -77,7 +45,6 @@ Ga naar **Sanity Studio → Content → Partner → Create New**
 
 **Optionele velden:**
 - **About**: Uitgebreide beschrijving voor partner pagina (portable text)
-- **Partner Type**: Premium / Campaign / Affiliate
 - **Featured**: Ja/Nee (tonen als featured partner)
 - **Brand Color**: Hex code (bijv. #FF6B6B) voor accenten
 - **Social Media**: Instagram, Facebook, Pinterest links
@@ -91,7 +58,6 @@ Slug: xooon
 Description: Modern Nederlands design met industriële twist. 
 Robuuste materialen en verfijnde details voor karaktervol interieur.
 Website: https://www.xooon.nl
-Partner Type: Premium Partner
 Featured: Yes
 Brand Color: #2C2C2C
 ```
@@ -147,7 +113,7 @@ Als er geen actieve campaign is voor een slot, wordt automatisch een **fallback 
 
 **Waarom fallback ads?**
 - Geen lege ruimtes op de website
-- Actief werven van nieuwe adverteerders
+- Actief werven van nieuwe partners
 - Professionele uitstraling
 
 ### Wanneer welke slot gebruiken:
@@ -186,7 +152,7 @@ Als er geen actieve campaign is voor een slot, wordt automatisch een **fallback 
 **Article Sidebar** - Non-intrusive companion
 - Sticky positioning naast artikel
 - Leest mee zonder te storen
-- Ideaal voor: Baseline campaigns, premium partners
+- Ideaal voor: Baseline campaigns, always-on presence
 - Aanbevolen priority: 5-7
 
 ### Campaign Setup
@@ -210,7 +176,7 @@ Ga naar **Sanity Studio → Content → Ad Creative → Create New**
 - **Link URL**: Doellink
 - **HTML Code**: Custom HTML/CSS code voor de ad
 
-**Voorbeeld Premium Partner Ad:**
+**Voorbeeld Partner Ad:**
 ```
 Title: XOOON Sidebar - Q1 2026
 Format: Image
@@ -316,7 +282,7 @@ Meerdere campaigns voor dezelfde slot worden gewogen op basis van priority.
 
 ### Multi-Slot Campaigns
 
-Voor maximum impact kan één adverteerder meerdere slots tegelijk gebruiken:
+Voor maximum impact kan één partner meerdere slots tegelijk gebruiken:
 
 **Voorbeeld: Product Launch (3 slots):**
 1. **Homepage Hero** (priority 9): Brand awareness
@@ -388,7 +354,7 @@ Artikelen kunnen gesponsord worden door partners. Dit geeft extra zichtbaarheid 
 
 ## Best Practices
 
-### Voor Adverteerders (All Types)
+### Voor Partners
 
 **Do's:**
 ✅ Start met 1-2 slots en test performance

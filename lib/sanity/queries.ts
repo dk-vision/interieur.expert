@@ -9,7 +9,6 @@ const partnerFragment = groq`
   website,
   logo,
   brandColor,
-  partnerType,
   featured
 `;
 
@@ -204,13 +203,13 @@ export const relatedArticlesQuery = groq`
 
 // Partner queries
 export const allPartnersQuery = groq`
-  *[_type == "partner" && defined(slug.current) && defined(partnerType)] | order(featured desc, name asc) {
+  *[_type == "partner" && defined(slug.current)] | order(featured desc, name asc) {
     ${partnerFragment}
   }
 `;
 
 export const featuredPartnersQuery = groq`
-  *[_type == "partner" && featured == true && defined(slug.current) && defined(partnerType)] | order(name asc) {
+  *[_type == "partner" && featured == true && defined(slug.current)] | order(name asc) {
     ${partnerFragment}
   }
 `;
@@ -234,8 +233,4 @@ export const partnerBySlugQuery = groq`
   }
 `;
 
-export const partnersByTypeQuery = groq`
-  *[_type == "partner" && partnerType == $type] | order(name asc) {
-    ${partnerFragment}
-  }
-`;
+

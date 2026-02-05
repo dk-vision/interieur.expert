@@ -26,7 +26,6 @@ async function createNewTestData() {
         slug: { _type: "slug", current: "test-partner" },
         description: "Test partner voor advertising demo's",
         website: "https://example.com",
-        partnerType: "advertiser",
         featured: false,
       });
       console.log("✓ Created test partner:", partner._id);

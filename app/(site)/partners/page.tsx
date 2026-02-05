@@ -12,7 +12,7 @@ export const revalidate = 0; // Force dynamic rendering
 export const metadata: Metadata = {
   title: "Onze Partners | Interieur.Expert",
   description:
-    "Ontdek onze partners in interieur en design. Premium merken en showrooms voor al uw interieurvragen.",
+    "Ontdek onze partners in interieur en design. Merken en showrooms voor al uw interieurvragen.",
 };
 
 interface Partner {
@@ -23,7 +23,6 @@ interface Partner {
   website: string;
   logo: any;
   brandColor?: string;
-  partnerType: "premium" | "campaign" | "affiliate";
   featured: boolean;
 }
 
@@ -33,9 +32,7 @@ export default async function PartnersPage() {
     client.fetch<Partner[]>(featuredPartnersQuery),
   ]);
 
-  const premiumPartners = allPartners.filter((p) => p.partnerType === "premium");
-  const campaignPartners = allPartners.filter((p) => p.partnerType === "campaign");
-  const affiliatePartners = allPartners.filter((p) => p.partnerType === "affiliate");
+  const nonFeaturedPartners = allPartners.filter((p) => !p.featured);
 
   return (
     <main>
@@ -61,54 +58,12 @@ export default async function PartnersPage() {
             </div>
           )}
 
-          {/* Premium Partners */}
-          {premiumPartners.length > 0 && (
-            <div className="mb-16">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="text-3xl">🌟</span>
-                <h2 className="text-2xl font-bold">Premium Partners</h2>
-              </div>
-              <p className="text-gray-600 mb-8">
-                Onze vaste partners die je continu inspireren met de nieuwste trends en tijdloze designs.
-              </p>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {premiumPartners.map((partner) => (
-                  <PartnerCard key={partner._id} partner={partner} compact />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Campaign Partners */}
-          {campaignPartners.length > 0 && (
-            <div className="mb-16">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="text-3xl">📅</span>
-                <h2 className="text-2xl font-bold">Campaign Partners</h2>
-              </div>
-              <p className="text-gray-600 mb-8">
-                Partners met actuele campagnes en speciale acties.
-              </p>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {campaignPartners.map((partner) => (
-                  <PartnerCard key={partner._id} partner={partner} compact />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Affiliate Partners */}
-          {affiliatePartners.length > 0 && (
+          {/* All Partners */}
+          {nonFeaturedPartners.length > 0 && (
             <div>
-              <div className="flex items-center gap-3 mb-6">
-                <span className="text-3xl">🤝</span>
-                <h2 className="text-2xl font-bold">Affiliate Partners</h2>
-              </div>
-              <p className="text-gray-600 mb-8">
-                Aanbevolen partners voor specifieke producten en diensten.
-              </p>
+              <h2 className="text-2xl font-bold mb-6">Alle Partners</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {affiliatePartners.map((partner) => (
+                {nonFeaturedPartners.map((partner) => (
                   <PartnerCard key={partner._id} partner={partner} compact />
                 ))}
               </div>

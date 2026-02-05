@@ -26,7 +26,6 @@ interface Partner {
   website: string;
   logo: any;
   brandColor?: string;
-  partnerType: "premium" | "campaign" | "affiliate";
   featured: boolean;
   socialMedia?: {
     instagram?: string;
@@ -74,12 +73,6 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
     ? urlForImage(partner.logo).width(200).height(200).url()
     : null;
 
-  const partnerTypeLabels = {
-    premium: "Premium Partner",
-    campaign: "Campaign Partner",
-    affiliate: "Affiliate Partner",
-  };
-
   return (
     <main>
       {/* Hero Section */}
@@ -111,9 +104,6 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
                       ⭐ Featured
                     </span>
                   )}
-                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm font-medium">
-                    {partnerTypeLabels[partner.partnerType]}
-                  </span>
                 </div>
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">
                   {partner.name}
