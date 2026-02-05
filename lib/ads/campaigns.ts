@@ -1,5 +1,6 @@
 import { groq } from "next-sanity";
-import { sanityFetch } from "@/lib/sanity/client";
+import { client } from "@/lib/sanity/client";
+import { unstable_noStore as noStore } from "next/cache";
 
 interface AdCampaign {
   _id: string;
@@ -49,12 +50,14 @@ export async function getActiveCampaign(
   category?: string,
   tags?: string[]
 ): Promise<AdCampaign | null> {
+  noStore(); // Opt out of caching for ad selection
+  
   try {
-    const campaigns = await sanityFetch<AdCampaign[]>({
-      query: activeCampaignsQuery,
-      params: { slot },
-      revalidate: 0, // Always fetch fresh data for ads
-    });
+    const campaigns = await client.fetch<AdCampaign[]>(
+      activeCampaignsQuery,
+      { slot },
+      { next: { revalidate: 0 } }
+    );
 
     if (!campaigns || campaigns.length === 0) {
       return null;
