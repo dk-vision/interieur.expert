@@ -119,6 +119,30 @@ export default defineType({
       description: "Enable/disable this campaign",
       initialValue: true,
     }),
+    defineField({
+      name: "maxImpressions",
+      title: "Maximum Impressions",
+      type: "number",
+      description: "Maximum number of times this ad can be shown (campaign stops when reached)",
+      validation: (Rule) => Rule.required().min(100),
+      initialValue: 1000,
+    }),
+    defineField({
+      name: "currentImpressions",
+      title: "Current Impressions",
+      type: "number",
+      description: "Number of times this ad has been shown (tracked automatically)",
+      initialValue: 0,
+      readOnly: true,
+    }),
+    defineField({
+      name: "impressionClicks",
+      title: "Clicks",
+      type: "number",
+      description: "Number of times users clicked this ad (tracked automatically)",
+      initialValue: 0,
+      readOnly: true,
+    }),
   ],
   preview: {
     select: {
@@ -127,8 +151,11 @@ export default defineType({
       active: "active",
       partnerName: "partner.name",
       campaignType: "campaignType",
+      currentImpressions: "currentImpressions",
+      maxImpressions: "maxImpressions",
+      impressionClicks: "impressionClicks",
     },
-    prepare({ title, slot, active, partnerName, campaignType }) {
+    prepare({ title, slot, active, partnerName, campaignType, currentImpressions = 0, maxImpressions = 1000, impressionClicks = 0 }) {
       const typeEmoji: Record<string, string> = {
         display: "📢",
         "sponsored-promo": "📝",
@@ -136,9 +163,12 @@ export default defineType({
         seasonal: "🎯",
       };
       
+      const progress = Math.round((currentImpressions / maxImpressions) * 100);
+      const ctr = currentImpressions > 0 ? ((impressionClicks / currentImpressions) * 100).toFixed(1) : "0.0";
+      
       return {
         title: active ? title : `⏸️ ${title}`,
-        subtitle: `${typeEmoji[campaignType || "display"]} ${slot} • ${partnerName || "No partner"}`,
+        subtitle: `${typeEmoji[campaignType || "display"]} ${slot} • ${partnerName || "No partner"} • ${currentImpressions}/${maxImpressions} (${progress}%) • CTR: ${ctr}%`,
       };
     },
   },

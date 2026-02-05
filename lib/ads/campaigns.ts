@@ -27,6 +27,7 @@ const activeCampaignsQuery = groq`
     && startDate <= now()
     && endDate >= now()
     && slot == $slot
+    && (currentImpressions < maxImpressions)
   ] {
     _id,
     title,
@@ -34,6 +35,8 @@ const activeCampaignsQuery = groq`
     priority,
     targetCategory,
     targetTags,
+    currentImpressions,
+    maxImpressions,
     "creative": creative->{
       title,
       format,
