@@ -241,7 +241,7 @@ export default async function DossierDetailPage({
 
                 {/* Sidebar */}
                 <aside className="w-full lg:w-80">
-                  <div className="sticky top-8 space-y-8">
+                  <div className="space-y-8">
                     <div className="bg-surface p-6 rounded-sm">
                       <h3 className="font-semibold mb-4">Over dit dossier</h3>
                       <div className="space-y-2 text-sm">
@@ -275,8 +275,10 @@ export default async function DossierDetailPage({
                       </div>
                     </div>
                     
-                    {/* Ad Slot - below info box */}
-                    <AdSlot position="listing-sidebar" />
+                    {/* Ad Slot - below info box, sticky */}
+                    <div className="sticky top-8">
+                      <AdSlot position="listing-sidebar" />
+                    </div>
                   </div>
                 </aside>
               </div>
