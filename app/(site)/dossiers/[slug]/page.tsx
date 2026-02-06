@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import Container from "@/components/layout/Container";
 import ContentWrapper from "@/components/layout/ContentWrapper";
 import Section from "@/components/layout/Section";
@@ -273,12 +274,13 @@ export default async function DossierDetailPage({
                         <div className="pt-4 border-t border-text/10">
                           <div className="flex flex-wrap gap-2">
                             {dossier.tags.map((tag) => (
-                              <span
+                              <Link
                                 key={tag}
-                                className="text-xs px-3 py-1.5 bg-text/5 hover:bg-text/10 rounded-full text-text/70 hover:text-text transition-colors cursor-pointer"
+                                href={`/tags/${encodeURIComponent(tag.toLowerCase())}`}
+                                className="text-xs px-3 py-1.5 bg-text/5 hover:bg-text/10 rounded-full text-text/70 hover:text-text transition-colors"
                               >
                                 {tag}
-                              </span>
+                              </Link>
                             ))}
                           </div>
                         </div>
