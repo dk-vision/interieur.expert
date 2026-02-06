@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import PlayIcon from "@/components/ui/PlayIcon";
 
 interface VideoThumbnailProps {
@@ -25,6 +25,7 @@ export default function VideoThumbnail({
   size = "grid",
   excerpt,
 }: VideoThumbnailProps) {
+  const router = useRouter();
   const [isHovering, setIsHovering] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -63,9 +64,9 @@ export default function VideoThumbnail({
   }, [isHovering, previewVideo]);
 
   return (
-    <Link 
-      href={href}
-      className="group block"
+    <div
+      onClick={() => router.push(href)}
+      className="group block cursor-pointer"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -131,6 +132,6 @@ export default function VideoThumbnail({
           </div>
         )}
       </div>
-    </Link>
+    </div>
   );
 }

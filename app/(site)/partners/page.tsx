@@ -3,7 +3,6 @@ import { client } from "@/lib/sanity/client";
 import { allPartnersQuery, featuredPartnersQuery } from "@/lib/sanity/queries";
 import { urlForImage } from "@/lib/sanity/image";
 import Image from "next/image";
-import Link from "next/link";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 
@@ -94,7 +93,7 @@ function PartnerCard({
 
   if (compact) {
     return (
-      <Link
+      <a
         href={`/partners/${partner.slug}`}
         className="group block bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all duration-200"
         style={
@@ -119,12 +118,12 @@ function PartnerCard({
           {partner.name}
         </h3>
         <p className="text-sm text-gray-600 line-clamp-2">{partner.description}</p>
-      </Link>
+      </a>
     );
   }
 
   return (
-    <Link
+    <a
       href={`/partners/${partner.slug}`}
       className="group block bg-white border-2 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-200"
       style={
@@ -160,6 +159,6 @@ function PartnerCard({
           <span className="inline-block group-hover:translate-x-1 transition-transform">→</span>
         </span>
       </div>
-    </Link>
+    </a>
   );
 }

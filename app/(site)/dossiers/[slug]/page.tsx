@@ -120,34 +120,17 @@ export default async function DossierDetailPage({
         </Container>
       </Section>
 
-      {/* Featured Image */}
-      {imageUrl && (
-        <Section spacing="md">
-          <Container size="layout">
-            <div className="aspect-video bg-surface rounded-sm overflow-hidden relative">
-              <Image
-                src={imageUrl}
-                alt={dossier.title}
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-          </Container>
-        </Section>
-      )}
-
       {/* Sponsors Section */}
-      {dossier.sponsors && dossier.sponsors.length > 0 && (
-        <Section spacing="sm">
+      {dossier.sponsors && dossier.sponsors.length > 0 && dossier.sponsors.filter(s => s).length > 0 && (
+        <div className="py-0">
           <Container size="layout">
-            <div className="bg-background border-t border-b border-text/10 py-8">
-              <div className="max-w-4xl mx-auto space-y-6">
+            <div>
+              <div className="max-w-4xl mx-auto space-y-2">
                 <p className="text-center text-sm text-text/60 uppercase tracking-wide">
                   Mogelijk gemaakt door
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-12">
-                  {dossier.sponsors.map((sponsor) => (
+                  {dossier.sponsors.filter(s => s).map((sponsor) => (
                     <a
                       key={sponsor._id}
                       href={sponsor.website}
@@ -166,6 +149,23 @@ export default async function DossierDetailPage({
                   ))}
                 </div>
               </div>
+            </div>
+          </Container>
+        </div>
+      )}
+
+      {/* Featured Image */}
+      {imageUrl && (
+        <Section spacing="md">
+          <Container size="layout">
+            <div className="aspect-video bg-surface rounded-sm overflow-hidden relative">
+              <Image
+                src={imageUrl}
+                alt={dossier.title}
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
           </Container>
         </Section>
@@ -203,9 +203,21 @@ export default async function DossierDetailPage({
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
                 {/* Content Grid */}
                 <div className="lg:col-span-8 space-y-12">
+                  {/* Articles Section */}
+                  {articleCards.length > 0 && (
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-semibold">Artikelen</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+                        {articleCards.map((card) => (
+                          <ContentCard key={card.href} {...card} />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Videos Section */}
                   {videos.length > 0 && (
                     <div className="space-y-6">
@@ -226,22 +238,10 @@ export default async function DossierDetailPage({
                       </div>
                     </div>
                   )}
-
-                  {/* Articles Section */}
-                  {articleCards.length > 0 && (
-                    <div className="space-y-6">
-                      <h3 className="text-xl font-semibold">Artikelen</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
-                        {articleCards.map((card) => (
-                          <ContentCard key={card.href} {...card} />
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
 
                 {/* Sidebar */}
-                <aside className="lg:col-span-4">
+                <aside className="lg:col-span-4 self-start">
                   <div className="space-y-8">
                     <div className="bg-background border border-text/10 rounded-sm p-6 space-y-4">
                       <h3 className="text-sm font-semibold uppercase tracking-wide text-text/60">
@@ -249,12 +249,6 @@ export default async function DossierDetailPage({
                       </h3>
                       
                       <div className="space-y-3 text-sm text-text/70">
-                        {dossier.themes && dossier.themes.length > 0 && (
-                          <div className="flex justify-between">
-                            <span>Thema's</span>
-                            <span className="text-text">{dossier.themes.join(", ")}</span>
-                          </div>
-                        )}
                         <div className="flex justify-between">
                           <span>Gepubliceerd</span>
                           <time className="text-text">
@@ -270,16 +264,16 @@ export default async function DossierDetailPage({
                         </div>
                       </div>
                       
-                      {dossier.tags && dossier.tags.length > 0 && (
+                      {dossier.themes && dossier.themes.length > 0 && (
                         <div className="pt-4 border-t border-text/10">
                           <div className="flex flex-wrap gap-2">
-                            {dossier.tags.map((tag) => (
+                            {dossier.themes.map((theme) => (
                               <Link
-                                key={tag}
-                                href={`/tags/${encodeURIComponent(tag.toLowerCase())}`}
+                                key={theme}
+                                href={`/tags/${encodeURIComponent(theme.toLowerCase())}`}
                                 className="text-xs px-3 py-1.5 bg-text/5 hover:bg-text/10 rounded-full text-text/70 hover:text-text transition-colors"
                               >
-                                {tag}
+                                {theme}
                               </Link>
                             ))}
                           </div>

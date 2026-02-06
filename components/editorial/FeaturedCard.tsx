@@ -1,4 +1,6 @@
-import Link from "next/link";
+"use client";
+
+import { useRouter } from "next/navigation";
 import MetaRow from "./MetaRow";
 import Pill from "@/components/ui/Pill";
 import Image from "next/image";
@@ -26,10 +28,12 @@ export default function FeaturedCard({
   isSponsored = false,
   image,
 }: FeaturedCardProps) {
+  const router = useRouter();
+  
   return (
-    <Link
-      href={href}
-      className="group block hover:opacity-90 transition-opacity"
+    <div
+      onClick={() => router.push(href)}
+      className="group block hover:opacity-90 transition-opacity cursor-pointer"
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
         {/* Image */}
@@ -68,6 +72,6 @@ export default function FeaturedCard({
           <p className="text-lg text-text/70 leading-relaxed">{excerpt}</p>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

@@ -186,12 +186,12 @@ export default async function ArtikelPage({ params }: PageProps) {
                     
                     <div className="space-y-6">
                       {relatedArticles.slice(0, 3).map((related) => (
-                        <Link
+                        <a
                           key={related._id}
                           href={`/${related.category}/${related.slug}`}
                           className="group block"
                         >
-                          <article className="space-y-3">
+                          <div className="space-y-3">
                             {related.featuredImage && (
                               <div className="aspect-[16/10] bg-background overflow-hidden rounded-sm">
                                 <img
@@ -222,8 +222,8 @@ export default async function ArtikelPage({ params }: PageProps) {
                                 </p>
                               )}
                             </div>
-                          </article>
-                        </Link>
+                          </div>
+                        </a>
                       ))}
                     </div>
                   </div>

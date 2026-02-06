@@ -2,6 +2,11 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
+  // Only run auth in production
+  if (process.env.NODE_ENV !== 'production') {
+    return NextResponse.next();
+  }
+
   // Skip auth for Sanity Studio
   if (request.nextUrl.pathname.startsWith('/studio')) {
     return NextResponse.next();
@@ -13,7 +18,6 @@ export function middleware(request: NextRequest) {
   }
 
   const basicAuth = request.headers.get('authorization');
-  const url = request.nextUrl;
 
   if (basicAuth) {
     const authValue = basicAuth.split(' ')[1];

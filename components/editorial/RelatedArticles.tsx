@@ -1,4 +1,6 @@
-import Link from "next/link";
+"use client";
+
+import { useRouter } from "next/navigation";
 import { urlForImage } from "@/lib/sanity/image";
 
 interface Article {
@@ -17,6 +19,8 @@ interface RelatedArticlesProps {
 }
 
 export default function RelatedArticles({ articles }: RelatedArticlesProps) {
+  const router = useRouter();
+  
   if (!articles || articles.length === 0) {
     return null;
   }
@@ -29,10 +33,10 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
       
       <div className="grid md:grid-cols-3 gap-8">
         {articles.map((article) => (
-          <Link
+          <div
             key={article._id}
-            href={`/${article.category || 'artikels'}/${article.slug}`}
-            className="group"
+            onClick={() => router.push(`/${article.category || 'artikels'}/${article.slug}`)}
+            className="group cursor-pointer"
           >
             <article className="space-y-4">
               {article.featuredImage && (
@@ -70,7 +74,7 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
                 )}
               </div>
             </article>
-          </Link>
+          </div>
         ))}
       </div>
     </section>
