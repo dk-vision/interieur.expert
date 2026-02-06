@@ -6,6 +6,7 @@ import ContentWrapper from "@/components/layout/ContentWrapper";
 import Section from "@/components/layout/Section";
 import MetaRow from "@/components/editorial/MetaRow";
 import ContentCard from "@/components/editorial/ContentCard";
+import VideoThumbnail from "@/components/video/VideoThumbnail";
 import AdSlot from "@/components/ads/AdSlot";
 import PortableText from "@/components/editorial/PortableText";
 import { getDossierBySlug } from "@/lib/content";
@@ -61,37 +62,33 @@ export default async function DossierDetailPage({
         .url()
     : null;
 
-  // Get content card data for articles (filter out null references)
-  const articleCards = dossier.articles
-    ? dossier.articles
-        .filter((article) => article !== null)
-        .map((article) => ({
-          title: article.title,
-          excerpt: article.excerpt,
-          href:
-            article._type === "article"
-              ? `/${article.category || 'artikels'}/${article.slug}`
-              : `/video/${article.slug}`,
-          type: article._type as "article" | "video",
-          category: article.category,
-          tags: article.tags,
-          publishedAt: new Date(article.publishedAt).toLocaleDateString("nl-NL", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          }),
-          isSponsored: article.sponsored,
-          partnerName: article.partner?.name,
-          partnerUrl: article.partner?.website,
-          image:
-            article._type === "article" && article.featuredImage
-              ? urlForImage(article.featuredImage).width(800).url()
-              : article._type === "video" && article.thumbnail
-                ? urlForImage(article.thumbnail).width(800).url()
-                : undefined,
-          readingTime: "readingTime" in article ? article.readingTime : undefined,
-        }))
-    : [];
+  // Separate articles and videos (filter out null references)
+  const validContent = dossier.articles ? dossier.articles.filter((item) => item !== null) : [];
+  
+  const articles = validContent.filter((item) => item._type === "article");
+  const videos = validContent.filter((item) => item._type === "video");
+
+  // Get content card data for articles
+  const articleCards = articles.map((article) => ({
+    title: article.title,
+    excerpt: article.excerpt,
+    href: `/${article.category || 'artikels'}/${article.slug}`,
+    type: "article" as const,
+    category: article.category,
+    tags: article.tags,
+    publishedAt: new Date(article.publishedAt).toLocaleDateString("nl-NL", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+    isSponsored: article.sponsored,
+    partnerName: article.partner?.name,
+    partnerUrl: article.partner?.website,
+    image: article.featuredImage
+      ? urlForImage(article.featuredImage).width(800).url()
+      : undefined,
+    readingTime: article.readingTime,
+  }));
 
   return (
     <article>
@@ -186,29 +183,60 @@ export default async function DossierDetailPage({
         </Section>
       )}
 
-      {/* Related Articles */}
-      {articleCards.length > 0 && (
+      {/* Content Section */}
+      {(articleCards.length > 0 || videos.length > 0) && (
         <Section spacing="lg">
           <Container>
             <div className="space-y-8">
               <div className="border-t border-text/10 pt-8">
                 <h2 className="text-2xl font-semibold mb-2">
-                  Artikelen in dit dossier
+                  Inhoud van dit dossier
                 </h2>
                 <p className="text-text/70">
-                  {articleCards.length}{" "}
-                  {articleCards.length === 1 ? "artikel" : "artikelen"}
+                  {articleCards.length} {articleCards.length === 1 ? "artikel" : "artikelen"}
+                  {videos.length > 0 && (
+                    <>
+                      {" "}&bull; {videos.length} {videos.length === 1 ? "video" : "video's"}
+                    </>
+                  )}
                 </p>
               </div>
 
               <div className="flex flex-col lg:flex-row gap-8">
-                {/* Articles Grid */}
-                <div className="flex-1">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
-                    {articleCards.map((card) => (
-                      <ContentCard key={card.href} {...card} />
-                    ))}
-                  </div>
+                {/* Content Grid */}
+                <div className="flex-1 space-y-12">
+                  {/* Videos Section */}
+                  {videos.length > 0 && (
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-semibold">Video's</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
+                        {videos.map((video) => (
+                          <VideoThumbnail
+                            key={video._id}
+                            href={`/video/${video.slug}`}
+                            title={video.title}
+                            thumbnail={urlForImage(video.thumbnail).width(640).height(360).url()}
+                            previewVideo={(video as any).previewVideoUrl}
+                            duration={video.duration}
+                            publishedAt={new Date(video.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                            size="grid"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Articles Section */}
+                  {articleCards.length > 0 && (
+                    <div className="space-y-6">
+                      <h3 className="text-xl font-semibold">Artikelen</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+                        {articleCards.map((card) => (
+                          <ContentCard key={card.href} {...card} />
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Sidebar */}

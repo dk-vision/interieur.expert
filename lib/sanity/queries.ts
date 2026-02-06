@@ -102,6 +102,8 @@ const dossierFields = groq`
     thumbnail,
     readingTime,
     sponsored,
+    duration,
+    "previewVideoUrl": previewVideo.asset->url,
     "partner": partner->{
       name,
       "slug": slug.current,
