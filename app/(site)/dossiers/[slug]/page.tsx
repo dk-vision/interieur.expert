@@ -202,7 +202,7 @@ export default async function DossierDetailPage({
                 </p>
               </div>
 
-              <div className="flex flex-col lg:flex-row gap-8">
+              <div className="flex flex-col lg:flex-row lg:items-start gap-8">
                 {/* Content Grid */}
                 <div className="flex-1 space-y-12">
                   {/* Videos Section */}
