@@ -99,7 +99,14 @@ const dossierFields = groq`
     tags,
     publishedAt,
     featuredImage,
-    readingTime
+    thumbnail,
+    readingTime,
+    sponsored,
+    "partner": partner->{
+      name,
+      "slug": slug.current,
+      website
+    }
   }
 `;
 
