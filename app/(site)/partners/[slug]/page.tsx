@@ -72,7 +72,7 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
   }
 
   const logoUrl = partner.logo
-    ? urlForImage(partner.logo).width(200).height(200).url()
+    ? urlForImage(partner.logo).width(400).url()
     : null;
 
   return (
@@ -84,7 +84,7 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
             <div className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-8">
               {logoUrl && (
                 <div
-                  className="w-32 h-32 relative flex-shrink-0 bg-white rounded-lg border-2 p-4"
+                  className="w-32 h-32 relative flex-shrink-0 bg-white rounded-lg border-2 flex items-center justify-center overflow-hidden"
                   style={
                     partner.brandColor
                       ? { borderColor: partner.brandColor }
@@ -95,7 +95,7 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
                     src={logoUrl}
                     alt={partner.name}
                     fill
-                    className="object-contain p-2"
+                    className="object-contain p-4"
                   />
                 </div>
               )}

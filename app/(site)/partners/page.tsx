@@ -89,7 +89,7 @@ function PartnerCard({
   featured?: boolean;
   compact?: boolean;
 }) {
-  const imageUrl = partner.logo ? urlForImage(partner.logo).width(400).height(400).url() : null;
+  const imageUrl = partner.logo ? urlForImage(partner.logo).width(800).url() : null;
 
   if (compact) {
     return (
@@ -104,13 +104,13 @@ function PartnerCard({
             : undefined
         }
       >
-        <div className="aspect-square relative mb-4 bg-gray-50 rounded-lg overflow-hidden">
+        <div className="aspect-square relative mb-4 bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center p-4">
           {imageUrl && (
             <Image
               src={imageUrl}
               alt={partner.name}
               fill
-              className="object-contain p-4 group-hover:scale-105 transition-transform duration-200"
+              className="object-contain group-hover:scale-105 transition-transform duration-200"
             />
           )}
         </div>
@@ -134,13 +134,13 @@ function PartnerCard({
           : undefined
       }
     >
-      <div className="aspect-video relative bg-gray-50">
+      <div className="aspect-video relative bg-gray-50 flex items-center justify-center p-8">
         {imageUrl && (
           <Image
             src={imageUrl}
             alt={partner.name}
             fill
-            className="object-contain p-8 group-hover:scale-105 transition-transform duration-200"
+            className="object-contain group-hover:scale-105 transition-transform duration-200"
           />
         )}
         {featured && (
