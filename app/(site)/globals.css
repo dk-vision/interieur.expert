@@ -12,6 +12,9 @@
   
   --width-content: 720px;
   --width-layout: 1280px;
+  
+  --max-width-content: 720px;
+  --max-width-layout: 1280px;
 }
 
 @layer base {

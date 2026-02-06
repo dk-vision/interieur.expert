@@ -16,9 +16,10 @@ import { urlForImage } from "@/lib/sanity/image";
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const dossier = await getDossierBySlug(params.slug);
+  const { slug } = await params;
+  const dossier = await getDossierBySlug(slug);
 
   if (!dossier) {
     return {
@@ -48,9 +49,10 @@ export async function generateMetadata({
 export default async function DossierDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const dossier = await getDossierBySlug(params.slug);
+  const { slug } = await params;
+  const dossier = await getDossierBySlug(slug);
 
   if (!dossier) {
     notFound();
@@ -121,7 +123,7 @@ export default async function DossierDetailPage({
       </Section>
 
       {/* Sponsors Section */}
-      {dossier.sponsors && dossier.sponsors.length > 0 && dossier.sponsors.filter(s => s).length > 0 && (
+      {dossier.sponsors?.filter(s => s && s.logo).length > 0 && (
         <div className="py-0">
           <Container size="layout">
             <div>
@@ -241,7 +243,7 @@ export default async function DossierDetailPage({
                 </div>
 
                 {/* Sidebar */}
-                <aside className="lg:col-span-4 self-start">
+                <aside className="lg:col-span-4">
                   <div className="space-y-8">
                     <div className="bg-background border border-text/10 rounded-sm p-6 space-y-4">
                       <h3 className="text-sm font-semibold uppercase tracking-wide text-text/60">
@@ -281,8 +283,8 @@ export default async function DossierDetailPage({
                       )}
                     </div>
                     
-                    {/* Ad Slot - below info box, sticky */}
-                    <div className="sticky top-8">
+                    {/* Ad Slot - below info box */}
+                    <div>
                       <AdSlot position="listing-sidebar" />
                     </div>
                   </div>

@@ -12,9 +12,9 @@ import ContentCard from "@/components/editorial/ContentCard";
 import { ExternalLink, Instagram, Facebook } from "lucide-react";
 
 interface PartnerPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 interface Partner {
@@ -44,8 +44,9 @@ interface Partner {
 export async function generateMetadata({
   params,
 }: PartnerPageProps): Promise<Metadata> {
+  const { slug } = await params;
   const partner = await client.fetch<Partner>(partnerBySlugQuery, {
-    slug: params.slug,
+    slug,
   });
 
   if (!partner) {
@@ -61,8 +62,9 @@ export async function generateMetadata({
 }
 
 export default async function PartnerPage({ params }: PartnerPageProps) {
+  const { slug } = await params;
   const partner = await client.fetch<Partner>(partnerBySlugQuery, {
-    slug: params.slug,
+    slug,
   });
 
   if (!partner) {
