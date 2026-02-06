@@ -1,6 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-background: #F6F4F1;
+  --color-text: #2A2A2A;
+  --color-accent: #0000ff;
+  --color-brand: #ff6666;
+  
+  --font-family-heading: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-family-sans: system-ui, -apple-system, sans-serif;
+  
+  --width-content: 720px;
+  --width-layout: 1280px;
+}
 
 @layer base {
   h1, h2, h3, h4, h5, h6 {
@@ -9,7 +21,10 @@
   
   body {
     font-family: var(--font-inter), system-ui, sans-serif;
-    @apply bg-background text-text antialiased;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   blockquote {

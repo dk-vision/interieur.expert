@@ -4,9 +4,9 @@ import { sanityFetch } from '@/lib/sanity/client';
 // Redirect old /artikels/[slug] URLs to new /[category]/[slug] URLs
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
-  const { slug } = params;
+  const { slug } = await params;
 
   try {
     // Fetch the article to get its category

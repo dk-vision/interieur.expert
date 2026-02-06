@@ -138,13 +138,13 @@ export default async function DossierDetailPage({
                       rel="noopener noreferrer"
                       className="opacity-70 hover:opacity-100 transition-opacity"
                     >
-                      {sponsor.logo && (
+                      {sponsor.logo ? (
                         <img
                           src={urlForImage(sponsor.logo).width(200).height(80).fit("max").url()}
                           alt={sponsor.name}
                           className="h-12 w-auto object-contain"
                         />
-                      )}
+                      ) : null}
                     </a>
                   ))}
                 </div>

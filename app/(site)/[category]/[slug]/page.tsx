@@ -192,7 +192,7 @@ export default async function ArtikelPage({ params }: PageProps) {
                           className="group block"
                         >
                           <div className="space-y-3">
-                            {related.featuredImage && (
+                            {related.featuredImage ? (
                               <div className="aspect-[16/10] bg-background overflow-hidden rounded-sm">
                                 <img
                                   src={urlForImage(related.featuredImage)
@@ -203,7 +203,7 @@ export default async function ArtikelPage({ params }: PageProps) {
                                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                 />
                               </div>
-                            )}
+                            ) : null}
                             
                             <div className="space-y-2">
                               {related.category && (

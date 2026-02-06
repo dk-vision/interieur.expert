@@ -1,5 +1,7 @@
 import type { PortableTextBlock } from "next-sanity";
-import { SanityImageSource } from "@sanity/image-url/lib/types/types";
+
+// Sanity image source type
+export type SanityImageSource = any;
 
 // Base content types
 export interface Partner {
