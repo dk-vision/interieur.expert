@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import MetaRow from "./MetaRow";
 import Pill from "@/components/ui/Pill";
@@ -148,12 +147,15 @@ export default function ContentCard({
               Mogelijk gemaakt door{" "}
               {sponsors.map((sponsor, idx) => (
                 <span key={sponsor.slug}>
-                  <Link 
-                    href={`/partners/${sponsor.slug}`}
-                    className="font-medium text-[#dc2626] hover:underline"
+                  <span
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(`/partners/${sponsor.slug}`);
+                    }}
+                    className="font-medium text-[#dc2626] hover:underline cursor-pointer"
                   >
                     {sponsor.name}
-                  </Link>
+                  </span>
                   {idx < sponsors.length - 1 && ", "}
                 </span>
               ))}
@@ -172,15 +174,18 @@ export default function ContentCard({
           {tags && tags.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {tags.map((tag) => (
-                <Link 
-                  key={tag} 
-                  href={`/tags/${encodeURIComponent(tag.toLowerCase())}`}
-                  className="hover:scale-105 transition-transform"
+                <span 
+                  key={tag}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push(`/tags/${encodeURIComponent(tag.toLowerCase())}`);
+                  }}
+                  className="hover:scale-105 transition-transform cursor-pointer"
                 >
                   <Pill variant="subtle" size="sm">
                     {tag}
                   </Pill>
-                </Link>
+                </span>
               ))}
             </div>
           )}
