@@ -327,7 +327,7 @@ sidebar: [
 
 **Partner Pagina Content:**
 ```
-# XOOON - Modern Nederlands design
+# XOOON - Modern design
 
 XOOON staat voor eigentijds design met een stoere, industriële twist. 
 Hun collectie combineert robuuste materialen met verfijnde details - 
@@ -342,7 +342,7 @@ perfect voor wie karakter in hun interieur wil.
 ## Collecties
 - Meubels voor elke ruimte
 - Duurzame materialen
-- Nederlandse producten
+- Europese producten
 
 ## Gesponsorde Artikelen
 [Grid met alle XOOON-gesponsorde artikelen]

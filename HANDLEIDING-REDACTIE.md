@@ -392,7 +392,7 @@ Partners zijn de bedrijven of organisaties die adverteren op het platform.
 
 1. **Partner Name**
    - Officiële naam van het bedrijf
-   - Voorbeeld: "Lumina Lighting", "IKEA Nederland"
+   - Voorbeeld: "Lumina Lighting", "IKEA België"
 
 2. **Website URL**
    - Volledige website URL
@@ -1067,7 +1067,7 @@ Interieur.expert werkt met partners (sponsors) zonder type-indeling. Elke partne
 
 **Description**: Korte beschrijving (max 200 karakters)
 - Voor partner overzichtspagina en preview
-- Voorbeeld: "Modern Nederlands design met industriële twist. Robuuste materialen en verfijnde details."
+- Voorbeeld: "Modern design met industriële twist. Robuuste materialen en verfijnde details."
 
 **Website URL**: Link naar partner website
 - Moet starten met https://

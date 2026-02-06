@@ -55,7 +55,7 @@ Ga naar **Sanity Studio → Content → Partner → Create New**
 ```
 Name: XOOON
 Slug: xooon
-Description: Modern Nederlands design met industriële twist. 
+Description: Modern design met industriële twist. 
 Robuuste materialen en verfijnde details voor karaktervol interieur.
 Website: https://www.xooon.nl
 Featured: Yes

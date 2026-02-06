@@ -23,7 +23,7 @@ async function createTestPartner() {
       current: "xooon",
     },
     description:
-      "Nederlands design merk voor eigenzinnig woonplezier. Stijlvolle meubels die jouw persoonlijkheid weerspiegelen.",
+      "Design merk voor eigenzinnig woonplezier. Stijlvolle meubels die jouw persoonlijkheid weerspiegelen.",
     about: [
       {
         _type: "block",
@@ -31,7 +31,7 @@ async function createTestPartner() {
         children: [
           {
             _type: "span",
-            text: "XOOON is een Nederlands design merk dat staat voor eigenzinnig woonplezier. Met een unieke mix van industrieel, stoer en warm design, bieden wij meubels die perfect passen bij mensen die hun eigen pad kiezen.",
+            text: "XOOON is een design merk dat staat voor eigenzinnig woonplezier. Met een unieke mix van industrieel, stoer en warm design, bieden wij meubels die perfect passen bij mensen die hun eigen pad kiezen.",
           },
         ],
       },
