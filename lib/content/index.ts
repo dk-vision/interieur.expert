@@ -36,7 +36,7 @@ function toContentCardData(
     excerpt: content.excerpt,
     href:
       content._type === "article"
-        ? `/artikels/${content.slug}`
+        ? `/${content.category || 'artikels'}/${content.slug}`
         : content._type === "video"
           ? `/video/${content.slug}`
           : `/dossiers/${content.slug}`,

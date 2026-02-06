@@ -213,7 +213,7 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
                     key={article._id}
                     title={article.title}
                     excerpt={article.excerpt}
-                    href={`/artikels/${article.slug}`}
+                    href={`/${article.category || 'artikels'}/${article.slug}`}
                     type="article"
                     category={article.category}
                     tags={article.tags}

@@ -73,7 +73,7 @@ export default async function TagPage({
                 <ContentCard
                   title={article.title}
                   excerpt={article.excerpt}
-                  href={`/artikels/${article.slug}`}
+                  href={`/${article.category || 'artikels'}/${article.slug}`}
                   type="article"
                   category={article.category}
                   tags={article.tags}

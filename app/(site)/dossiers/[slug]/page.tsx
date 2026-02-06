@@ -68,7 +68,7 @@ export default async function DossierDetailPage({
         excerpt: article.excerpt,
         href:
           article._type === "article"
-            ? `/artikels/${article.slug}`
+            ? `/${article.category || 'artikels'}/${article.slug}`
             : `/video/${article.slug}`,
         type: article._type as "article" | "video",
         category: article.category,

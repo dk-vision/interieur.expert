@@ -7,6 +7,7 @@ export async function GET(request: NextRequest) {
   const secret = searchParams.get("secret");
   const slug = searchParams.get("slug");
   const type = searchParams.get("type");
+  const category = searchParams.get("category");
 
   // Verify secret
   if (secret !== process.env.DRAFT_SECRET) {
@@ -25,7 +26,7 @@ export async function GET(request: NextRequest) {
   let path = "/";
   switch (type) {
     case "article":
-      path = `/artikels/${slug}`;
+      path = `/${category || 'artikels'}/${slug}`;
       break;
     case "video":
       path = `/video/${slug}`;

@@ -49,7 +49,8 @@ const articleFields = groq`
       _type == "internalArticleLink" => {
         ...,
         "reference": reference->{
-          "slug": slug
+          "slug": slug,
+          category
         }
       }
     }

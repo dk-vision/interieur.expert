@@ -68,7 +68,7 @@ export default async function TrendsPage() {
                 key={featuredArticle._id}
                 title={featuredArticle.title}
                 excerpt={featuredArticle.excerpt}
-                href={`/artikels/${featuredArticle.slug}`}
+                href={`/${featuredArticle.category || 'artikels'}/${featuredArticle.slug}`}
                 type="article"
                 category={featuredArticle.category}
                 publishedAt={new Date(featuredArticle.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
@@ -92,7 +92,7 @@ export default async function TrendsPage() {
                       key={article._id}
                       title={article.title}
                       excerpt={article.excerpt}
-                      href={`/artikels/${article.slug}`}
+                      href={`/${article.category || 'artikels'}/${article.slug}`}
                       type="article"
                       category={article.category}
                       publishedAt={new Date(article.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}

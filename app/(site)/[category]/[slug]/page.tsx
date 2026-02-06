@@ -16,11 +16,11 @@ import type { Article } from "@/lib/content/types";
 import { calculateReadingTime } from "@/lib/utils/reading-time";
 
 interface PageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ category: string; slug: string }>;
 }
 
 export default async function ArtikelPage({ params }: PageProps) {
-  const { slug } = await params;
+  const { category, slug } = await params;
   
   // Fetch article data
   const article = await sanityFetch<Article>({
@@ -29,6 +29,11 @@ export default async function ArtikelPage({ params }: PageProps) {
   });
 
   if (!article) {
+    notFound();
+  }
+
+  // Verify the category matches (redirect if wrong category)
+  if (article.category && article.category !== category) {
     notFound();
   }
 
@@ -181,7 +186,7 @@ export default async function ArtikelPage({ params }: PageProps) {
                       {relatedArticles.slice(0, 3).map((related) => (
                         <Link
                           key={related._id}
-                          href={`/artikels/${related.slug}`}
+                          href={`/${related.category}/${related.slug}`}
                           className="group block"
                         >
                           <article className="space-y-3">

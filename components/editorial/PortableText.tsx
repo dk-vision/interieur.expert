@@ -22,6 +22,7 @@ interface InternalArticleLinkValueProps {
     slug?: {
       current?: string;
     };
+    category?: string;
   };
 }
 
@@ -115,11 +116,12 @@ const components: PortableTextComponents = {
     },
     internalArticleLink: ({ children, value }: BaseComponentProps & { value?: InternalArticleLinkValueProps }) => {
       const slug = value?.reference?.slug?.current;
+      const category = value?.reference?.category;
       if (!slug) return <span>{children}</span>;
       
       return (
         <Link 
-          href={`/artikels/${slug}`}
+          href={`/${category || 'artikels'}/${slug}`}
           className="text-accent hover:underline font-medium border-b-2 border-accent/30 hover:border-accent transition-colors"
         >
           {children}

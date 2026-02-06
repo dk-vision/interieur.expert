@@ -31,7 +31,7 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
         {articles.map((article) => (
           <Link
             key={article._id}
-            href={`/artikels/${article.slug}`}
+            href={`/${article.category || 'artikels'}/${article.slug}`}
             className="group"
           >
             <article className="space-y-4">

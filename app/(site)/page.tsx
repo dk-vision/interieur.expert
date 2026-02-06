@@ -76,7 +76,7 @@ export default async function HomePage() {
               <FeaturedCard
                 title={featuredArticle.title}
                 excerpt={featuredArticle.excerpt}
-                href={`/artikels/${featuredArticle.slug}`}
+                href={`/${featuredArticle.category || 'artikels'}/${featuredArticle.slug}`}
                 type="article"
                 category={featuredArticle.category}
                 publishedAt={new Date(featuredArticle.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
@@ -112,7 +112,7 @@ export default async function HomePage() {
                       key={latestArticles[0]._id}
                       title={latestArticles[0].title}
                       excerpt={latestArticles[0].excerpt}
-                      href={`/artikels/${latestArticles[0].slug}`}
+                      href={`/${latestArticles[0].category || 'artikels'}/${latestArticles[0].slug}`}
                       type="article"
                       category={latestArticles[0].category}
                       publishedAt={new Date(latestArticles[0].publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
@@ -132,7 +132,7 @@ export default async function HomePage() {
                       key={article._id}
                       title={article.title}
                       excerpt={article.excerpt}
-                      href={`/artikels/${article.slug}`}
+                      href={`/${article.category || 'artikels'}/${article.slug}`}
                       type="article"
                       category={article.category}
                       publishedAt={new Date(article.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
@@ -151,7 +151,7 @@ export default async function HomePage() {
                       key={latestArticles[3]._id}
                       title={latestArticles[3].title}
                       excerpt={latestArticles[3].excerpt}
-                      href={`/artikels/${latestArticles[3].slug}`}
+                      href={`/${latestArticles[3].category || 'artikels'}/${latestArticles[3].slug}`}
                       type="article"
                       category={latestArticles[3].category}
                       publishedAt={new Date(latestArticles[3].publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
@@ -171,7 +171,7 @@ export default async function HomePage() {
                       key={article._id}
                       title={article.title}
                       excerpt={article.excerpt}
-                      href={`/artikels/${article.slug}`}
+                      href={`/${article.category || 'artikels'}/${article.slug}`}
                       type="article"
                       category={article.category}
                       publishedAt={new Date(article.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
@@ -195,7 +195,7 @@ export default async function HomePage() {
                       key={article._id}
                       title={article.title}
                       excerpt={article.excerpt}
-                      href={`/artikels/${article.slug}`}
+                      href={`/${article.category || 'artikels'}/${article.slug}`}
                       type="article"
                       category={article.category}
                       publishedAt={new Date(article.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}

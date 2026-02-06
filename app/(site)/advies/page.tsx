@@ -65,7 +65,7 @@ export default async function AdviesPage() {
                 key={articles[0]._id}
                 title={articles[0].title}
                 excerpt={articles[0].excerpt}
-                href={`/artikels/${articles[0].slug}`}
+                href={`/${articles[0].category || 'artikels'}/${articles[0].slug}`}
                 type="article"
                 category={articles[0].category}
                 publishedAt={new Date(articles[0].publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
@@ -89,7 +89,7 @@ export default async function AdviesPage() {
                       key={article._id}
                       title={article.title}
                       excerpt={article.excerpt}
-                      href={`/artikels/${article.slug}`}
+                      href={`/${article.category || 'artikels'}/${article.slug}`}
                       type="article"
                       category={article.category}
                       publishedAt={new Date(article.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}

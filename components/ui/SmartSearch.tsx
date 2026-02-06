@@ -95,7 +95,7 @@ export default function SmartSearch() {
   const navigateToResult = (result: SearchResult) => {
     const path =
       result._type === "article"
-        ? `/artikels/${result.slug.current}`
+        ? `/${result.category || 'artikels'}/${result.slug.current}`
         : `/video/${result.slug.current}`;
     router.push(path);
     setIsOpen(false);
