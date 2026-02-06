@@ -61,34 +61,36 @@ export default async function DossierDetailPage({
         .url()
     : null;
 
-  // Get content card data for articles
+  // Get content card data for articles (filter out null references)
   const articleCards = dossier.articles
-    ? dossier.articles.map((article) => ({
-        title: article.title,
-        excerpt: article.excerpt,
-        href:
-          article._type === "article"
-            ? `/${article.category || 'artikels'}/${article.slug}`
-            : `/video/${article.slug}`,
-        type: article._type as "article" | "video",
-        category: article.category,
-        tags: article.tags,
-        publishedAt: new Date(article.publishedAt).toLocaleDateString("nl-NL", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        }),
-        isSponsored: article.sponsored,
-        partnerName: article.partner?.name,
-        partnerUrl: article.partner?.website,
-        image:
-          article._type === "article" && article.featuredImage
-            ? urlForImage(article.featuredImage).width(800).url()
-            : article._type === "video" && article.thumbnail
-              ? urlForImage(article.thumbnail).width(800).url()
-              : undefined,
-        readingTime: "readingTime" in article ? article.readingTime : undefined,
-      }))
+    ? dossier.articles
+        .filter((article) => article !== null)
+        .map((article) => ({
+          title: article.title,
+          excerpt: article.excerpt,
+          href:
+            article._type === "article"
+              ? `/${article.category || 'artikels'}/${article.slug}`
+              : `/video/${article.slug}`,
+          type: article._type as "article" | "video",
+          category: article.category,
+          tags: article.tags,
+          publishedAt: new Date(article.publishedAt).toLocaleDateString("nl-NL", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          }),
+          isSponsored: article.sponsored,
+          partnerName: article.partner?.name,
+          partnerUrl: article.partner?.website,
+          image:
+            article._type === "article" && article.featuredImage
+              ? urlForImage(article.featuredImage).width(800).url()
+              : article._type === "video" && article.thumbnail
+                ? urlForImage(article.thumbnail).width(800).url()
+                : undefined,
+          readingTime: "readingTime" in article ? article.readingTime : undefined,
+        }))
     : [];
 
   return (
