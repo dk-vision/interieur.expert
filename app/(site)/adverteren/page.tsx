@@ -369,6 +369,45 @@ export default function AdverterenPage() {
             </div>
           </div>
 
+          {/* Documentation Links for Partners */}
+          <div className="mb-16 bg-blue-50 border border-blue-200 p-8 rounded-lg">
+            <h2 className="text-2xl font-bold mb-4">📚 Documentatie voor Partners</h2>
+            <p className="text-text/70 mb-6">
+              Ben je al partner of wil je meer details over onze advertising mogelijkheden? 
+              Download onze uitgebreide handleidingen:
+            </p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <a
+                href="https://github.com/dk-vision/interieur.expert/blob/main/ADVERTISING-GUIDE.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 bg-white border border-blue-300 rounded-lg hover:border-blue-500 hover:shadow-md transition-all"
+              >
+                <div className="text-3xl">💼</div>
+                <div>
+                  <div className="font-semibold text-lg">Advertising Guide</div>
+                  <div className="text-sm text-text/70">
+                    Display ads, sponsored content, pricing & voorbeelden
+                  </div>
+                </div>
+              </a>
+              <a
+                href="https://github.com/dk-vision/interieur.expert/blob/main/HANDLEIDING-REDACTIE.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-4 bg-white border border-blue-300 rounded-lg hover:border-blue-500 hover:shadow-md transition-all"
+              >
+                <div className="text-3xl">✍️</div>
+                <div>
+                  <div className="font-semibold text-lg">Redactie Handleiding</div>
+                  <div className="text-sm text-text/70">
+                    CMS handleiding voor content makers
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+
           {/* Benefits Summary */}
           <div className="border-t pt-12">
             <h2 className="text-3xl font-bold mb-6 text-center">
