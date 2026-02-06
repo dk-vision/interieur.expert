@@ -118,10 +118,12 @@ export default async function ArtikelPage({ params }: PageProps) {
                 <PortableText value={article.body} />
               </ArticleBody>
               
-              {/* Inline Ad Banner */}
-              <div className="my-12">
-                <AdSlot position="article-inline" category={article.category} tags={article.tags} />
-              </div>
+              {/* Inline Ad Banner - only show if not sponsored */}
+              {!article.sponsored && (
+                <div className="my-12">
+                  <AdSlot position="article-inline" category={article.category} tags={article.tags} />
+                </div>
+              )}
             </div>
 
             {/* Sidebar */}
@@ -227,10 +229,12 @@ export default async function ArtikelPage({ params }: PageProps) {
                   </div>
                 )}
 
-                {/* Ad Slot in Sidebar - below related articles, sticky */}
-                <div className="sticky top-8">
-                  <AdSlot position="article-sidebar" category={article.category} tags={article.tags} />
-                </div>
+                {/* Ad Slot in Sidebar - below related articles, sticky - only show if not sponsored */}
+                {!article.sponsored && (
+                  <div className="sticky top-8">
+                    <AdSlot position="article-sidebar" category={article.category} tags={article.tags} />
+                  </div>
+                )}
               </div>
             </aside>
           </div>
