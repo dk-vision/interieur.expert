@@ -202,9 +202,9 @@ export default async function DossierDetailPage({
                 </p>
               </div>
 
-              <div className="flex flex-col lg:flex-row lg:items-start gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
                 {/* Content Grid */}
-                <div className="flex-1 space-y-12">
+                <div className="lg:col-span-8 space-y-12">
                   {/* Videos Section */}
                   {videos.length > 0 && (
                     <div className="space-y-6">
@@ -240,39 +240,49 @@ export default async function DossierDetailPage({
                 </div>
 
                 {/* Sidebar */}
-                <aside className="w-full lg:w-80">
+                <aside className="lg:col-span-4">
                   <div className="space-y-8">
-                    <div className="bg-surface p-6 rounded-sm">
-                      <h3 className="font-semibold mb-4">Over dit dossier</h3>
-                      <div className="space-y-2 text-sm">
+                    <div className="bg-background border border-text/10 rounded-sm p-6 space-y-4">
+                      <h3 className="text-sm font-semibold uppercase tracking-wide text-text/60">
+                        Over dit dossier
+                      </h3>
+                      
+                      <div className="space-y-3 text-sm text-text/70">
                         {dossier.themes && dossier.themes.length > 0 && (
-                          <div>
-                            <span className="text-text/60">Thema's:</span>{" "}
+                          <div className="flex justify-between">
+                            <span>Thema's</span>
                             <span className="text-text">{dossier.themes.join(", ")}</span>
                           </div>
                         )}
-                        <div>
-                          <span className="text-text/60">Gepubliceerd:</span>{" "}
-                          <span className="text-text">
+                        <div className="flex justify-between">
+                          <span>Gepubliceerd</span>
+                          <time className="text-text">
                             {new Date(dossier.publishedAt).toLocaleDateString(
                               "nl-NL",
                               {
                                 day: "numeric",
-                                month: "long",
+                                month: "short",
                                 year: "numeric",
                               }
                             )}
-                          </span>
+                          </time>
                         </div>
-                        {dossier.tags && dossier.tags.length > 0 && (
-                          <div>
-                            <span className="text-text/60">Tags:</span>{" "}
-                            <span className="text-text">
-                              {dossier.tags.join(", ")}
-                            </span>
-                          </div>
-                        )}
                       </div>
+                      
+                      {dossier.tags && dossier.tags.length > 0 && (
+                        <div className="pt-4 border-t border-text/10">
+                          <div className="flex flex-wrap gap-2">
+                            {dossier.tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="text-xs px-3 py-1.5 bg-text/5 hover:bg-text/10 rounded-full text-text/70 hover:text-text transition-colors cursor-pointer"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                     
                     {/* Ad Slot - below info box, sticky */}
