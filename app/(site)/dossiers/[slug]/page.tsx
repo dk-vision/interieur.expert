@@ -187,7 +187,7 @@ export default async function DossierDetailPage({
       {/* Content Section */}
       {(articleCards.length > 0 || videos.length > 0) && (
         <Section spacing="lg">
-          <Container>
+          <Container size="layout">
             <div className="space-y-8">
               <div className="border-t border-text/10 pt-8">
                 <h2 className="text-2xl font-semibold mb-2">
