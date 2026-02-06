@@ -1,25 +1,7 @@
 import { groq } from "next-sanity";
 import { client } from "@/lib/sanity/client";
 import { unstable_noStore as noStore } from "next/cache";
-
-interface AdCampaign {
-  _id: string;
-  title: string;
-  slot: string;
-  priority: number;
-  targetCategory?: string;
-  targetTags?: string[];
-  creative: {
-    title: string;
-    format: "image" | "html";
-    linkUrl: string;
-    altText?: string;
-    image?: {
-      asset: unknown;
-    };
-    html?: string;
-  };
-}
+import type { Campaign } from "./types";
 
 const activeCampaignsQuery = groq`
   *[_type == "adCampaign" 
@@ -56,11 +38,11 @@ export async function getActiveCampaign(
   slot: string,
   category?: string,
   tags?: string[]
-): Promise<AdCampaign | null> {
+): Promise<Campaign | null> {
   noStore(); // Opt out of caching for ad selection
   
   try {
-    const campaigns = await client.fetch<AdCampaign[]>(
+    const campaigns = await client.fetch<Campaign[]>(
       activeCampaignsQuery,
       { slot },
       { next: { revalidate: 0 } }

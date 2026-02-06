@@ -8,4 +8,3 @@
 - Is all documentation up to date? If not, update and push to github and vercel.
 - Ads in detailpage sidebar (dossiers or video or article) should always be below the info box
 - On partner page: "alle partners" moet "Partners" zijn. De featured ones staan hier niet tussen.
-- Logo's partner page are cut off. Fix their display.

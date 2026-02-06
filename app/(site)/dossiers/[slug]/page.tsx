@@ -123,7 +123,7 @@ export default async function DossierDetailPage({
       </Section>
 
       {/* Sponsors Section */}
-      {dossier.sponsors?.filter(s => s && s.logo).length > 0 && (
+      {dossier.sponsors && dossier.sponsors.filter(s => s && s.logo).length > 0 && (
         <div className="py-0">
           <Container size="layout">
             <div>
