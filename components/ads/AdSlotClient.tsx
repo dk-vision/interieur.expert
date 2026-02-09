@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import AdLabel from "@/components/ui/AdLabel";
 import AdTracker from "@/components/ads/AdTracker";
 import { FallbackAd } from "@/components/ads/FallbackAd";
@@ -23,13 +24,19 @@ export default function AdSlotClient({
   className = "",
   campaign,
 }: AdSlotClientProps) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const positionClasses = {
     "homepage-hero": "w-full",
     "homepage-newsletter": "w-full",
     "homepage-card": "w-full",
-    "listing-sidebar": "hidden lg:block w-full lg:sticky lg:top-24",
+    "listing-sidebar": "hidden lg:block w-full",
     "article-inline": "w-full max-w-content mx-auto my-8",
-    "article-sidebar": "hidden lg:block w-full lg:sticky lg:top-24",
+    "article-sidebar": "hidden lg:block w-full",
   };
 
   const fallbackType = {
@@ -68,10 +75,16 @@ export default function AdSlotClient({
                 </div>
               ) : campaign.creative.format === "html" &&
                 campaign.creative.html ? (
-                <div
-                  className="w-full"
-                  dangerouslySetInnerHTML={{ __html: campaign.creative.html }}
-                />
+                isClient ? (
+                  <div
+                    className="w-full"
+                    dangerouslySetInnerHTML={{ __html: campaign.creative.html }}
+                  />
+                ) : (
+                  <div className="w-full aspect-[16/9] bg-background border border-brand/10 flex items-center justify-center">
+                    <p className="text-text/40 text-sm">Loading...</p>
+                  </div>
+                )
               ) : (
                 <div className="w-full aspect-[16/9] bg-background border border-brand/10 flex items-center justify-center">
                   <p className="text-text/40 text-sm">{campaign.creative.title}</p>

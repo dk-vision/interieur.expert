@@ -10,22 +10,33 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // Search both articles and videos
+    // Search articles, videos, and partners - ensure unique results
     const results = await client.fetch(
-      `*[
-        _type in ["article", "video"] && 
+      `array::unique(*[
         (
-          title match $searchQuery + "*" ||
-          excerpt match $searchQuery + "*" ||
-          tags[] match $searchQuery + "*"
+          (_type == "article" || _type == "video") && 
+          (title match $searchQuery + "*" || excerpt match $searchQuery + "*" || tags[] match $searchQuery + "*")
+        ) ||
+        (
+          _type == "partner" && 
+          (name match $searchQuery + "*" || description match $searchQuery + "*")
         )
-      ] | order(_score desc) [0...10] {
-        _id,
-        _type,
-        title,
-        slug,
-        excerpt,
-        category
+      ]._id) | [0...10] | {
+        "_id": @,
+        ...*[_id == ^._id][0]{
+          _type,
+          "title": select(
+            _type == "partner" => name,
+            title
+          ),
+          slug,
+          "excerpt": select(
+            _type == "partner" => description,
+            excerpt
+          ),
+          category,
+          "sponsored": select(_type == "article" => sponsored, false)
+        }
       }`,
       { searchQuery: query }
     );

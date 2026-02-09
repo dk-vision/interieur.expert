@@ -9,6 +9,7 @@ import MetaRow from "@/components/editorial/MetaRow";
 import ContentCard from "@/components/editorial/ContentCard";
 import VideoThumbnail from "@/components/video/VideoThumbnail";
 import AdSlot from "@/components/ads/AdSlot";
+import StickyContainer from "@/components/ui/StickyContainer";
 import PortableText from "@/components/editorial/PortableText";
 import { getDossierBySlug } from "@/lib/content";
 import { urlForImage } from "@/lib/sanity/image";
@@ -243,52 +244,52 @@ export default async function DossierDetailPage({
                 </div>
 
                 {/* Sidebar */}
-                <aside className="lg:col-span-4">
+                <div className="lg:col-span-4">
                   <div className="space-y-8">
                     <div className="bg-background border border-text/10 rounded-sm p-6 space-y-4">
-                      <h3 className="text-sm font-semibold uppercase tracking-wide text-text/60">
-                        Over dit dossier
-                      </h3>
-                      
-                      <div className="space-y-3 text-sm text-text/70">
-                        <div className="flex justify-between">
-                          <span>Gepubliceerd</span>
-                          <time className="text-text">
-                            {new Date(dossier.publishedAt).toLocaleDateString(
-                              "nl-NL",
-                              {
-                                day: "numeric",
-                                month: "short",
-                                year: "numeric",
-                              }
-                            )}
-                          </time>
-                        </div>
-                      </div>
-                      
-                      {dossier.themes && dossier.themes.length > 0 && (
-                        <div className="pt-4 border-t border-text/10">
-                          <div className="flex flex-wrap gap-2">
-                            {dossier.themes.map((theme) => (
-                              <Link
-                                key={theme}
-                                href={`/tags/${encodeURIComponent(theme.toLowerCase())}`}
-                                className="text-xs px-3 py-1.5 bg-text/5 hover:bg-text/10 rounded-full text-text/70 hover:text-text transition-colors"
-                              >
-                                {theme}
-                              </Link>
-                            ))}
+                        <h3 className="text-sm font-semibold uppercase tracking-wide text-text/60">
+                          Over dit dossier
+                        </h3>
+                        
+                        <div className="space-y-3 text-sm text-text/70">
+                          <div className="flex justify-between">
+                            <span>Gepubliceerd</span>
+                            <time className="text-text">
+                              {new Date(dossier.publishedAt).toLocaleDateString(
+                                "nl-NL",
+                                {
+                                  day: "numeric",
+                                  month: "short",
+                                  year: "numeric",
+                                }
+                              )}
+                            </time>
                           </div>
                         </div>
-                      )}
-                    </div>
-                    
+                        
+                        {dossier.themes && dossier.themes.length > 0 && (
+                          <div className="pt-4 border-t border-text/10">
+                            <div className="flex flex-wrap gap-2">
+                              {dossier.themes.map((theme) => (
+                                <Link
+                                  key={theme}
+                                  href={`/tags/${encodeURIComponent(theme.toLowerCase())}`}
+                                  className="text-xs px-3 py-1.5 bg-text/5 hover:bg-text/10 rounded-full text-text/70 hover:text-text transition-colors"
+                                >
+                                  {theme}
+                                </Link>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      
                     {/* Ad Slot - below info box */}
-                    <div>
+                    <StickyContainer offset={100}>
                       <AdSlot position="listing-sidebar" />
-                    </div>
+                    </StickyContainer>
                   </div>
-                </aside>
+                </div>
               </div>
             </div>
           </Container>

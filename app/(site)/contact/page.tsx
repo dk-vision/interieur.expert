@@ -53,20 +53,13 @@ export default function ContactPage() {
       {/* Contact Options */}
       <Section spacing="lg">
         <Container>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <ContactCard
               icon={<Mail size={32} />}
-              title="Algemene vragen"
-              description="Heb je een vraag over onze content, suggesties voor onderwerpen, of wil je feedback geven?"
+              title="Algemene vragen & Redactie"
+              description="Heb je vragen over onze content, wil je een verhaal pitchen, je huis laten zien, of materiaal aanleveren voor advertising?"
               action="Mail ons"
-              href="mailto:hallo@interieur.expert"
-            />
-            <ContactCard
-              icon={<MessageSquare size={32} />}
-              title="Redactie"
-              description="Wil je een verhaal pitchen, je huis laten zien, of meewerken aan content?"
-              action="Neem contact op"
-              href="mailto:redactie@interieur.expert"
+              href="mailto:studio@interieur.expert"
             />
             <ContactCard
               icon={<Briefcase size={32} />}
@@ -188,8 +181,8 @@ export default function ContactPage() {
             <p>
               Absoluut! We zijn altijd op zoek naar inspirerende interieurs om te
               delen. Mail ons enkele foto&apos;s en een korte beschrijving naar{" "}
-              <a href="mailto:redactie@interieur.expert">
-                redactie@interieur.expert
+              <a href="mailto:studio@interieur.expert">
+                studio@interieur.expert
               </a>
               .
             </p>
@@ -208,8 +201,8 @@ export default function ContactPage() {
             <p>
               We staan open voor gastbijdragen van experts. Pitch je idee met een
               korte outline naar{" "}
-              <a href="mailto:redactie@interieur.expert">
-                redactie@interieur.expert
+              <a href="mailto:studio@interieur.expert">
+                studio@interieur.expert
               </a>
               .
             </p>

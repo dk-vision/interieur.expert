@@ -58,7 +58,7 @@ export default async function DossiersPage() {
 
             {/* Sidebar */}
             <aside className="w-full lg:w-80">
-              <div className="sticky top-8">
+              <div className="lg:!sticky lg:top-8">
                 <AdSlot position="listing-sidebar" />
               </div>
             </aside>

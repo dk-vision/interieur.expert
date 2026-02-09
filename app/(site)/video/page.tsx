@@ -2,6 +2,7 @@ import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import ContentCard from "@/components/editorial/ContentCard";
 import AdSlot from "@/components/ads/AdSlot";
+import StickyContainer from "@/components/ui/StickyContainer";
 import VideoThumbnail from "@/components/video/VideoThumbnail";
 import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
@@ -80,7 +81,9 @@ export default async function VideoPage() {
                 
                 {/* Sidebar ad */}
                 <div className="hidden lg:block">
-                  <AdSlot position="listing-sidebar" />
+                  <StickyContainer offset={100}>
+                    <AdSlot position="listing-sidebar" />
+                  </StickyContainer>
                 </div>
               </div>
 

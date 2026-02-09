@@ -4,6 +4,7 @@ import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import ContentCard from "@/components/editorial/ContentCard";
 import AdSlot from "@/components/ads/AdSlot";
+import StickyContainer from "@/components/ui/StickyContainer";
 import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
 import { urlForImage } from "@/lib/sanity/image";
@@ -106,7 +107,9 @@ export default async function AdviesPage() {
             
               {/* Sidebar */}
               <aside className="lg:w-80 space-y-8">
-                <AdSlot position="listing-sidebar" />
+                <StickyContainer offset={100}>
+                  <AdSlot position="listing-sidebar" />
+                </StickyContainer>
               </aside>
             </div>
           </div>

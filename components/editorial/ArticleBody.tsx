@@ -12,9 +12,8 @@ export default function ArticleBody({ children }: ArticleBodyProps) {
         prose-h2:mt-12 prose-h2:mb-6
         prose-h3:mt-10 prose-h3:mb-5
         prose-p:text-text prose-p:leading-relaxed prose-p:mb-6
-        first:prose-p:first-letter:text-6xl first:prose-p:first-letter:font-semibold first:prose-p:first-letter:float-left first:prose-p:first-letter:mr-2 first:prose-p:first-letter:leading-[0.85] first:prose-p:first-letter:mt-1
         prose-a:text-accent prose-a:no-underline hover:prose-a:underline
-        prose-blockquote:border-l-4 prose-blockquote:border-accent/30 prose-blockquote:pl-8 prose-blockquote:pr-0 prose-blockquote:italic prose-blockquote:text-text/80 prose-blockquote:text-2xl prose-blockquote:font-normal prose-blockquote:leading-relaxed prose-blockquote:my-16
+        prose-blockquote:font-[family-name:var(--font-family-heading)] prose-blockquote:border-l-0 prose-blockquote:pl-24 prose-blockquote:pr-12 prose-blockquote:not-italic prose-blockquote:text-text prose-blockquote:text-3xl prose-blockquote:font-semibold prose-blockquote:leading-snug prose-blockquote:my-16 prose-blockquote:py-0 prose-blockquote:relative prose-blockquote:before:content-['❝'] prose-blockquote:before:absolute prose-blockquote:before:left-0 prose-blockquote:before:top-0 prose-blockquote:before:text-7xl prose-blockquote:before:text-accent prose-blockquote:before:leading-none prose-blockquote:before:font-[family-name:var(--font-family-heading)]
         prose-strong:text-text prose-strong:font-semibold
         prose-ul:text-text prose-ol:text-text
         prose-li:text-text prose-li:leading-relaxed

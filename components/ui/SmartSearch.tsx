@@ -10,7 +10,8 @@ interface SearchResult {
   slug: { current: string };
   excerpt: string;
   category: string;
-  _type: "article" | "video";
+  _type: "article" | "video" | "partner";
+  sponsored?: boolean;
 }
 
 export default function SmartSearch() {
@@ -93,10 +94,14 @@ export default function SmartSearch() {
   };
 
   const navigateToResult = (result: SearchResult) => {
-    const path =
-      result._type === "article"
-        ? `/${result.category || 'artikels'}/${result.slug.current}`
-        : `/video/${result.slug.current}`;
+    let path: string;
+    if (result._type === "article") {
+      path = `/${result.category || 'artikels'}/${result.slug.current}`;
+    } else if (result._type === "video") {
+      path = `/video/${result.slug.current}`;
+    } else {
+      path = `/partners/${result.slug.current}`;
+    }
     router.push(path);
     setIsOpen(false);
     setQuery("");
@@ -144,7 +149,7 @@ export default function SmartSearch() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Zoek artikels en video's..."
+              placeholder="Zoek artikels, video's en partners..."
               className="flex-1 bg-transparent outline-none text-text placeholder:text-text/40"
             />
             {query && (
@@ -176,8 +181,8 @@ export default function SmartSearch() {
                     <button
                       key={result._id}
                       onClick={() => navigateToResult(result)}
-                      className={`w-full text-left px-4 py-3 hover:bg-background-secondary transition-colors ${
-                        index === selectedIndex ? "bg-background-secondary" : ""
+                      className={`w-full text-left px-4 py-3 transition-colors ${
+                        index === selectedIndex ? "bg-accent/5" : "hover:bg-background-secondary"
                       }`}
                     >
                       <div className="flex items-start gap-3">
@@ -186,16 +191,25 @@ export default function SmartSearch() {
                             <h3 className="font-medium text-text truncate">
                               {result.title}
                             </h3>
-                            <span className="text-xs px-2 py-0.5 rounded-full bg-accent/10 text-accent capitalize flex-shrink-0">
-                              {result._type === "article" ? "Artikel" : "Video"}
-                            </span>
+                            <div className="flex items-center gap-1.5 flex-shrink-0">
+                              <span className="text-xs px-2 py-0.5 rounded-full bg-accent/10 text-accent capitalize">
+                                {result._type === "article" ? "Artikel" : result._type === "video" ? "Video" : "Partner"}
+                              </span>
+                              {result.sponsored && (
+                                <span className="text-xs px-2 py-0.5 rounded-full bg-brand/10 text-brand">
+                                  Sponsored
+                                </span>
+                              )}
+                            </div>
                           </div>
                           <p className="text-sm text-text/60 line-clamp-2">
                             {result.excerpt}
                           </p>
-                          <p className="text-xs text-text/40 mt-1 capitalize">
-                            {result.category}
-                          </p>
+                          {result.category && (
+                            <p className="text-xs text-text/40 mt-1 capitalize">
+                              {result.category}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </button>

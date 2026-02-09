@@ -60,7 +60,7 @@ export default async function PartnersPage() {
           {/* All Partners */}
           {nonFeaturedPartners.length > 0 && (
             <div>
-              <h2 className="text-2xl font-bold mb-6">Alle Partners</h2>
+              <h2 className="text-2xl font-bold mb-6">Partners</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {nonFeaturedPartners.map((partner) => (
                   <PartnerCard key={partner._id} partner={partner} compact />
@@ -104,13 +104,13 @@ function PartnerCard({
             : undefined
         }
       >
-        <div className="aspect-square relative mb-4 bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center p-4">
+        <div className="h-40 relative mb-4 bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center py-12 px-8">
           {imageUrl && (
             <Image
               src={imageUrl}
               alt={partner.name}
               fill
-              className="object-contain group-hover:scale-105 transition-transform duration-200"
+              className="object-contain p-4 group-hover:scale-105 transition-transform duration-200"
             />
           )}
         </div>
@@ -134,13 +134,13 @@ function PartnerCard({
           : undefined
       }
     >
-      <div className="aspect-video relative bg-gray-50 flex items-center justify-center p-8">
+      <div className="h-64 relative bg-gray-50 flex items-center justify-center py-20 px-16">
         {imageUrl && (
           <Image
             src={imageUrl}
             alt={partner.name}
             fill
-            className="object-contain group-hover:scale-105 transition-transform duration-200"
+            className="object-contain p-8 group-hover:scale-105 transition-transform duration-200"
           />
         )}
         {featured && (

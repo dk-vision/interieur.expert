@@ -6,6 +6,7 @@ import MetaRow from "@/components/editorial/MetaRow";
 import SponsoredDisclosure from "@/components/editorial/SponsoredDisclosure";
 import RelatedArticles from "@/components/editorial/RelatedArticles";
 import AdSlot from "@/components/ads/AdSlot";
+import StickyContainer from "@/components/ui/StickyContainer";
 import { sanityFetch } from "@/lib/sanity/client";
 import { articleBySlugQuery, relatedArticlesQuery } from "@/lib/sanity/queries";
 import { PortableText } from "@/components/editorial/PortableText";
@@ -111,9 +112,9 @@ export default async function ArtikelPage({ params }: PageProps) {
       {/* Article Content with Sidebar */}
       <Section spacing="lg">
         <Container size="layout">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          <div className="lg:grid lg:grid-cols-12 lg:gap-12 lg:gap-x-16 lg:items-start">
             {/* Main Content */}
-            <div className="lg:col-span-8">
+            <div className="lg:col-span-8 mb-12 lg:mb-0">
               <ArticleBody>
                 <PortableText value={article.body} />
               </ArticleBody>
@@ -126,14 +127,14 @@ export default async function ArtikelPage({ params }: PageProps) {
               )}
             </div>
 
-            {/* Sidebar */}
-            <aside className="lg:col-span-4">
+            {/* Sidebar Container */}
+            <div className="lg:col-span-4">
               <div className="space-y-8">
                 {/* Article Info Card */}
                 <div className="bg-background border border-text/10 rounded-sm p-6 space-y-4">
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-text/60">
-                    Over dit artikel
-                  </h3>
+                    <h3 className="text-sm font-semibold uppercase tracking-wide text-text/60">
+                      Over dit artikel
+                    </h3>
                   
                   <div className="space-y-3 text-sm text-text/70">
                     <div className="flex justify-between">
@@ -177,9 +178,9 @@ export default async function ArtikelPage({ params }: PageProps) {
                   )}
                 </div>
 
-                {/* Related Articles in Sidebar */}
-                {relatedArticles.length > 0 && (
-                  <div className="space-y-4">
+              {/* Related Articles in Sidebar */}
+              {relatedArticles.length > 0 && (
+                <div className="space-y-4">
                     <h3 className="text-sm font-semibold uppercase tracking-wide text-text/60">
                       Meer lezen
                     </h3>
@@ -229,14 +230,14 @@ export default async function ArtikelPage({ params }: PageProps) {
                   </div>
                 )}
 
-                {/* Ad Slot in Sidebar - below related articles, sticky - only show if not sponsored */}
+                {/* Ad Slot in Sidebar - below related articles - only show if not sponsored */}
                 {!article.sponsored && (
-                  <div className="sticky top-8">
+                  <StickyContainer offset={100}>
                     <AdSlot position="article-sidebar" category={article.category} tags={article.tags} />
-                  </div>
+                  </StickyContainer>
                 )}
               </div>
-            </aside>
+            </div>
           </div>
         </Container>
       </Section>
