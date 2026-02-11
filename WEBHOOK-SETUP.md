@@ -1,12 +1,12 @@
 # Sanity Webhook Setup
 
-This guide explains how to configure Sanity webhooks for automatic preview generation and cache revalidation.
+This guide explains how to configure Sanity webhooks for automatic cache revalidation.
 
 ## What Webhooks Do
 
 When you save content in Sanity Studio:
 1. 🔄 Automatically revalidates Next.js pages (ISR)
-2. 🎬 Automatically generates video preview clips (for new videos without previews)
+2. ⚠️ ~~Video preview generation~~ - Not supported on Vercel serverless (see below)
 
 ---
 
@@ -76,18 +76,34 @@ Authorization: Bearer your-secret-here
 
 ---
 
-## How Auto-Preview Generation Works
+## ⚠️ Video Preview Limitation
 
-When you save a video document:
+**Auto-generation doesn't work on Vercel** because:
+- Vercel serverless functions can't install `yt-dlp` and `ffmpeg`
+- These binaries are required to download and convert YouTube videos
 
-1. ✅ Sanity webhook fires with video data
-2. ✅ `/api/revalidate` receives the webhook
-3. ✅ Checks if video has `youtubeId` but no `previewVideo`
-4. ✅ If true → triggers `/api/generate-preview` in background
-5. ✅ Preview downloads, converts, and uploads automatically
-6. ✅ Next time you open the video, preview is there!
+### Alternative: Studio Action Button
 
-**Note:** Preview generation takes ~30-60 seconds. Refresh the document in Studio to see the preview field populated.
+1. Open video in Sanity Studio
+2. Click **"Generate Preview Clip"** button (top-right)
+3. This calls your **local dev server** at `http://localhost:3000`
+4. Requires:
+   - Local dev server running (`pnpm dev`)
+   - `yt-dlp` and `ffmpeg` installed: `brew install yt-dlp ffmpeg`
+
+### Alternative: Manual Script
+
+Run batch generation locally:
+```bash
+pnpm exec tsx scripts/generate-video-previews.ts
+```
+
+### Future: Dedicated Service
+
+To enable auto-generation in production, move video processing to:
+- Separate Node.js server with Docker container
+- Cloud function with custom runtime (AWS Lambda layers, Google Cloud Run)
+- Third-party video processing API (e.g., Cloudinary, Mux)
 
 ---
 
@@ -113,7 +129,7 @@ ngrok http 3000
 ### Option 2: Skip webhooks locally
 - Webhooks only needed in production
 - Use the Studio button for local preview generation
-- Or run: `npx tsx scripts/generate-video-previews.ts`
+- Or run: `pnpm exec tsx scripts/generate-video-previews.ts`
 
 ---
 
@@ -127,16 +143,16 @@ ngrok http 3000
 - Verify projection includes `_type` and `slug`
 - Check GROQ projection syntax
 
-### Preview not generating
-- Check Vercel logs for errors
-- Verify `yt-dlp` and `ffmpeg` are installed on server
-- Ensure YouTube ID is valid
-- Check if video already has a preview (won't regenerate)
+### Preview not generating (Expected)
+- Auto-generation doesn't work on Vercel
+- Use Studio action button with local dev server
+- Or run manual batch script
 
-### Preview generation fails
-- YouTube video might be private/unavailable
-- Check Vercel function timeout (default 10s, might need increase)
-- Use manual button or script as fallback
+### Studio button not working
+- Check local dev server is running (`pnpm dev`)
+- Verify `yt-dlp` and `ffmpeg` installed: `brew list | grep -E 'yt-dlp|ffmpeg'`
+- Check browser console for errors
+- Verify YouTube video is publicly accessible
 
 ---
 
@@ -148,7 +164,6 @@ NEXT_PUBLIC_SANITY_PROJECT_ID=uf111z1c
 NEXT_PUBLIC_SANITY_DATASET=production
 SANITY_API_TOKEN=your-write-token
 REVALIDATE_SECRET=your-secret
-VERCEL_URL=interieurexpert.vercel.app  # Auto-set by Vercel
 ```
 
 ---
