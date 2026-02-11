@@ -4,18 +4,26 @@ import { NextRequest, NextResponse } from "next/server";
 // Import preview generation function
 async function generatePreviewInBackground(videoId: string, youtubeId: string) {
   try {
-    // Call the generate-preview API endpoint
-    const baseUrl = process.env.VERCEL_URL 
-      ? `https://${process.env.VERCEL_URL}` 
-      : 'http://localhost:3000';
+    // Determine the correct base URL
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL 
+      || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
+      || 'https://interieurexpert.vercel.app';
     
-    await fetch(`${baseUrl}/api/generate-preview`, {
+    console.log(`🎬 Calling ${baseUrl}/api/generate-preview for video ${videoId}`);
+    
+    const response = await fetch(`${baseUrl}/api/generate-preview`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ videoId, youtubeId }),
     });
     
-    console.log(`✅ Preview generation started for video: ${videoId}`);
+    const result = await response.json();
+    
+    if (response.ok) {
+      console.log(`✅ Preview generation started for video: ${videoId}`);
+    } else {
+      console.error(`❌ Preview generation failed:`, result);
+    }
   } catch (error) {
     console.error(`❌ Failed to trigger preview generation:`, error);
   }
@@ -65,9 +73,13 @@ export async function POST(request: NextRequest) {
         
         // Auto-generate preview if video has YouTube ID but no preview
         if (_id && youtubeId && !previewVideo) {
-          console.log(`🎬 Auto-generating preview for: ${slug?.current}`);
+          console.log(`🎬 Video needs preview: ${slug?.current} (ID: ${_id}, YouTube: ${youtubeId})`);
           // Fire and forget - don't wait for completion
           generatePreviewInBackground(_id, youtubeId).catch(console.error);
+        } else if (previewVideo) {
+          console.log(`⏭️  Video already has preview: ${slug?.current}`);
+        } else if (!youtubeId) {
+          console.log(`⚠️  Video missing YouTube ID: ${slug?.current}`);
         }
         break;
 

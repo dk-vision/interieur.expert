@@ -15,6 +15,20 @@ const client = createClient({
   useCdn: false,
 });
 
+async function getVideoDuration(youtubeId: string): Promise<number | null> {
+  try {
+    // Get video metadata JSON
+    const { stdout } = await execAsync(
+      `yt-dlp --dump-json --no-playlist "https://www.youtube.com/watch?v=${youtubeId}"`
+    );
+    const metadata = JSON.parse(stdout);
+    return metadata.duration || null;
+  } catch (error) {
+    console.error("Failed to get video duration:", error);
+    return null;
+  }
+}
+
 async function downloadPreviewClip(youtubeId: string): Promise<string> {
   const outputPath = path.join("/tmp", `preview-${youtubeId}.mp4`);
   
@@ -87,30 +101,42 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Get video duration
+    const duration = await getVideoDuration(youtubeId);
+    console.log(`📏 Video duration: ${duration} seconds`);
+
     // Generate preview
     const previewPath = await downloadPreviewClip(youtubeId);
     const assetId = await uploadToSanity(previewPath);
 
-    // Update video document
-    await client
-      .patch(videoId)
-      .set({
-        previewVideo: {
-          _type: "file",
-          asset: {
-            _type: "reference",
-            _ref: assetId,
-          },
+    // Update video document with preview and duration
+    const patch = client.patch(videoId).set({
+      previewVideo: {
+        _type: "file",
+        asset: {
+          _type: "reference",
+          _ref: assetId,
         },
-      })
-      .commit();
+      },
+    });
+
+    // Add duration if available
+    if (duration) {
+      patch.set({ duration });
+    }
+
+    await patch.commit();
 
     // Cleanup
     if (existsSync(previewPath)) {
       unlinkSync(previewPath);
     }
 
-    return NextResponse.json({ success: true, assetId });
+    return NextResponse.json({ 
+      success: true, 
+      assetId,
+      duration: duration || undefined 
+    });
   } catch (error) {
     console.error("Error generating preview:", error);
     return NextResponse.json(
