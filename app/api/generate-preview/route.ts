@@ -101,9 +101,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get video duration
-    const duration = await getVideoDuration(youtubeId);
-    console.log(`📏 Video duration: ${duration} seconds`);
+    // Get video duration (in seconds from YouTube)
+    const durationInSeconds = await getVideoDuration(youtubeId);
+    // Convert to minutes and round
+    const durationInMinutes = durationInSeconds ? Math.round(durationInSeconds / 60) : null;
+    console.log(`📏 Video duration: ${durationInSeconds}s (${durationInMinutes}min)`);
 
     // Generate preview
     const previewPath = await downloadPreviewClip(youtubeId);
@@ -120,9 +122,9 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Add duration if available
-    if (duration) {
-      patch.set({ duration });
+    // Add duration if available (in minutes)
+    if (durationInMinutes) {
+      patch.set({ duration: durationInMinutes });
     }
 
     await patch.commit();
@@ -135,7 +137,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ 
       success: true, 
       assetId,
-      duration: duration || undefined 
+      durationSeconds: durationInSeconds || undefined,
+      durationMinutes: durationInMinutes || undefined 
     });
   } catch (error) {
     console.error("Error generating preview:", error);

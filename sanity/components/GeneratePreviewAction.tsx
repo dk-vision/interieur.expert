@@ -64,8 +64,8 @@ export const GeneratePreviewAction: DocumentActionComponent = (props) => {
 
         // Success - refresh document
         console.log("🎉 Preview generated successfully!");
-        console.log("📏 Duration:", result.duration, "seconds");
-        alert(`Preview generated successfully! Duration: ${result.duration || 'N/A'}s`);
+        console.log("📏 Duration:", result.durationMinutes, "minutes (", result.durationSeconds, "seconds)");
+        alert(`Preview generated successfully!\n\nDuration: ${result.durationMinutes || 'N/A'} minutes (${result.durationSeconds || 'N/A'}s)`);
         props.onComplete();
       } catch (error) {
         console.error("💥 Error generating preview:", error);
