@@ -69,55 +69,57 @@ export default async function VideoPage() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Main content area - takes 2 columns on desktop */}
-              <div className="lg:col-span-2 space-y-8">
-                {/* Featured video */}
-                <VideoThumbnail
-                  href={`/video/${videos[0].slug}`}
-                  title={videos[0].title}
-                  thumbnail={urlForImage(videos[0].thumbnail).width(1200).height(675).url()}
-                  previewVideo={(videos[0] as any).previewVideoUrl}
-                  duration={videos[0].duration}
-                  publishedAt={new Date(videos[0].publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
-                  excerpt={videos[0].excerpt}
-                  isSponsored={videos[0].sponsored || false}
-                  partnerName={(videos[0] as any).partner?.name}
-                  size="featured"
-                />
+            <div className="space-y-8">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Main content area - takes 2 columns on desktop */}
+                <div className="lg:col-span-2 space-y-8">
+                  {/* Featured video */}
+                  <VideoThumbnail
+                    href={`/video/${videos[0].slug}`}
+                    title={videos[0].title}
+                    thumbnail={urlForImage(videos[0].thumbnail).width(1200).height(675).url()}
+                    previewVideo={(videos[0] as any).previewVideoUrl}
+                    duration={videos[0].duration}
+                    publishedAt={new Date(videos[0].publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    excerpt={videos[0].excerpt}
+                    isSponsored={videos[0].sponsored || false}
+                    partnerName={(videos[0] as any).partner?.name}
+                    size="featured"
+                  />
 
-                {/* Video grid - 2 columns max on desktop to avoid sidebar overlap */}
-                {videos.length > 1 && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
-                    {videos.slice(1).map((video) => (
-                      <VideoThumbnail
-                        key={video._id}
-                        href={`/video/${video.slug}`}
-                        title={video.title}
-                        thumbnail={urlForImage(video.thumbnail).width(640).height(360).url()}
-                        previewVideo={(video as any).previewVideoUrl}
-                        duration={video.duration}
-                        publishedAt={new Date(video.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
-                        isSponsored={video.sponsored || false}
-                        partnerName={(video as any).partner?.name}
-                        size="grid"
-                      />
-                    ))}
-                  </div>
-                )}
+                  {/* Video grid - 2 columns max on desktop to avoid sidebar overlap */}
+                  {videos.length > 1 && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
+                      {videos.slice(1).map((video) => (
+                        <VideoThumbnail
+                          key={video._id}
+                          href={`/video/${video.slug}`}
+                          title={video.title}
+                          thumbnail={urlForImage(video.thumbnail).width(640).height(360).url()}
+                          previewVideo={(video as any).previewVideoUrl}
+                          duration={video.duration}
+                          publishedAt={new Date(video.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                          isSponsored={video.sponsored || false}
+                          partnerName={(video as any).partner?.name}
+                          size="grid"
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+                
+                {/* Sidebar ad - sticky, takes 1 column */}
+                <div className="hidden lg:block">
+                  <StickyContainer offset={100}>
+                    <AdSlot position="listing-sidebar" />
+                  </StickyContainer>
+                </div>
               </div>
-              
-              {/* Sidebar ad - sticky, takes 1 column */}
-              <div className="hidden lg:block">
-                <StickyContainer offset={100}>
-                  <AdSlot position="listing-sidebar" />
-                </StickyContainer>
-              </div>
-            </div>
 
-            {/* Mobile sidebar ad */}
-            <div className="lg:hidden mt-8">
-              <AdSlot position="listing-sidebar" />
+              {/* Mobile sidebar ad */}
+              <div className="lg:hidden">
+                <AdSlot position="listing-sidebar" />
+              </div>
             </div>
           )}
         </Container>
