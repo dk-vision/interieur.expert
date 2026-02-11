@@ -121,6 +121,21 @@ interieur.expert/
 - **List Formatting**: Conditional spacing (short items vs multiline)
 - **SEO**: Custom titles, descriptions, structured data
 
+### Video Preview System
+- **Fully Automatic**: Preview generates automatically when you save a video (via webhook)
+- **Manual Trigger**: Also available via "Generate Preview" button in Sanity Studio
+- **Hover Effect**: 8-second preview clips play on hover (400ms delay)
+- **Technical**: 
+  - Webhook triggers on video save if no preview exists
+  - Downloads first 10 seconds from YouTube using `yt-dlp`
+  - Converts to optimized WebM (360p, VP9, ~500kb/s)
+  - Automatically uploads to Sanity CDN
+  - Requires: `yt-dlp` and `ffmpeg` installed on server
+- **Component**: `components/video/VideoThumbnail.tsx`
+- **API**: `app/api/generate-preview/route.ts`
+- **Webhook**: `app/api/revalidate/route.ts` (triggers preview generation)
+- **Setup**: See [WEBHOOK-SETUP.md](WEBHOOK-SETUP.md)
+
 ### Advertising System
 - **Partners**: Advertiser/sponsor management
 - **Ad Creatives**: Image and HTML ad formats
@@ -213,6 +228,7 @@ REVALIDATE_SECRET=your_secret_token
   slug: string
   excerpt: string
   thumbnail: SanityImage
+  previewVideo?: SanityFile  // 8-second preview clip
   youtubeId: string
   duration: number
   transcript?: PortableText[]
@@ -277,7 +293,38 @@ See [design/design-contract.md](design/design-contract.md) for full design speci
 ## 📊 Analytics
 
 ### Vercel Analytics
-Automatically tracks:
+Auto�️ Utility Scripts
+
+The `scripts/` directory contains maintenance utilities. See [scripts/README.md](scripts/README.md) for full documentation.
+
+### Essential Scripts
+- `generate-video-previews.ts` - Generate video preview clips (also available via Studio button)
+- `check-preview-videos.ts` - Verify which videos have previews
+- `check-videos.ts` - List all videos with metadata
+- `update-reading-times.ts` - Recalculate article reading times
+
+### Requirements
+- All scripts load `.env.local` automatically
+- Video scripts require `yt-dlp` and `ffmpeg`:
+  ```bash
+  brew install yt-dlp ffmpeg  # macOS
+  ```
+
+### Usage
+```bash
+# Generate previews for videos without them
+npx tsx scripts/generate-video-previews.ts
+
+# Check preview status
+npx tsx scripts/check-preview-videos.ts
+
+# Update reading times after content changes
+npx tsx scripts/update-reading-times.ts
+```
+
+---
+
+## �matically tracks:
 - Page views
 - Unique visitors
 - Web Vitals (LCP, FID, CLS)
@@ -435,6 +482,18 @@ pnpm run build 2>&1 | less
 
 ## 📜 Changelog
 
+### February 2026
+- ✅ **Fully automatic video preview generation via webhook** (no manual action needed!)
+- ✅ Implemented manual preview generation via Studio button (backup method)
+- ✅ Added API endpoint for preview generation (`/api/generate-preview`)
+- ✅ Extended webhook to auto-trigger preview generation
+- ✅ Fixed all TypeScript lint errors (removed `any` types)
+- ✅ Cleaned up obsolete scripts (removed 24 migration/setup files)
+- ✅ Created scripts documentation (scripts/README.md)
+- ✅ Created webhook setup guide (WEBHOOK-SETUP.md)
+- ✅ Updated all project documentation
+- ✅ Fixed video YouTube IDs and generated all previews
+
 ### January 2026
 - ✅ Fixed category schema validation (uppercase → lowercase)
 - ✅ Created 6 quality video articles with transcripts
@@ -453,5 +512,7 @@ pnpm run build 2>&1 | less
 Proprietary - All rights reserved.
 
 ---
+
+**Last Updated**: February 11, 2026
 
 **Last Updated**: January 20, 2026

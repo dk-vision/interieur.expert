@@ -90,6 +90,7 @@ export default async function ArtikelPage({ params }: PageProps) {
                   <SponsoredDisclosure
                     partnerName={article.partner.name}
                     partnerUrl={article.partner.website}
+                    disclosure={article.partner.sponsorDisclosure}
                   />
                 </div>
               )}

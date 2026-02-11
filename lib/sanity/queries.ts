@@ -9,6 +9,7 @@ const partnerFragment = groq`
   website,
   logo,
   brandColor,
+  sponsorDisclosure,
   featured
 `;
 
@@ -33,7 +34,6 @@ const baseContentFields = groq`
   publishedAt,
   sponsored,
   "partner": partner->{${partnerFragment}},
-  sponsorDisclosure,
   seoTitle,
   seoDescription
 `;

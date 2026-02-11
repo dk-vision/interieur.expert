@@ -235,6 +235,8 @@ export default async function DossierDetailPage({
                             previewVideo={(video as any).previewVideoUrl}
                             duration={video.duration}
                             publishedAt={new Date(video.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                            isSponsored={video.sponsored || false}
+                            partnerName={(video as any).partner?.name}
                             size="grid"
                           />
                         ))}

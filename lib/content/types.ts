@@ -11,6 +11,7 @@ export interface Partner {
   website: string;
   logo?: SanityImageSource;
   brandColor?: string;
+  sponsorDisclosure: string;
 }
 
 export interface BaseContent {
@@ -24,7 +25,6 @@ export interface BaseContent {
   publishedAt: string;
   sponsored: boolean;
   partner?: Partner;
-  sponsorDisclosure?: string;
   seoTitle?: string;
   seoDescription?: string;
 }

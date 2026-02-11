@@ -166,27 +166,12 @@ export default defineType({
       type: "reference",
       to: [{ type: "partner" }],
       hidden: ({ document }) => !document?.sponsored,
+      description: "Sponsorvermelding wordt automatisch opgehaald van de partner",
       validation: (Rule) =>
         Rule.custom((partner, context) => {
           const sponsored = (context.document as { sponsored?: boolean })?.sponsored;
           if (sponsored && !partner) {
             return "Partner is verplicht voor gesponsorde inhoud";
-          }
-          return true;
-        }),
-    }),
-    defineField({
-      name: "sponsorDisclosure",
-      title: "Sponsorvermelding",
-      type: "text",
-      rows: 2,
-      description: "Verplichte vermelding voor gesponsorde inhoud",
-      hidden: ({ document }) => !document?.sponsored,
-      validation: (Rule) =>
-        Rule.custom((disclosure, context) => {
-          const sponsored = (context.document as { sponsored?: boolean })?.sponsored;
-          if (sponsored && !disclosure) {
-            return "Sponsorvermelding is verplicht voor gesponsorde inhoud";
           }
           return true;
         }),

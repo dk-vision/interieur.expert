@@ -1,6 +1,26 @@
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
+// Import preview generation function
+async function generatePreviewInBackground(videoId: string, youtubeId: string) {
+  try {
+    // Call the generate-preview API endpoint
+    const baseUrl = process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}` 
+      : 'http://localhost:3000';
+    
+    await fetch(`${baseUrl}/api/generate-preview`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ videoId, youtubeId }),
+    });
+    
+    console.log(`✅ Preview generation started for video: ${videoId}`);
+  } catch (error) {
+    console.error(`❌ Failed to trigger preview generation:`, error);
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     // Verify webhook secret
@@ -13,7 +33,7 @@ export async function POST(request: NextRequest) {
 
     // Parse webhook payload
     const body = await request.json();
-    const { _type, slug } = body;
+    const { _type, slug, _id, youtubeId, previewVideo } = body;
 
     if (!_type) {
       return NextResponse.json(
@@ -42,6 +62,13 @@ export async function POST(request: NextRequest) {
         }
         revalidatePath("/");
         revalidatePath("/video");
+        
+        // Auto-generate preview if video has YouTube ID but no preview
+        if (_id && youtubeId && !previewVideo) {
+          console.log(`🎬 Auto-generating preview for: ${slug?.current}`);
+          // Fire and forget - don't wait for completion
+          generatePreviewInBackground(_id, youtubeId).catch(console.error);
+        }
         break;
 
       case "dossier":

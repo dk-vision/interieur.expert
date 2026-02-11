@@ -133,17 +133,34 @@ interieur.expert/
 **Location:** `components/video/VideoThumbnail.tsx`
 
 - Hover over video thumbnails to see 8-second preview clips
-- Previews auto-generated from YouTube using `scripts/generate-video-previews.ts`
-- Requires: `yt-dlp` and `ffmpeg` installed
+- **Fully automatic** via Sanity webhook when you save a video
+- Manual alternatives also available
+- Requires: `yt-dlp` and `ffmpeg` installed on server
 
-**Generate previews:**
+**How it works:**
+1. Create/edit video in Sanity Studio
+2. Add YouTube ID and save
+3. Webhook automatically triggers preview generation
+4. Preview appears in ~30-60 seconds (refresh document to see it)
+
+**Manual generation (three methods):**
+
+**Method 1: Automatic (Webhook) - Recommended**
+- Just save the video - preview generates automatically!
+- Requires webhook setup (see [WEBHOOK-SETUP.md](WEBHOOK-SETUP.md))
+
+**Method 2: Studio Button**
+1. Open video document in Sanity Studio
+2. Click "Generate Preview" button
+3. Preview generates and uploads immediately
+
+**Method 3: Command Line**
 ```bash
-# Install dependencies (Linux/Mac)
-sudo apt install yt-dlp ffmpeg  # Ubuntu/Debian
-brew install yt-dlp ffmpeg      # macOS
+# Generate previews for all videos without them
+npx tsx scripts/generate-video-previews.ts
 
-# Run script
-pnpm generate-video-previews
+# Check which videos have previews
+npx tsx scripts/check-preview-videos.ts
 ```
 
 ### 2. Ad Campaign System
@@ -155,11 +172,10 @@ pnpm generate-video-previews
 - Optional category/tag targeting
 - Fallback ads when no active campaigns
 
-**Test ads:**
-```bash
-pnpm create-test-ads  # Creates sample campaigns
-pnpm cleanup-ads      # Removes all campaigns
-```
+**Managing Ads:**
+- Create campaigns in Sanity Studio under "Ad Campaigns"
+- Test with priority weights (higher = more often shown)
+- Use category/tag targeting for relevant placement
 
 ### 3. Content Structure
 
@@ -193,12 +209,40 @@ Articles have dynamic tag suggestions based on existing tags.
 
 ## Common Tasks
 
-### Add Stock Photos
+### Content Management
+
+**Adding a new video:**
+1. Create video document in Sanity Studio
+2. Add YouTube ID, thumbnail, and metadata
+3. Click "Generate Preview" button (or run `npx tsx scripts/generate-video-previews.ts`)
+4. Publish
+
+**Bulk content updates:**
 ```bash
-pnpm add-stock-photos      # Adds images to 16 articles
-pnpm add-video-thumbnails  # Adds thumbnails to videos
-pnpm add-dossier-images    # Adds images to dossiers
+npx tsx scripts/update-reading-times.ts    # After editing article content
+npx tsx scripts/check-videos.ts            # Verify video data
+npx tsx scripts/check-preview-videos.ts    # Check preview status
 ```
+
+### Video Management
+```bash
+npx tsx scripts/generate-video-previews.ts  # Generate missing previews
+npx tsx scripts/check-videos.ts             # List all videos
+npx tsx scripts/check-video-content.ts      # Validate video content
+```
+
+### Maintenance Scripts
+
+See [scripts/README.md](scripts/README.md) for complete documentation.
+
+**Active maintenance scripts:**
+- `generate-video-previews.ts` - Generate preview clips
+- `check-preview-videos.ts` - Verify previews exist
+- `check-videos.ts` - List video metadata
+- `check-tags.ts` - Validate tags
+- `update-reading-times.ts` - Recalculate reading times
+
+**Note:** Many one-time setup scripts have been removed. Only active maintenance utilities remain.
 
 ### Create Content via CLI
 ```bash
@@ -338,24 +382,33 @@ yt-dlp -f "best[height<=360]" --no-audio -o test.webm "https://youtube.com/watch
 
 ---
 
-## Current State (Feb 6, 2026)
+## Current State (Feb 11, 2026)
 
 **Features deployed to production:**
-- ✅ Video hover previews with automatic generation
+- ✅ **Video hover previews with AUTOMATIC generation via webhook** (just save and it generates!)
+- ✅ Manual preview generation also available via Studio button (backup method)
 - ✅ Custom play icon (transparent triangle showing thumbnail)
 - ✅ Footer doormat with 18 popular tags
 - ✅ Full ad campaign system (6 slots)
 - ✅ Sponsored article for Matthieu's Beddenbedrijf
 - ✅ Article sidebar ad repositioned below related articles
-- ✅ 16 articles, 6 videos, 6 dossiers with stock images
+- ✅ 16 articles, 6 videos (all with previews), 6 dossiers with stock images
+- ✅ Automatic preview generation API endpoint + webhook integration
+- ✅ Code cleanup (removed 24 obsolete scripts)
+- ✅ Complete documentation update
 
 **Known issues:**
 - None currently
+
+**Setup Required:**
+- ⚠️ Configure Sanity webhook for automatic preview generation (see [WEBHOOK-SETUP.md](WEBHOOK-SETUP.md))
 
 **To do:**
 - Add more content (articles, videos, dossiers)
 - Create more ad campaigns as partners come in
 - Add impression/click tracking (future enhancement)
+- Implement tag autocomplete in Studio
+- Fix sidebar ad layout issues
 
 ---
 
@@ -363,21 +416,26 @@ yt-dlp -f "best[height<=360]" --no-audio -o test.webm "https://youtube.com/watch
 
 ```bash
 # Development
-pnpm dev                          # Start dev server
+pnpm dev                          # Start dev server (localhost:3000)
 pnpm build                        # Build for production
 pnpm start                        # Start production server
+pnpm studio                       # Open Sanity Studio in browser
 
-# Content management
-pnpm add-stock-photos            # Add images to content
-pnpm generate-video-previews     # Generate video previews
-pnpm update-reading-times        # Update reading times
+# Video Management
+npx tsx scripts/generate-video-previews.ts  # Generate all missing previews
+npx tsx scripts/check-preview-videos.ts     # Check preview status
+npx tsx scripts/check-videos.ts             # List all videos
+
+# Content Utilities
+npx tsx scripts/update-reading-times.ts     # Update article reading times
+npx tsx scripts/check-tags.ts               # Validate tags
 
 # Deployment
 git push origin main             # Auto-deploys to Vercel
-vercel --prod                    # Manual production deploy
+npx vercel --prod               # Manual production deploy
 
-# Sanity
-cd /path/to/project && pnpm studio  # Start Sanity Studio
+# Dependencies (for video previews)
+brew install yt-dlp ffmpeg      # macOS only - required for preview generation
 ```
 
 ---

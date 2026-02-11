@@ -1,6 +1,6 @@
 # interieur.expert
 
-A modern interior design content platform built with Next.js 14, Sanity CMS, and deployed on Vercel.
+Modern interior design content platform built with Next.js 14, Sanity CMS, and Tailwind CSS.
 
 **Live Site**: https://interieurexpert.vercel.app  
 **Sanity Studio**: https://interieurexpert.vercel.app/studio
@@ -9,33 +9,120 @@ A modern interior design content platform built with Next.js 14, Sanity CMS, and
 
 ## 🚀 Quick Start
 
+### Prerequisites
+- Node.js 20+
+- pnpm 8+
+- `yt-dlp` and `ffmpeg` (for video previews): `brew install yt-dlp ffmpeg`
+
 ### Installation
 
 ```bash
+# Clone repository
+git clone https://github.com/dk-vision/interieur.expert.git
+cd interieur.expert
+
 # Install dependencies
 pnpm install
 
-# Set up environment variables
+# Set up environment (create .env.local)
 cp .env.local.example .env.local
-# Edit .env.local with your Sanity credentials
+# Add your Sanity credentials
 
-# Run development server
+# Start development server
 pnpm dev
 ```
 
-**Access points:**
+**Access Points:**
 - Website: http://localhost:3000
 - Sanity Studio: http://localhost:3000/studio
 
-### Environment Variables
+---
 
-Create `.env.local` with:
+## ✨ Features
 
-```env
-NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
-NEXT_PUBLIC_SANITY_DATASET=production
-SANITY_API_TOKEN=your_api_token
-REVALIDATE_SECRET=your_secret_token
+### Content Types
+- **Articles**: Rich text blog posts with SEO, tags, and sponsor support
+- **Videos**: YouTube integration with hover preview clips
+- **Dossiers**: Curated content collections
+- **Partners**: Sponsor/advertiser profiles
+
+### Key Features
+- 🎬 **Video Hover Previews**: Fully automatic 8-second preview generation via webhook
+- 🔍 **Smart Search**: ⌘K search with real-time autocomplete
+- 📱 **Responsive Design**: Mobile-first with fluid typography
+- 📊 **Ad System**: 6 ad slots with weighted rotation and targeting
+- ⚡ **Performance**: ISR with on-demand revalidation, optimized images
+- 🎨 **Rich Text**: Callouts, pull quotes, internal links, image hotspots
+
+---
+
+## 📂 Project Structure
+
+```
+interieur.expert/
+├── app/                    # Next.js 14 App Router
+│   ├── (site)/            # Public pages
+│   ├── studio/            # Sanity Studio
+│   └── api/               # API routes
+├── components/
+│   ├── editorial/         # Content components
+│   ├── video/             # Video preview system
+│   ├── ads/               # Ad system
+│   └── ui/                # UI components
+├── lib/
+│   ├── sanity/            # Sanity client & queries
+│   └── content/           # Content types
+├── sanity/
+│   ├── schemaTypes/       # CMS schemas
+│   └── components/        # Studio components
+├── scripts/               # Maintenance utilities
+└── design/                # Design documentation
+```
+
+---
+
+## 🛠️ Common Tasks
+
+### Adding Content
+
+**New Article:**
+1. Open Sanity Studio: http://localhost:3000/studio
+2. Create new Article document
+3. Add content using Portable Text editor
+4. Publish
+
+**New Video:**
+1. Create Video document in Studio
+2. Add YouTube ID and thumbnail
+3. Save/Publish
+4. Preview generates automatically! (via webhook, takes 30-60s)
+
+*Alternative: Click "Generate Preview" button for instant generation*
+
+### Video Management
+
+```bash
+# Generate preview clips for new videos
+npx tsx scripts/generate-video-previews.ts
+
+# Check which videos have previews
+npx tsx scripts/check-preview-videos.ts
+
+# List all videos
+npx tsx scripts/check-videos.ts
+```
+
+### Maintenance
+
+```bash
+# Update reading times after content edits
+npx tsx scripts/update-reading-times.ts
+
+# Validate tags
+npx tsx scripts/check-tags.ts
+
+# Check preview video status
+npx tsx scripts/check-preview-videos.ts
 ```
 
 ---
@@ -43,148 +130,82 @@ REVALIDATE_SECRET=your_secret_token
 ## 📚 Documentation
 
 - **[PROJECT-DOCUMENTATION.md](PROJECT-DOCUMENTATION.md)** - Complete technical documentation
+- **[HANDOFF.md](HANDOFF.md)** - Quick reference and setup guide
 - **[HANDLEIDING-REDACTIE.md](HANDLEIDING-REDACTIE.md)** - Editorial guide (Dutch)
-- **[handleiding-print.html](handleiding-print.html)** - Printable manual
-- **[AD-CAMPAIGN-GUIDE.md](AD-CAMPAIGN-GUIDE.md)** - Ad system guide
+- **[scripts/README.md](scripts/README.md)** - Scripts documentation
 - **[design/design-contract.md](design/design-contract.md)** - Design system
 
 ---
 
-## 🏗️ Tech Stack
+## � Development
 
-- **Framework**: Next.js 14.2.18 (App Router)
+```bash
+# Development server
+pnpm dev
+
+# Build for production
+pnpm build
+
+# Start production server
+pnpm start
+
+# Type checking
+pnpm type-check
+
+# Linting
+pnpm lint
+```
+
+---
+
+## 🚢 Deployment
+
+Push to `main` branch triggers automatic Vercel deployment.
+
+```bash
+# Manual deployment
+npx vercel --prod
+```
+
+---
+
+## 🧰 Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
 - **CMS**: Sanity.io v3
 - **Styling**: Tailwind CSS 3.4
 - **Language**: TypeScript 5
 - **Deployment**: Vercel
 - **Analytics**: Vercel Analytics
+- **Fonts**: Space Grotesk (Variable)
 
 ---
 
-## ✨ Features
+## 🔐 Environment Variables
 
-- 📝 **Articles & Videos**: Rich content with SEO optimization
-- 🏷️ **Smart Tags**: Dynamic tag pages with filtering
-- 🔍 **Search**: ⌘K shortcut with autocomplete
-- 💼 **Ad System**: Priority-based campaign management
-- 📊 **Analytics**: Built-in page view tracking
-- 🔗 **Internal Links**: Cross-reference articles
-- 📱 **Responsive**: Mobile-first design
+Required in `.env.local`:
 
----
-
-## 📂 Project Structure
-
-```
-app/                    # Next.js App Router
-├── artikels/[slug]/   # Article pages
-├── video/[slug]/      # Video pages  
-├── tags/[tag]/        # Tag filtering
-├── studio/            # Sanity Studio
-└── api/               # API routes
-
-components/
-├── editorial/         # Content components
-├── ads/              # Ad components
-├── layout/           # Layout components
-└── ui/               # UI components
-
-lib/
-├── sanity/           # Sanity integration
-└── content/          # Content fetching
-
-sanity/schemaTypes/   # CMS schemas
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID="uf111z1c"
+NEXT_PUBLIC_SANITY_DATASET="production"
+SANITY_API_TOKEN="your-token-here"
+REVALIDATE_SECRET="your-secret"
 ```
 
 ---
 
-## 🚀 Deployment
+## 📝 License
 
-### Manual Deploy
-```bash
-npx vercel --prod
-```
-
-### Automatic Deploy
-Push to main branch triggers automatic deployment.
+Proprietary - All rights reserved.
 
 ---
 
-## 📝 Content Management
+## 📞 Support
 
-**Access Sanity Studio**: https://interieurexpert.vercel.app/studio
-
-**Content Types:**
-- Articles (inspiratie, advies, trends)
-- Videos (with YouTube integration)
-- Dossiers (content collections)
-- Partners (advertisers)
-- Ad Campaigns
-
-**Publishing**: Content updates are instant via webhook revalidation.
+- **GitHub Issues**: https://github.com/dk-vision/interieur.expert/issues
+- **Sanity Help**: https://www.sanity.io/docs
+- **Next.js Docs**: https://nextjs.org/docs
 
 ---
 
-## 🛠️ Development
-
-```bash
-# Run dev server
-pnpm dev
-
-# Build for production
-pnpm run build
-
-# Start production server
-pnpm start
-
-# Lint code
-pnpm lint
-
-# Sanity CLI
-pnpm sanity [command]
-```
-
----
-
-## 📊 Analytics
-
-View analytics in Vercel Dashboard → Analytics tab
-
-**Tracked metrics:**
-- Page views
-- Unique visitors
-- Web Vitals (LCP, FID, CLS)
-- Geographic data
-
----
-
-## 🐛 Troubleshooting
-
-**Build fails:**
-```bash
-pnpm run build
-# Check TypeScript errors
-```
-
-**Sanity connection:**
-```bash
-pnpm sanity dataset list
-```
-
-**Search not working:**
-```bash
-# Test API endpoint
-curl http://localhost:3000/api/search?q=test
-```
-
-For detailed troubleshooting, see [PROJECT-DOCUMENTATION.md](PROJECT-DOCUMENTATION.md#troubleshooting).
-
----
-
-## 📄 License
-
-Proprietary - All rights reserved
-
----
-
-**Last Updated**: January 20, 2026
+**Last Updated**: February 11, 2026

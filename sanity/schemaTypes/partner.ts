@@ -84,6 +84,15 @@ export default defineType({
       description: "Hex kleurcode voor accenten, bijv. #FF6B6B",
     }),
     defineField({
+      name: "sponsorDisclosure",
+      title: "Standaard Sponsorvermelding",
+      type: "text",
+      rows: 2,
+      initialValue: "Deze inhoud is mogelijk gemaakt in samenwerking met dit merk.",
+      validation: (Rule) => Rule.required(),
+      description: "Standaard vermelding die gebruikt wordt bij alle gesponsorde content van deze partner",
+    }),
+    defineField({
       name: "socialMedia",
       title: "Social Media",
       type: "object",

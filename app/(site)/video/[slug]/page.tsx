@@ -4,13 +4,54 @@ import Section from "@/components/layout/Section";
 import MetaRow from "@/components/editorial/MetaRow";
 import SponsoredDisclosure from "@/components/editorial/SponsoredDisclosure";
 import AdSlot from "@/components/ads/AdSlot";
+import { PortableText } from "@/components/editorial/PortableText";
+import { sanityFetch } from "@/lib/sanity/client";
+import { videoBySlugQuery } from "@/lib/sanity/queries";
+import { notFound } from "next/navigation";
+import type { Video } from "@/lib/content/types";
+import type { Metadata } from "next";
 
-export default function VideoDetailPage() {
-  // In productie zou dit data uit CMS/database zijn
-  const isSponsored = false;
-  const partnerName = "Partner Name";
-  const partnerUrl = "https://example.com";
-  const youtubeId = "dQw4w9WgXcQ"; // placeholder
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  
+  const video = await sanityFetch<Video>({
+    query: videoBySlugQuery,
+    params: { slug },
+  });
+
+  if (!video) {
+    return {
+      title: "Video niet gevonden",
+    };
+  }
+
+  return {
+    title: `${video.title} | Interieur.Expert`,
+    description: video.excerpt || video.seoDescription,
+  };
+}
+
+export default async function VideoDetailPage({ params }: PageProps) {
+  const { slug } = await params;
+  
+  // Fetch video data
+  const video = await sanityFetch<Video>({
+    query: videoBySlugQuery,
+    params: { slug },
+  });
+
+  if (!video) {
+    notFound();
+  }
+
+  const isSponsored = video.sponsored;
+  const partnerName = video.partner?.name;
+  const partnerUrl = video.partner?.website;
+  const sponsorDisclosure = video.partner?.sponsorDisclosure;
 
   return (
     <article>
@@ -19,26 +60,31 @@ export default function VideoDetailPage() {
         <Container size="content">
           <div className="space-y-6">
             <MetaRow
-              publishedAt="11 januari 2026"
-              readingTime={15}
+              publishedAt={new Date(video.publishedAt).toLocaleDateString("nl-NL", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+              readingTime={video.duration}
               type="video"
               isSponsored={isSponsored}
             />
 
             <h1 className="text-4xl lg:text-5xl font-semibold text-text leading-tight">
-              Interieur tour: Modern landelijk in Utrecht
+              {video.title}
             </h1>
 
-            <p className="text-xl text-text/70 leading-relaxed">
-              Bekijk hoe Sarah haar jaren &apos;30 huis transformeerde naar een
-              moderne landelijke stijl met respect voor originele details.
-              Ontdek slimme oplossingen voor het combineren van oud en nieuw.
-            </p>
+            {video.excerpt && (
+              <p className="text-xl text-text/70 leading-relaxed">
+                {video.excerpt}
+              </p>
+            )}
 
-            {isSponsored && (
+            {isSponsored && partnerName && (
               <SponsoredDisclosure
                 partnerName={partnerName}
                 partnerUrl={partnerUrl}
+                disclosure={sponsorDisclosure}
               />
             )}
           </div>
@@ -52,7 +98,7 @@ export default function VideoDetailPage() {
             <iframe
               width="100%"
               height="100%"
-              src={`https://www.youtube.com/embed/${youtubeId}`}
+              src={`https://www.youtube.com/embed/${video.youtubeId}`}
               title="Video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -63,104 +109,24 @@ export default function VideoDetailPage() {
       </Section>
 
       {/* Transcript / Description */}
-      <Section spacing="md">
-        <Container size="content">
-          <ContentWrapper>
-            <div className="prose prose-lg max-w-none prose-headings:font-semibold prose-headings:text-text prose-p:text-text prose-p:leading-relaxed">
-              <h2>Over deze video</h2>
-
-              <p>
-                Sarah woont met haar gezin in een karakteristieke jaren &apos;30
-                woning in Utrecht. Na jaren van kleine aanpassingen besloot ze
-                het huis volledig te renoveren, met als doel een moderne
-                landelijke stijl die past bij het karakter van het huis.
-              </p>
-
-              <p>
-                In deze video tour laat ze zien hoe ze originele details zoals
-                glas-in-lood ramen, houten kozijnen en de oorspronkelijke
-                plavuizenvloer heeft behouden, terwijl ze tegelijkertijd de
-                ruimtes heeft gemoderniseerd met een lichte kleurenpalet en
-                natuurlijke materialen.
-              </p>
-
-              <h3>Highlights uit de tour:</h3>
-
-              <ul>
-                <li>
-                  Keuken: Een op maat gemaakte keuken met eiken fronten en een
-                  betonnen werkblad
-                </li>
-                <li>
-                  Woonkamer: Hoe Sarah speelt met verschillende tinten wit en
-                  beige voor een rustige basis
-                </li>
-                <li>
-                  Badkamer: Combinatie van authentieke tegels met moderne
-                  sanitair
-                </li>
-                <li>
-                  Slaapkamers: Rustgevende kleuren en natuurlijke textiel voor
-                  een hotelgevoel
-                </li>
-              </ul>
-
-              {/* Ad slot inline */}
-              <div className="my-12">
-                <AdSlot position="article-inline" />
+      {video.transcript && video.transcript.length > 0 && (
+        <Section spacing="md">
+          <Container size="content">
+            <ContentWrapper>
+              <div className="prose prose-lg max-w-none">
+                <PortableText value={video.transcript} />
               </div>
-
-              <h3>Wat Sarah heeft geleerd:</h3>
-
-              <p>
-                &quot;Het belangrijkste is om het karakter van je huis te
-                respecteren. Ik had een ultramodern interieur kunnen maken, maar
-                dat zou niet hebben gepast bij de uitstraling van het huis. Door
-                originele elementen te behouden en daar moderne accenten aan toe
-                te voegen, krijg je het beste van beide werelden.&quot;
-              </p>
-
-              <h3>Praktische tips:</h3>
-
-              <ol>
-                <li>
-                  Begin met de basis: vloeren en muren vormen de basis van je
-                  interieur
-                </li>
-                <li>
-                  Investeer in op maat: vooral in een oud huis zijn
-                  standaardmaten vaak niet ideaal
-                </li>
-                <li>
-                  Zoek goede vakmensen: authentieke details vragen om
-                  ambachtelijk werk
-                </li>
-                <li>
-                  Neem de tijd: haast leidt tot compromissen waar je later spijt
-                  van krijgt
-                </li>
-              </ol>
-
-              <h3>Producten en merken:</h3>
-
-              <ul>
-                <li>Keuken: Op maat gemaakt door lokale meubelmaker</li>
-                <li>Werkblad: Beton door BetonAtelier Amsterdam</li>
-                <li>Verlichting: Combinatie van Flos en vintage vondsten</li>
-                <li>Textiel: Linnen van Libeco, wol van Melin Tregwynt</li>
-              </ul>
-
-              <p>
-                Meer weten over Sarah&apos;s renovatie? Check haar Instagram{" "}
-                <a href="#" className="text-accent hover:underline">
-                  @sarahs_huis
-                </a>{" "}
-                waar ze het hele proces heeft gedocumenteerd.
-              </p>
-            </div>
-          </ContentWrapper>
-        </Container>
-      </Section>
+              
+              {/* Inline Ad - only show if not sponsored */}
+              {!isSponsored && (
+                <div className="my-12">
+                  <AdSlot position="article-inline" category={video.category} tags={video.tags} />
+                </div>
+              )}
+            </ContentWrapper>
+          </Container>
+        </Section>
+      )}
     </article>
   );
 }

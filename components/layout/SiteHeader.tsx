@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Container from "./Container";
 import SmartSearch from "@/components/ui/SmartSearch";
 
@@ -18,6 +19,12 @@ const navItems = [
 
 export default function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
 
   return (
     <header className="border-b border-text/10 bg-background sticky top-0 z-50">
@@ -40,7 +47,11 @@ export default function SiteHeader() {
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className="text-sm text-text/70 hover:text-text transition-colors whitespace-nowrap"
+                      className={`text-sm transition-all duration-200 whitespace-nowrap relative pb-1 ${
+                        isActive(item.href)
+                          ? "text-text font-medium after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-accent after:transition-all"
+                          : "text-text/70 hover:text-text after:absolute after:bottom-0 after:left-1/2 after:right-1/2 after:h-0.5 after:bg-accent/50 hover:after:left-0 hover:after:right-0 after:transition-all after:duration-200"
+                      }`}
                     >
                       {item.label}
                     </Link>
@@ -120,7 +131,11 @@ export default function SiteHeader() {
                   <Link
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block px-6 py-4 text-base text-text/80 hover:text-text hover:bg-surface transition-colors"
+                    className={`block px-6 py-4 text-base transition-colors border-l-4 ${
+                      isActive(item.href)
+                        ? "text-text font-medium bg-surface border-accent"
+                        : "text-text/80 hover:text-text hover:bg-surface border-transparent"
+                    }`}
                   >
                     {item.label}
                   </Link>

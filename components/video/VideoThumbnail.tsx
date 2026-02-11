@@ -13,6 +13,8 @@ interface VideoThumbnailProps {
   publishedAt: string;
   size?: "featured" | "grid";
   excerpt?: string;
+  isSponsored?: boolean;
+  partnerName?: string;
 }
 
 export default function VideoThumbnail({
@@ -24,32 +26,31 @@ export default function VideoThumbnail({
   publishedAt,
   size = "grid",
   excerpt,
+  isSponsored = false,
+  partnerName,
 }: VideoThumbnailProps) {
   const router = useRouter();
   const [isHovering, setIsHovering] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const isFeatured = size === "featured";
 
+  // Only activate preview if we have a preview video
   useEffect(() => {
-    if (isHovering && previewVideo) {
-      // Delay before showing preview to avoid accidental triggers
+    if (isHovering && previewVideo && videoRef.current) {
       hoverTimeoutRef.current = setTimeout(() => {
-        setShowPreview(true);
         if (videoRef.current) {
           videoRef.current.currentTime = 0;
           videoRef.current.play().catch(() => {
             // Autoplay might be blocked, ignore
           });
         }
-      }, 500); // 500ms delay
+      }, 400); // 400ms delay
     } else {
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current);
       }
-      setShowPreview(false);
       if (videoRef.current) {
         videoRef.current.pause();
         videoRef.current.currentTime = 0;
@@ -66,7 +67,7 @@ export default function VideoThumbnail({
   return (
     <div
       onClick={() => router.push(href)}
-      className="group block cursor-pointer"
+      className={`group block cursor-pointer ${isSponsored ? "border-t-2 border-brand/40 pt-4" : ""}`}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -77,38 +78,49 @@ export default function VideoThumbnail({
             src={thumbnail}
             alt={title}
             className={`w-full h-full object-cover transition-all duration-300 ${
-              showPreview ? "opacity-0" : "opacity-100 group-hover:scale-110 group-hover:brightness-75"
+              previewVideo && isHovering 
+                ? "opacity-0" 
+                : "opacity-100 group-hover:scale-105"
             }`}
           />
 
-          {/* Preview video (only rendered if exists) */}
+          {/* Preview video (only if exists) */}
           {previewVideo && (
             <video
               ref={videoRef}
               src={previewVideo}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
-                showPreview ? "opacity-100" : "opacity-0"
+                isHovering ? "opacity-100" : "opacity-0"
               }`}
               muted
               loop
               playsInline
-              preload="none" // Don't preload to save bandwidth
+              preload="metadata"
             />
           )}
 
-          {/* Gradient overlay on hover */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          {/* Gradient overlay on hover (only if no preview video) */}
+          {!previewVideo && (
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          )}
           
           {/* Play button overlay */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="opacity-80 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110">
-              <PlayIcon size={isFeatured ? "lg" : "md"} className="text-white group-hover:text-[#0000FF] drop-shadow-2xl transition-colors duration-300" />
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className={`transition-all duration-300 ${
+              previewVideo && isHovering 
+                ? "opacity-0 scale-75" 
+                : "opacity-90 group-hover:opacity-100 group-hover:scale-110"
+            }`}>
+              <PlayIcon 
+                size={isFeatured ? "lg" : "md"} 
+                className="text-white drop-shadow-2xl" 
+              />
             </div>
           </div>
 
           {/* Duration badge */}
           {duration && (
-            <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded">
+            <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded backdrop-blur-sm">
               {duration} min
             </div>
           )}
@@ -121,6 +133,14 @@ export default function VideoThumbnail({
               {title}
             </h3>
             {excerpt && <p className="text-text/70 line-clamp-2">{excerpt}</p>}
+            {isSponsored && partnerName && (
+              <p className="text-sm text-text/60">
+                In samenwerking met{" "}
+                <span className="font-medium text-brand">
+                  {partnerName}
+                </span>
+              </p>
+            )}
             <p className="text-sm text-text/50">{publishedAt}</p>
           </div>
         ) : (
@@ -128,6 +148,14 @@ export default function VideoThumbnail({
             <h3 className="font-semibold text-text leading-snug group-hover:text-accent transition-colors line-clamp-2">
               {title}
             </h3>
+            {isSponsored && partnerName && (
+              <p className="text-xs text-text/60">
+                In samenwerking met{" "}
+                <span className="font-medium text-brand">
+                  {partnerName}
+                </span>
+              </p>
+            )}
             <p className="text-sm text-text/50">{publishedAt}</p>
           </div>
         )}

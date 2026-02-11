@@ -27,7 +27,14 @@ const videosQuery = groq`
     publishedAt,
     thumbnail,
     "previewVideoUrl": previewVideo.asset->url,
-    duration
+    duration,
+    sponsored,
+    "partner": partner->{
+      _id,
+      name,
+      "slug": slug.current,
+      website
+    }
   }
 `;
 
@@ -75,6 +82,8 @@ export default async function VideoPage() {
                     duration={videos[0].duration}
                     publishedAt={new Date(videos[0].publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
                     excerpt={videos[0].excerpt}
+                    isSponsored={videos[0].sponsored || false}
+                    partnerName={(videos[0] as any).partner?.name}
                     size="featured"
                   />
                 </div>
@@ -99,6 +108,8 @@ export default async function VideoPage() {
                       previewVideo={(video as any).previewVideoUrl}
                       duration={video.duration}
                       publishedAt={new Date(video.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                      isSponsored={video.sponsored || false}
+                      partnerName={(video as any).partner?.name}
                       size="grid"
                     />
                   ))}
