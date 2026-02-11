@@ -81,7 +81,22 @@ export default defineType({
       name: "tags",
       title: "Tags",
       type: "array",
-      of: [{ type: "string" }],
+      of: [{ 
+        type: "string",
+        options: {
+          // Autocomplete with all existing tags from articles, videos, and dossiers
+          list: async (context: any) => {
+            const client = context.getClient({ apiVersion: '2024-01-01' });
+            const tags = await client.fetch(
+              `array::unique(
+                *[_type in ["article", "video", "dossier"] && defined(tags)].tags[] |
+                order(@)
+              )`
+            );
+            return tags.map((tag: string) => ({ title: tag, value: tag }));
+          },
+        },
+      }],
       options: {
         layout: "tags",
       },

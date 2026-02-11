@@ -62,8 +62,20 @@ export default defineType({
       name: "themes",
       title: "Thema's",
       type: "array",
-      of: [{ type: "string" }],
-      description: "Thema labels voor dit dossier. Typ en druk Enter om nieuwe thema's toe te voegen.",
+      of: [{ 
+        type: "string",
+        options: {
+          // Autocomplete with all existing themes from dossiers
+          list: async (context: any) => {
+            const client = context.getClient({ apiVersion: '2024-01-01' });
+            const themes = await client.fetch(
+              `array::unique(*[_type == "dossier" && defined(themes)].themes[] | order(@))`
+            );
+            return themes.map((theme: string) => ({ title: theme, value: theme }));
+          },
+        },
+      }],
+      description: "Thema labels voor dit dossier. Begin te typen voor suggesties of voeg nieuwe toe.",
       options: {
         layout: "tags",
       },
