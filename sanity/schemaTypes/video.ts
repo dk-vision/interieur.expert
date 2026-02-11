@@ -1,5 +1,6 @@
 import { defineType, defineField } from "sanity";
 import { PlayCircle } from "lucide-react";
+import { TagAutocomplete } from "../components/TagAutocomplete";
 
 export default defineType({
   name: "video",
