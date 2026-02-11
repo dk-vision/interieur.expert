@@ -26,9 +26,11 @@ export const GeneratePreviewAction: DocumentActionComponent = (props) => {
       console.log("🎬 Starting preview generation:", { videoId: id, youtubeId });
 
       try {
-        // Get the current origin for API calls
-        const apiUrl = `${window.location.origin}/api/generate-preview`;
+        // Always use localhost for preview generation (requires yt-dlp/ffmpeg)
+        // Production (Vercel) doesn't support video processing
+        const apiUrl = `http://localhost:3100/api/generate-preview`;
         console.log("🌐 API URL:", apiUrl);
+        console.log("⚠️  Note: This requires local dev server running with yt-dlp + ffmpeg installed");
 
         // Call API endpoint to generate preview
         const response = await fetch(apiUrl, {

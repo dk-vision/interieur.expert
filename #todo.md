@@ -3,7 +3,7 @@
 ## Current Priorities
 
 - [ ] Links in sponsored articles (internal linking feature)
-- [ ] Tags autocomplete in Sanity Studio
+
 - [ ] Video icon/branding improvements
 - [ ] Sidebar ad layout fixes:
   - [ ] Homepage sidebar separate ad positioning
