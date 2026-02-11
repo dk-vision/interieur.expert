@@ -18,13 +18,20 @@ export const GeneratePreviewAction: DocumentActionComponent = (props) => {
     disabled: !youtubeId,
     onHandle: async () => {
       if (!youtubeId) {
+        console.log("⚠️ No YouTube ID found");
         props.onComplete();
         return;
       }
 
+      console.log("🎬 Starting preview generation:", { videoId: id, youtubeId });
+
       try {
+        // Get the current origin for API calls
+        const apiUrl = `${window.location.origin}/api/generate-preview`;
+        console.log("🌐 API URL:", apiUrl);
+
         // Call API endpoint to generate preview
-        const response = await fetch("/api/generate-preview", {
+        const response = await fetch(apiUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -35,21 +42,25 @@ export const GeneratePreviewAction: DocumentActionComponent = (props) => {
           }),
         });
 
-        if (!response.ok) {
-          throw new Error(`Failed to generate preview: ${response.statusText}`);
-        }
+        console.log("📡 API Response:", response.status, response.statusText);
 
         const result = await response.json();
+        console.log("✅ API Result:", result);
 
-        // Show success/error
-        if (result.success) {
-          // Refresh the document to show the new preview
-          props.onComplete();
-        } else {
-          throw new Error(result.error || "Unknown error");
+        if (!response.ok || !result.success) {
+          const errorMsg = result.error || response.statusText || "Unknown error";
+          console.error("❌ API Error:", errorMsg);
+          throw new Error(errorMsg);
         }
+
+        // Success - refresh document
+        console.log("🎉 Preview generated successfully!");
+        console.log("📏 Duration:", result.duration, "seconds");
+        alert(`Preview generated successfully! Duration: ${result.duration || 'N/A'}s`);
+        props.onComplete();
       } catch (error) {
-        console.error("Error generating preview:", error);
+        console.error("💥 Error generating preview:", error);
+        alert(`Failed to generate preview: ${error instanceof Error ? error.message : "Unknown error"}. Check console for details.`);
         props.onComplete();
       }
     },
