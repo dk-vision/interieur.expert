@@ -26,11 +26,18 @@ export const GeneratePreviewAction: DocumentActionComponent = (props) => {
       console.log("🎬 Starting preview generation:", { videoId: id, youtubeId });
 
       try {
-        // Always use localhost for preview generation (requires yt-dlp/ffmpeg)
-        // Production (Vercel) doesn't support video processing
-        const apiUrl = `http://localhost:3100/api/generate-preview`;
+        // Use same origin as Studio to avoid CORS issues
+        // But ensure we're not calling production (which doesn't have yt-dlp/ffmpeg)
+        const isProduction = window.location.hostname.includes('vercel.app');
+        
+        if (isProduction) {
+          alert("⚠️ Preview generation only works locally.\n\nPlease run: pnpm exec tsx scripts/generate-video-previews.ts");
+          props.onComplete();
+          return;
+        }
+        
+        const apiUrl = `${window.location.origin}/api/generate-preview`;
         console.log("🌐 API URL:", apiUrl);
-        console.log("⚠️  Note: This requires local dev server running with yt-dlp + ffmpeg installed");
 
         // Call API endpoint to generate preview
         const response = await fetch(apiUrl, {
