@@ -70,12 +70,12 @@ export default async function VideoDetailPage({ params }: PageProps) {
               isSponsored={isSponsored}
             />
 
-            <h1 className="text-4xl lg:text-5xl font-semibold text-text leading-tight">
+            <h1 className="text-h2 lg:text-h1 font-semibold text-text">
               {video.title}
             </h1>
 
             {video.excerpt && (
-              <p className="text-xl text-text/70 leading-relaxed">
+              <p className="text-body-lg text-text/70">
                 {video.excerpt}
               </p>
             )}
@@ -111,19 +111,21 @@ export default async function VideoDetailPage({ params }: PageProps) {
       {/* Transcript / Description */}
       {video.transcript && video.transcript.length > 0 && (
         <Section spacing="md">
-          <Container size="content">
-            <ContentWrapper>
-              <div className="prose prose-lg max-w-none">
-                <PortableText value={video.transcript} />
-              </div>
-              
-              {/* Inline Ad - only show if not sponsored */}
-              {!isSponsored && (
-                <div className="my-12">
-                  <AdSlot position="article-inline" category={video.category} tags={video.tags} />
+          <Container size="layout">
+            <div className="max-w-content mx-auto">
+              <ContentWrapper>
+                <div className="prose max-w-none prose-headings:font-semibold prose-headings:text-text prose-h2:text-h4 prose-h3:text-h5 prose-p:text-body prose-p:text-text">
+                  <PortableText value={video.transcript} />
                 </div>
-              )}
-            </ContentWrapper>
+              </ContentWrapper>
+            </div>
+
+            {/* Inline Ad - only show if not sponsored */}
+            {!isSponsored && (
+              <div className="my-12">
+                <AdSlot position="article-inline" category={video.category} tags={video.tags} />
+              </div>
+            )}
           </Container>
         </Section>
       )}

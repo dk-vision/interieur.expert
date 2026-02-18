@@ -66,7 +66,7 @@ function toContentCardData(
   if (content._type === "article" && content.featuredImage) {
     baseData.image = urlForImage(content.featuredImage)
       .width(1200)
-      .height(800)
+      .height(675)
       .url();
   } else if (content._type === "dossier" && content.featuredImage) {
     baseData.image = urlForImage(content.featuredImage)
@@ -74,7 +74,7 @@ function toContentCardData(
       .height(800)
       .url();
   } else if (content._type === "video" && content.thumbnail) {
-    baseData.image = urlForImage(content.thumbnail).width(1200).height(800).url();
+    baseData.image = urlForImage(content.thumbnail).width(1200).height(675).url();
   }
 
   // Add reading time or duration

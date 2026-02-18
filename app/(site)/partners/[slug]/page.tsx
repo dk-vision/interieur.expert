@@ -102,15 +102,15 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
               <div className="flex-1 text-center md:text-left">
                 <div className="flex items-center gap-3 justify-center md:justify-start mb-3">
                   {partner.featured && (
-                    <span className="bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm font-semibold">
+                    <span className="bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-meta font-semibold">
                       ⭐ Featured
                     </span>
                   )}
                 </div>
-                <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                <h1 className="text-h2 lg:text-h1 font-bold mb-4">
                   {partner.name}
                 </h1>
-                <p className="text-xl text-gray-600 mb-6">
+                <p className="text-body-lg text-gray-600 mb-6">
                   {partner.description}
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center md:justify-start">
@@ -157,8 +157,8 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
         <Section>
           <Container>
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-3xl font-bold mb-8">Over {partner.name}</h2>
-              <div className="prose prose-lg max-w-none">
+              <h2 className="text-h4 font-bold mb-8">Over {partner.name}</h2>
+              <div className="prose max-w-none prose-headings:font-semibold prose-h2:text-h4 prose-h3:text-h5 prose-p:text-body">
                 <PortableText value={partner.about} />
               </div>
             </div>
@@ -171,14 +171,14 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
         <Section className="bg-gray-50">
           <Container>
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold mb-8 text-center">Showrooms</h2>
+              <h2 className="text-h4 font-bold mb-8 text-center">Showrooms</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 {partner.showrooms.map((showroom, index) => (
                   <div
                     key={index}
                     className="bg-white p-6 rounded-lg border border-gray-200"
                   >
-                    <h3 className="text-xl font-bold mb-3">{showroom.city}</h3>
+                    <h3 className="text-h6 font-bold mb-3">{showroom.city}</h3>
                     <p className="text-gray-600 mb-2 whitespace-pre-line">
                       {showroom.address}
                     </p>
@@ -203,10 +203,10 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
         <Section>
           <Container>
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold mb-8 text-center">
+              <h2 className="text-h4 font-bold mb-8 text-center">
                 Gesponsorde Content
               </h2>
-              <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+              <p className="text-center text-body text-gray-600 mb-12 max-w-2xl mx-auto">
                 Ontdek inspirerende artikels in samenwerking met {partner.name}.
               </p>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -243,10 +243,10 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
       <Section className="bg-gradient-to-b from-gray-50 to-white">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">
+            <h2 className="text-h4 font-bold mb-6">
               Klaar om te ontdekken?
             </h2>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-body-lg text-gray-600 mb-8">
               Bezoek de website van {partner.name} voor het volledige aanbod en
               actuele inspiratie.
             </p>
@@ -254,7 +254,7 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
               href={partner.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-800 transition-colors"
+              className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 rounded-lg text-body-lg font-semibold hover:bg-gray-800 transition-colors"
             >
               <ExternalLink className="w-6 h-6" />
               Bezoek {partner.name}

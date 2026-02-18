@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Container from "./Container";
 import SmartSearch from "@/components/ui/SmartSearch";
@@ -32,9 +33,17 @@ export default function SiteHeader() {
         <div className="flex items-center justify-between py-6 gap-4">
           <Link
             href="/"
-            className="text-xl font-semibold text-text hover:text-accent transition-colors flex-shrink-0"
+            className="text-text hover:text-accent transition-colors flex-shrink-0"
           >
-            interieur.expert
+            <span className="sr-only">interieur.expert</span>
+            <Image
+              src="/icons/logo.svg"
+              alt=""
+              width={220}
+              height={32}
+              priority
+              className="h-8 w-auto"
+            />
           </Link>
           
           <div className="flex items-center gap-4 md:gap-8">

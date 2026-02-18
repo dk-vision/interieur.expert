@@ -114,14 +114,9 @@ export default defineType({
       name: "tags",
       title: "Tags",
       type: "array",
-      of: [{ 
-        type: "string",
-        components: {
-          input: TagAutocomplete,
-        },
-      }],
-      options: {
-        layout: "tags",
+      of: [{ type: "string" }],
+      components: {
+        input: TagAutocomplete,
       },
       description: "Begin te typen voor suggesties van bestaande tags",
     }),

@@ -41,6 +41,7 @@ export default function ContentCard({
   const router = useRouter();
   const isLarge = size === "large";
   const isWide = size === "wide";
+  const isThumb169 = type === "article" || type === "video";
   
   const handleCardClick = (e: React.MouseEvent) => {
     // Don't navigate if clicking on a link inside the card
@@ -57,7 +58,7 @@ export default function ContentCard({
         onClick={handleCardClick}
         className={`group block md:col-span-2 cursor-pointer ${isSponsored ? "border-t-2 border-brand/40 pt-4" : ""}`}
       >
-        <div className="aspect-[4/3] bg-text/5 rounded-sm overflow-hidden relative">
+        <div className={`${isThumb169 ? "aspect-video" : "aspect-[4/3]"} bg-text/5 rounded-sm overflow-hidden relative`}>
           {image && (
             <Image
               src={image}
@@ -88,11 +89,11 @@ export default function ContentCard({
               isSponsored={isSponsored}
             />
             
-            <h3 className="text-2xl md:text-3xl font-semibold leading-tight transition-opacity group-hover:opacity-90">
+            <h3 className="text-h5 md:text-h4 font-semibold transition-opacity group-hover:opacity-90">
               {title}
             </h3>
             
-            <p className="text-white/90 leading-relaxed line-clamp-2 md:line-clamp-3">
+            <p className="text-body text-white/90 line-clamp-2 md:line-clamp-3">
               {excerpt}
             </p>
           </div>
@@ -108,7 +109,7 @@ export default function ContentCard({
     >
       <div className={`${isLarge ? "grid grid-cols-1 md:grid-cols-2 gap-6" : "space-y-4"}`}>
       {/* Image */}
-      <div className={`${isLarge ? "aspect-[16/9] md:aspect-square" : "aspect-[4/3]"} bg-text/5 rounded-sm overflow-hidden relative`}>
+      <div className={`${isThumb169 ? "aspect-video" : isLarge ? "aspect-[16/9] md:aspect-square" : "aspect-[4/3]"} bg-text/5 rounded-sm overflow-hidden relative`}>
           {image && (
             <Image
               src={image}
@@ -136,14 +137,14 @@ export default function ContentCard({
             isSponsored={isSponsored}
           />
 
-          <h3 className={`${isLarge ? "text-2xl lg:text-3xl" : "text-xl"} font-semibold text-text leading-tight group-hover:text-accent transition-colors`}>
+          <h3 className={`${isLarge ? "text-h5" : "text-h6"} font-semibold text-text group-hover:text-accent transition-colors`}>
             {title}
           </h3>
 
-          <p className={`text-text/70 leading-relaxed ${isLarge ? "text-lg line-clamp-4" : "line-clamp-3"}`}>{excerpt}</p>
+          <p className={`text-body text-text/70 ${isLarge ? "line-clamp-4" : "line-clamp-3"}`}>{excerpt}</p>
 
           {sponsors && sponsors.length > 0 && type === "dossier" && (
-            <p className="text-sm text-text/60">
+            <p className="text-meta text-text/60">
               Mogelijk gemaakt door{" "}
               {sponsors.map((sponsor, idx) => (
                 <span key={sponsor.slug}>
@@ -163,7 +164,7 @@ export default function ContentCard({
           )}
 
           {isSponsored && partnerName && (
-            <p className="text-sm text-text/60">
+            <p className="text-meta text-text/60">
               In samenwerking met{" "}
               <span className="font-medium text-brand">
                 {partnerName}

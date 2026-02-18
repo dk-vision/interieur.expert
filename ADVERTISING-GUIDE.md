@@ -1,7 +1,7 @@
 # Advertising & Partner Guide – interieur.expert
 
 **Versie:** 2.0  
-**Laatst bijgewerkt:** 6 februari 2026
+**Laatst bijgewerkt:** 17 februari 2026
 
 ---
 
@@ -75,56 +75,56 @@ Partners zijn merken en bedrijven die structureel met interieur.expert samenwerk
 
 We hebben **6 strategische advertentieposities**:
 
-| Slot | Locatie | Formaat | Beste voor |
+| Slot | Locatie | Vast IAB formaat | Beste voor |
 |------|---------|---------|-----------|
-| **Homepage Hero** | Homepage, onder hero | 1280×400px | Brand awareness, launches |
-| **Homepage Newsletter** | Homepage, boven newsletter | 1280×200px | Conversies, events |
-| **Homepage Card** | Homepage, tussen content | 600×400px | Product showcases |
-| **Listing Sidebar** | Alle listing pagina's | 400×600px | Always-on visibility |
-| **Article Sidebar** | Artikel detailpagina's | 400×600px | Contextual relevantie |
-| **Article Inline** | Binnen artikel content | 1000×200px | Hoge engagement |
+| **Homepage Hero** | Homepage, onder hero | 970×250 (desktop) / 728×90 (tablet) / 320×100 (mobile) | Brand awareness, launches |
+| **Homepage Newsletter** | Homepage, boven newsletter | 970×90 (desktop) / 728×90 (tablet) / 320×100 (mobile) | Conversies, events |
+| **Homepage Card** | Homepage, tussen content | 300×250 (Medium Rectangle) | Product showcases |
+| **Listing Sidebar** | Alle listing pagina's | 300×600 (Half Page) | Always-on visibility |
+| **Article Sidebar** | Artikel detailpagina's | 300×600 (Half Page) | Contextual relevantie |
+| **Article Inline** | Binnen artikel content | 728×90 (desktop/tablet) / 320×100 (mobile) | Hoge engagement |
 
 ### Slot Details
 
 #### Homepage Hero
 - **Zichtbaarheid**: Eerste wat bezoekers zien
 - **Traffic**: ~40% van alle pageviews
-- **Format**: Horizontale banner
+- **Format**: Horizontale banner (IAB: 970×250 / 728×90 / 320×100)
 - **Aanbevolen voor**: Product launches, seizoenscampagnes, brand awareness
 - **Pricing**: Premium
 
 #### Homepage Newsletter
 - **Zichtbaarheid**: Bij newsletter signup sectie
 - **Traffic**: ~35% van homepage bezoekers scrollt hier
-- **Format**: Horizontale banner
+- **Format**: Super Leaderboard (IAB: 970×90 / 728×90 / 320×100)
 - **Aanbevolen voor**: Webshops, nieuwsbrief partners, events
 - **Pricing**: High
 
 #### Homepage Card
 - **Zichtbaarheid**: Blend in met content cards
 - **Traffic**: ~30% van homepage bezoekers
-- **Format**: Verticale card
+- **Format**: Medium Rectangle (IAB: 300×250)
 - **Aanbevolen voor**: Native advertising, product focus
 - **Pricing**: High
 
 #### Listing Sidebar
 - **Zichtbaarheid**: Sticky (blijft zichtbaar tijdens scrollen)
 - **Traffic**: Alle listing pagina's (artikels, inspiratie, advies, trends, dossiers, video)
-- **Format**: Verticale banner
+- **Format**: Half Page (IAB: 300×600)
 - **Aanbevolen voor**: Baseline campaigns, always-on presence
 - **Pricing**: Medium (beste ROI)
 
 #### Article Sidebar
 - **Zichtbaarheid**: Sticky, naast artikel content
 - **Traffic**: Hoge engagement, langere sessies
-- **Format**: Verticale banner
+- **Format**: Half Page (IAB: 300×600)
 - **Aanbevolen voor**: Baseline campaigns, contextual targeting
 - **Pricing**: Medium
 
 #### Article Inline
 - **Zichtbaarheid**: Binnen artikel tekst
 - **Traffic**: Hoogste engagement rate
-- **Format**: Horizontale banner
+- **Format**: Horizontale banner (IAB: 728×90 / 320×100)
 - **Aanbevolen voor**: Targeted campaigns met specifieke tags
 - **Pricing**: Premium (beste CTR)
 
@@ -344,10 +344,13 @@ Alle producten ook los te bestellen. Prijzen op aanvraag voor:
 - **Link URL**: Waar moet de ad naartoe?
 - **Alt Text**: Beschrijving voor toegankelijkheid
 - **Image**: Upload ad afbeelding
-  - Homepage Hero: 1280×400px
-  - Homepage Newsletter/Article Inline: 1280×200px of 1000×200px
-  - Homepage Card: 600×400px
-  - Sidebars: 400×600px
+   - Homepage Hero: 970×250 (desktop) / 728×90 (tablet) / 320×100 (mobile)
+   - Homepage Newsletter: 970×90 (desktop) / 728×90 (tablet) / 320×100 (mobile)
+   - Homepage Card: 300×250
+   - Listing Sidebar / Article Sidebar: 300×600
+   - Article Inline: 728×90 (desktop/tablet) / 320×100 (mobile)
+
+> Opmerking: deze ad slots renderen in vaste IAB-afmetingen (per breakpoint waar van toepassing). Lever creatives exact aan volgens de formaten hierboven.
 
 **Voor HTML Ad:**
 - **Title**: Interne naam

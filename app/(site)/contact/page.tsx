@@ -20,8 +20,8 @@ function ContactCard({
   return (
     <div className="border border-text/10 rounded-sm p-8 space-y-4 hover:border-accent/30 transition-colors">
       <div className="text-accent">{icon}</div>
-      <h3 className="text-xl font-semibold text-text">{title}</h3>
-      <p className="text-text/70 leading-relaxed">{description}</p>
+      <h3 className="text-h6 font-semibold text-text">{title}</h3>
+      <p className="text-body text-text/70">{description}</p>
       <a
         href={href}
         className="inline-block text-accent hover:text-text font-medium transition-colors"
@@ -39,10 +39,10 @@ export default function ContactPage() {
       <Section spacing="lg">
         <Container size="content">
           <div className="space-y-6">
-            <h1 className="text-4xl lg:text-5xl font-semibold text-text leading-tight">
+            <h1 className="text-h2 lg:text-h1 font-semibold text-text">
               Contact
             </h1>
-            <p className="text-xl text-text/70 leading-relaxed">
+            <p className="text-body-lg text-text/70">
               We horen graag van je. Of je nu een vraag hebt, feedback wilt geven,
               of interesse hebt in samenwerking—neem gerust contact op.
             </p>
@@ -77,10 +77,10 @@ export default function ContactPage() {
         <Container size="content">
           <div className="space-y-8">
             <div className="space-y-4 text-center">
-              <h2 className="text-3xl font-semibold text-text">
+              <h2 className="text-h4 font-semibold text-text">
                 Stuur ons een bericht
               </h2>
-              <p className="text-text/70 leading-relaxed">
+              <p className="text-body text-text/70">
                 Vul het formulier in en we nemen zo snel mogelijk contact met je op.
               </p>
             </div>
@@ -90,7 +90,7 @@ export default function ContactPage() {
                 <div className="space-y-2">
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-text"
+                    className="block text-meta font-medium text-text"
                   >
                     Naam *
                   </label>
@@ -106,7 +106,7 @@ export default function ContactPage() {
                 <div className="space-y-2">
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-text"
+                    className="block text-meta font-medium text-text"
                   >
                     E-mail *
                   </label>
@@ -124,7 +124,7 @@ export default function ContactPage() {
               <div className="space-y-2">
                 <label
                   htmlFor="subject"
-                  className="block text-sm font-medium text-text"
+                    className="block text-meta font-medium text-text"
                 >
                   Onderwerp *
                 </label>
@@ -141,7 +141,7 @@ export default function ContactPage() {
               <div className="space-y-2">
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-text"
+                  className="block text-meta font-medium text-text"
                 >
                   Bericht *
                 </label>
@@ -162,7 +162,7 @@ export default function ContactPage() {
                 >
                   Verstuur bericht
                 </button>
-                <p className="text-sm text-text/60">
+                <p className="text-meta text-text/60">
                   We reageren meestal binnen 2 werkdagen
                 </p>
               </div>
@@ -174,7 +174,7 @@ export default function ContactPage() {
       {/* Additional Info */}
       <Section spacing="md">
         <Container size="content">
-          <div className="prose prose-lg max-w-none prose-headings:font-semibold prose-headings:text-text prose-p:text-text prose-p:leading-relaxed">
+          <div className="prose max-w-none prose-headings:font-semibold prose-headings:text-text prose-h2:text-h4 prose-h3:text-h5 prose-p:text-body prose-p:text-text">
             <h2>Veelgestelde vragen</h2>
 
             <h3>Kan ik mijn huis laten zien op interieur.expert?</h3>

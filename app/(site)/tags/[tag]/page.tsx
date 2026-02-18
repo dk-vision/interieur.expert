@@ -55,10 +55,10 @@ export default async function TagPage({
       <Section spacing="lg">
         <Container>
           <div className="space-y-4">
-            <h1 className="text-4xl lg:text-5xl font-semibold text-text leading-tight">
+            <h1 className="text-h2 lg:text-h1 font-semibold text-text">
               #{tag}
             </h1>
-            <p className="text-xl text-text/70 leading-relaxed max-w-2xl">
+            <p className="text-body-lg text-text/70 max-w-2xl">
               {articles.length} artikel{articles.length !== 1 ? "en" : ""} met deze tag
             </p>
           </div>

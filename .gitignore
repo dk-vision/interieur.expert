@@ -20,6 +20,9 @@
 # production
 /build
 
+# sanity schema/manifest extraction output
+/dist/
+
 # misc
 .DS_Store
 *.pem

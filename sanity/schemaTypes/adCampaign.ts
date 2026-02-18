@@ -27,12 +27,12 @@ export default defineType({
       type: "string",
       options: {
         list: [
-          { title: "Homepage - Boven Recent Articles", value: "homepage-hero" },
-          { title: "Homepage - Boven Newsletter", value: "homepage-newsletter" },
-          { title: "Homepage - Article Card Replacement", value: "homepage-card" },
-          { title: "Overzicht - Sidebar", value: "listing-sidebar" },
-          { title: "Artikel - Inline Banner", value: "article-inline" },
-          { title: "Artikel - Sidebar", value: "article-sidebar" },
+           { title: "Homepage Hero (320×100 / 728×90 / 970×250)", value: "homepage-hero" },
+           { title: "Homepage Newsletter (320×100 / 728×90 / 970×90)", value: "homepage-newsletter" },
+           { title: "Homepage Card (300×250)", value: "homepage-card" },
+           { title: "Listing Sidebar (300×600)", value: "listing-sidebar" },
+           { title: "Article Inline (320×100 / 728×90)", value: "article-inline" },
+           { title: "Article Sidebar (300×600)", value: "article-sidebar" },
         ],
       },
       validation: (Rule) => Rule.required(),

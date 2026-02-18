@@ -16,7 +16,7 @@ export default function MetaRow({
   isSponsored = false,
 }: MetaRowProps) {
   return (
-    <div className="flex flex-wrap items-center gap-3 text-sm text-text/60">
+    <div className="flex flex-wrap items-center gap-3 text-meta text-text/60">
       <ContentTypeBadge type={type} size="sm" />
       
       {isSponsored && <SponsoredBadge size="sm" showIcon={true} />}

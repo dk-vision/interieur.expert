@@ -112,11 +112,11 @@ export default async function DossierDetailPage({
               type="dossier"
             />
 
-            <h1 className="text-4xl lg:text-5xl font-semibold text-text leading-tight">
+            <h1 className="text-h2 lg:text-h1 font-semibold text-text">
               {dossier.title}
             </h1>
 
-            <p className="text-xl text-text/70 leading-relaxed">
+            <p className="text-body-lg text-text/70">
               {dossier.excerpt}
             </p>
           </div>
@@ -129,7 +129,7 @@ export default async function DossierDetailPage({
           <Container size="layout">
             <div>
               <div className="max-w-4xl mx-auto space-y-2">
-                <p className="text-center text-sm text-text/60 uppercase tracking-wide">
+                <p className="text-center text-meta text-text/60 uppercase tracking-wide">
                   Mogelijk gemaakt door
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-12">
@@ -179,7 +179,7 @@ export default async function DossierDetailPage({
         <Section spacing="md">
           <Container size="content">
             <ContentWrapper>
-              <div className="prose prose-lg max-w-none prose-headings:font-semibold prose-headings:text-text prose-p:text-text prose-p:leading-relaxed">
+              <div className="prose max-w-none prose-headings:font-semibold prose-headings:text-text prose-h2:text-h4 prose-h3:text-h5 prose-p:text-body prose-p:text-text">
                 <PortableText value={dossier.intro} />
               </div>
             </ContentWrapper>
@@ -193,10 +193,10 @@ export default async function DossierDetailPage({
           <Container size="layout">
             <div className="space-y-8">
               <div className="border-t border-text/10 pt-8">
-                <h2 className="text-2xl font-semibold mb-2">
+                <h2 className="text-h4 font-semibold mb-2 text-text">
                   Inhoud van dit dossier
                 </h2>
-                <p className="text-text/70">
+                <p className="text-body text-text/70">
                   {articleCards.length} {articleCards.length === 1 ? "artikel" : "artikelen"}
                   {videos.length > 0 && (
                     <>
@@ -212,7 +212,7 @@ export default async function DossierDetailPage({
                   {/* Articles Section */}
                   {articleCards.length > 0 && (
                     <div className="space-y-6">
-                      <h3 className="text-xl font-semibold">Artikelen</h3>
+                      <h3 className="text-h5 font-semibold text-text">Artikelen</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
                         {articleCards.map((card) => (
                           <ContentCard key={card.href} {...card} />
@@ -224,7 +224,7 @@ export default async function DossierDetailPage({
                   {/* Videos Section */}
                   {videos.length > 0 && (
                     <div className="space-y-6">
-                      <h3 className="text-xl font-semibold">Video's</h3>
+                      <h3 className="text-h5 font-semibold text-text">Video's</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
                         {videos.map((video) => (
                           <VideoThumbnail
@@ -249,11 +249,11 @@ export default async function DossierDetailPage({
                 <div className="lg:col-span-4">
                   <div className="space-y-8">
                     <div className="bg-background border border-text/10 rounded-sm p-6 space-y-4">
-                        <h3 className="text-sm font-semibold uppercase tracking-wide text-text/60">
+                        <h3 className="text-meta font-semibold uppercase tracking-wide text-text/60">
                           Over dit dossier
                         </h3>
                         
-                        <div className="space-y-3 text-sm text-text/70">
+                        <div className="space-y-3 text-meta text-text/70">
                           <div className="flex justify-between">
                             <span>Gepubliceerd</span>
                             <time className="text-text">
@@ -276,7 +276,7 @@ export default async function DossierDetailPage({
                                 <Link
                                   key={theme}
                                   href={`/tags/${encodeURIComponent(theme.toLowerCase())}`}
-                                  className="text-xs px-3 py-1.5 bg-text/5 hover:bg-text/10 rounded-full text-text/70 hover:text-text transition-colors"
+                                  className="text-meta px-3 py-1.5 bg-text/5 hover:bg-text/10 rounded-full text-text/70 hover:text-text transition-colors"
                                 >
                                   {theme}
                                 </Link>

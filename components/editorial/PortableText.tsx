@@ -46,27 +46,27 @@ interface PullQuoteValueProps {
 
 const components: PortableTextComponents = {
   block: {
-    normal: ({ children }: BaseComponentProps) => <p className="mb-6">{children}</p>,
+    normal: ({ children }: BaseComponentProps) => <p className="mb-6 text-body">{children}</p>,
     h2: ({ children }: BaseComponentProps) => (
-      <h2 className="text-3xl font-semibold mt-12 mb-6 text-text">
+      <h2 className="text-h4 font-semibold mt-12 mb-6 text-text">
         {children}
       </h2>
     ),
     h3: ({ children }: BaseComponentProps) => (
-      <h3 className="text-2xl font-semibold mt-8 mb-4 text-text">{children}</h3>
+      <h3 className="text-h5 font-semibold mt-8 mb-4 text-text">{children}</h3>
     ),
     blockquote: ({ children }: BaseComponentProps) => (
-      <blockquote className="border-l-4 border-accent pl-6 my-8 italic text-text/80">
+      <blockquote className="border-l-4 border-accent pl-6 my-8 italic text-body-lg text-text/80">
         {children}
       </blockquote>
     ),
   },
   list: {
     bullet: ({ children }: BaseComponentProps) => (
-      <ul className="mb-6 space-y-2 list-disc list-inside marker:text-accent/60">{children}</ul>
+      <ul className="mb-6 space-y-2 list-disc list-inside marker:text-accent/60 text-body">{children}</ul>
     ),
     number: ({ children }: BaseComponentProps) => (
-      <ol className="mb-6 space-y-2 list-decimal list-inside marker:text-accent/60">{children}</ol>
+      <ol className="mb-6 space-y-2 list-decimal list-inside marker:text-accent/60 text-body">{children}</ol>
     ),
   },
   listItem: {
@@ -76,7 +76,7 @@ const components: PortableTextComponents = {
       const isShort = textContent.length < 80;
       
       return (
-        <li className={isShort ? "text-text/90" : "text-text/90 my-2"}>
+        <li className={isShort ? "text-body text-text/90" : "text-body text-text/90 my-2"}>
           {children}
         </li>
       );
@@ -86,7 +86,7 @@ const components: PortableTextComponents = {
       const isShort = textContent.length < 80;
       
       return (
-        <li className={isShort ? "text-text/90" : "text-text/90 my-2"}>
+        <li className={isShort ? "text-body text-text/90" : "text-body text-text/90 my-2"}>
           {children}
         </li>
       );
@@ -147,7 +147,7 @@ const components: PortableTextComponents = {
             />
           </div>
           {value.caption && (
-            <p className="text-sm text-text/60 mt-3 text-center">
+            <p className="text-meta text-text/60 mt-3 text-center">
               {value.caption}
             </p>
           )}
@@ -192,7 +192,7 @@ const components: PortableTextComponents = {
             <span className="text-2xl flex-shrink-0">{style.icon}</span>
             <div className="flex-1">
               {value.title && (
-                <h4 className="font-semibold text-lg mb-2 text-text">
+                <h4 className="font-semibold text-h6 mb-2 text-text">
                   {value.title}
                 </h4>
               )}
@@ -209,7 +209,7 @@ const components: PortableTextComponents = {
       
       return (
         <div className="my-12 py-8 px-6 md:px-12 border-l-4 border-accent bg-background/50">
-          <blockquote className="text-2xl md:text-3xl font-serif italic text-text leading-relaxed">
+          <blockquote className="text-h5 md:text-h4 font-serif italic text-text">
             "{value.text}"
           </blockquote>
           {(value.author || value.role) && (
@@ -218,7 +218,7 @@ const components: PortableTextComponents = {
                 <p className="font-semibold">{value.author}</p>
               )}
               {value.role && (
-                <p className="text-sm">{value.role}</p>
+                <p className="text-meta">{value.role}</p>
               )}
             </div>
           )}
@@ -230,9 +230,7 @@ const components: PortableTextComponents = {
 
 export function PortableText({ value }: PortableTextProps) {
   return (
-    <div className="prose-custom">
-      <BasePortableText value={value} components={components} />
-    </div>
+    <BasePortableText value={value} components={components} />
   );
 }
 

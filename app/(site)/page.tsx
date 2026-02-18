@@ -4,6 +4,7 @@ import Section from "@/components/layout/Section";
 import FeaturedCard from "@/components/editorial/FeaturedCard";
 import ContentCard from "@/components/editorial/ContentCard";
 import AdSlot from "@/components/ads/AdSlot";
+import StickyContainer from "@/components/ui/StickyContainer";
 import { Mail } from "lucide-react";
 import { sanityFetch } from "@/lib/sanity/client";
 import { featuredArticleQuery, latestArticlesQuery, latestVideosQuery } from "@/lib/sanity/queries";
@@ -17,7 +18,7 @@ function NewsletterCTA() {
         <div className="flex justify-center">
           <Mail size={32} className="text-accent" />
         </div>
-        <h3 className="text-2xl font-semibold text-text">
+        <h3 className="text-h5 font-semibold text-text">
           Wekelijkse interieurinspiratie in je inbox
         </h3>
         <p className="text-text/70 leading-relaxed">
@@ -33,7 +34,7 @@ function NewsletterCTA() {
             Inschrijven
           </button>
         </div>
-        <p className="text-xs text-text/50">
+        <p className="text-meta text-text/50">
           Je kunt je altijd weer uitschrijven. Privacy gegarandeerd.
         </p>
       </div>
@@ -58,16 +59,16 @@ export default async function HomePage() {
   return (
     <div>
       {/* Hero Section */}
-      <Section spacing="lg">
+      <Section spacing="lg" className="lg:py-24">
         <Container>
           <div className="space-y-12 lg:space-y-16">
             {/* Intro */}
             <div className="max-w-content space-y-4">
-              <h1 className="text-5xl lg:text-6xl font-semibold text-text leading-tight">
+              <h1 className="text-h2 lg:text-h1 font-semibold text-text">
                 Inspiratie voor je interieur
               </h1>
-              <p className="text-xl text-text/70 leading-relaxed">
-                Eerlijk advies, trends en verhalen over interieur. Zonder poespas.
+              <p className="text-body-lg text-text/70">
+                Waar interieur tot leven komt. Inspiratie, advies &amp; trends voor wie van wonen houdt. 🤍
               </p>
             </div>
 
@@ -82,7 +83,7 @@ export default async function HomePage() {
                 publishedAt={new Date(featuredArticle.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
                 readingTime={featuredArticle.readingTime}
                 isSponsored={featuredArticle.sponsored || false}
-                image={featuredArticle.featuredImage ? urlForImage(featuredArticle.featuredImage).width(1200).height(600).url() : undefined}
+                image={featuredArticle.featuredImage ? urlForImage(featuredArticle.featuredImage).width(1200).height(675).url() : undefined}
               />
             )}
           </div>
@@ -100,7 +101,7 @@ export default async function HomePage() {
       <Section spacing="lg">
         <Container>
           <div className="space-y-12">
-            <h2 className="text-3xl font-semibold text-text">Recent</h2>
+            <h2 className="text-h4 font-semibold text-text">Recent</h2>
             
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Main content - Dynamic grid */}
@@ -121,7 +122,7 @@ export default async function HomePage() {
                       isSponsored={latestArticles[0].sponsored || false}
                       partnerName={latestArticles[0].partner?.name}
                       partnerUrl={latestArticles[0].partner?.website}
-                      image={latestArticles[0].featuredImage ? urlForImage(latestArticles[0].featuredImage).width(1200).height(800).url() : undefined}
+                        image={latestArticles[0].featuredImage ? urlForImage(latestArticles[0].featuredImage).width(1200).height(675).url() : undefined}
                       size="large"
                     />
                   )}
@@ -141,7 +142,7 @@ export default async function HomePage() {
                       isSponsored={article.sponsored || false}
                       partnerName={article.partner?.name}
                       partnerUrl={article.partner?.website}
-                      image={article.featuredImage ? urlForImage(article.featuredImage).width(800).height(600).url() : undefined}
+                        image={article.featuredImage ? urlForImage(article.featuredImage).width(800).height(450).url() : undefined}
                     />
                   ))}
                   
@@ -160,7 +161,7 @@ export default async function HomePage() {
                       isSponsored={latestArticles[3].sponsored || false}
                       partnerName={latestArticles[3].partner?.name}
                       partnerUrl={latestArticles[3].partner?.website}
-                      image={latestArticles[3].featuredImage ? urlForImage(latestArticles[3].featuredImage).width(1200).height(600).url() : undefined}
+                        image={latestArticles[3].featuredImage ? urlForImage(latestArticles[3].featuredImage).width(1200).height(675).url() : undefined}
                       size="wide"
                     />
                   )}
@@ -180,7 +181,7 @@ export default async function HomePage() {
                       isSponsored={article.sponsored || false}
                       partnerName={article.partner?.name}
                       partnerUrl={article.partner?.website}
-                      image={article.featuredImage ? urlForImage(article.featuredImage).width(800).height(600).url() : undefined}
+                        image={article.featuredImage ? urlForImage(article.featuredImage).width(800).height(450).url() : undefined}
                     />
                   ))}
                   
@@ -204,7 +205,7 @@ export default async function HomePage() {
                       isSponsored={article.sponsored || false}
                       partnerName={article.partner?.name}
                       partnerUrl={article.partner?.website}
-                      image={article.featuredImage ? urlForImage(article.featuredImage).width(800).height(600).url() : undefined}
+                        image={article.featuredImage ? urlForImage(article.featuredImage).width(800).height(450).url() : undefined}
                     />
                   ))}
                 </div>
@@ -212,7 +213,9 @@ export default async function HomePage() {
               
               {/* Sidebar */}
               <aside className="lg:w-80 space-y-8">
-                <AdSlot position="listing-sidebar" />
+                <StickyContainer offset={100}>
+                  <AdSlot position="listing-sidebar" />
+                </StickyContainer>
               </aside>
             </div>
           </div>
@@ -224,7 +227,7 @@ export default async function HomePage() {
         <Container>
           <div className="space-y-12">
             <div className="flex items-center justify-between">
-              <h2 className="text-3xl font-semibold text-text">Video&apos;s</h2>
+              <h2 className="text-h4 font-semibold text-text">Video&apos;s</h2>
               <a
                 href="/video"
                 className="text-sm text-accent hover:text-text transition-colors font-medium"
@@ -244,7 +247,7 @@ export default async function HomePage() {
                   category={video.category}
                   publishedAt={new Date(video.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
                   readingTime={video.duration}
-                  image={video.thumbnail ? urlForImage(video.thumbnail).width(800).height(600).url() : undefined}
+                      image={video.thumbnail ? urlForImage(video.thumbnail).width(800).height(450).url() : undefined}
                 />
               ))}
             </div>
@@ -252,7 +255,7 @@ export default async function HomePage() {
         </Container>
       </Section>
 
-      {/* Ad Position: Above Newsletter */}
+      {/* Ad Position: Above Newsletter (Super Leaderboard) */}
       <Section spacing="sm">
         <Container>
           <AdSlot position="homepage-newsletter" />

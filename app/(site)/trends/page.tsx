@@ -48,10 +48,10 @@ export default async function TrendsPage() {
       <Section spacing="lg">
         <Container>
           <div className="space-y-4">
-            <h1 className="text-4xl lg:text-5xl font-semibold text-text leading-tight">
+            <h1 className="text-h2 lg:text-h1 font-semibold text-text">
               Trends
             </h1>
-            <p className="text-xl text-text/70 leading-relaxed max-w-2xl">
+            <p className="text-body-lg text-text/70 max-w-2xl">
               De laatste ontwikkelingen in interieurdesign. We volgen trends kritisch:
               wat is écht vernieuwend en wat verdwijnt weer snel?
             </p>
@@ -63,31 +63,30 @@ export default async function TrendsPage() {
       <Section spacing="sm" className="!pt-0">
         <Container>
           <div className="space-y-12">
-            {/* Featured article - wide format */}
-            {featuredArticle && (
-              <ContentCard
-                key={featuredArticle._id}
-                title={featuredArticle.title}
-                excerpt={featuredArticle.excerpt}
-                href={`/${featuredArticle.category || 'artikels'}/${featuredArticle.slug}`}
-                type="article"
-                category={featuredArticle.category}
-                publishedAt={new Date(featuredArticle.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
-                readingTime={featuredArticle.readingTime}
-                tags={featuredArticle.tags}
-                isSponsored={featuredArticle.sponsored || false}
-                partnerName={featuredArticle.partner?.name}
-                partnerUrl={featuredArticle.partner?.website}
-                image={featuredArticle.featuredImage ? urlForImage(featuredArticle.featuredImage).width(1200).height(600).url() : undefined}
-                size="wide"
-              />
-            )}
-            
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Main content */}
-              <div className="flex-1">
+              <div className="flex-1 space-y-12">
+                {/* Featured article - wide format (kept within main column for consistent layout) */}
+                {featuredArticle && (
+                  <ContentCard
+                    key={featuredArticle._id}
+                    title={featuredArticle.title}
+                    excerpt={featuredArticle.excerpt}
+                    href={`/${featuredArticle.category || 'artikels'}/${featuredArticle.slug}`}
+                    type="article"
+                    category={featuredArticle.category}
+                    publishedAt={new Date(featuredArticle.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    readingTime={featuredArticle.readingTime}
+                    tags={featuredArticle.tags}
+                    isSponsored={featuredArticle.sponsored || false}
+                    partnerName={featuredArticle.partner?.name}
+                    partnerUrl={featuredArticle.partner?.website}
+                    image={featuredArticle.featuredImage ? urlForImage(featuredArticle.featuredImage).width(1200).height(675).url() : undefined}
+                    size="wide"
+                  />
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
-                  {/* Remaining articles: Regular 2-col grid */}
                   {otherArticles.map((article) => (
                     <ContentCard
                       key={article._id}
@@ -102,7 +101,7 @@ export default async function TrendsPage() {
                       isSponsored={article.sponsored || false}
                       partnerName={article.partner?.name}
                       partnerUrl={article.partner?.website}
-                      image={article.featuredImage ? urlForImage(article.featuredImage).width(800).height(600).url() : undefined}
+                      image={article.featuredImage ? urlForImage(article.featuredImage).width(800).height(450).url() : undefined}
                     />
                   ))}
                 </div>
@@ -123,8 +122,8 @@ export default async function TrendsPage() {
       <Section spacing="lg" background="accent">
         <Container size="content">
           <div className="space-y-6 text-center">
-            <h2 className="text-3xl font-semibold text-text">Trend Watch</h2>
-            <p className="text-lg text-text/70 leading-relaxed">
+            <h2 className="text-h4 font-semibold text-text">Trend Watch</h2>
+            <p className="text-body text-text/70">
               Elke maand analyseren we opkomende trends. Schrijf je in voor onze
               nieuwsbrief en blijf op de hoogte van de laatste ontwikkelingen.
             </p>

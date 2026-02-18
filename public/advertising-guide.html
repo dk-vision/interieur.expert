@@ -323,7 +323,7 @@
             <div class="intro">
                 <p><strong>Voor wie is deze guide?</strong></p>
                 <p>Deze handleiding is bedoeld voor het advertising team en redacteuren die werken met partners, advertenties en gesponsorde content op interieur.expert.</p>
-                <p><strong>Laatste update:</strong> 4 februari 2026</p>
+                <p><strong>Laatste update:</strong> 17 februari 2026</p>
             </div>
 
             <h2 id="systeem-overzicht">Partner Systeem Overzicht</h2>
@@ -448,21 +448,28 @@ Brand Color: #2C2C2C</pre>
 
             <h2 id="ad-slots">Advertising Slots</h2>
             
-            <p>Het platform heeft 4 vaste ad slots:</p>
+            <p>Het platform heeft 6 vaste ad slots (vaste IAB formaten):</p>
             <ul>
-                <li><strong>Sidebar:</strong> Rechterkolom op artikel en listing pagina's</li>
-                <li><strong>Listing Inline:</strong> Tussen artikelen in overzichten</li>
-                <li><strong>Article Inline:</strong> Binnen artikel content</li>
-                <li><strong>Dossier Banner:</strong> Full-width banner op dossier pagina's <span class="badge">Nieuw!</span></li>
+                <li><strong>Homepage Hero:</strong> 970×250 (desktop) / 728×90 (tablet) / 320×100 (mobile)</li>
+                <li><strong>Homepage Newsletter:</strong> 970×90 (desktop) / 728×90 (tablet) / 320×100 (mobile)</li>
+                <li><strong>Homepage Card:</strong> 300×250</li>
+                <li><strong>Listing Sidebar:</strong> 300×600</li>
+                <li><strong>Article Inline:</strong> 728×90 (desktop/tablet) / 320×100 (mobile)</li>
+                <li><strong>Article Sidebar:</strong> 300×600</li>
             </ul>
+
+            <div class="info-box">
+                <p><strong>Opmerking:</strong> Deze ad slots renderen in vaste IAB-afmetingen (per breakpoint waar van toepassing). Lever creatives exact aan volgens de formaten hierboven.</p>
+            </div>
 
             <h3>Wanneer welke slot gebruiken?</h3>
 
             <div class="partner-type">
-                <h4>Sidebar — Beste all-round placement</h4>
+                <h4>Listing/Article Sidebar — Beste all-round placement</h4>
                 <ul>
                     <li>Altijd zichtbaar op desktop</li>
                     <li>Niet storend voor leeservaring</li>
+                    <li><strong>Formaat:</strong> 300×600</li>
                     <li><strong>Ideaal voor:</strong> Baseline campaigns (priority 5-6)</li>
                 </ul>
             </div>
@@ -472,26 +479,8 @@ Brand Color: #2C2C2C</pre>
                 <ul>
                     <li>Zichtbaar tijdens het lezen</li>
                     <li>Hogere click-through rate</li>
+                    <li><strong>Formaat:</strong> 728×90 (desktop/tablet) / 320×100 (mobile)</li>
                     <li><strong>Ideaal voor:</strong> Gerichte campaigns (priority 7-9)</li>
-                </ul>
-            </div>
-
-            <div class="partner-type">
-                <h4>Listing Inline — Brand awareness</h4>
-                <ul>
-                    <li>Tussen content cards op overview pages</li>
-                    <li>Goed voor brand visibility</li>
-                    <li><strong>Ideaal voor:</strong> Standard campaigns (priority 7-8)</li>
-                </ul>
-            </div>
-
-            <div class="partner-type">
-                <h4>Dossier Banner — Premium placement <span class="badge">Nieuw!</span></h4>
-                <ul>
-                    <li>Full-width banner tussen hero image en content</li>
-                    <li>Themagerichte content = betere match</li>
-                    <li>Kan targeten op dossier categorie (Verlichting, Duurzaamheid, etc.)</li>
-                    <li><strong>Ideaal voor:</strong> Thematische campaigns, product launches (priority 8-10)</li>
                 </ul>
             </div>
 
@@ -507,7 +496,7 @@ Brand Color: #2C2C2C</pre>
                 <li><strong>Format:</strong> Image</li>
                 <li><strong>Link URL:</strong> Waar moet de ad naartoe linken?</li>
                 <li><strong>Alt Text:</strong> Beschrijving voor toegankelijkheid</li>
-                <li><strong>Image:</strong> Upload ad afbeelding (600x338px aanbevolen)</li>
+                <li><strong>Image:</strong> Upload volgens IAB formaat van de gekozen slot (zie lijst hierboven)</li>
             </ul>
 
             <p><strong>HTML Ad (voor custom designs):</strong></p>
@@ -535,7 +524,7 @@ Image: [Upload product foto]</pre>
             <ul>
                 <li><strong>Campaign Title:</strong> Intern naam voor de campagne</li>
                 <li><strong>Partner:</strong> Selecteer partner uit lijst</li>
-                <li><strong>Ad Slot:</strong> Sidebar / Listing Inline / Article Inline / Dossier Banner</li>
+                <li><strong>Ad Slot:</strong> Homepage Hero / Homepage Newsletter / Homepage Card / Listing Sidebar / Article Inline / Article Sidebar</li>
                 <li><strong>Creative:</strong> Selecteer de ad creative</li>
                 <li><strong>Start Date:</strong> Wanneer begint de campagne</li>
                 <li><strong>End Date:</strong> Wanneer eindigt de campagne</li>
@@ -555,10 +544,10 @@ Image: [Upload product foto]</pre>
             </ul>
 
             <div class="info-box">
-                <p><strong>Voorbeeld Premium Partner Baseline:</strong></p>
-                <pre>Campaign Title: XOOON Sidebar Baseline 2026
+                <p><strong>Voorbeeld Baseline:</strong></p>
+                <pre>Campaign Title: XOOON Listing Sidebar Baseline 2026
 Partner: XOOON
-Ad Slot: Sidebar
+Ad Slot: Listing Sidebar
 Creative: XOOON Sidebar - Q1 2026
 Start Date: 01-01-2026
 End Date: 31-12-2026
@@ -579,20 +568,6 @@ Priority: 9
 Active: Yes
 Target Category: inspiratie
 Target Tags: scandinavisch, minimalistisch</pre>
-            </div>
-
-            <div class="info-box">
-                <p><strong>Voorbeeld Dossier Banner Campaign:</strong></p>
-                <pre>Campaign Title: LED Lampen NL - Verlichting Dossier
-Partner: LED Lampen NL
-Ad Slot: Dossier Banner
-Creative: LED Verlichting Banner
-Start Date: 01-02-2026
-End Date: 31-03-2026
-Priority: 9
-Active: Yes
-Target Category: Verlichting</pre>
-                <p><em>Deze banner verschijnt alleen op dossiers met categorie "Verlichting"</em></p>
             </div>
 
             <div class="page-break"></div>
@@ -724,7 +699,7 @@ Target Category: Verlichting</pre>
             <div style="margin-top: 4rem; padding-top: 2rem; border-top: 2px solid #E0E0E0;">
                 <p style="color: #666; font-size: 0.875rem;">
                     <strong>Vragen of support nodig?</strong><br>
-                    Neem contact op met het advertising team of bekijk de volledige documentatie in de AD-CAMPAIGN-GUIDE.md
+                    Neem contact op met het advertising team of bekijk de volledige documentatie in de ADVERTISING-GUIDE.md
                 </p>
             </div>
         </main>

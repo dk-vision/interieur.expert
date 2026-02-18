@@ -38,8 +38,8 @@ export default async function PartnersPage() {
       <Section>
         <Container>
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Onze Partners</h1>
-            <p className="text-xl text-gray-600">
+            <h1 className="text-h2 lg:text-h1 font-bold mb-6">Onze Partners</h1>
+            <p className="text-body-lg text-gray-600">
               We werken samen met toonaangevende merken en showrooms in België. 
               Ontdek onze partners voor inspiratie, advies en kwaliteitsproducten.
             </p>
@@ -48,7 +48,7 @@ export default async function PartnersPage() {
           {/* Featured Partners */}
           {featuredPartners.length > 0 && (
             <div className="mb-20">
-              <h2 className="text-3xl font-bold mb-8 text-center">Featured Partners</h2>
+              <h2 className="text-h4 font-bold mb-8 text-center">Featured Partners</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {featuredPartners.map((partner) => (
                   <PartnerCard key={partner._id} partner={partner} featured />
@@ -60,7 +60,7 @@ export default async function PartnersPage() {
           {/* All Partners */}
           {nonFeaturedPartners.length > 0 && (
             <div>
-              <h2 className="text-2xl font-bold mb-6">Partners</h2>
+              <h2 className="text-h5 font-bold mb-6">Partners</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {nonFeaturedPartners.map((partner) => (
                   <PartnerCard key={partner._id} partner={partner} compact />
@@ -71,7 +71,7 @@ export default async function PartnersPage() {
 
           {allPartners.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-xl text-gray-500">Binnenkort vind je hier onze partners.</p>
+              <p className="text-body-lg text-gray-500">Binnenkort vind je hier onze partners.</p>
             </div>
           )}
         </Container>
@@ -114,10 +114,10 @@ function PartnerCard({
             />
           )}
         </div>
-        <h3 className="font-semibold text-lg mb-2 group-hover:text-gray-600 transition-colors">
+        <h3 className="text-h6 font-semibold mb-2 group-hover:text-gray-600 transition-colors">
           {partner.name}
         </h3>
-        <p className="text-sm text-gray-600 line-clamp-2">{partner.description}</p>
+        <p className="text-body-sm text-gray-600 line-clamp-2">{partner.description}</p>
       </a>
     );
   }
@@ -144,17 +144,17 @@ function PartnerCard({
           />
         )}
         {featured && (
-          <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm font-semibold">
+          <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-meta font-semibold">
             ⭐ Featured
           </div>
         )}
       </div>
       <div className="p-6">
-        <h3 className="text-2xl font-bold mb-3 group-hover:text-gray-600 transition-colors">
+        <h3 className="text-h5 font-bold mb-3 group-hover:text-gray-600 transition-colors">
           {partner.name}
         </h3>
-        <p className="text-gray-600 mb-4">{partner.description}</p>
-        <span className="inline-flex items-center text-sm font-semibold group-hover:gap-2 transition-all">
+        <p className="text-body text-gray-600 mb-4">{partner.description}</p>
+        <span className="inline-flex items-center text-meta font-semibold group-hover:gap-2 transition-all">
           Bekijk profiel
           <span className="inline-block group-hover:translate-x-1 transition-transform">→</span>
         </span>

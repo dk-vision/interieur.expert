@@ -29,6 +29,9 @@ const activeCampaignsQuery = groq`
       linkUrl,
       altText,
       image,
+      imageMobile,
+      imageTablet,
+      imageDesktop,
       html
     }
   }

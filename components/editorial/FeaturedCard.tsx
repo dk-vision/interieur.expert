@@ -35,29 +35,32 @@ export default function FeaturedCard({
       onClick={() => router.push(href)}
       className="group block hover:opacity-90 transition-opacity cursor-pointer"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
         {/* Image */}
-        <div className="aspect-[16/9] lg:aspect-square bg-text/5 rounded-sm overflow-hidden relative">
-          {image && (
-            <Image
-              src={image}
-              alt={title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
-          )}
-          {category && (
-            <div className="absolute top-0 left-0 p-6">
-              <Pill variant="subtle" size="md">
-                {category}
-              </Pill>
-            </div>
-          )}
+        <div className="lg:col-span-7">
+          <div className={`${type === "article" || type === "video" ? "aspect-video lg:aspect-[4/3]" : "aspect-[16/9] lg:aspect-square"} bg-text/5 rounded-sm overflow-hidden relative`}>
+            {image && (
+              <Image
+                src={image}
+                alt={title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                priority
+              />
+            )}
+            {category && (
+              <div className="absolute top-0 left-0 p-6">
+                <Pill variant="subtle" size="md">
+                  {category}
+                </Pill>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Content */}
-        <div className="flex flex-col justify-center space-y-6">
+        <div className="lg:col-span-5 flex flex-col justify-center space-y-6 lg:space-y-8">
           <MetaRow
             publishedAt={publishedAt}
             readingTime={readingTime}
@@ -65,11 +68,11 @@ export default function FeaturedCard({
             isSponsored={isSponsored}
           />
 
-          <h2 className="text-4xl lg:text-5xl font-semibold text-text leading-tight group-hover:text-accent transition-colors">
+          <h2 className="text-h3 md:text-h2 lg:text-h2 font-semibold text-text group-hover:text-accent transition-colors">
             {title}
           </h2>
 
-          <p className="text-lg text-text/70 leading-relaxed">{excerpt}</p>
+          <p className="text-body lg:text-body-lg text-text/70">{excerpt}</p>
         </div>
       </div>
     </div>

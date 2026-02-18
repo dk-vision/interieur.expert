@@ -129,34 +129,34 @@ export default function VideoThumbnail({
         {/* Title and metadata */}
         {isFeatured ? (
           <div className="space-y-2">
-            <h3 className="text-2xl font-semibold text-text leading-tight group-hover:text-accent transition-colors">
+            <h3 className="text-h5 font-semibold text-text group-hover:text-accent transition-colors">
               {title}
             </h3>
-            {excerpt && <p className="text-text/70 line-clamp-2">{excerpt}</p>}
+            {excerpt && <p className="text-body text-text/70 line-clamp-2">{excerpt}</p>}
             {isSponsored && partnerName && (
-              <p className="text-sm text-text/60">
+              <p className="text-meta text-text/60">
                 In samenwerking met{" "}
                 <span className="font-medium text-brand">
                   {partnerName}
                 </span>
               </p>
             )}
-            <p className="text-sm text-text/50">{publishedAt}</p>
+            <p className="text-meta text-text/50">{publishedAt}</p>
           </div>
         ) : (
           <div className="space-y-1">
-            <h3 className="font-semibold text-text leading-snug group-hover:text-accent transition-colors line-clamp-2">
+            <h3 className="text-body font-semibold text-text group-hover:text-accent transition-colors line-clamp-2">
               {title}
             </h3>
             {isSponsored && partnerName && (
-              <p className="text-xs text-text/60">
+              <p className="text-meta text-text/60">
                 In samenwerking met{" "}
                 <span className="font-medium text-brand">
                   {partnerName}
                 </span>
               </p>
             )}
-            <p className="text-sm text-text/50">{publishedAt}</p>
+            <p className="text-meta text-text/50">{publishedAt}</p>
           </div>
         )}
       </div>

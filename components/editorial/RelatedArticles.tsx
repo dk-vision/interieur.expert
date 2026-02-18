@@ -27,7 +27,7 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
 
   return (
     <section className="mt-16 pt-16 border-t border-text/10">
-      <h2 className="text-2xl font-semibold text-text mb-8">
+      <h2 className="text-h5 font-semibold text-text mb-8">
         Gerelateerde artikelen
       </h2>
       
@@ -40,11 +40,11 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
           >
             <article className="space-y-4">
               {article.featuredImage && (
-                <div className="aspect-[16/10] bg-background overflow-hidden rounded-lg">
+                <div className="aspect-video bg-background overflow-hidden rounded-lg">
                   <img
                     src={urlForImage(article.featuredImage)
                       .width(600)
-                      .height(400)
+                      .height(338)
                       .url()}
                     alt={article.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -54,21 +54,21 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
               
               <div className="space-y-2">
                 {article.category && (
-                  <span className="text-sm text-accent font-medium">
+                  <span className="text-meta text-accent font-medium">
                     {article.category}
                   </span>
                 )}
                 
-                <h3 className="text-lg font-semibold text-text group-hover:text-accent transition-colors line-clamp-2">
+                <h3 className="text-h6 font-semibold text-text group-hover:text-accent transition-colors line-clamp-2">
                   {article.title}
                 </h3>
                 
-                <p className="text-sm text-text/70 line-clamp-2">
+                <p className="text-body text-text/70 line-clamp-2">
                   {article.excerpt}
                 </p>
                 
                 {article.readingTime && (
-                  <p className="text-xs text-text/50">
+                  <p className="text-meta text-text/50">
                     {article.readingTime} min lezen
                   </p>
                 )}

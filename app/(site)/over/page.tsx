@@ -9,10 +9,10 @@ export default function OverPage() {
       <Section spacing="lg">
         <Container size="content">
           <div className="space-y-6">
-            <h1 className="text-4xl lg:text-5xl font-semibold text-text leading-tight">
+            <h1 className="text-h2 lg:text-h1 font-semibold text-text">
               Over interieur.expert
             </h1>
-            <p className="text-xl text-text/70 leading-relaxed">
+            <p className="text-body-lg text-text/70">
               Eerlijk advies, inspiratie en trends voor een interieur dat bij je
               past. Zonder poespas, met respect voor vakmanschap en duurzaamheid.
             </p>
@@ -24,7 +24,7 @@ export default function OverPage() {
       <Section spacing="md">
         <Container size="content">
           <ContentWrapper>
-            <div className="prose prose-lg max-w-none prose-headings:font-semibold prose-headings:text-text prose-p:text-text prose-p:leading-relaxed">
+            <div className="prose max-w-none prose-headings:font-semibold prose-headings:text-text prose-h2:text-h4 prose-h3:text-h5 prose-p:text-body prose-p:text-text">
               <h2>Wat we doen</h2>
 
               <p>
@@ -98,23 +98,23 @@ export default function OverPage() {
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="space-y-4">
-              <h3 className="text-2xl font-semibold text-text">Eerlijk</h3>
-              <p className="text-text/70 leading-relaxed">
+              <h3 className="text-h5 font-semibold text-text">Eerlijk</h3>
+              <p className="text-body text-text/70">
                 We vertellen het zoals het is. Geen verborgen agenda&apos;s, geen
                 misleidende claims. Gesponsorde content is altijd duidelijk
                 gelabeld.
               </p>
             </div>
             <div className="space-y-4">
-              <h3 className="text-2xl font-semibold text-text">Toegankelijk</h3>
-              <p className="text-text/70 leading-relaxed">
+              <h3 className="text-h5 font-semibold text-text">Toegankelijk</h3>
+              <p className="text-body text-text/70">
                 Goed interieurontwerp is voor iedereen. We schrijven begrijpelijk,
                 zonder jargon, en geven praktische tips die echt werken.
               </p>
             </div>
             <div className="space-y-4">
-              <h3 className="text-2xl font-semibold text-text">Duurzaam</h3>
-              <p className="text-text/70 leading-relaxed">
+              <h3 className="text-h5 font-semibold text-text">Duurzaam</h3>
+              <p className="text-body text-text/70">
                 We kiezen voor kwaliteit en vakmanschap. Voor meubels die een
                 leven lang meegaan. Voor materialen die respectvol zijn voor mens
                 en milieu.

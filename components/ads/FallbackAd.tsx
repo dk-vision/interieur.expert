@@ -2,19 +2,13 @@ import Link from "next/link";
 
 interface FallbackAdProps {
   slot: "horizontal" | "vertical" | "square" | "card";
+  className?: string;
 }
 
-export function FallbackAd({ slot }: FallbackAdProps) {
-  const dimensions = {
-    horizontal: "w-full h-32",
-    vertical: "w-full h-[600px]",
-    square: "w-full aspect-square",
-    card: "w-full aspect-[4/3]",
-  };
-
+export function FallbackAd({ slot, className = "" }: FallbackAdProps) {
   return (
     <div
-      className={`${dimensions[slot]} bg-gradient-to-br from-neutral-50 to-neutral-100 border-2 border-dashed border-neutral-300 rounded-lg flex flex-col items-center justify-center p-6 hover:border-neutral-400 transition-colors group`}
+      className={`w-full bg-gradient-to-br from-neutral-50 to-neutral-100 border-2 border-dashed border-neutral-300 rounded-lg flex flex-col items-center justify-center p-6 hover:border-neutral-400 transition-colors group ${className}`}
     >
       <div className="text-center">
         <div className="text-4xl mb-3 opacity-40 group-hover:opacity-60 transition-opacity">

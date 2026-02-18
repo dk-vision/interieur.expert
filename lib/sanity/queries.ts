@@ -129,6 +129,9 @@ export const adCampaignQuery = groq`
       title,
       format,
       image,
+      imageMobile,
+      imageTablet,
+      imageDesktop,
       html,
       linkUrl,
       altText

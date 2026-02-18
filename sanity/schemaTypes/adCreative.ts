@@ -30,18 +30,62 @@ export default defineType({
       name: "image",
       title: "Afbeelding",
       type: "image",
+      description:
+        "Upload exact volgens de vaste IAB-afmetingen van het gekozen ad slot (zie Advertising Guide).",
       options: {
         hotspot: true,
       },
       hidden: ({ document }) => document?.format !== "image",
       validation: (Rule) =>
         Rule.custom((image, context) => {
-          const format = (context.document as { format?: string })?.format;
-          if (format === "image" && !image) {
-            return "Afbeelding is verplicht voor afbeeldingsformaat";
+          const doc = context.document as {
+            format?: string;
+            imageMobile?: unknown;
+            imageTablet?: unknown;
+            imageDesktop?: unknown;
+          };
+
+          if (doc?.format !== "image") return true;
+
+          const hasAnyImage =
+            Boolean(image) ||
+            Boolean(doc?.imageMobile) ||
+            Boolean(doc?.imageTablet) ||
+            Boolean(doc?.imageDesktop);
+
+          if (!hasAnyImage) {
+            return "Upload minstens één afbeelding (of via Mobile/Tablet/Desktop velden).";
           }
+
           return true;
         }),
+    }),
+
+    defineField({
+      name: "imageMobile",
+      title: "Afbeelding (Mobile)",
+      type: "image",
+      description: "Voor slots met een mobile formaat (bv. 320×100).",
+      options: { hotspot: true },
+      hidden: ({ document }) => document?.format !== "image",
+    }),
+
+    defineField({
+      name: "imageTablet",
+      title: "Afbeelding (Tablet)",
+      type: "image",
+      description: "Voor slots met een tablet formaat (bv. 728×90).",
+      options: { hotspot: true },
+      hidden: ({ document }) => document?.format !== "image",
+    }),
+
+    defineField({
+      name: "imageDesktop",
+      title: "Afbeelding (Desktop)",
+      type: "image",
+      description: "Voor slots met een desktop formaat (bv. 970×250 of 970×90).",
+      options: { hotspot: true },
+      hidden: ({ document }) => document?.format !== "image",
     }),
     defineField({
       name: "html",

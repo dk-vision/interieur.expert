@@ -45,10 +45,10 @@ export default async function AdviesPage() {
       <Section spacing="lg">
         <Container>
           <div className="space-y-4">
-            <h1 className="text-4xl lg:text-5xl font-semibold text-text leading-tight">
+            <h1 className="text-h2 lg:text-h1 font-semibold text-text">
               Advies
             </h1>
-            <p className="text-xl text-text/70 leading-relaxed max-w-2xl">
+            <p className="text-body-lg text-text/70 max-w-2xl">
               Praktisch en eerlijk advies voor het inrichten van je huis. Van budgetvriendelijke
               tips tot grondige uitleg over materialen en technieken.
             </p>
@@ -60,31 +60,30 @@ export default async function AdviesPage() {
       <Section spacing="sm" className="!pt-0">
         <Container>
           <div className="space-y-12">
-            {/* Featured article - wide format */}
-            {articles[0] && (
-              <ContentCard
-                key={articles[0]._id}
-                title={articles[0].title}
-                excerpt={articles[0].excerpt}
-                href={`/${articles[0].category || 'artikels'}/${articles[0].slug}`}
-                type="article"
-                category={articles[0].category}
-                publishedAt={new Date(articles[0].publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
-                readingTime={articles[0].readingTime}
-                tags={articles[0].tags}
-                isSponsored={articles[0].sponsored || false}
-                partnerName={articles[0].partner?.name}
-                partnerUrl={articles[0].partner?.website}
-                image={articles[0].featuredImage ? urlForImage(articles[0].featuredImage).width(1200).height(600).url() : undefined}
-                size="wide"
-              />
-            )}
-            
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Main content */}
-              <div className="flex-1">
+              <div className="flex-1 space-y-12">
+                {/* Featured article - wide format (kept within main column for consistent layout) */}
+                {articles[0] && (
+                  <ContentCard
+                    key={articles[0]._id}
+                    title={articles[0].title}
+                    excerpt={articles[0].excerpt}
+                    href={`/${articles[0].category || 'artikels'}/${articles[0].slug}`}
+                    type="article"
+                    category={articles[0].category}
+                    publishedAt={new Date(articles[0].publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    readingTime={articles[0].readingTime}
+                    tags={articles[0].tags}
+                    isSponsored={articles[0].sponsored || false}
+                    partnerName={articles[0].partner?.name}
+                    partnerUrl={articles[0].partner?.website}
+                    image={articles[0].featuredImage ? urlForImage(articles[0].featuredImage).width(1200).height(675).url() : undefined}
+                    size="wide"
+                  />
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
-                  {/* Remaining articles: Regular 2-col grid */}
                   {articles.slice(1).map((article) => (
                     <ContentCard
                       key={article._id}
@@ -99,7 +98,7 @@ export default async function AdviesPage() {
                       isSponsored={article.sponsored || false}
                       partnerName={article.partner?.name}
                       partnerUrl={article.partner?.website}
-                      image={article.featuredImage ? urlForImage(article.featuredImage).width(800).height(600).url() : undefined}
+                      image={article.featuredImage ? urlForImage(article.featuredImage).width(800).height(450).url() : undefined}
                     />
                   ))}
                 </div>

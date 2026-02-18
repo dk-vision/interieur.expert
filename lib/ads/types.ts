@@ -10,9 +10,10 @@ export interface Campaign {
     format: "image" | "html";
     linkUrl: string;
     altText?: string;
-    image?: {
-      asset: unknown;
-    };
+    image?: { asset: unknown };
+    imageMobile?: { asset: unknown };
+    imageTablet?: { asset: unknown };
+    imageDesktop?: { asset: unknown };
     html?: string;
   };
 }

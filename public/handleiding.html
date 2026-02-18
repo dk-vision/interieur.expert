@@ -969,11 +969,13 @@
         <p><strong>3. Image</strong></p>
         <ul>
             <li>Upload de advertentie-afbeelding</li>
-            <li>Aanbevolen formaten:
+            <li>Vaste upload formaten (IAB):
                 <ul>
-                    <li>Listing Inline: 800x600 pixels (4:3)</li>
-                    <li>Article Inline: 1200x400 pixels (3:1)</li>
-                    <li>Sidebar: 300x600 pixels (1:2)</li>
+                    <li>Homepage Hero: 970x250 (desktop) / 728x90 (tablet) / 320x100 (mobile)</li>
+                    <li>Homepage Newsletter: 970x90 (desktop) / 728x90 (tablet) / 320x100 (mobile)</li>
+                    <li>Homepage Card: 300x250</li>
+                    <li>Listing Sidebar / Article Sidebar: 300x600</li>
+                    <li>Article Inline: 728x90 (desktop/tablet) / 320x100 (mobile)</li>
                 </ul>
             </li>
         </ul>
@@ -1161,9 +1163,12 @@
         <p><strong>2. Ad Slot (Verplicht)</strong></p>
         <p>Kies de vaste positie waar de advertentie verschijnt:</p>
         <ul>
-            <li><strong>Listing Inline</strong>: Tussen content cards in lijstweergaves (homepage)</li>
-            <li><strong>Article Inline</strong>: Binnen artikel content (tussen paragrafen)</li>
-            <li><strong>Sidebar</strong>: In de sidebar (desktop only)</li>
+            <li><strong>Homepage Hero</strong>: Onder hero (970x250 / 728x90 / 320x100)</li>
+            <li><strong>Homepage Newsletter</strong>: Boven newsletter (970x90 / 728x90 / 320x100)</li>
+            <li><strong>Homepage Card</strong>: In de content flow (300x250)</li>
+            <li><strong>Listing Sidebar</strong>: In de sidebar op overzichtspagina's (300x600)</li>
+            <li><strong>Article Inline</strong>: Binnen artikel content (728x90 / 320x100)</li>
+            <li><strong>Article Sidebar</strong>: In de sidebar op artikelpagina's (300x600)</li>
         </ul>
         <div class="warning-box">
             <strong>Let op:</strong> Elke slot heeft één actieve advertentie tegelijk
@@ -1302,13 +1307,46 @@
         <h3>Available Slots</h3>
 
         <div class="no-break">
-            <p><strong>Listing Inline:</strong></p>
+            <p><strong>Homepage Hero:</strong></p>
             <ul>
-                <li><strong>Locatie</strong>: Homepage en overzichtspagina's, tussen content cards</li>
-                <li><strong>Visibility</strong>: Hoge visibility, prime positie</li>
-                <li><strong>Format</strong>: Card-formaat, past tussen content</li>
-                <li><strong>Best voor</strong>: Brand awareness, belangrijke campagnes</li>
+                <li><strong>Locatie</strong>: Homepage, onder hero</li>
+                <li><strong>Visibility</strong>: Hoog, first-scroll impact</li>
+                <li><strong>Format</strong>: 970x250 / 728x90 / 320x100</li>
+                <li><strong>Best voor</strong>: Brand awareness, launches</li>
             </ul>
+        </div>
+
+        <div class="no-break">
+            <p><strong>Homepage Newsletter:</strong></p>
+            <ul>
+                <li><strong>Locatie</strong>: Homepage, boven newsletter CTA</li>
+                <li><strong>Visibility</strong>: Hoog bij scroll</li>
+                <li><strong>Format</strong>: 728x90 / 320x100</li>
+                <li><strong>Best voor</strong>: Conversies, events</li>
+            </ul>
+        </div>
+
+        <div class="no-break">
+            <p><strong>Homepage Card:</strong></p>
+            <ul>
+                <li><strong>Locatie</strong>: Tussen content cards op homepage</li>
+                <li><strong>Visibility</strong>: Goed, native in feed</li>
+                <li><strong>Format</strong>: 300x250</li>
+                <li><strong>Best voor</strong>: Product showcases</li>
+            </ul>
+        </div>
+
+        <div class="no-break">
+            <p><strong>Listing Sidebar:</strong></p>
+            <ul>
+                <li><strong>Locatie</strong>: Rechter sidebar op overzichtspagina's (desktop)</li>
+                <li><strong>Visibility</strong>: Consistent tijdens scrollen</li>
+                <li><strong>Format</strong>: 300x600</li>
+                <li><strong>Best voor</strong>: Always-on campagnes</li>
+            </ul>
+            <div class="warning-box">
+                <strong>Let op:</strong> Niet zichtbaar op mobile!
+            </div>
         </div>
 
         <div class="no-break">
@@ -1316,17 +1354,17 @@
             <ul>
                 <li><strong>Locatie</strong>: Binnen artikel content, na X paragrafen</li>
                 <li><strong>Visibility</strong>: Middel, maar hoge engagement</li>
-                <li><strong>Format</strong>: Full-width binnen artikel</li>
+                <li><strong>Format</strong>: 728x90 / 320x100</li>
                 <li><strong>Best voor</strong>: Contextual ads, relevante producten</li>
             </ul>
         </div>
 
         <div class="no-break">
-            <p><strong>Sidebar:</strong></p>
+            <p><strong>Article Sidebar:</strong></p>
             <ul>
-                <li><strong>Locatie</strong>: Rechter sidebar op desktop</li>
+                <li><strong>Locatie</strong>: Rechter sidebar op artikelpagina's (desktop)</li>
                 <li><strong>Visibility</strong>: Lager, maar altijd zichtbaar tijdens scrollen</li>
-                <li><strong>Format</strong>: Verticaal, smaller</li>
+                <li><strong>Format</strong>: 300x600</li>
                 <li><strong>Best voor</strong>: Long-tail campagnes, secundaire adverteerders</li>
             </ul>
             <div class="warning-box">
@@ -1336,9 +1374,9 @@
 
         <h3>Slot Selection Tips</h3>
         <ul>
-            <li><strong>Premium adverteerders</strong>: Listing Inline</li>
+            <li><strong>Premium adverteerders</strong>: Homepage Hero</li>
             <li><strong>Content-gerelateerd</strong>: Article Inline + targeting</li>
-            <li><strong>Budget/filler ads</strong>: Sidebar</li>
+            <li><strong>Budget/filler ads</strong>: Listing Sidebar / Article Sidebar</li>
             <li><strong>Maximale visibility</strong>: Meerdere slots voor dezelfde adverteerder (verschillende creatives!)</li>
         </ul>
 

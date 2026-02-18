@@ -9,6 +9,8 @@
     "lint": "eslint",
     "studio": "sanity dev",
     "studio:deploy": "sanity deploy",
+    "schema:deploy": "sanity schema deploy",
+    "schema:list": "sanity schema list",
     "add-stock-photos": "tsx scripts/add-stock-photos.ts",
     "add-video-thumbnails": "tsx scripts/add-video-thumbnails.ts",
     "add-dossier-images": "tsx scripts/add-dossier-images.ts",
@@ -16,12 +18,16 @@
     "generate-video-previews": "tsx scripts/generate-video-previews.ts",
     "cleanup-ads": "tsx scripts/cleanup-ads.ts",
     "create-test-ads": "tsx scripts/create-new-test-ads.ts",
-    "create-sponsored-dossier": "tsx scripts/create-sponsored-dossier.ts"
+    "create-sponsored-dossier": "tsx scripts/create-sponsored-dossier.ts",
+    "ads:rolfbenz-only": "tsx scripts/rolf-benz-only-ads.ts",
+    "ads:qa-allowlist": "tsx scripts/qa-ads-allowlist.ts",
+    "ads:rolfbenz-assets": "tsx scripts/ensure-rolf-benz-image-creatives.ts"
   },
   "dependencies": {
     "@portabletext/react": "^6.0.2",
     "@sanity/client": "^7.14.1",
     "@sanity/dashboard": "^5.0.1",
+    "@sanity/icons": "^3.7.4",
     "@sanity/image-url": "^2.0.3",
     "@sanity/vision": "^5.8.1",
     "@sanity/visual-editing": "^5.2.1",
@@ -32,7 +38,7 @@
     "next-sanity": "^12.1.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "sanity": "^5.8.1",
+    "sanity": "^5.9.0",
     "styled-components": "^6.3.8"
   },
   "devDependencies": {
@@ -50,6 +56,7 @@
     "eslint-config-next": "16.1.6",
     "postcss": "^8.5.6",
     "react-is": "^19.2.4",
+    "sharp": "^0.34.5",
     "tailwindcss": "4.1.18",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"

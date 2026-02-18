@@ -19,10 +19,10 @@ export default async function DossiersPage() {
       <Section spacing="lg">
         <Container>
           <div className="space-y-4">
-            <h1 className="text-4xl lg:text-5xl font-semibold text-text leading-tight">
+            <h1 className="text-h2 lg:text-h1 font-semibold text-text">
               Dossiers
             </h1>
-            <p className="text-xl text-text/70 leading-relaxed max-w-2xl">
+            <p className="text-body-lg text-text/70 max-w-2xl">
               Verzamelingen van artikelen en video&apos;s rond specifieke
               interieurthema&apos;s. Verdiep je in onderwerpen die je
               interesseren.

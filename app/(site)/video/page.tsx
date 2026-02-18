@@ -1,6 +1,5 @@
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
-import ContentCard from "@/components/editorial/ContentCard";
 import AdSlot from "@/components/ads/AdSlot";
 import StickyContainer from "@/components/ui/StickyContainer";
 import VideoThumbnail from "@/components/video/VideoThumbnail";
@@ -49,10 +48,10 @@ export default async function VideoPage() {
       <Section spacing="lg">
         <Container>
           <div className="space-y-4">
-            <h1 className="text-4xl lg:text-5xl font-semibold text-text leading-tight">
+            <h1 className="text-h2 lg:text-h1 font-semibold text-text">
               Video&apos;s
             </h1>
-            <p className="text-xl text-text/70 leading-relaxed max-w-2xl">
+            <p className="text-body-lg text-text/70 max-w-2xl">
               Inspirerende interieur tours, praktische DIY-projecten en advies van experts.
             </p>
           </div>
@@ -64,16 +63,15 @@ export default async function VideoPage() {
         <Container>
           {videos.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-xl text-text/70">
+                <p className="text-body-lg text-text/70">
                 Er zijn nog geen video&apos;s gepubliceerd.
               </p>
             </div>
           ) : (
             <div className="space-y-8">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* Main content area - takes 2 columns on desktop */}
-                <div className="lg:col-span-2 space-y-8">
-                  {/* Featured video */}
+              <div className="flex flex-col lg:flex-row gap-8">
+                {/* Main content */}
+                <div className="flex-1 space-y-8">
                   <VideoThumbnail
                     href={`/video/${videos[0].slug}`}
                     title={videos[0].title}
@@ -87,7 +85,6 @@ export default async function VideoPage() {
                     size="featured"
                   />
 
-                  {/* Video grid - 2 columns max on desktop to avoid sidebar overlap */}
                   {videos.length > 1 && (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
                       {videos.slice(1).map((video) => (
@@ -107,18 +104,13 @@ export default async function VideoPage() {
                     </div>
                   )}
                 </div>
-                
-                {/* Sidebar ad - sticky, takes 1 column */}
-                <div className="hidden lg:block">
+
+                {/* Sidebar */}
+                <aside className="lg:w-80 space-y-8">
                   <StickyContainer offset={100}>
                     <AdSlot position="listing-sidebar" />
                   </StickyContainer>
-                </div>
-              </div>
-
-              {/* Mobile sidebar ad */}
-              <div className="lg:hidden">
-                <AdSlot position="listing-sidebar" />
+                </aside>
               </div>
             </div>
           )}
