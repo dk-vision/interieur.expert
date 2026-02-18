@@ -30,38 +30,39 @@ export default function AdSlotClient({
     setIsClient(true);
   }, []);
 
+  // Outer wrapper: always full width so the slot box can measure against it.
   const positionClasses = {
-    "homepage-hero": "w-full flex justify-center",
-    "homepage-newsletter": "w-full flex justify-center",
-    "homepage-card": "w-full flex justify-center",
-    "listing-sidebar": "hidden lg:block w-full flex justify-center",
-    "article-inline": "w-full flex justify-center my-8",
-    "article-sidebar": "hidden lg:block w-full flex justify-center",
+    "homepage-hero": "w-full",
+    "homepage-newsletter": "w-full",
+    "homepage-card": "w-full",
+    "listing-sidebar": "hidden lg:block w-full",
+    "article-inline": "w-full my-8",
+    "article-sidebar": "hidden lg:block w-full",
   };
 
-  // Fixed IAB slot boxes (scaled down if container is narrower).
-  // The label above the creative is outside these dimensions.
+  // IAB slot boxes: fixed pixel height, width capped at IAB max but never
+  // wider than the container. mx-auto centres within the full-width wrapper.
   const slotBoxClasses = {
-    // Large Mobile Banner / Leaderboard / Billboard
+    // Mobile Banner (320×100) → Leaderboard (728×90) → Billboard (970×250)
     "homepage-hero":
-      "w-[min(100%,320px)] h-[100px] sm:w-[min(100%,728px)] sm:h-[90px] lg:w-[min(100%,970px)] lg:h-[250px]",
+      "w-full max-w-[320px] h-[100px] sm:max-w-[728px] sm:h-[90px] lg:max-w-[970px] lg:h-[250px] mx-auto",
 
-    // Large Mobile Banner / Leaderboard
+    // Mobile Banner → Leaderboard → Super Leaderboard (970×90)
     "homepage-newsletter":
-      "w-[min(100%,320px)] h-[100px] sm:w-[min(100%,728px)] sm:h-[90px] lg:w-[min(100%,970px)] lg:h-[90px]",
+      "w-full max-w-[320px] h-[100px] sm:max-w-[728px] sm:h-[90px] lg:max-w-[970px] lg:h-[90px] mx-auto",
 
-    // Medium Rectangle
-    "homepage-card": "w-[min(100%,300px)] h-[250px]",
+    // Medium Rectangle (300×250)
+    "homepage-card": "w-full max-w-[300px] h-[250px] mx-auto",
 
-    // Half Page
-    "listing-sidebar": "w-[min(100%,300px)] h-[600px]",
+    // Half Page (300×600)
+    "listing-sidebar": "w-full max-w-[300px] h-[600px] mx-auto",
 
-    // Large Mobile Banner / Leaderboard
+    // Mobile Banner → Leaderboard (728×90)
     "article-inline":
-      "w-[min(100%,320px)] h-[100px] sm:w-[min(100%,728px)] sm:h-[90px]",
+      "w-full max-w-[320px] h-[100px] sm:max-w-[728px] sm:h-[90px] mx-auto",
 
-    // Half Page
-    "article-sidebar": "w-[min(100%,300px)] h-[600px]",
+    // Half Page (300×600)
+    "article-sidebar": "w-full max-w-[300px] h-[600px] mx-auto",
   };
 
   const fallbackType = {
@@ -121,7 +122,7 @@ export default function AdSlotClient({
       className={`${positionClasses[position]} ${className}`}
       aria-label="Advertisement"
     >
-      <div className="space-y-3">
+      <div className="w-full space-y-3">
         <AdLabel />
 
         <div className={`${slotBoxClasses[position]}`}>
