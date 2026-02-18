@@ -1,7 +1,7 @@
 # Advertising & Partner Guide – interieur.expert
 
-**Versie:** 2.0  
-**Laatst bijgewerkt:** 17 februari 2026
+**Versie:** 2.1  
+**Laatst bijgewerkt:** 18 februari 2026
 
 ---
 
@@ -14,6 +14,7 @@
 5. [Dossier Sponsoring](#dossier-sponsoring)
 6. [Prijzen & Pakketten](#prijzen--pakketten)
 7. [Aanmaken van Campaigns](#aanmaken-van-campaigns)
+8. [Creative Leveringsspecificaties](#creative-leveringsspecificaties)
 
 ---
 
@@ -350,13 +351,84 @@ Alle producten ook los te bestellen. Prijzen op aanvraag voor:
    - Listing Sidebar / Article Sidebar: 300×600
    - Article Inline: 728×90 (desktop/tablet) / 320×100 (mobile)
 
-> Opmerking: deze ad slots renderen in vaste IAB-afmetingen (per breakpoint waar van toepassing). Lever creatives exact aan volgens de formaten hierboven.
+> **Belangrijk:** Elk slot rendert in exacte IAB-pixels. Lever creatives pixel-perfect aan — zie de leverings­specificaties hieronder.
 
 **Voor HTML Ad:**
 - **Title**: Interne naam
 - **Format**: HTML
 - **Link URL**: Doellink
 - **HTML Code**: Custom HTML/CSS
+
+---
+
+## Creative Leverings­specificaties
+
+Lever **alle image creatives** aan als **PNG of WebP**, RGB, 72 dpi, maximale bestandsgrootte 200 KB per variant.
+
+### Homepage Hero (`homepage-hero`)
+
+| Breakpoint | Afmeting | IAB naam |
+|---|---|---|
+| Desktop (≥1024px) | **970 × 250 px** | Billboard |
+| Tablet (640–1023px) | **728 × 90 px** | Leaderboard |
+| Mobiel (<640px) | **320 × 100 px** | Large Mobile Banner |
+
+Lever alle drie varianten aan. Veldnamen in Sanity: `imageDesktop`, `imageTablet`, `imageMobile`.
+
+### Homepage Newsletter (`homepage-newsletter`)
+
+| Breakpoint | Afmeting | IAB naam |
+|---|---|---|
+| Desktop (≥1024px) | **970 × 90 px** | Super Leaderboard |
+| Tablet (640–1023px) | **728 × 90 px** | Leaderboard |
+| Mobiel (<640px) | **320 × 100 px** | Large Mobile Banner |
+
+Lever alle drie varianten aan. Veldnamen: `imageDesktop`, `imageTablet`, `imageMobile`.
+
+### Homepage Card (`homepage-card`)
+
+| Afmeting | IAB naam |
+|---|---|
+| **300 × 250 px** | Medium Rectangle |
+
+Enkel één variant. Veldnaam: `image`.
+
+### Listing Sidebar (`listing-sidebar`)
+
+| Afmeting | IAB naam |
+|---|---|
+| **300 × 600 px** | Half Page |
+
+Enkel één variant. Veldnaam: `image`.
+
+### Article Inline (`article-inline`)
+
+| Breakpoint | Afmeting | IAB naam |
+|---|---|---|
+| Desktop + Tablet (≥640px) | **728 × 90 px** | Leaderboard |
+| Mobiel (<640px) | **320 × 100 px** | Large Mobile Banner |
+
+Lever twee varianten aan. Veldnamen: `imageTablet` (wordt ook voor desktop gebruikt), `imageMobile`.
+
+### Article Sidebar (`article-sidebar`)
+
+| Afmeting | IAB naam |
+|---|---|
+| **300 × 600 px** | Half Page |
+
+Enkel één variant. Veldnaam: `image`.
+
+### Samenvatting alle formaten
+
+| Veldnaam in Sanity | Pixelformaat | Gebruikt door |
+|---|---|---|
+| `imageDesktop` | 970×250 of 970×90 | homepage-hero, homepage-newsletter |
+| `imageTablet` | 728×90 | homepage-hero, homepage-newsletter, article-inline |
+| `imageMobile` | 320×100 | homepage-hero, homepage-newsletter, article-inline |
+| `image` (enkel) | 300×250 | homepage-card |
+| `image` (enkel) | 300×600 | listing-sidebar, article-sidebar |
+
+> **Tip:** Voor slots met meerdere breakpoints (homepage-hero, homepage-newsletter, article-inline) is het sterk aanbevolen om **alle varianten** aan te leveren. Ontbrekende varianten worden automatisch ingevuld met de beste beschikbare variant, maar dit kan leiden tot uitrekken of letterboxing.
 
 ### Stap 2: Maak Ad Campaign
 
@@ -480,6 +552,11 @@ Zie: DOSSIER-DOCUMENTATIE.md
 ---
 
 ## Changelog
+
+**v2.1 – 18 februari 2026**
+- Toegevoegd: volledige creative leverings­specificaties per slot (pixelformaten, IAB namen, Sanity veldnamen)
+- Verduidelijking breakpoint-gedrag per slot
+- Overzichtstabel alle Sanity image-velden
 
 **v2.0 – 6 februari 2026**
 - Complete rewrite voor duidelijkheid
