@@ -108,13 +108,27 @@ export default function AdSlotClient({
     return urlForImage(image).width(dims.w).height(dims.h).fit("max").url();
   }
 
-  const fallbackSizeLabel = {
-    "homepage-hero": "320×100 / 728×90 / 970×250",
-    "homepage-newsletter": "320×100 / 728×90 / 970×90",
-    "homepage-card": "300×250",
-    "listing-sidebar": "300×600",
-    "article-inline": "320×100 / 728×90",
-    "article-sidebar": "300×600",
+  // Each size spec carries Tailwind responsive classes that make it bold
+  // only at the breakpoint where that creative is actually rendered.
+  type SizeSpec = { label: string; activeClass: string };
+  const fallbackSizes: Record<string, SizeSpec[]> = {
+    "homepage-hero": [
+      { label: "320×100", activeClass: "font-bold sm:font-normal" },
+      { label: "728×90",  activeClass: "font-normal sm:font-bold lg:font-normal" },
+      { label: "970×250", activeClass: "font-normal lg:font-bold" },
+    ],
+    "homepage-newsletter": [
+      { label: "320×100", activeClass: "font-bold sm:font-normal" },
+      { label: "728×90",  activeClass: "font-normal sm:font-bold lg:font-normal" },
+      { label: "970×90",  activeClass: "font-normal lg:font-bold" },
+    ],
+    "homepage-card":    [{ label: "300×250", activeClass: "font-bold" }],
+    "listing-sidebar":  [{ label: "300×600", activeClass: "font-bold" }],
+    "article-inline": [
+      { label: "320×100", activeClass: "font-bold sm:font-normal" },
+      { label: "728×90",  activeClass: "font-normal sm:font-bold" },
+    ],
+    "article-sidebar":  [{ label: "300×600", activeClass: "font-bold" }],
   };
 
   return (
@@ -224,7 +238,7 @@ export default function AdSlotClient({
           ) : (
             <FallbackAd
               slot={fallbackType[position]}
-              sizeLabel={fallbackSizeLabel[position]}
+              sizes={fallbackSizes[position]}
               className="h-full"
             />
           )}

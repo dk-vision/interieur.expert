@@ -1,11 +1,13 @@
+type SizeSpec = { label: string; activeClass: string };
+
 interface FallbackAdProps {
   slot: "horizontal" | "vertical" | "square" | "card";
   className?: string;
-  /** Optional size label shown for context, e.g. "970×250" */
-  sizeLabel?: string;
+  /** Per-breakpoint size specs. The activeClass on each makes it bold when rendered. */
+  sizes?: SizeSpec[];
 }
 
-export function FallbackAd({ slot, className = "", sizeLabel }: FallbackAdProps) {
+export function FallbackAd({ slot, className = "", sizes }: FallbackAdProps) {
   const isVertical = slot === "vertical";
 
   return (
@@ -24,12 +26,24 @@ export function FallbackAd({ slot, className = "", sizeLabel }: FallbackAdProps)
       >
         Jouw advertentie hier
       </span>
-      {sizeLabel && (
-        <span className="text-sm text-neutral-500 font-mono">{sizeLabel}</span>
+      {sizes && sizes.length > 0 && (
+        <span className="flex items-center gap-1.5 font-mono text-sm flex-wrap justify-center px-2">
+          {sizes.map((s, i) => (
+            <>
+              {i > 0 && (
+                <span key={`sep-${i}`} className="text-neutral-300">/</span>
+              )}
+              <span
+                key={s.label}
+                className={`${s.activeClass} text-neutral-600`}
+              >
+                {s.label}
+              </span>
+            </>
+          ))}
+        </span>
       )}
-      <span
-        className="text-sm text-neutral-600 group-hover:text-accent transition-colors font-medium bg-amber-100 group-hover:bg-accent/20 rounded px-3 py-1"
-      >
+      <span className="text-sm text-neutral-600 group-hover:text-accent transition-colors font-medium bg-amber-100 group-hover:bg-accent/20 rounded px-3 py-1">
         Adverteer nu →
       </span>
     </a>
