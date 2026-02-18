@@ -1,35 +1,39 @@
-import Link from "next/link";
-
 interface FallbackAdProps {
   slot: "horizontal" | "vertical" | "square" | "card";
   className?: string;
+  /** Optional size label shown for context, e.g. "970×250" */
+  sizeLabel?: string;
 }
 
-export function FallbackAd({ slot, className = "" }: FallbackAdProps) {
+export function FallbackAd({ slot, className = "", sizeLabel }: FallbackAdProps) {
+  const isVertical = slot === "vertical";
+
   return (
-    <div
-      className={`w-full bg-gradient-to-br from-neutral-50 to-neutral-100 border-2 border-dashed border-neutral-300 rounded-lg flex flex-col items-center justify-center p-6 hover:border-neutral-400 transition-colors group ${className}`}
+    <a
+      href="mailto:partnerships@interieur.expert"
+      className={`w-full h-full flex flex-col items-center justify-center gap-2 bg-neutral-50 border-2 border-dashed border-neutral-300 rounded-sm hover:border-accent hover:bg-accent/5 transition-colors group cursor-pointer select-none ${className}`}
+      title="Adverteren op interieur.expert"
     >
-      <div className="text-center">
-        <div className="text-4xl mb-3 opacity-40 group-hover:opacity-60 transition-opacity">
-          📢
-        </div>
-        <h3 className="text-lg font-semibold text-neutral-800 mb-2">
-          Jouw advertentie hier?
-        </h3>
-        <p className="text-sm text-neutral-600 mb-4">
-          Bereik duizenden interieurliefhebbers
-        </p>
-        <Link
-          href="mailto:partnerships@interieur.expert"
-          className="inline-block px-5 py-2 bg-neutral-900 text-white text-sm font-medium rounded-md hover:bg-neutral-800 transition-colors"
-        >
-          Contacteer ons
-        </Link>
-        <p className="text-xs text-neutral-500 mt-3">
-          partnerships@interieur.expert
-        </p>
-      </div>
-    </div>
+      <span className="text-2xl opacity-30 group-hover:opacity-50 transition-opacity">
+        📢
+      </span>
+      <span
+        className={`font-semibold text-neutral-700 group-hover:text-text transition-colors text-center leading-tight ${
+          isVertical ? "text-sm px-3" : "text-xs px-2"
+        }`}
+      >
+        Jouw advertentie hier
+      </span>
+      {sizeLabel && (
+        <span className="text-[10px] text-neutral-400 font-mono">{sizeLabel}</span>
+      )}
+      <span
+        className={`text-neutral-500 group-hover:text-accent transition-colors font-medium bg-neutral-200 group-hover:bg-accent/20 rounded px-2 py-0.5 ${
+          isVertical ? "text-xs" : "text-[10px]"
+        }`}
+      >
+        Adverteer nu →
+      </span>
+    </a>
   );
 }

@@ -107,6 +107,15 @@ export default function AdSlotClient({
     return urlForImage(image).width(dims.w).height(dims.h).fit("max").url();
   }
 
+  const fallbackSizeLabel = {
+    "homepage-hero": "320×100 / 728×90 / 970×250",
+    "homepage-newsletter": "320×100 / 728×90 / 970×90",
+    "homepage-card": "300×250",
+    "listing-sidebar": "300×600",
+    "article-inline": "320×100 / 728×90",
+    "article-sidebar": "300×600",
+  };
+
   return (
     <div
       className={`${positionClasses[position]} ${className}`}
@@ -212,7 +221,11 @@ export default function AdSlotClient({
               </a>
             </AdTracker>
           ) : (
-            <FallbackAd slot={fallbackType[position]} className="h-full" />
+            <FallbackAd
+              slot={fallbackType[position]}
+              sizeLabel={fallbackSizeLabel[position]}
+              className="h-full"
+            />
           )}
         </div>
       </div>
