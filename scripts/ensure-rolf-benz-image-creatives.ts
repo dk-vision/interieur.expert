@@ -226,7 +226,7 @@ async function main() {
 
     const needs: VariantSpec[] = [];
     for (const v of slotSpec.variants) {
-      const has = Boolean((existing as any)?.[v.field]);
+      const has = Boolean((existing as Record<string, unknown>)?.[v.field]);
       if (!has) needs.push(v);
     }
 
@@ -290,7 +290,7 @@ async function main() {
         _type: "adCreative",
         ...patchSet,
       };
-      await client.create(doc as any);
+      await client.create(doc as SanityDocStub & Record<string, unknown>);
     }
   }
 
