@@ -13,7 +13,7 @@ export function FallbackAd({ slot, className = "", sizes }: FallbackAdProps) {
   return (
     <a
       href="mailto:partnerships@interieur.expert"
-      className={`w-full h-full flex flex-col items-center justify-center gap-3 bg-amber-50 border-2 border-dashed border-amber-300 rounded-sm hover:border-accent hover:bg-accent/10 transition-colors group cursor-pointer select-none ${className}`}
+      className={`w-full h-full flex flex-col items-center justify-center gap-3 bg-blue-50 border-2 border-dashed border-blue-500 rounded-sm hover:border-accent hover:bg-blue-100 transition-colors group cursor-pointer select-none ${className}`}
       title="Adverteren op interieur.expert"
     >
       <span className="text-3xl opacity-50 group-hover:opacity-70 transition-opacity">
@@ -43,7 +43,7 @@ export function FallbackAd({ slot, className = "", sizes }: FallbackAdProps) {
           ))}
         </span>
       )}
-      <span className="text-sm text-neutral-600 group-hover:text-accent transition-colors font-medium bg-amber-100 group-hover:bg-accent/20 rounded px-3 py-1">
+      <span className="text-sm text-neutral-600 group-hover:text-accent transition-colors font-medium bg-blue-100 group-hover:bg-accent/20 rounded px-3 py-1">
         Adverteer nu →
       </span>
     </a>
