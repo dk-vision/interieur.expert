@@ -2,8 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const { email, name } = await req.json();
+  const normalizedEmail = String(email ?? "").trim().toLowerCase();
+  const normalizedName = String(name ?? "").trim();
 
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!normalizedEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
     return NextResponse.json({ error: "Ongeldig e-mailadres." }, { status: 400 });
   }
 
@@ -21,8 +23,8 @@ export async function POST(req: NextRequest) {
   const token = Buffer.from(`${apiKey}:x`).toString("base64");
 
   const body = {
-    EmailAddress: email,
-    Name: name ?? "",
+    EmailAddress: normalizedEmail,
+    Name: normalizedName,
     Resubscribe: true,
     RestartSubscriptionBasedAutoresponders: true,
     ConsentToTrack: "Yes",
@@ -31,17 +33,27 @@ export async function POST(req: NextRequest) {
     ],
   };
 
-  const res = await fetch(
-    `https://api.createsend.com/api/v3.3/subscribers/${listId}.json`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Basic ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    }
-  );
+  let res: Response;
+
+  try {
+    res = await fetch(
+      `https://api.createsend.com/api/v3.3/subscribers/${listId}.json`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Basic ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }
+    );
+  } catch (error) {
+    console.error("Campaign Monitor network error:", error);
+    return NextResponse.json(
+      { error: "Inschrijving mislukt. Probeer het opnieuw." },
+      { status: 500 }
+    );
+  }
 
   if (res.ok) {
     return NextResponse.json({ success: true });

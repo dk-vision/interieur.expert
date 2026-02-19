@@ -1,6 +1,53 @@
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
 
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+async function subscribeToCampaignMonitor(email: string, name: string, source: string) {
+  const apiKey = process.env.CAMPAIGN_MONITOR_API_KEY;
+  const listId = process.env.CAMPAIGN_MONITOR_LIST_ID;
+
+  if (!apiKey || !listId) {
+    throw new Error("Campaign Monitor configuratie ontbreekt.");
+  }
+
+  const token = Buffer.from(`${apiKey}:x`).toString("base64");
+
+  const res = await fetch(
+    `https://api.createsend.com/api/v3.3/subscribers/${listId}.json`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        EmailAddress: email,
+        Name: name,
+        Resubscribe: true,
+        RestartSubscriptionBasedAutoresponders: true,
+        ConsentToTrack: "Yes",
+        CustomFields: [{ Key: "Bron", Value: source }],
+      }),
+    }
+  );
+
+  if (res.ok) {
+    return;
+  }
+
+  const data = await res.json().catch(() => ({}));
+  const cmCode: number = (data as { Code?: number }).Code ?? 0;
+
+  if (cmCode === 203) {
+    return;
+  }
+
+  throw new Error("Campaign Monitor inschrijving mislukt.");
+}
+
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,       // bv. mail.combell.com
   port: Number(process.env.SMTP_PORT ?? 587),
@@ -19,6 +66,23 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: "Alle velden zijn verplicht." },
         { status: 400 }
+      );
+    }
+
+    if (!isValidEmail(email)) {
+      return NextResponse.json(
+        { error: "Ongeldig e-mailadres." },
+        { status: 400 }
+      );
+    }
+
+    try {
+      await subscribeToCampaignMonitor(email, name, "Contact");
+    } catch (cmErr) {
+      console.error("Campaign Monitor (contact) fout:", cmErr);
+      return NextResponse.json(
+        { error: "Opslaan in nieuwsbrief mislukt. Probeer het opnieuw." },
+        { status: 500 }
       );
     }
 
@@ -114,36 +178,6 @@ export async function POST(request: Request) {
       text: `Naam: ${name}\nE-mail: ${email}\nOnderwerp: ${subject}\n\n${message}`,
       html,
     });
-
-    // Add to Campaign Monitor with segment Bron=Contact (best-effort, don't fail on error)
-    try {
-      const apiKey = process.env.CAMPAIGN_MONITOR_API_KEY;
-      const listId = process.env.CAMPAIGN_MONITOR_LIST_ID;
-      if (apiKey && listId) {
-        const token = Buffer.from(`${apiKey}:x`).toString("base64");
-        await fetch(
-          `https://api.createsend.com/api/v3.3/subscribers/${listId}.json`,
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Basic ${token}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              EmailAddress: email,
-              Name: name,
-              Resubscribe: true,
-              ConsentToTrack: "Yes",
-              CustomFields: [
-                { Key: "Bron", Value: "Contact" },
-              ],
-            }),
-          }
-        );
-      }
-    } catch (cmErr) {
-      console.warn("Campaign Monitor (contact) fout:", cmErr);
-    }
 
     return NextResponse.json({ success: true });
   } catch (err) {
