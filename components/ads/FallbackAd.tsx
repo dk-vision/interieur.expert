@@ -8,42 +8,59 @@ interface FallbackAdProps {
 }
 
 export function FallbackAd({ slot, className = "", sizes }: FallbackAdProps) {
-  const isVertical = slot === "vertical";
+  const isHorizontal = slot === "horizontal";
+
+  const textSize = {
+    horizontal: { heading: "text-lg", sizeLabel: "text-xs",  pill: "text-sm"  },
+    card:       { heading: "text-lg", sizeLabel: "text-sm",  pill: "text-sm"  },
+    vertical:   { heading: "text-lg", sizeLabel: "text-base",pill: "text-base"},
+    square:     { heading: "text-lg", sizeLabel: "text-sm",  pill: "text-sm"  },
+  }[slot];
+
+  const sizeRow = sizes && sizes.length > 0 && (
+    <span className={`flex items-center gap-1 font-mono flex-wrap ${isHorizontal ? "justify-start" : "justify-center"} ${textSize.sizeLabel}`}>
+      {sizes.map((s, i) => (
+        <>
+          {i > 0 && <span key={`sep-${i}`} className="text-white/40">/</span>}
+          <span key={s.label} className={`${s.activeClass} text-white/70`}>{s.label}</span>
+        </>
+      ))}
+    </span>
+  );
+
+  if (isHorizontal) {
+    return (
+      <a
+        href="mailto:partnerships@interieur.expert"
+        className={`w-full h-full flex flex-row items-center justify-between px-6 bg-accent border-2 border-dashed border-white/60 rounded-sm hover:brightness-110 hover:border-white transition-all group cursor-pointer select-none ${className}`}
+        title="Adverteren op interieur.expert"
+      >
+        {/* Left: title + sizes stacked */}
+        <div className="flex flex-col justify-center gap-0.5">
+          <span className={`font-bold text-white leading-tight ${textSize.heading}`}>
+            Jouw advertentie hier
+          </span>
+          {sizeRow}
+        </div>
+        {/* Right: CTA button */}
+        <span className={`text-accent font-bold bg-white group-hover:bg-white/90 rounded px-4 py-1.5 transition-colors whitespace-nowrap shrink-0 ${textSize.pill}`}>
+          Adverteer nu →
+        </span>
+      </a>
+    );
+  }
 
   return (
     <a
       href="mailto:partnerships@interieur.expert"
-      className={`w-full h-full flex flex-col items-center justify-center gap-3 bg-blue-50 border-2 border-dashed border-blue-500 rounded-sm hover:border-accent hover:bg-blue-100 transition-colors group cursor-pointer select-none ${className}`}
+      className={`w-full h-full flex flex-col items-center justify-center gap-3 bg-accent border-2 border-dashed border-white/60 rounded-sm hover:brightness-110 hover:border-white transition-all group cursor-pointer select-none ${className}`}
       title="Adverteren op interieur.expert"
     >
-      <span className="text-3xl opacity-50 group-hover:opacity-70 transition-opacity">
-        📢
-      </span>
-      <span
-        className={`font-semibold text-neutral-800 group-hover:text-text transition-colors text-center leading-snug ${
-          isVertical ? "text-base px-4" : "text-base px-3"
-        }`}
-      >
+      <span className={`font-bold text-white text-center leading-snug px-3 ${textSize.heading}`}>
         Jouw advertentie hier
       </span>
-      {sizes && sizes.length > 0 && (
-        <span className="flex items-center gap-1.5 font-mono text-sm flex-wrap justify-center px-2">
-          {sizes.map((s, i) => (
-            <>
-              {i > 0 && (
-                <span key={`sep-${i}`} className="text-neutral-300">/</span>
-              )}
-              <span
-                key={s.label}
-                className={`${s.activeClass} text-neutral-600`}
-              >
-                {s.label}
-              </span>
-            </>
-          ))}
-        </span>
-      )}
-      <span className="text-sm text-neutral-600 group-hover:text-accent transition-colors font-medium bg-blue-100 group-hover:bg-accent/20 rounded px-3 py-1">
+      {sizeRow}
+      <span className={`text-accent font-bold bg-white group-hover:bg-white/90 rounded px-3 py-1 transition-colors ${textSize.pill}`}>
         Adverteer nu →
       </span>
     </a>

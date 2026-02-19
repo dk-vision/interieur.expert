@@ -11,5 +11,5 @@
   - [ ] Prevent sidebar scroll over newsletter
 - [ ] Verhuischeque integration (form implementation)
 - [ ] Sponsored video templates/guidelines
-- Connect Campaign Monitor + landingspage
+- [ ] Connect Campaign Monitor + landingspage
 - 

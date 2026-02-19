@@ -20,6 +20,10 @@
 }
 
 @layer base {
+  button, [role="button"], a[class*="bg-"] {
+    cursor: pointer;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-space-grotesk), system-ui, sans-serif;
   }

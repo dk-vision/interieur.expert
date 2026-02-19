@@ -66,7 +66,7 @@ export default function AdSlotClient({
   };
 
   const fallbackType = {
-    "homepage-hero": "horizontal" as const,
+    "homepage-hero": "card" as const,
     "homepage-newsletter": "horizontal" as const,
     "homepage-card": "card" as const,
     "listing-sidebar": "vertical" as const,

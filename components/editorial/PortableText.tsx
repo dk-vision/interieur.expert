@@ -106,7 +106,7 @@ const components: PortableTextComponents = {
       return (
         <a
           href={href}
-          className="text-accent hover:underline font-medium"
+          className="text-accent font-medium border-b border-accent hover:text-accent/70 hover:border-accent/70 transition-colors"
           target={isExternal ? "_blank" : undefined}
           rel={isExternal ? "noopener noreferrer" : undefined}
         >
@@ -122,7 +122,7 @@ const components: PortableTextComponents = {
       return (
         <Link 
           href={`/${category || 'artikels'}/${slug}`}
-          className="text-accent hover:underline font-medium border-b-2 border-accent/30 hover:border-accent transition-colors"
+          className="text-accent font-medium border-b border-accent hover:text-accent/70 hover:border-accent/70 transition-colors"
         >
           {children}
         </Link>

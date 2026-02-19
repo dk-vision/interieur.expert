@@ -1,6 +1,7 @@
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
-import { Mail, MessageSquare, Briefcase } from "lucide-react";
+import { Mail, Briefcase } from "lucide-react";
+import ContactForm from "@/components/ui/ContactForm";
 
 interface ContactCardProps {
   icon: React.ReactNode;
@@ -85,88 +86,7 @@ export default function ContactPage() {
               </p>
             </div>
 
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label
-                    htmlFor="name"
-                    className="block text-meta font-medium text-text"
-                  >
-                    Naam *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    className="w-full px-4 py-3 rounded-sm border border-text/20 bg-background text-text placeholder:text-text/40 focus:outline-none focus:border-accent"
-                    placeholder="Je naam"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label
-                    htmlFor="email"
-                    className="block text-meta font-medium text-text"
-                  >
-                    E-mail *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    className="w-full px-4 py-3 rounded-sm border border-text/20 bg-background text-text placeholder:text-text/40 focus:outline-none focus:border-accent"
-                    placeholder="je@email.nl"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label
-                  htmlFor="subject"
-                    className="block text-meta font-medium text-text"
-                >
-                  Onderwerp *
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  required
-                  className="w-full px-4 py-3 rounded-sm border border-text/20 bg-background text-text placeholder:text-text/40 focus:outline-none focus:border-accent"
-                  placeholder="Waar gaat je bericht over?"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label
-                  htmlFor="message"
-                  className="block text-meta font-medium text-text"
-                >
-                  Bericht *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows={6}
-                  className="w-full px-4 py-3 rounded-sm border border-text/20 bg-background text-text placeholder:text-text/40 focus:outline-none focus:border-accent resize-none"
-                  placeholder="Vertel ons meer..."
-                />
-              </div>
-
-              <div className="flex items-center gap-4">
-                <button
-                  type="submit"
-                  className="px-8 py-3 bg-text text-background font-medium rounded-sm hover:bg-accent transition-colors"
-                >
-                  Verstuur bericht
-                </button>
-                <p className="text-meta text-text/60">
-                  We reageren meestal binnen 2 werkdagen
-                </p>
-              </div>
-            </form>
+            <ContactForm />
           </div>
         </Container>
       </Section>

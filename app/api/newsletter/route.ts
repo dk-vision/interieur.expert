@@ -26,6 +26,9 @@ export async function POST(req: NextRequest) {
     Resubscribe: true,
     RestartSubscriptionBasedAutoresponders: true,
     ConsentToTrack: "Yes",
+    CustomFields: [
+      { Key: "Bron", Value: "Nieuwsbrief" },
+    ],
   };
 
   const res = await fetch(
