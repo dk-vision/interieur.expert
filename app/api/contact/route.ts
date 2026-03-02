@@ -5,7 +5,26 @@ function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-async function subscribeToCampaignMonitor(email: string, name: string, source: string) {
+function toCampaignMonitorFieldValue(value: string, maxLen = 250) {
+  const normalized = String(value ?? "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return normalized.length > maxLen ? normalized.slice(0, maxLen) : normalized;
+}
+
+function isLikelyCustomFieldError(status: number, data: unknown) {
+  if (status !== 400) return false;
+  const message = (data as { Message?: unknown })?.Message;
+  return typeof message === "string" && message.toLowerCase().includes("custom field");
+}
+
+async function subscribeToCampaignMonitor(
+  email: string,
+  name: string,
+  source: string,
+  subject?: string,
+  message?: string
+) {
   const apiKey = process.env.CAMPAIGN_MONITOR_API_KEY;
   const listId = process.env.CAMPAIGN_MONITOR_LIST_ID;
 
@@ -15,24 +34,42 @@ async function subscribeToCampaignMonitor(email: string, name: string, source: s
 
   const token = Buffer.from(`${apiKey}:x`).toString("base64");
 
-  const res = await fetch(
-    `https://api.createsend.com/api/v3.3/subscribers/${listId}.json`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Basic ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        EmailAddress: email,
-        Name: name,
-        Resubscribe: true,
-        RestartSubscriptionBasedAutoresponders: true,
-        ConsentToTrack: "Yes",
-        CustomFields: [{ Key: "Bron", Value: source }],
-      }),
+  async function postSubscriber(customFields?: Array<{ Key: string; Value: string }>) {
+    const body: Record<string, unknown> = {
+      EmailAddress: email,
+      Name: name,
+      Resubscribe: true,
+      RestartSubscriptionBasedAutoresponders: true,
+      ConsentToTrack: "Yes",
+    };
+    if (customFields?.length) {
+      body.CustomFields = customFields;
     }
-  );
+
+    return fetch(
+      `https://api.createsend.com/api/v3.3/subscribers/${listId}.json`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Basic ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }
+    );
+  }
+
+  const customFields: Array<{ Key: string; Value: string }> = [
+    { Key: "Bron", Value: source },
+    ...(subject
+      ? [{ Key: "Onderwerp", Value: toCampaignMonitorFieldValue(subject, 250) }]
+      : []),
+    ...(message
+      ? [{ Key: "Bericht", Value: toCampaignMonitorFieldValue(message, 250) }]
+      : []),
+  ];
+
+  let res = await postSubscriber(customFields);
 
   if (res.ok) {
     return;
@@ -43,6 +80,21 @@ async function subscribeToCampaignMonitor(email: string, name: string, source: s
 
   if (cmCode === 203) {
     return;
+  }
+
+  // If CustomFields are not configured on the list, retry without them.
+  if (isLikelyCustomFieldError(res.status, data)) {
+    res = await postSubscriber(undefined);
+
+    if (res.ok) {
+      return;
+    }
+
+    const data2 = await res.json().catch(() => ({}));
+    const cmCode2: number = (data2 as { Code?: number }).Code ?? 0;
+    if (cmCode2 === 203) {
+      return;
+    }
   }
 
   throw new Error("Campaign Monitor inschrijving mislukt.");
@@ -77,13 +129,10 @@ export async function POST(request: Request) {
     }
 
     try {
-      await subscribeToCampaignMonitor(email, name, "Contact");
+      await subscribeToCampaignMonitor(email, name, "Contact", subject, message);
     } catch (cmErr) {
+      // Best-effort: never block the contact mail because Campaign Monitor is down/misconfigured.
       console.error("Campaign Monitor (contact) fout:", cmErr);
-      return NextResponse.json(
-        { error: "Opslaan in nieuwsbrief mislukt. Probeer het opnieuw." },
-        { status: 500 }
-      );
     }
 
     const html = `<!DOCTYPE html>
