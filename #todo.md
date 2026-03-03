@@ -12,4 +12,4 @@
 - [ ] Verhuischeque integration (form implementation)
 - [ ] Sponsored video templates/guidelines
 - [ ] Connect Campaign Monitor + landingspage
-- [ ] Add whatsapp Business as a chat tool
+- [x] Add whatsapp Business as a chat tool
