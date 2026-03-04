@@ -1,9 +1,8 @@
 import { groq } from "next-sanity";
+import { sanityFetch } from "@/lib/sanity/client";
 import type { Campaign } from "./types";
 
-// Preserved for when live advertisers are onboarded.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const _activeCampaignsQuery = groq`
+const activeCampaignsQuery = groq`
   *[_type == "adCampaign" 
     && active == true
     && startDate <= now()
@@ -14,7 +13,7 @@ const _activeCampaignsQuery = groq`
       || !defined(currentImpressions) 
       || currentImpressions < maxImpressions
     )
-  ] {
+  ] | order(priority desc) {
     _id,
     title,
     slot,
@@ -38,11 +37,18 @@ const _activeCampaignsQuery = groq`
 `;
 
 export async function getActiveCampaign(
-  _slot: string,
+  slot: string,
   _category?: string,
   _tags?: string[]
 ): Promise<Campaign | null> {
-  // All ad slots currently show "Jouw advertentie hier" fallback banners.
-  // Re-enable by restoring the Sanity query when going live with advertisers.
-  return null;
+  try {
+    const campaigns = await sanityFetch<Campaign[]>({
+      query: activeCampaignsQuery,
+      params: { slot },
+    });
+    return campaigns?.[0] ?? null;
+  } catch (err) {
+    console.error("Failed to fetch ad campaign:", err);
+    return null;
+  }
 }
