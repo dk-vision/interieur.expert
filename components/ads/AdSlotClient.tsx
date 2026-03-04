@@ -181,34 +181,34 @@ export default function AdSlotClient({
                         const fallback = mobileImg || tabletImg || desktopImg || singleImg;
                         if (!fallback) return null;
 
+                        // For each breakpoint, prefer the dedicated image; fall
+                        // back to the generic `image` field with correct dims.
+                        const resolvedDesktop = desktopImg || singleImg;
+                        const resolvedTablet  = tabletImg  || singleImg;
+                        const resolvedMobile  = mobileImg  || singleImg;
+
                         return (
                           <picture>
-                            {desktopImg ? (
+                            {resolvedDesktop ? (
                               <source
                                 media="(min-width: 1024px)"
-                                srcSet={getImageUrl(desktopImg, dims.desktop)}
+                                srcSet={getImageUrl(resolvedDesktop, dims.desktop)}
                               />
                             ) : null}
-                            {tabletImg ? (
+                            {resolvedTablet ? (
                               <source
                                 media="(min-width: 640px)"
-                                srcSet={getImageUrl(tabletImg, dims.tablet)}
+                                srcSet={getImageUrl(resolvedTablet, dims.tablet)}
                               />
                             ) : null}
-                            {mobileImg ? (
+                            {resolvedMobile ? (
                               <source
                                 media="(max-width: 639px)"
-                                srcSet={getImageUrl(mobileImg, dims.mobile)}
+                                srcSet={getImageUrl(resolvedMobile, dims.mobile)}
                               />
                             ) : null}
                             <img
-                              src={
-                                // Reasonable default: tablet (common) then desktop then mobile.
-                                getImageUrl(
-                                  tabletImg || desktopImg || mobileImg || fallback,
-                                  dims.tablet
-                                )
-                              }
+                              src={getImageUrl(resolvedTablet || fallback, dims.tablet)}
                               alt={alt}
                               className="w-full h-full object-contain"
                             />
