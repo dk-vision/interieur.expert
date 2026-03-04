@@ -36,6 +36,12 @@ const activeCampaignsQuery = groq`
   }
 `;
 
+/**
+ * Fraction of impressions reserved for house ads ("Jouw advertentie hier").
+ * 0.35 = 35% house ad, 65% client campaign.
+ */
+const HOUSE_AD_RATIO = 0.35;
+
 export async function getActiveCampaign(
   slot: string,
   _category?: string,
@@ -46,7 +52,14 @@ export async function getActiveCampaign(
       query: activeCampaignsQuery,
       params: { slot },
     });
-    return campaigns?.[0] ?? null;
+
+    if (!campaigns?.length) return null;
+
+    // Mix in house ads at the configured ratio.
+    if (Math.random() < HOUSE_AD_RATIO) return null;
+
+    // Pick randomly from all active campaigns for this slot.
+    return campaigns[Math.floor(Math.random() * campaigns.length)];
   } catch (err) {
     console.error("Failed to fetch ad campaign:", err);
     return null;
