@@ -36,6 +36,12 @@ const popularTags = [
   "interieur",
 ];
 
+const socialLinks = [
+  { label: "Instagram", href: "https://www.instagram.com/interieur.expert" },
+  { label: "Facebook", href: "https://www.facebook.com/de.interieur.expert/" },
+  { label: "YouTube", href: "https://www.youtube.com/channel/UCdqndME7JoE54-Ykrl79V0w/" },
+];
+
 export default function SiteFooter() {
   const currentYear = new Date().getFullYear();
 
@@ -65,7 +71,7 @@ export default function SiteFooter() {
 
       <Container>
         <div className="py-16 space-y-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-text">
                 interieur.expert
@@ -103,6 +109,24 @@ export default function SiteFooter() {
                     >
                       {link.label}
                     </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold text-text">Volg ons</h4>
+              <ul className="space-y-2">
+                {socialLinks.map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-text/60 hover:text-text transition-colors"
+                    >
+                      {link.label}
+                    </a>
                   </li>
                 ))}
               </ul>
