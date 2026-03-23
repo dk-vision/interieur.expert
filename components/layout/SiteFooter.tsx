@@ -1,5 +1,8 @@
 import Link from "next/link";
+import { groq } from "next-sanity";
 import Container from "./Container";
+import CookiePreferencesButton from "@/components/privacy/CookiePreferencesButton";
+import { sanityFetch } from "@/lib/sanity/client";
 
 const footerLinks = {
   content: [
@@ -12,6 +15,7 @@ const footerLinks = {
     { label: "Over ons", href: "/over" },
     { label: "Contact", href: "/contact" },
     { label: "Adverteren", href: "/adverteren" },
+    { label: "Privacy & cookies", href: "/privacy" },
   ],
 };
 
@@ -36,14 +40,27 @@ const popularTags = [
   "interieur",
 ];
 
+const allTagsQuery = groq`
+  array::unique(*[_type == "article"].tags[])
+`;
+
 const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com/interieur.expert" },
   { label: "Facebook", href: "https://www.facebook.com/de.interieur.expert/" },
   { label: "YouTube", href: "https://www.youtube.com/channel/UCdqndME7JoE54-Ykrl79V0w/" },
 ];
 
-export default function SiteFooter() {
+export default async function SiteFooter() {
   const currentYear = new Date().getFullYear();
+  const availableTags = await sanityFetch<string[]>({ query: allTagsQuery }).catch(
+    () => []
+  );
+  const existingTags = new Set(
+    availableTags
+      .filter((tag): tag is string => typeof tag === "string" && tag.length > 0)
+      .map((tag) => tag.toLowerCase())
+  );
+  const doormatTags = popularTags.filter((tag) => existingTags.has(tag.toLowerCase()));
 
   return (
     <footer className="border-t border-text/10 bg-background">
@@ -55,7 +72,7 @@ export default function SiteFooter() {
               Ontdek per onderwerp
             </h3>
             <div className="flex flex-wrap gap-3 justify-center">
-              {popularTags.map((tag) => (
+              {doormatTags.map((tag) => (
                 <Link
                   key={tag}
                   href={`/tags/${encodeURIComponent(tag.toLowerCase())}`}
@@ -134,9 +151,12 @@ export default function SiteFooter() {
           </div>
 
           <div className="pt-8 border-t border-text/10">
-            <p className="text-sm text-text/60">
-              © {currentYear} interieur.expert — Alle rechten voorbehouden
-            </p>
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <p className="text-sm text-text/60">
+                © {currentYear} interieur.expert — Alle rechten voorbehouden
+              </p>
+              <CookiePreferencesButton className="text-sm text-text/60 underline-offset-4 hover:text-text hover:underline" />
+            </div>
           </div>
         </div>
       </Container>

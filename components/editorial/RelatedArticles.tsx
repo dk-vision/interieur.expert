@@ -1,6 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import type { SanityImageSource } from "@/lib/content/types";
 import { urlForImage } from "@/lib/sanity/image";
 
 interface Article {
@@ -8,7 +9,7 @@ interface Article {
   title: string;
   slug: string;
   excerpt: string;
-  featuredImage: any;
+  featuredImage?: SanityImageSource;
   category: string;
   publishedAt: string;
   readingTime?: number;
@@ -19,8 +20,6 @@ interface RelatedArticlesProps {
 }
 
 export default function RelatedArticles({ articles }: RelatedArticlesProps) {
-  const router = useRouter();
-  
   if (!articles || articles.length === 0) {
     return null;
   }
@@ -33,9 +32,9 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
       
       <div className="grid md:grid-cols-3 gap-8">
         {articles.map((article) => (
-          <div
+          <Link
             key={article._id}
-            onClick={() => router.push(`/${article.category || 'artikels'}/${article.slug}`)}
+            href={`/${article.category || 'artikels'}/${article.slug}`}
             className="group cursor-pointer"
           >
             <article className="space-y-4">
@@ -74,7 +73,7 @@ export default function RelatedArticles({ articles }: RelatedArticlesProps) {
                 )}
               </div>
             </article>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

@@ -5,6 +5,7 @@ import Section from "@/components/layout/Section";
 import ContentCard from "@/components/editorial/ContentCard";
 import AdSlot from "@/components/ads/AdSlot";
 import StickyContainer from "@/components/ui/StickyContainer";
+import NewsletterCTA from "@/components/ui/NewsletterCTA";
 import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
 import { urlForImage } from "@/lib/sanity/image";
@@ -127,16 +128,7 @@ export default async function TrendsPage() {
               Elke maand analyseren we opkomende trends. Schrijf je in voor onze
               nieuwsbrief en blijf op de hoogte van de laatste ontwikkelingen.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="je@email.nl"
-                className="flex-1 px-4 py-3 rounded-sm border border-text/20 bg-background text-text placeholder:text-text/40 focus:outline-none focus:border-accent"
-              />
-              <button className="px-6 py-3 bg-text text-background font-medium rounded-sm hover:bg-accent hover:text-text transition-colors">
-                Inschrijven
-              </button>
-            </div>
+            <NewsletterCTA variant="inline" title="" description="" />
           </div>
         </Container>
       </Section>

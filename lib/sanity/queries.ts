@@ -161,7 +161,11 @@ export const latestVideosQuery = groq`
 // Article detail
 export const articleBySlugQuery = groq`
   *[_type == "article" && slug.current == $slug][0] {
-    ${articleFields}
+    ${articleFields},
+    "dossier": *[_type == "dossier" && references(^._id)][0] {
+      title,
+      "slug": slug.current
+    }
   }
 `;
 
@@ -211,6 +215,16 @@ export const relatedArticlesQuery = groq`
     && count((tags[])[@ in $tags]) > 0
   ] | order(count((tags[])[@ in $tags]) desc, publishedAt desc) [0..2] {
     ${articleFields}
+  }
+`;
+
+// Related videos query - finds videos with matching tags, fallback to recent
+export const relatedVideosQuery = groq`
+  *[_type == "video"
+    && _id != $currentId
+    && count((tags[])[@ in $tags]) > 0
+  ] | order(count((tags[])[@ in $tags]) desc, publishedAt desc) [0..2] {
+    ${videoFields}
   }
 `;
 

@@ -1,13 +1,11 @@
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
+import { getSiteUrl } from "@/lib/site";
 
 // Import preview generation function
 async function generatePreviewInBackground(videoId: string, youtubeId: string) {
   try {
-    // Determine the correct base URL
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL 
-      || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
-      || 'https://interieurexpert.vercel.app';
+    const baseUrl = getSiteUrl();
     
     console.log(`🎬 Calling ${baseUrl}/api/generate-preview for video ${videoId}`);
     
@@ -49,6 +47,8 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    revalidatePath("/sitemap.xml");
 
     // Revalidate based on document type
     switch (_type) {

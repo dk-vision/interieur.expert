@@ -21,6 +21,7 @@ const navItems = [
 export default function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const mobileMenuId = "mobile-site-navigation";
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -50,12 +51,13 @@ export default function SiteHeader() {
             <SmartSearch />
             
             {/* Desktop Navigation */}
-            <nav className="hidden lg:block">
+            <nav className="hidden lg:block" aria-label="Hoofdnavigatie">
               <ul className="flex items-center gap-8">
                 {navItems.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
+                      aria-current={isActive(item.href) ? "page" : undefined}
                       className={`text-sm transition-all duration-200 whitespace-nowrap relative pb-1 ${
                         isActive(item.href)
                           ? "text-text font-medium after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-accent after:transition-all"
@@ -71,9 +73,12 @@ export default function SiteHeader() {
 
             {/* Mobile Menu Button */}
             <button
+              type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="lg:hidden p-2 text-text hover:text-accent transition-colors"
-              aria-label="Toggle menu"
+              aria-label={mobileMenuOpen ? "Menu sluiten" : "Menu openen"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls={mobileMenuId}
             >
               <svg
                 className="w-6 h-6"
@@ -100,23 +105,27 @@ export default function SiteHeader() {
         <div
           className="fixed inset-0 bg-text/20 z-40 lg:hidden"
           onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
         />
       )}
 
       {/* Mobile Menu Slide-in */}
       <div
+        id={mobileMenuId}
         className={`fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-background shadow-2xl z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
+        aria-hidden={!mobileMenuOpen}
       >
         <div className="flex flex-col h-full">
           {/* Mobile Menu Header */}
           <div className="flex items-center justify-between p-6 border-b border-text/10">
-            <span className="text-lg font-semibold text-text">Menu</span>
+            <span id="mobile-menu-title" className="text-lg font-semibold text-text">Menu</span>
             <button
+              type="button"
               onClick={() => setMobileMenuOpen(false)}
               className="p-2 text-text hover:text-accent transition-colors"
-              aria-label="Close menu"
+              aria-label="Menu sluiten"
             >
               <svg
                 className="w-6 h-6"
@@ -133,13 +142,14 @@ export default function SiteHeader() {
           </div>
 
           {/* Mobile Navigation Links */}
-          <nav className="flex-1 overflow-y-auto">
+          <nav className="flex-1 overflow-y-auto" aria-label="Mobiele navigatie">
             <ul className="py-4">
               {navItems.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
+                    aria-current={isActive(item.href) ? "page" : undefined}
                     className={`block px-6 py-4 text-base transition-colors border-l-4 ${
                       isActive(item.href)
                         ? "text-text font-medium bg-surface border-accent"

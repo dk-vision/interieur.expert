@@ -90,7 +90,7 @@ export default defineType({
       rows: 2,
       initialValue: "Deze inhoud is mogelijk gemaakt in samenwerking met dit merk.",
       validation: (Rule) => Rule.required(),
-      description: "Standaard vermelding die gebruikt wordt bij alle gesponsorde content van deze partner",
+      description: "Standaard vermelding. 'dit merk' wordt automatisch vervangen door de partnernaam.",
     }),
     defineField({
       name: "socialMedia",

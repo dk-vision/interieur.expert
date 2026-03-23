@@ -39,16 +39,16 @@ export default async function PartnersPage() {
         <Container>
           <div className="max-w-3xl mx-auto text-center mb-16">
             <h1 className="text-h2 lg:text-h1 font-bold mb-6">Onze Partners</h1>
-            <p className="text-body-lg text-gray-600">
+            <p className="text-body-lg text-text/65">
               We werken samen met toonaangevende merken en showrooms in België. 
               Ontdek onze partners voor inspiratie, advies en kwaliteitsproducten.
             </p>
           </div>
 
-          {/* Featured Partners */}
+          {/* Uitgelichte partners */}
           {featuredPartners.length > 0 && (
             <div className="mb-20">
-              <h2 className="text-h4 font-bold mb-8 text-center">Featured Partners</h2>
+              <h2 className="text-h4 font-bold mb-8 text-center">Uitgelichte partners</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {featuredPartners.map((partner) => (
                   <PartnerCard key={partner._id} partner={partner} featured />
@@ -71,7 +71,7 @@ export default async function PartnersPage() {
 
           {allPartners.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-body-lg text-gray-500">Binnenkort vind je hier onze partners.</p>
+              <p className="text-body-lg text-text/50">Binnenkort vind je hier onze partners.</p>
             </div>
           )}
         </Container>
@@ -95,7 +95,7 @@ function PartnerCard({
     return (
       <a
         href={`/partners/${partner.slug}`}
-        className="group block bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all duration-200"
+        className="group block bg-background border border-text/10 rounded-sm p-6 hover:shadow-lg transition-all duration-200"
         style={
           partner.brandColor
             ? {
@@ -104,7 +104,7 @@ function PartnerCard({
             : undefined
         }
       >
-        <div className="h-40 relative mb-4 bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center py-12 px-8">
+        <div className="h-40 relative mb-4 bg-surface rounded-sm overflow-hidden flex items-center justify-center py-12 px-8">
           {imageUrl && (
             <Image
               src={imageUrl}
@@ -114,10 +114,10 @@ function PartnerCard({
             />
           )}
         </div>
-        <h3 className="text-h6 font-semibold mb-2 group-hover:text-gray-600 transition-colors">
+        <h3 className="text-h6 font-semibold mb-2 group-hover:text-text/65 transition-colors">
           {partner.name}
         </h3>
-        <p className="text-body-sm text-gray-600 line-clamp-2">{partner.description}</p>
+        <p className="text-body-sm text-text/65 line-clamp-2">{partner.description}</p>
       </a>
     );
   }
@@ -125,7 +125,7 @@ function PartnerCard({
   return (
     <a
       href={`/partners/${partner.slug}`}
-      className="group block bg-white border-2 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-200"
+      className="group block bg-background border-2 rounded-sm overflow-hidden hover:shadow-xl transition-all duration-200"
       style={
         partner.brandColor
           ? {
@@ -134,7 +134,7 @@ function PartnerCard({
           : undefined
       }
     >
-      <div className="h-64 relative bg-gray-50 flex items-center justify-center py-20 px-16">
+      <div className="h-64 relative bg-surface flex items-center justify-center py-20 px-16">
         {imageUrl && (
           <Image
             src={imageUrl}
@@ -150,10 +150,10 @@ function PartnerCard({
         )}
       </div>
       <div className="p-6">
-        <h3 className="text-h5 font-bold mb-3 group-hover:text-gray-600 transition-colors">
+        <h3 className="text-h5 font-bold mb-3 group-hover:text-text/65 transition-colors">
           {partner.name}
         </h3>
-        <p className="text-body text-gray-600 mb-4">{partner.description}</p>
+        <p className="text-body text-text/65 mb-4">{partner.description}</p>
         <span className="inline-flex items-center text-meta font-semibold group-hover:gap-2 transition-all">
           Bekijk profiel
           <span className="inline-block group-hover:translate-x-1 transition-transform">→</span>

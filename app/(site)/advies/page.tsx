@@ -9,11 +9,14 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
 import { urlForImage } from "@/lib/sanity/image";
 import type { Article } from "@/lib/content/types";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Advies | Interieur.Expert",
-  description: "Praktisch en eerlijk advies voor het inrichten van je huis. Van budgetvriendelijke tips tot grondige uitleg over materialen en technieken.",
-};
+export const metadata: Metadata = buildMetadata({
+  title: "Advies",
+  description:
+    "Praktisch en eerlijk advies voor het inrichten van je huis. Van budgetvriendelijke tips tot grondige uitleg over materialen en technieken.",
+  path: "/advies",
+});
 
 export const revalidate = 3600; // Revalidate every hour
 

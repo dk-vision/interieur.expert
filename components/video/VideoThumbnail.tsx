@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import PlayIcon from "@/components/ui/PlayIcon";
 
 interface VideoThumbnailProps {
@@ -29,7 +29,6 @@ export default function VideoThumbnail({
   isSponsored = false,
   partnerName,
 }: VideoThumbnailProps) {
-  const router = useRouter();
   const [isHovering, setIsHovering] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -65,8 +64,8 @@ export default function VideoThumbnail({
   }, [isHovering, previewVideo]);
 
   return (
-    <div
-      onClick={() => router.push(href)}
+    <Link
+      href={href}
       className={`group block cursor-pointer ${isSponsored ? "border-t-2 border-brand/40 pt-4" : ""}`}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
@@ -160,6 +159,6 @@ export default function VideoThumbnail({
           </div>
         )}
       </div>
-    </div>
+    </Link>
   );
 }

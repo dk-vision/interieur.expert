@@ -1,7 +1,18 @@
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
-import { Mail, Briefcase } from "lucide-react";
 import ContactForm from "@/components/ui/ContactForm";
+
+function MailIcon({ size = 24 }: { size?: number }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+  );
+}
+
+function BriefcaseIcon({ size = 24 }: { size?: number }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
+  );
+}
 
 interface ContactCardProps {
   icon: React.ReactNode;
@@ -37,7 +48,7 @@ export default function ContactPage() {
   return (
     <div>
       {/* Hero */}
-      <Section spacing="lg">
+      <Section spacing="lg" className="!pb-6">
         <Container size="content">
           <div className="space-y-6">
             <h1 className="text-h2 lg:text-h1 font-semibold text-text">
@@ -56,17 +67,17 @@ export default function ContactPage() {
         <Container>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <ContactCard
-              icon={<Mail size={32} />}
+              icon={<MailIcon size={32} />}
               title="Algemene vragen & Redactie"
               description="Heb je vragen over onze content, wil je een verhaal pitchen, je huis laten zien, of materiaal aanleveren voor advertising?"
               action="Mail ons"
               href="mailto:studio@interieur.expert"
             />
             <ContactCard
-              icon={<Briefcase size={32} />}
-              title="Partnerships"
+              icon={<BriefcaseIcon size={32} />}
+              title="Samenwerking"
               description="Interesse in samenwerking, sponsored content of adverteren? Bekijk onze mogelijkheden."
-              action="Meer informatie"
+              action="Mail het team"
               href="mailto:partnerships@interieur.expert"
             />
           </div>
@@ -94,7 +105,7 @@ export default function ContactPage() {
       {/* Additional Info */}
       <Section spacing="md">
         <Container size="content">
-          <div className="prose max-w-none prose-headings:font-semibold prose-headings:text-text prose-h2:text-h4 prose-h3:text-h5 prose-p:text-body prose-p:text-text">
+          <div className="prose max-w-none prose-headings:font-semibold prose-headings:text-text prose-h2:text-h4 prose-h3:text-h5 prose-p:text-body prose-p:text-text prose-a:text-accent prose-a:font-medium prose-a:no-underline prose-a:border-b prose-a:border-accent prose-a:transition-colors hover:prose-a:text-accent/70 hover:prose-a:border-accent/70">
             <h2>Veelgestelde vragen</h2>
 
             <h3>Kan ik mijn huis laten zien op interieur.expert?</h3>

@@ -1,9 +1,7 @@
-"use client";
-
-import { useRouter } from "next/navigation";
 import MetaRow from "./MetaRow";
 import Pill from "@/components/ui/Pill";
 import Image from "next/image";
+import Link from "next/link";
 
 interface FeaturedCardProps {
   title: string;
@@ -28,11 +26,9 @@ export default function FeaturedCard({
   isSponsored = false,
   image,
 }: FeaturedCardProps) {
-  const router = useRouter();
-  
   return (
-    <div
-      onClick={() => router.push(href)}
+    <Link
+      href={href}
       className="group block hover:opacity-90 transition-opacity cursor-pointer"
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -45,8 +41,10 @@ export default function FeaturedCard({
                 alt={title}
                 fill
                 className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 60vw"
+                sizes="(max-width: 1024px) calc(100vw - 3rem), (max-width: 1280px) 56vw, 720px"
                 priority
+                fetchPriority="high"
+                quality={72}
               />
             )}
             {category && (
@@ -75,6 +73,6 @@ export default function FeaturedCard({
           <p className="text-body lg:text-body-lg text-text/70">{excerpt}</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

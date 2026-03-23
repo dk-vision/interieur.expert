@@ -35,6 +35,7 @@ export interface Article extends BaseContent {
   body: PortableTextBlock[];
   author?: string;
   readingTime?: number;
+  dossier?: { title: string; slug: string };
 }
 
 export interface Video extends BaseContent {

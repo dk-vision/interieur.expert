@@ -9,11 +9,14 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
 import { urlForImage } from "@/lib/sanity/image";
 import type { Article } from "@/lib/content/types";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Inspiratie | Interieur.Expert",
-  description: "Ontdek stijlen, kleuren en materialen die je interieur naar een hoger niveau tillen. Van tijdloze klassiekers tot verfrissende nieuwe trends.",
-};
+export const metadata: Metadata = buildMetadata({
+  title: "Inspiratie",
+  description:
+    "Ontdek stijlen, kleuren en materialen die je interieur naar een hoger niveau tillen. Van tijdloze klassiekers tot verfrissende nieuwe trends.",
+  path: "/inspiratie",
+});
 
 export const revalidate = 3600;
 

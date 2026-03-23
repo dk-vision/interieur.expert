@@ -6,7 +6,7 @@ export default function OverPage() {
   return (
     <div>
       {/* Hero */}
-      <Section spacing="lg">
+      <Section spacing="lg" className="!pb-6">
         <Container size="content">
           <div className="space-y-6">
             <h1 className="text-h2 lg:text-h1 font-semibold text-text">

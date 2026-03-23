@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import ContentCard from "@/components/editorial/ContentCard";
@@ -7,6 +8,7 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
 import type { Article } from "@/lib/content/types";
 import { notFound } from "next/navigation";
+import { buildMetadata } from "@/lib/seo";
 
 const tagQuery = groq`
   *[_type == "article" && $tag in tags] | order(publishedAt desc) {
@@ -28,6 +30,21 @@ const tagQuery = groq`
 const allTagsQuery = groq`
   array::unique(*[_type == "article"].tags[])
 `;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ tag: string }>;
+}): Promise<Metadata> {
+  const { tag: encodedTag } = await params;
+  const tag = decodeURIComponent(encodedTag);
+
+  return buildMetadata({
+    title: `#${tag} — Artikelen`,
+    description: `Alle artikelen over ${tag} op interieur.expert. Ontdek inspiratie, advies en trends.`,
+    path: `/tags/${encodeURIComponent(tag)}`,
+  });
+}
 
 export async function generateStaticParams() {
   const tags = await sanityFetch<string[]>({ query: allTagsQuery });
@@ -59,7 +76,7 @@ export default async function TagPage({
               #{tag}
             </h1>
             <p className="text-body-lg text-text/70 max-w-2xl">
-              {articles.length} artikel{articles.length !== 1 ? "en" : ""} met deze tag
+              Ontdek {articles.length} artikel{articles.length !== 1 ? "en" : ""} over {tag}. Van inspiratie tot praktische tips.
             </p>
           </div>
         </Container>

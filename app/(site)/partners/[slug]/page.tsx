@@ -9,7 +9,25 @@ import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import PortableText from "@/components/editorial/PortableText";
 import ContentCard from "@/components/editorial/ContentCard";
-import { ExternalLink, Instagram, Facebook } from "lucide-react";
+import { buildMetadata, buildPartnerJsonLd } from "@/lib/seo";
+
+function ExternalLinkIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+  );
+}
+
+function InstagramIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+  );
+}
+
+function FacebookIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+  );
+}
 
 interface PartnerPageProps {
   params: Promise<{
@@ -56,8 +74,12 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${partner.name} | Partner | Interieur.Expert`,
-    description: partner.description,
+    ...buildMetadata({
+      title: `${partner.name} | Partner`,
+      description: partner.description,
+      path: `/partners/${partner.slug}`,
+      image: partner.logo ? urlForImage(partner.logo).width(1200).height(630).url() : undefined,
+    }),
   };
 }
 
@@ -74,17 +96,33 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
   const logoUrl = partner.logo
     ? urlForImage(partner.logo).width(400).url()
     : null;
+  const partnerJsonLd = buildPartnerJsonLd({
+    name: partner.name,
+    description: partner.description,
+    path: `/partners/${partner.slug}`,
+    website: partner.website,
+    logo: logoUrl,
+    socialLinks: [
+      partner.socialMedia?.instagram,
+      partner.socialMedia?.facebook,
+      partner.socialMedia?.pinterest,
+    ].filter(Boolean) as string[],
+  });
 
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(partnerJsonLd) }}
+      />
       {/* Hero Section */}
-      <Section className="bg-gradient-to-b from-gray-50 to-white">
+      <Section className="bg-gradient-to-b from-surface to-background">
         <Container>
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-8">
               {logoUrl && (
                 <div
-                  className="w-32 h-32 relative flex-shrink-0 bg-white rounded-lg border-2 flex items-center justify-center overflow-hidden"
+                  className="w-32 h-32 relative flex-shrink-0 bg-background rounded-sm border-2 flex items-center justify-center overflow-hidden"
                   style={
                     partner.brandColor
                       ? { borderColor: partner.brandColor }
@@ -103,14 +141,14 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
                 <div className="flex items-center gap-3 justify-center md:justify-start mb-3">
                   {partner.featured && (
                     <span className="bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-meta font-semibold">
-                      ⭐ Featured
+                      ⭐ Uitgelicht
                     </span>
                   )}
                 </div>
                 <h1 className="text-h2 lg:text-h1 font-bold mb-4">
                   {partner.name}
                 </h1>
-                <p className="text-body-lg text-gray-600 mb-6">
+                <p className="text-body-lg text-text/65 mb-6">
                   {partner.description}
                 </p>
                 <div className="flex flex-wrap gap-4 justify-center md:justify-start">
@@ -118,9 +156,9 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
                     href={partner.website}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors"
+                    className="inline-flex items-center gap-2 bg-text text-background px-6 py-3 rounded-sm hover:bg-text/85 transition-colors"
                   >
-                    <ExternalLink className="w-5 h-5" />
+                    <ExternalLinkIcon className="w-5 h-5" />
                     Bezoek website
                   </a>
                   {partner.socialMedia?.instagram && (
@@ -128,10 +166,10 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
                       href={partner.socialMedia.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 border-2 border-gray-300 px-4 py-3 rounded-lg hover:border-gray-400 transition-colors"
+                      className="inline-flex items-center gap-2 border-2 border-text/20 px-4 py-3 rounded-sm hover:border-text/40 transition-colors"
                       aria-label="Instagram"
                     >
-                      <Instagram className="w-5 h-5" />
+                      <InstagramIcon className="w-5 h-5" />
                     </a>
                   )}
                   {partner.socialMedia?.facebook && (
@@ -139,10 +177,10 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
                       href={partner.socialMedia.facebook}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 border-2 border-gray-300 px-4 py-3 rounded-lg hover:border-gray-400 transition-colors"
+                      className="inline-flex items-center gap-2 border-2 border-text/20 px-4 py-3 rounded-sm hover:border-text/40 transition-colors"
                       aria-label="Facebook"
                     >
-                      <Facebook className="w-5 h-5" />
+                      <FacebookIcon className="w-5 h-5" />
                     </a>
                   )}
                 </div>
@@ -168,7 +206,7 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
 
       {/* Showrooms Section */}
       {partner.showrooms && partner.showrooms.length > 0 && (
-        <Section className="bg-gray-50">
+        <Section className="bg-surface">
           <Container>
             <div className="max-w-4xl mx-auto">
               <h2 className="text-h4 font-bold mb-8 text-center">Showrooms</h2>
@@ -176,16 +214,23 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
                 {partner.showrooms.map((showroom, index) => (
                   <div
                     key={index}
-                    className="bg-white p-6 rounded-lg border border-gray-200"
+                    className="bg-background p-6 rounded-sm border border-text/10"
                   >
                     <h3 className="text-h6 font-bold mb-3">{showroom.city}</h3>
-                    <p className="text-gray-600 mb-2 whitespace-pre-line">
-                      {showroom.address}
+                    <p className="text-text/65 mb-2 whitespace-pre-line">
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(showroom.address)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline"
+                      >
+                        {showroom.address}
+                      </a>
                     </p>
                     {showroom.phone && (
                       <a
                         href={`tel:${showroom.phone}`}
-                        className="text-gray-900 font-medium hover:underline"
+                        className="text-text font-medium hover:underline"
                       >
                         {showroom.phone}
                       </a>
@@ -204,9 +249,9 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
           <Container>
             <div className="max-w-6xl mx-auto">
               <h2 className="text-h4 font-bold mb-8 text-center">
-                Gesponsorde Content
+                Artikelen in samenwerking
               </h2>
-              <p className="text-center text-body text-gray-600 mb-12 max-w-2xl mx-auto">
+              <p className="text-center text-body text-text/65 mb-12 max-w-2xl mx-auto">
                 Ontdek inspirerende artikels in samenwerking met {partner.name}.
               </p>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -240,13 +285,13 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
       )}
 
       {/* CTA Section */}
-      <Section className="bg-gradient-to-b from-gray-50 to-white">
+      <Section className="bg-gradient-to-b from-surface to-background">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-h4 font-bold mb-6">
               Klaar om te ontdekken?
             </h2>
-            <p className="text-body-lg text-gray-600 mb-8">
+            <p className="text-body-lg text-text/65 mb-8">
               Bezoek de website van {partner.name} voor het volledige aanbod en
               actuele inspiratie.
             </p>
@@ -254,9 +299,9 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
               href={partner.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-black text-white px-8 py-4 rounded-lg text-body-lg font-semibold hover:bg-gray-800 transition-colors"
+              className="inline-flex items-center gap-2 bg-text text-background px-8 py-4 rounded-sm text-body-lg font-semibold hover:bg-text/85 transition-colors"
             >
-              <ExternalLink className="w-6 h-6" />
+              <ExternalLinkIcon className="w-6 h-6" />
               Bezoek {partner.name}
             </a>
           </div>
@@ -269,7 +314,7 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
           <div className="text-center">
             <Link
               href="/partners"
-              className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+              className="inline-flex items-center gap-2 text-text/65 hover:text-text transition-colors"
             >
               ← Terug naar alle partners
             </Link>

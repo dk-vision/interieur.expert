@@ -7,6 +7,8 @@ interface MetaRowProps {
   readingTime?: number;
   type: "article" | "video" | "dossier";
   isSponsored?: boolean;
+  tone?: "default" | "inverse";
+  centered?: boolean;
 }
 
 export default function MetaRow({
@@ -14,12 +16,16 @@ export default function MetaRow({
   readingTime,
   type,
   isSponsored = false,
+  tone = "default",
+  centered = false,
 }: MetaRowProps) {
+  const isInverse = tone === "inverse";
+
   return (
-    <div className="flex flex-wrap items-center gap-3 text-meta text-text/60">
-      <ContentTypeBadge type={type} size="sm" />
+    <div className={`flex flex-wrap items-center gap-3 text-meta ${centered ? "justify-center" : ""} ${isInverse ? "text-white/88" : "text-text/60"}`}>
+      <ContentTypeBadge type={type} size="sm" tone={tone} />
       
-      {isSponsored && <SponsoredBadge size="sm" showIcon={true} />}
+      {isSponsored && <SponsoredBadge size="sm" showIcon={true} tone={tone} />}
       
       <div className="flex items-center gap-1.5">
         <Calendar size={14} />
@@ -28,7 +34,7 @@ export default function MetaRow({
 
       {readingTime && (
         <>
-          <span className="text-text/30">·</span>
+          <span className={isInverse ? "text-white/45" : "text-text/30"}>·</span>
           <div className="flex items-center gap-1.5">
             <Clock size={14} />
             <span>{readingTime} min</span>

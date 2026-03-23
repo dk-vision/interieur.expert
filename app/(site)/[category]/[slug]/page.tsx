@@ -13,11 +13,40 @@ import { PortableText } from "@/components/editorial/PortableText";
 import { urlForImage } from "@/lib/sanity/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
+import type { Metadata } from "next";
 import type { Article } from "@/lib/content/types";
 import { calculateReadingTime } from "@/lib/utils/reading-time";
+import { buildArticleJsonLd, buildMetadata } from "@/lib/seo";
 
 interface PageProps {
   params: Promise<{ category: string; slug: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { category, slug } = await params;
+  const article = await sanityFetch<Article>({
+    query: articleBySlugQuery,
+    params: { slug },
+  });
+
+  if (!article || (article.category && article.category !== category)) {
+    return {
+      title: "Artikel niet gevonden",
+    };
+  }
+
+  const image = article.featuredImage
+    ? urlForImage(article.featuredImage).width(1200).height(630).url()
+    : undefined;
+
+  return buildMetadata({
+    title: article.seoTitle || article.title,
+    description: article.seoDescription || article.excerpt,
+    path: `/${article.category || category}/${article.slug}`,
+    image,
+    type: "article",
+  });
 }
 
 export default async function ArtikelPage({ params }: PageProps) {
@@ -56,14 +85,39 @@ export default async function ArtikelPage({ params }: PageProps) {
   const imageUrl = article.featuredImage
     ? urlForImage(article.featuredImage).width(1280).height(720).url()
     : null;
+  const articleJsonLd = buildArticleJsonLd({
+    title: article.seoTitle || article.title,
+    description: article.seoDescription || article.excerpt,
+    path: `/${article.category || category}/${article.slug}`,
+    publishedAt: article.publishedAt,
+    image: imageUrl,
+    author: article.author,
+  });
 
   return (
     <article>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       {/* Hero Section */}
       <Section spacing="lg">
         <Container size="layout">
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="space-y-6 text-center">
+              {article.dossier && (
+                <div className="inline-flex items-center gap-2 text-sm text-text/60">
+                  <Link href="/dossiers" className="hover:text-accent transition-colors">Dossiers</Link>
+                  <span aria-hidden="true">/</span>
+                  <Link
+                    href={`/dossiers/${article.dossier.slug}`}
+                    className="text-accent font-medium hover:text-accent/70 transition-colors"
+                  >
+                    {article.dossier.title}
+                  </Link>
+                </div>
+              )}
+
               <MetaRow
                 publishedAt={new Date(article.publishedAt).toLocaleDateString("nl-NL", {
                   day: "numeric",
@@ -73,6 +127,7 @@ export default async function ArtikelPage({ params }: PageProps) {
                 readingTime={readingTime}
                 type="article"
                 isSponsored={article.sponsored}
+                centered
               />
 
               <h1 className="text-h2 lg:text-h1 font-semibold text-text tracking-tight">
@@ -98,11 +153,14 @@ export default async function ArtikelPage({ params }: PageProps) {
 
             {/* Hero Image */}
             {imageUrl && (
-              <div className="aspect-[21/9] bg-text/5 rounded-sm overflow-hidden">
-                <img
+              <div className="aspect-[21/9] bg-text/5 rounded-sm overflow-hidden relative">
+                <Image
                   src={imageUrl}
                   alt={article.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 960px"
                 />
               </div>
             )}
@@ -119,6 +177,21 @@ export default async function ArtikelPage({ params }: PageProps) {
               <ArticleBody>
                 <PortableText value={article.body} />
               </ArticleBody>
+
+              {/* Sponsor link at bottom of sponsored articles */}
+              {article.sponsored && article.partner?.website && (
+                <div className="mt-10 border-t border-text/10 pt-6 flex items-center gap-3">
+                  <span className="text-sm text-text/60">Bezoek website:</span>
+                  <a
+                    href={article.partner.website}
+                    target="_blank"
+                    rel="noopener sponsored"
+                    className="text-sm font-medium text-brand hover:underline"
+                  >
+                    {article.partner.name} →
+                  </a>
+                </div>
+              )}
               
               {/* Inline Ad Banner - only show if not sponsored */}
               {!article.sponsored && (

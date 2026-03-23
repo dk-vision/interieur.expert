@@ -13,6 +13,12 @@ import StickyContainer from "@/components/ui/StickyContainer";
 import PortableText from "@/components/editorial/PortableText";
 import { getDossierBySlug } from "@/lib/content";
 import { urlForImage } from "@/lib/sanity/image";
+import type { Video } from "@/lib/content/types";
+import { buildCollectionPageJsonLd, buildMetadata } from "@/lib/seo";
+
+type DossierVideo = Video & {
+  previewVideoUrl?: string;
+};
 
 export async function generateMetadata({
   params,
@@ -29,21 +35,14 @@ export async function generateMetadata({
   }
 
   return {
-    title: dossier.seoTitle || `${dossier.title} | Interieur.Expert`,
-    description: dossier.seoDescription || dossier.excerpt,
-    openGraph: {
-      title: dossier.title,
-      description: dossier.excerpt,
-      images: dossier.featuredImage
-        ? [
-            {
-              url: urlForImage(dossier.featuredImage).width(1200).url(),
-              width: 1200,
-              height: 630,
-            },
-          ]
-        : [],
-    },
+    ...buildMetadata({
+      title: dossier.seoTitle || dossier.title,
+      description: dossier.seoDescription || dossier.excerpt,
+      path: `/dossiers/${dossier.slug}`,
+      image: dossier.featuredImage
+        ? urlForImage(dossier.featuredImage).width(1200).height(630).url()
+        : undefined,
+    }),
   };
 }
 
@@ -65,12 +64,19 @@ export default async function DossierDetailPage({
         .height(900)
         .url()
     : null;
+  const dossierJsonLd = buildCollectionPageJsonLd({
+    title: dossier.seoTitle || dossier.title,
+    description: dossier.seoDescription || dossier.excerpt,
+    path: `/dossiers/${dossier.slug}`,
+    publishedAt: dossier.publishedAt,
+    image: imageUrl,
+  });
 
   // Separate articles and videos (filter out null references)
   const validContent = dossier.articles ? dossier.articles.filter((item) => item !== null) : [];
   
   const articles = validContent.filter((item) => item._type === "article");
-  const videos = validContent.filter((item) => item._type === "video");
+  const videos = validContent.filter((item): item is DossierVideo => item._type === "video");
 
   // Get content card data for articles
   const articleCards = articles.map((article) => ({
@@ -96,8 +102,12 @@ export default async function DossierDetailPage({
 
   return (
     <article>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(dossierJsonLd) }}
+      />
       {/* Header */}
-      <Section spacing="lg">
+      <Section spacing="lg" className="pb-8 md:pb-10">
         <Container size="content">
           <div className="space-y-6">
             <MetaRow
@@ -110,6 +120,7 @@ export default async function DossierDetailPage({
                 }
               )}
               type="dossier"
+              centered
             />
 
             <h1 className="text-h2 lg:text-h1 font-semibold text-text">
@@ -224,7 +235,7 @@ export default async function DossierDetailPage({
                   {/* Videos Section */}
                   {videos.length > 0 && (
                     <div className="space-y-6">
-                      <h3 className="text-h5 font-semibold text-text">Video's</h3>
+                      <h3 className="text-h5 font-semibold text-text">Video&apos;s</h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8">
                         {videos.map((video) => (
                           <VideoThumbnail
@@ -232,11 +243,11 @@ export default async function DossierDetailPage({
                             href={`/video/${video.slug}`}
                             title={video.title}
                             thumbnail={urlForImage(video.thumbnail).width(640).height(360).url()}
-                            previewVideo={(video as any).previewVideoUrl}
+                            previewVideo={video.previewVideoUrl}
                             duration={video.duration}
                             publishedAt={new Date(video.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
                             isSponsored={video.sponsored || false}
-                            partnerName={(video as any).partner?.name}
+                            partnerName={video.partner?.name}
                             size="grid"
                           />
                         ))}

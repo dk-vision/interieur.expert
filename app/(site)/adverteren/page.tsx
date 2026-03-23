@@ -13,22 +13,22 @@ const options = [
   {
     number: "01",
     title: "Display advertising",
-    body: "Banners op prominente posities &mdash; homepage, artikelpagina&apos;s en dossiers. Beschikbare formaten: Billboard (970x250), Leaderboard (728x90), Half Page (300x600) en Medium Rectangle (300x250).",
+    body: "Banners op prominente posities \u2014 homepage, artikelpagina\u2019s en dossiers. Beschikbare formaten: Billboard (970\u00d7250), Leaderboard (728\u00d790), Half Page (300\u00d7600) en Medium Rectangle (300\u00d7250).",
   },
   {
     number: "02",
     title: "Gesponsorde content",
-    body: "Redactionele artikels of inspiratiepagina&apos;s die aansluiten bij de editorial lijn van interieur.expert, duidelijk gelabeld als gesponsord.",
+    body: "Redactionele artikels of inspiratiepagina\u2019s die aansluiten bij de editorial lijn van interieur.expert, duidelijk gelabeld als gesponsord.",
   },
   {
     number: "03",
     title: "Dossier sponsoring",
-    body: "Exclusieve zichtbaarheid binnen een specifiek thema-dossier &mdash; keuken, badkamer, verlichting of buitenleven &mdash; met vermelding als hoofdsponsor.",
+    body: "Exclusieve zichtbaarheid binnen een specifiek thema-dossier \u2014 keuken, badkamer, verlichting of buitenleven \u2014 met vermelding als hoofdsponsor.",
   },
   {
     number: "04",
     title: "Partner profiel",
-    body: "Een vaste aanwezigheid als merkpartner: logo in de footer, vermelding in de partnerspagina en doorlopende zichtbaarheid in relevante categorie&euml;n.",
+    body: "Een vaste aanwezigheid als merkpartner: logo in de footer, vermelding in de partnerspagina en doorlopende zichtbaarheid in relevante categorie\u00ebn.",
   },
 ];
 
@@ -60,16 +60,15 @@ export default function AdverterenPage() {
             {options.map((opt) => (
               <div
                 key={opt.number}
-                className="group bg-white border border-text/10 rounded-sm p-5 flex flex-col gap-3 hover:border-accent/40 hover:shadow-sm transition-all"
+                className="group bg-background border border-text/10 rounded-sm p-5 flex flex-col gap-3 hover:border-accent/40 hover:shadow-sm transition-all"
               >
                 <span className="text-meta font-semibold tabular-nums text-accent/60 tracking-widest">
                   {opt.number}
                 </span>
                 <h2 className="text-h6 font-semibold text-text">{opt.title}</h2>
-                <p
-                  className="text-body text-text/65 leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: opt.body }}
-                />
+                <p className="text-body text-text/65 leading-relaxed">
+                  {opt.body}
+                </p>
               </div>
             ))}
           </div>
@@ -101,6 +100,9 @@ export default function AdverterenPage() {
                 Contactformulier
               </Link>
             </div>
+            <p className="text-body text-text/50 mt-4">
+              We bezorgen graag een voorstel op maat — reken op een antwoord binnen 2 werkdagen.
+            </p>
           </div>
         </Container>
       </Section>

@@ -20,10 +20,10 @@ export function FallbackAd({ slot, className = "", sizes }: FallbackAdProps) {
   const sizeRow = sizes && sizes.length > 0 && (
     <span className={`flex items-center gap-1 font-mono flex-wrap ${isHorizontal ? "justify-start" : "justify-center"} ${textSize.sizeLabel}`}>
       {sizes.map((s, i) => (
-        <>
-          {i > 0 && <span key={`sep-${i}`} className="text-white/40">/</span>}
-          <span key={s.label} className={`${s.activeClass} text-white/70`}>{s.label}</span>
-        </>
+        <span key={s.label} className="contents">
+          {i > 0 && <span className="text-white/40">/</span>}
+          <span className={`${s.activeClass} text-white/70`}>{s.label}</span>
+        </span>
       ))}
     </span>
   );

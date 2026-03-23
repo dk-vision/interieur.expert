@@ -10,35 +10,41 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // Search articles, videos, and partners - ensure unique results
+    const searchPattern = `*${query.trim()}*`;
+
     const results = await client.fetch(
-      `array::unique(*[
+      `*[
         (
-          (_type == "article" || _type == "video") && 
-          (title match $searchQuery + "*" || excerpt match $searchQuery + "*" || tags[] match $searchQuery + "*")
+          _type in ["article", "video"] &&
+          (
+            title match $searchPattern ||
+            coalesce(excerpt, "") match $searchPattern ||
+            count(tags[@ match $searchPattern]) > 0
+          )
         ) ||
         (
-          _type == "partner" && 
-          (name match $searchQuery + "*" || description match $searchQuery + "*")
+          _type == "partner" &&
+          (
+            name match $searchPattern ||
+            coalesce(description, "") match $searchPattern
+          )
         )
-      ]._id) | [0...10] | {
-        "_id": @,
-        ...*[_id == ^._id][0]{
-          _type,
-          "title": select(
-            _type == "partner" => name,
-            title
-          ),
-          slug,
-          "excerpt": select(
-            _type == "partner" => description,
-            excerpt
-          ),
-          category,
-          "sponsored": select(_type == "article" => sponsored, false)
-        }
+      ] | order(publishedAt desc, _updatedAt desc) [0...10] {
+        _id,
+        _type,
+        "title": select(
+          _type == "partner" => name,
+          title
+        ),
+        slug,
+        "excerpt": select(
+          _type == "partner" => description,
+          excerpt
+        ),
+        category,
+        "sponsored": select(_type == "article" => sponsored, false)
       }`,
-      { searchQuery: query }
+      { searchPattern }
     );
 
     return NextResponse.json({ results });

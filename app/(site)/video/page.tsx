@@ -7,11 +7,13 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
 import { urlForImage } from "@/lib/sanity/image";
 import type { Video } from "@/lib/content/types";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Video's | Interieur.Expert",
+export const metadata = buildMetadata({
+  title: "Video's",
   description: "Inspirerende interieur tours, praktische DIY-projecten en advies van experts.",
-};
+  path: "/video",
+});
 
 export const revalidate = 3600;
 

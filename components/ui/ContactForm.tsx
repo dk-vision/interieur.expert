@@ -9,6 +9,7 @@ export default function ContactForm() {
   const router = useRouter();
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const errorId = "contact-form-error";
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -45,7 +46,7 @@ export default function ContactForm() {
   }
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit}>
+    <form className="space-y-6" onSubmit={handleSubmit} aria-busy={status === "loading"}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <label htmlFor="name" className="block text-meta font-medium text-text">
@@ -56,6 +57,9 @@ export default function ContactForm() {
             id="name"
             name="name"
             required
+            autoComplete="name"
+            aria-describedby={status === "error" ? errorId : undefined}
+            aria-invalid={status === "error" ? true : undefined}
             className="w-full px-4 py-3 rounded-sm border border-text/20 bg-background text-text placeholder:text-text/40 focus:outline-none focus:border-accent"
             placeholder="Je naam"
           />
@@ -69,6 +73,10 @@ export default function ContactForm() {
             id="email"
             name="email"
             required
+            autoComplete="email"
+            inputMode="email"
+            aria-describedby={status === "error" ? errorId : undefined}
+            aria-invalid={status === "error" ? true : undefined}
             className="w-full px-4 py-3 rounded-sm border border-text/20 bg-background text-text placeholder:text-text/40 focus:outline-none focus:border-accent"
             placeholder="je@email.nl"
           />
@@ -84,6 +92,9 @@ export default function ContactForm() {
           id="subject"
           name="subject"
           required
+          autoComplete="off"
+          aria-describedby={status === "error" ? errorId : undefined}
+          aria-invalid={status === "error" ? true : undefined}
           className="w-full px-4 py-3 rounded-sm border border-text/20 bg-background text-text placeholder:text-text/40 focus:outline-none focus:border-accent"
           placeholder="Waar gaat je bericht over?"
         />
@@ -98,13 +109,17 @@ export default function ContactForm() {
           name="message"
           required
           rows={6}
+          aria-describedby={status === "error" ? errorId : undefined}
+          aria-invalid={status === "error" ? true : undefined}
           className="w-full px-4 py-3 rounded-sm border border-text/20 bg-background text-text placeholder:text-text/40 focus:outline-none focus:border-accent resize-none"
           placeholder="Vertel ons meer..."
         />
       </div>
 
       {status === "error" && (
-        <p className="text-sm text-red-600">{errorMsg}</p>
+        <p id={errorId} className="text-sm text-red-700" role="alert">
+          {errorMsg}
+        </p>
       )}
 
       <div className="flex items-center gap-4">
