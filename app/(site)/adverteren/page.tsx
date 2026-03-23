@@ -87,18 +87,18 @@ export default function AdverterenPage() {
               doelstellingen.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link
+                href="/afspraak"
+                className="px-8 py-3 bg-text text-background font-medium rounded-sm hover:bg-accent transition-colors"
+              >
+                Plan een gesprek →
+              </Link>
               <a
                 href="mailto:partnerships@interieur.expert"
-                className="px-8 py-3 bg-text text-background font-medium rounded-sm hover:bg-accent transition-colors"
+                className="px-8 py-3 border border-text/20 text-text font-medium rounded-sm hover:border-accent hover:text-accent transition-colors"
               >
                 partnerships@interieur.expert
               </a>
-              <Link
-                href="/contact"
-                className="px-8 py-3 bg-text text-background font-medium rounded-sm hover:bg-accent transition-colors"
-              >
-                Contactformulier
-              </Link>
             </div>
             <p className="text-body text-text/50 mt-4">
               We bezorgen graag een voorstel op maat — reken op een antwoord binnen 2 werkdagen.
