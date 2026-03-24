@@ -18,6 +18,8 @@ const fullPartnerFragment = groq`
   about,
   socialMedia,
   showrooms,
+  gallery[]{ _key, caption, asset->{_id, url, metadata{dimensions}} },
+  "stories": stories[!defined(expiresAt) || expiresAt > now()]{ _key, caption, link, linkLabel, publishedAt, image{ asset->{_id, url, metadata{dimensions}} }, video{ asset->{_id, url, mimeType} } } | order(publishedAt desc)[0...20],
   contractStart,
   contractEnd
 `;
@@ -229,6 +231,20 @@ export const relatedVideosQuery = groq`
 `;
 
 // Partner queries
+export const partnersWithStoriesQuery = groq`
+  *[_type == "partner" && defined(slug.current) && count(stories[!defined(expiresAt) || expiresAt > now()]) > 0] | order(featured desc, name asc) {
+    _id,
+    name,
+    "slug": slug.current,
+    logo,
+    brandColor,
+    "storyCount": count(stories[!defined(expiresAt) || expiresAt > now()]),
+    "latestStory": stories[!defined(expiresAt) || expiresAt > now()] | order(publishedAt desc) [0] {
+      _key, image{ asset->{url} }
+    }
+  }
+`;
+
 export const allPartnersQuery = groq`
   *[_type == "partner" && defined(slug.current)] | order(featured desc, name asc) {
     ${partnerFragment}

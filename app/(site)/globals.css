@@ -20,6 +20,14 @@
 }
 
 @layer base {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
   button, [role="button"], a[class*="bg-"] {
     cursor: pointer;
   }

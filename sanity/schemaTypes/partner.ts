@@ -155,6 +155,129 @@ export default defineType({
       ],
     }),
     defineField({
+      name: "gallery",
+      title: "Fotogalerij",
+      type: "array",
+      of: [
+        {
+          type: "image",
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: "caption",
+              title: "Bijschrift",
+              type: "string",
+            },
+          ],
+          preview: {
+            select: {
+              caption: "caption",
+              media: "asset",
+            },
+            prepare({ caption, media }) {
+              return {
+                title: caption || "Foto",
+                media,
+              };
+            },
+          },
+        },
+      ],
+      options: {
+        sortable: true,
+      },
+      description: "Instagram-stijl fotogalerij op het partnerprofiel (vierkant formaat aanbevolen)",
+    }),
+    defineField({
+      name: "stories",
+      title: "Stories",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              name: "image",
+              title: "Afbeelding (thumbnail / poster)",
+              type: "image",
+              options: { hotspot: true },
+              validation: (Rule) => Rule.required(),
+              description: "Verplicht — wordt als thumbnail getoond en als poster bij video",
+            },
+            {
+              name: "video",
+              title: "Video (optioneel)",
+              type: "file",
+              options: { accept: "video/mp4,video/webm,video/quicktime" },
+              description: "Upload een korte video (max 30s aanbevolen, mp4/webm). Laat leeg voor een foto-story.",
+            },
+            {
+              name: "caption",
+              title: "Bijschrift",
+              type: "string",
+              description: "Korte tekst over de afbeelding/video (optioneel)",
+            },
+            {
+              name: "link",
+              title: "Link",
+              type: "url",
+              description: "Optionele link (bijv. naar product of pagina)",
+            },
+            {
+              name: "linkLabel",
+              title: "Link label",
+              type: "string",
+              description: "Tekst op de link-knop, bijv. 'Bekijk product'",
+            },
+            {
+              name: "publishedAt",
+              title: "Gepubliceerd op",
+              type: "datetime",
+              initialValue: () => new Date().toISOString(),
+            },
+            {
+              name: "expiresAt",
+              title: "Verloopt op",
+              type: "datetime",
+              description: "Wanneer verdwijnt deze story? Standaard 30 dagen na publicatie.",
+              initialValue: () => {
+                const d = new Date();
+                d.setDate(d.getDate() + 30);
+                return d.toISOString();
+              },
+            },
+          ],
+          preview: {
+            select: {
+              caption: "caption",
+              media: "image",
+              publishedAt: "publishedAt",
+              expiresAt: "expiresAt",
+              hasVideo: "video.asset._ref",
+            },
+            prepare({ caption, media, publishedAt, expiresAt, hasVideo }) {
+              const date = publishedAt
+                ? new Date(publishedAt).toLocaleDateString("nl-NL")
+                : "";
+              const expiry = expiresAt
+                ? `verloopt ${new Date(expiresAt).toLocaleDateString("nl-NL")}`
+                : "permanent";
+              const type = hasVideo ? "🎬 " : "📷 ";
+              return {
+                title: `${type}${caption || "Story"}`,
+                subtitle: `${date} — ${expiry}`,
+                media,
+              };
+            },
+          },
+        },
+      ],
+      validation: (Rule) => Rule.max(20).error("Maximaal 20 stories toegestaan"),
+      description: "Instagram-stijl stories — max 20, verschijnen als cirkels op het partnerprofiel. Stories verlopen standaard na 30 dagen.",
+    }),
+    defineField({
       name: "contractStart",
       title: "Contract Start",
       type: "date",

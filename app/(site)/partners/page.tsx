@@ -5,6 +5,7 @@ import { urlForImage } from "@/lib/sanity/image";
 import Image from "next/image";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
+import { groq } from "next-sanity";
 
 export const revalidate = 0; // Force dynamic rendering
 
@@ -26,6 +27,7 @@ interface Partner {
 }
 
 export default async function PartnersPage() {
+  // Fetch for full stories data per partner
   const [allPartners, featuredPartners] = await Promise.all([
     client.fetch<Partner[]>(allPartnersQuery),
     client.fetch<Partner[]>(featuredPartnersQuery),
@@ -129,13 +131,13 @@ function PartnerCard({
             : undefined
         }
       >
-        <div className="h-40 relative mb-4 bg-surface rounded-sm overflow-hidden flex items-center justify-center py-12 px-8">
+        <div className="h-48 relative mb-4 bg-surface rounded-sm overflow-hidden flex items-center justify-center">
           {imageUrl && (
             <Image
               src={imageUrl}
               alt={partner.name}
               fill
-              className="object-contain p-4 group-hover:scale-105 transition-transform duration-200"
+              className="object-contain p-3 group-hover:scale-105 transition-transform duration-200"
             />
           )}
         </div>
@@ -159,13 +161,13 @@ function PartnerCard({
           : undefined
       }
     >
-      <div className="h-64 relative bg-surface flex items-center justify-center py-20 px-16">
+      <div className="h-64 relative bg-surface flex items-center justify-center">
         {imageUrl && (
           <Image
             src={imageUrl}
             alt={partner.name}
             fill
-            className="object-contain p-8 group-hover:scale-105 transition-transform duration-200"
+            className="object-contain p-6 group-hover:scale-105 transition-transform duration-200"
           />
         )}
         {featured && (
