@@ -74,6 +74,31 @@ export default async function PartnersPage() {
               <p className="text-body-lg text-text/50">Binnenkort vind je hier onze partners.</p>
             </div>
           )}
+
+          {/* Partner worden CTA */}
+          <div className="mt-20 border-t border-text/10 pt-16 text-center">
+            <h2 className="text-h4 font-semibold text-text mb-3">
+              Ook partner worden?
+            </h2>
+            <p className="text-body-lg text-text/65 max-w-xl mx-auto mb-8">
+              Bereik een geëngageerd publiek van interieurliefhebbers en
+              professionals. Ontdek onze samenwerkingsmogelijkheden.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <a
+                href="/afspraak"
+                className="px-8 py-3 bg-text text-background font-medium rounded-sm hover:bg-accent transition-colors"
+              >
+                Plan een gesprek →
+              </a>
+              <a
+                href="/adverteren"
+                className="px-8 py-3 border border-text/20 text-text font-medium rounded-sm hover:border-accent hover:text-accent transition-colors"
+              >
+                Bekijk opties
+              </a>
+            </div>
+          </div>
         </Container>
       </Section>
     </main>
