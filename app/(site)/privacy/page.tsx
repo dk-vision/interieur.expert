@@ -59,6 +59,15 @@ export default function PrivacyPage() {
               &quot;Cookie-instellingen&quot; in de footer.
             </p>
 
+            <h2>Nieuwsbrief</h2>
+            <p>
+              Als je je inschrijft voor onze nieuwsbrief verwerken we je e-mailadres op
+              basis van jouw expliciete toestemming. Voor het verzenden en beheren van
+              de nieuwsbrief gebruiken we Campaign Monitor als verwerker. Met jouw
+              toestemming meten we ook opens en klikken om de nieuwsbrief te verbeteren.
+              Je kunt je altijd uitschrijven via de link onderaan elke nieuwsbrief.
+            </p>
+
             <h2>Contact</h2>
             <p>
               Vragen over privacy of cookies kun je sturen naar

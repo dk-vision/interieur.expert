@@ -7,12 +7,20 @@ function isLikelyCustomFieldError(status: number, data: unknown) {
 }
 
 export async function POST(req: NextRequest) {
-  const { email, name } = await req.json();
+  const { email, name, consent } = await req.json();
   const normalizedEmail = String(email ?? "").trim().toLowerCase();
   const normalizedName = String(name ?? "").trim();
+  const hasConsent = consent === true;
 
   if (!normalizedEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
     return NextResponse.json({ error: "Ongeldig e-mailadres." }, { status: 400 });
+  }
+
+  if (!hasConsent) {
+    return NextResponse.json(
+      { error: "Bevestig eerst dat je de nieuwsbrief wilt ontvangen." },
+      { status: 400 }
+    );
   }
 
   const apiKey = process.env.CAMPAIGN_MONITOR_API_KEY;

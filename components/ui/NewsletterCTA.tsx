@@ -40,6 +40,7 @@ export default function NewsletterCTA({
   description = "Ontvang elke week de beste artikelen, tips en trends. Geen spam, altijd relevante content.",
 }: NewsletterCTAProps) {
   const [email, setEmail] = useState("");
+  const [consentGiven, setConsentGiven] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const messageId = "newsletter-status";
@@ -47,6 +48,12 @@ export default function NewsletterCTA({
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!consentGiven) {
+      setErrorMsg("Bevestig eerst dat je de nieuwsbrief wilt ontvangen.");
+      setStatus("error");
+      return;
+    }
+
     setStatus("loading");
     setErrorMsg("");
 
@@ -54,7 +61,7 @@ export default function NewsletterCTA({
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, consent: consentGiven }),
       });
 
       const data = await res.json();
@@ -112,43 +119,64 @@ export default function NewsletterCTA({
         {status !== "success" && status !== "already" && (
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+            className="flex flex-col gap-3 max-w-md mx-auto"
             aria-busy={status === "loading"}
             noValidate
             suppressHydrationWarning
           >
-            <label htmlFor="newsletter-email" className="sr-only">
-              E-mailadres
+            <div className="flex flex-col sm:flex-row gap-3">
+              <label htmlFor="newsletter-email" className="sr-only">
+                E-mailadres
+              </label>
+              <input
+                id="newsletter-email"
+                name="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="je@email.nl"
+                required
+                autoComplete="email"
+                inputMode="email"
+                disabled={status === "loading"}
+                aria-describedby={status !== "idle" ? messageId : undefined}
+                aria-invalid={status === "error" ? true : undefined}
+                className="flex-1 px-4 py-3 rounded-sm border border-text/20 bg-background text-text placeholder:text-text/40 focus:outline-none focus:border-accent disabled:opacity-60"
+              />
+              <button
+                type="submit"
+                disabled={status === "loading"}
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-text text-background font-medium rounded-sm hover:bg-accent hover:text-text transition-colors disabled:opacity-60"
+              >
+                {status === "loading" ? (
+                  <>
+                    <SpinnerIcon size={16} className="animate-spin" />
+                    Moment…
+                  </>
+                ) : (
+                  "Inschrijven"
+                )}
+              </button>
+            </div>
+
+            <label htmlFor="newsletter-consent" className="flex items-start gap-2 text-meta text-text/70 text-left">
+              <input
+                id="newsletter-consent"
+                name="consent"
+                type="checkbox"
+                checked={consentGiven}
+                onChange={(e) => setConsentGiven(e.target.checked)}
+                disabled={status === "loading"}
+                className="mt-0.5 h-4 w-4 rounded border-text/30"
+              />
+              <span>
+                Ik wil de nieuwsbrief ontvangen, inclusief het meten van opens en klikken, en ga akkoord met de
+                <a href="/privacy" className="underline underline-offset-2 ml-1 hover:text-text">
+                  privacyverklaring
+                </a>
+                .
+              </span>
             </label>
-            <input
-              id="newsletter-email"
-              name="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="je@email.nl"
-              required
-              autoComplete="email"
-              inputMode="email"
-              disabled={status === "loading"}
-              aria-describedby={status !== "idle" ? messageId : undefined}
-              aria-invalid={status === "error" ? true : undefined}
-              className="flex-1 px-4 py-3 rounded-sm border border-text/20 bg-background text-text placeholder:text-text/40 focus:outline-none focus:border-accent disabled:opacity-60"
-            />
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-text text-background font-medium rounded-sm hover:bg-accent hover:text-text transition-colors disabled:opacity-60"
-            >
-              {status === "loading" ? (
-                <>
-                  <SpinnerIcon size={16} className="animate-spin" />
-                  Moment…
-                </>
-              ) : (
-                "Inschrijven"
-              )}
-            </button>
           </form>
         )}
 
