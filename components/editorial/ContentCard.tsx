@@ -83,7 +83,7 @@ export default function ContentCard({
                 tone="inverse"
               />
 
-              <h3 className="text-h4 font-semibold transition-opacity group-hover:opacity-90 max-w-[16ch] text-balance">
+              <h3 className="text-h4 font-semibold transition-opacity group-hover:opacity-90 max-w-[32ch] text-balance">
                 {title}
               </h3>
 
