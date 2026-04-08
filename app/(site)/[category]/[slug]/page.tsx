@@ -176,13 +176,14 @@ export default async function ArtikelPage({ params }: PageProps) {
 
             {/* Hero Image */}
             {imageUrl && (
-              <div className="aspect-[21/9] bg-text/5 rounded-sm overflow-hidden relative">
+              <div className="bg-text/5 rounded-sm overflow-hidden">
                 <Image
                   src={imageUrl}
                   alt={article.title}
-                  fill
+                  width={1280}
+                  height={720}
                   priority
-                  className="object-cover"
+                  className="w-full h-auto"
                   sizes="(max-width: 1024px) 100vw, 960px"
                 />
               </div>
@@ -198,7 +199,7 @@ export default async function ArtikelPage({ params }: PageProps) {
             {/* Main Content */}
             <div className="lg:col-span-8 mb-12 lg:mb-0">
               <ArticleBody>
-                <PortableText value={article.body} />
+                <PortableText value={article.body} fullImage />
               </ArticleBody>
 
               {/* Sponsor link at bottom of sponsored articles */}

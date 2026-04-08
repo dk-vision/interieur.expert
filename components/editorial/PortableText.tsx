@@ -7,6 +7,7 @@ import { ReactNode } from "react";
 
 interface PortableTextProps {
   value: PortableTextBlock[];
+  fullImage?: boolean;
 }
 
 interface BaseComponentProps {
@@ -44,7 +45,59 @@ interface PullQuoteValueProps {
   role?: string;
 }
 
-const components: PortableTextComponents = {
+const buildComponents = (fullImage = false): PortableTextComponents => {
+  const imageComponent = fullImage
+    ? ({ value }: { value?: ImageValueProps }) => {
+        if (!value?.asset) return null;
+
+        const imageUrl = urlForImage(value).width(1200).url();
+
+        return (
+          <div className="my-8 -mx-4 md:mx-0">
+            <div className="relative rounded-sm overflow-hidden">
+              <Image
+                src={imageUrl}
+                alt={value.alt || "Article image"}
+                width={1200}
+                height={800}
+                className="w-full h-auto"
+                sizes="(max-width: 768px) 100vw, 720px"
+              />
+            </div>
+            {value.caption && (
+              <p className="text-meta text-text/60 mt-3 text-center">
+                {value.caption}
+              </p>
+            )}
+          </div>
+        );
+      }
+    : ({ value }: { value?: ImageValueProps }) => {
+        if (!value?.asset) return null;
+
+        const imageUrl = urlForImage(value).width(1200).height(800).url();
+
+        return (
+          <div className="my-8 -mx-4 md:mx-0">
+            <div className="relative aspect-[3/2] rounded-sm overflow-hidden">
+              <Image
+                src={imageUrl}
+                alt={value.alt || "Article image"}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 720px"
+              />
+            </div>
+            {value.caption && (
+              <p className="text-meta text-text/60 mt-3 text-center">
+                {value.caption}
+              </p>
+            )}
+          </div>
+        );
+      };
+
+  return {
   block: {
     normal: ({ children }: BaseComponentProps) => <p className="mb-6 text-body">{children}</p>,
     h2: ({ children }: BaseComponentProps) => (
@@ -130,30 +183,7 @@ const components: PortableTextComponents = {
     },
   },
   types: {
-    image: ({ value }: { value?: ImageValueProps }) => {
-      if (!value?.asset) return null;
-      
-      const imageUrl = urlForImage(value).width(1200).height(800).url();
-      
-      return (
-        <div className="my-8 -mx-4 md:mx-0">
-          <div className="relative aspect-[3/2] rounded-sm overflow-hidden">
-            <Image
-              src={imageUrl}
-              alt={value.alt || "Article image"}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 720px"
-            />
-          </div>
-          {value.caption && (
-            <p className="text-meta text-text/60 mt-3 text-center">
-              {value.caption}
-            </p>
-          )}
-        </div>
-      );
-    },
+    image: imageComponent,
     callout: ({ value }: { value?: CalloutValueProps }) => {
       if (!value) return null;
       
@@ -197,7 +227,7 @@ const components: PortableTextComponents = {
                 </h4>
               )}
               <div className="text-text/90">
-                <BasePortableText value={value.content} components={components} />
+                <BasePortableText value={value.content} components={buildComponents(false)} />
               </div>
             </div>
           </div>
@@ -227,10 +257,11 @@ const components: PortableTextComponents = {
     },
   },
 };
+};
 
-export function PortableText({ value }: PortableTextProps) {
+export function PortableText({ value, fullImage }: PortableTextProps) {
   return (
-    <BasePortableText value={value} components={components} />
+    <BasePortableText value={value} components={buildComponents(fullImage)} />
   );
 }
 

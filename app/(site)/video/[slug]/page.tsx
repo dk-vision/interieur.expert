@@ -161,7 +161,7 @@ export default async function VideoDetailPage({ params }: PageProps) {
             <div className="max-w-content mx-auto">
               <ContentWrapper>
                 <div className="prose max-w-none prose-headings:font-semibold prose-headings:text-text prose-h2:text-h4 prose-h3:text-h5 prose-p:text-body prose-p:text-text prose-a:text-accent prose-a:font-medium prose-a:no-underline prose-a:border-b prose-a:border-accent prose-a:transition-colors hover:prose-a:text-accent/70 hover:prose-a:border-accent/70">
-                  <PortableText value={video.transcript} />
+                  <PortableText value={video.transcript} fullImage />
                 </div>
               </ContentWrapper>
             </div>
