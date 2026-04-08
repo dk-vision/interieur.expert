@@ -3,12 +3,14 @@ import Section from "@/components/layout/Section";
 import ContentCard from "@/components/editorial/ContentCard";
 import AdSlot from "@/components/ads/AdSlot";
 import { getDossiers } from "@/lib/content";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Dossiers | Interieur.Expert",
+export const metadata = buildMetadata({
+  title: "Dossiers",
   description:
     "Verdiep je in specifieke interieurthema's met onze uitgebreide dossiers. Van verlichting tot duurzaamheid, ontdek verzamelingen van gerelateerde artikelen en video's.",
-};
+  path: "/dossiers",
+});
 
 export default async function DossiersPage() {
   const dossiers = await getDossiers();

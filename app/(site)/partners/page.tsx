@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { client } from "@/lib/sanity/client";
 import { allPartnersQuery, featuredPartnersQuery } from "@/lib/sanity/queries";
 import { urlForImage } from "@/lib/sanity/image";
@@ -6,14 +5,16 @@ import Image from "next/image";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import { groq } from "next-sanity";
+import { buildMetadata } from "@/lib/seo";
 
 export const revalidate = 0; // Force dynamic rendering
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Onze Partners | Interieur.Expert",
   description:
     "Ontdek onze partners in interieur en design. Merken en showrooms voor al uw interieurvragen.",
-};
+  path: "/partners",
+});
 
 interface Partner {
   _id: string;

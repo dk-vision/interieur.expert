@@ -35,6 +35,8 @@ export interface Article extends BaseContent {
   body: PortableTextBlock[];
   author?: string;
   readingTime?: number;
+  pinned?: boolean;
+  pinnedAt?: string;
   dossier?: { title: string; slug: string };
 }
 

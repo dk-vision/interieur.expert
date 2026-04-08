@@ -145,6 +145,37 @@ export default defineType({
       initialValue: false,
     }),
     defineField({
+      name: "pinned",
+      title: "📌 Vastgepind",
+      type: "boolean",
+      description:
+        "Vastgepinde artikelen verschijnen bovenaan op de homepagina en categoriepagina's (max 3 sitebreed).",
+      initialValue: false,
+      validation: (Rule) =>
+        Rule.custom(async (value, context) => {
+          if (!value) return true;
+          const client = context.getClient({ apiVersion: "2024-01-01" });
+          const currentId = context.document?._id?.replace(/^drafts\./, "");
+          const count = await client.fetch(
+            `count(*[_type == "article" && pinned == true && _id != $id && !(_id in path("drafts.**"))])`,
+            { id: currentId }
+          );
+          if (count >= 3) {
+            return "Er zijn al 3 vastgepinde artikelen. Verwijder eerst een pin van een ander artikel.";
+          }
+          return true;
+        }),
+    }),
+    defineField({
+      name: "pinnedAt",
+      title: "Vastgepind op",
+      type: "datetime",
+      description: "Wordt automatisch ingesteld wanneer je het artikel vastpint.",
+      hidden: ({ document }) => !document?.pinned,
+      readOnly: true,
+      initialValue: () => new Date().toISOString(),
+    }),
+    defineField({
       name: "sponsored",
       title: "Gesponsorde Inhoud",
       type: "boolean",
@@ -186,10 +217,14 @@ export default defineType({
       subtitle: "category",
       media: "featuredImage",
       sponsored: "sponsored",
+      pinned: "pinned",
     },
-    prepare({ title, subtitle, media, sponsored }) {
+    prepare({ title, subtitle, media, sponsored, pinned }) {
+      const prefix = [pinned && "📌", sponsored && "🔖"]
+        .filter(Boolean)
+        .join(" ");
       return {
-        title: sponsored ? `🔖 ${title}` : title,
+        title: prefix ? `${prefix} ${title}` : title,
         subtitle,
         media,
       };

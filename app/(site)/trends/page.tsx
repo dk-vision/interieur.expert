@@ -10,16 +10,18 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
 import { urlForImage } from "@/lib/sanity/image";
 import type { Article } from "@/lib/content/types";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Trends | Interieur.Expert",
+export const metadata: Metadata = buildMetadata({
+  title: "Trends",
   description: "Blijf op de hoogte van de nieuwste interieur trends. Van kleurtrends tot nieuwe materialen en designrichtingen.",
-};
+  path: "/trends",
+});
 
 export const revalidate = 3600; // Revalidate every hour
 
 const trendsQuery = groq`
-  *[_type == "article" && category == "trends"] | order(publishedAt desc) {
+  *[_type == "article" && category == "trends"] | order(select(pinned == true => 0, 1), pinnedAt desc, publishedAt desc) {
     _id,
     _type,
     title,
@@ -29,6 +31,8 @@ const trendsQuery = groq`
     tags,
     publishedAt,
     sponsored,
+    pinned,
+    pinnedAt,
     "partner": partner->{_id, name, website},
     featuredImage,
     readingTime

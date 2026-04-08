@@ -1,8 +1,18 @@
 import Link from "next/link";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
+import { sanityFetch } from "@/lib/sanity/client";
+import { groq } from "next-sanity";
 
-export default function NotFound() {
+const allTagsQuery = groq`array::unique(*[_type == "article"].tags[])`;
+
+export default async function NotFound() {
+  const allTags = await sanityFetch<string[]>({ query: allTagsQuery }).catch(() => []);
+  const existingTags = new Set(
+    allTags
+      .filter((t): t is string => typeof t === "string" && t.length > 0)
+      .map((t) => t.toLowerCase())
+  );
   return (
     <div>
       <Section spacing="lg">
@@ -43,7 +53,7 @@ export default function NotFound() {
               Populaire onderwerpen
             </h2>
             <div className="flex flex-wrap gap-3 justify-center">
-              {["scandinavisch", "verlichting", "kleuren", "duurzaam", "minimalistisch", "woonkamer", "keuken", "slaapkamer"].map((tag) => (
+              {["scandinavisch", "verlichting", "kleuren", "duurzaam", "minimalistisch", "woonkamer", "keuken", "slaapkamer"].filter((tag) => existingTags.has(tag)).map((tag) => (
                 <Link
                   key={tag}
                   href={`/tags/${tag}`}

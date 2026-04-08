@@ -11,7 +11,7 @@ import { notFound } from "next/navigation";
 import type { Video } from "@/lib/content/types";
 import type { Metadata } from "next";
 import { urlForImage } from "@/lib/sanity/image";
-import { buildMetadata, buildVideoJsonLd } from "@/lib/seo";
+import { buildMetadata, buildVideoJsonLd, buildBreadcrumbJsonLd } from "@/lib/seo";
 import Link from "next/link";
 
 interface PageProps {
@@ -85,11 +85,20 @@ export default async function VideoDetailPage({ params }: PageProps) {
     duration: video.duration,
   });
 
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Video", path: "/video" },
+    { name: video.title, path: `/video/${video.slug}` },
+  ]);
+
   return (
     <article>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(videoJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Header */}
       <Section spacing="lg" className="pb-8 md:pb-10">

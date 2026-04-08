@@ -33,15 +33,15 @@ const playfairDisplay = Playfair_Display({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: {
-    default: "interieur.expert — Inspiratie, advies en trends voor je interieur",
-    template: "%s | Interieur.Expert",
-  },
   ...buildMetadata({
-    title: "interieur.expert — Inspiratie, advies en trends voor je interieur",
+    title: "Interieur Expert — Inspiratie, advies en trends voor je interieur",
     description: SITE_DESCRIPTION,
     path: "/",
   }),
+  title: {
+    default: "Interieur Expert — Inspiratie, advies en trends voor je interieur",
+    template: "%s | Interieur Expert",
+  },
 };
 
 const organizationJsonLd = buildOrganizationJsonLd();

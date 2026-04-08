@@ -11,7 +11,7 @@ import PortableText from "@/components/editorial/PortableText";
 import ContentCard from "@/components/editorial/ContentCard";
 import PartnerGallery from "@/components/ui/PartnerGallery";
 import PartnerStories from "@/components/ui/PartnerStories";
-import { buildMetadata, buildPartnerJsonLd } from "@/lib/seo";
+import { buildMetadata, buildPartnerJsonLd, buildBreadcrumbJsonLd } from "@/lib/seo";
 
 function ExternalLinkIcon({ className = "" }: { className?: string }) {
   return (
@@ -141,11 +141,20 @@ export default async function PartnerPage({ params }: PartnerPageProps) {
     ].filter(Boolean) as string[],
   });
 
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Partners", path: "/partners" },
+    { name: partner.name, path: `/partners/${partner.slug}` },
+  ]);
+
   return (
     <main>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(partnerJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Stories strip — directly under header */}
       {partner.stories && partner.stories.length > 0 && (

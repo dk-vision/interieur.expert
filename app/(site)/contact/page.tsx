@@ -1,6 +1,14 @@
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import ContactForm from "@/components/ui/ContactForm";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Contact | interieur.expert",
+  description:
+    "Neem contact op met interieur.expert voor vragen, samenwerkingen of suggesties.",
+  path: "/contact",
+});
 
 function CalendarIcon({ size = 24 }: { size?: number }) {
   return (

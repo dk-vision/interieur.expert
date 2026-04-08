@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Privacy & cookies | interieur.expert",
   description:
     "Lees hoe interieur.expert omgaat met privacy, analytische cookies, marketingcookies en cookievoorkeuren.",
-};
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

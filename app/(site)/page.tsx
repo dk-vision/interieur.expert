@@ -12,12 +12,17 @@ import { urlForImage } from "@/lib/sanity/image";
 import type { Article, Video } from "@/lib/content/types";
 import { buildMetadata } from "@/lib/seo";
 
-export const metadata = buildMetadata({
-  title: "interieur.expert — Inspiratie, advies en trends voor je interieur",
-  description:
-    "Ontdek inspiratie, praktisch advies en de laatste trends voor een interieur dat bij je past. Eerlijk, toegankelijk en zonder poespas.",
-  path: "/",
-});
+export const metadata = {
+  ...buildMetadata({
+    title: "Interieur Expert — Inspiratie, advies en trends voor je interieur",
+    description:
+      "Ontdek inspiratie, praktisch advies en de laatste trends voor een interieur dat bij je past. Eerlijk, toegankelijk en zonder poespas.",
+    path: "/",
+  }),
+  title: "Interieur Expert — Inspiratie, advies en trends voor je interieur",
+};
+
+export const revalidate = 3600;
 
 export default async function HomePage() {
   // Fetch featured article and latest content from Sanity

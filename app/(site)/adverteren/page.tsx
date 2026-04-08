@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Adverteren | interieur.expert",
   description:
     "Bereik een geengageerd publiek van interieurliefhebbers en professionals via interieur.expert.",
-};
+  path: "/adverteren",
+});
 
 const options = [
   {

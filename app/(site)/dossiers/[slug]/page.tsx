@@ -14,7 +14,11 @@ import PortableText from "@/components/editorial/PortableText";
 import { getDossierBySlug } from "@/lib/content";
 import { urlForImage } from "@/lib/sanity/image";
 import type { Video } from "@/lib/content/types";
-import { buildCollectionPageJsonLd, buildMetadata } from "@/lib/seo";
+import { buildCollectionPageJsonLd, buildBreadcrumbJsonLd, buildMetadata } from "@/lib/seo";
+import { sanityFetch } from "@/lib/sanity/client";
+import { groq } from "next-sanity";
+
+const allArticleTagsQuery = groq`array::unique(*[_type == "article"].tags[])`;
 
 type DossierVideo = Video & {
   previewVideoUrl?: string;
@@ -52,11 +56,20 @@ export default async function DossierDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const dossier = await getDossierBySlug(slug);
+  const [dossier, allTags] = await Promise.all([
+    getDossierBySlug(slug),
+    sanityFetch<string[]>({ query: allArticleTagsQuery }).catch(() => []),
+  ]);
 
   if (!dossier) {
     notFound();
   }
+
+  const existingTags = new Set(
+    allTags
+      .filter((t): t is string => typeof t === "string" && t.length > 0)
+      .map((t) => t.toLowerCase())
+  );
 
   const imageUrl = dossier.featuredImage
     ? urlForImage(dossier.featuredImage)
@@ -71,6 +84,11 @@ export default async function DossierDetailPage({
     publishedAt: dossier.publishedAt,
     image: imageUrl,
   });
+
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: "Dossiers", path: "/dossiers" },
+    { name: dossier.title, path: `/dossiers/${dossier.slug}` },
+  ]);
 
   // Separate articles and videos (filter out null references)
   const validContent = dossier.articles ? dossier.articles.filter((item) => item !== null) : [];
@@ -105,6 +123,10 @@ export default async function DossierDetailPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(dossierJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Header */}
       <Section spacing="lg" className="pb-8 md:pb-10">
@@ -280,10 +302,10 @@ export default async function DossierDetailPage({
                           </div>
                         </div>
                         
-                        {dossier.themes && dossier.themes.length > 0 && (
+                        {dossier.themes && dossier.themes.filter((t) => existingTags.has(t.toLowerCase())).length > 0 && (
                           <div className="pt-4 border-t border-text/10">
                             <div className="flex flex-wrap gap-2">
-                              {dossier.themes.map((theme) => (
+                              {dossier.themes.filter((t) => existingTags.has(t.toLowerCase())).map((theme) => (
                                 <Link
                                   key={theme}
                                   href={`/tags/${encodeURIComponent(theme.toLowerCase())}`}

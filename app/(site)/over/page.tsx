@@ -1,6 +1,14 @@
 import Container from "@/components/layout/Container";
 import ContentWrapper from "@/components/layout/ContentWrapper";
 import Section from "@/components/layout/Section";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Over ons",
+  description:
+    "Eerlijk advies, inspiratie en trends voor een interieur dat bij je past. Zonder poespas, met respect voor vakmanschap en duurzaamheid.",
+  path: "/over",
+});
 
 export default function OverPage() {
   return (

@@ -44,6 +44,8 @@ const baseContentFields = groq`
 const articleFields = groq`
   ${baseContentFields},
   featuredImage,
+  pinned,
+  pinnedAt,
   body[]{
     ...,
     markDefs[]{
@@ -143,13 +145,13 @@ export const adCampaignQuery = groq`
 
 // Homepage queries
 export const featuredArticleQuery = groq`
-  *[_type == "article"] | order(publishedAt desc) [0] {
+  *[_type == "article"] | order(select(pinned == true => 0, 1), pinnedAt desc, publishedAt desc) [0] {
     ${articleFields}
   }
 `;
 
 export const latestArticlesQuery = groq`
-  *[_type == "article"] | order(publishedAt desc) [1..7] {
+  *[_type == "article"] | order(select(pinned == true => 0, 1), pinnedAt desc, publishedAt desc) [1..7] {
     ${articleFields}
   }
 `;
@@ -190,7 +192,7 @@ export const articlesListingQuery = groq`
   *[_type == "article" 
     ${`&& (!defined($category) || category == $category)`}
     ${`&& (!defined($tag) || $tag in tags)`}
-  ] | order(publishedAt desc) {
+  ] | order(select(pinned == true => 0, 1), pinnedAt desc, publishedAt desc) {
     ${articleFields}
   }
 `;
@@ -273,6 +275,15 @@ export const partnerBySlugQuery = groq`
       endDate,
       priority
     }
+  }
+`;
+
+// Redirects
+export const redirectsQuery = groq`
+  *[_type == "redirect"] {
+    source,
+    destination,
+    permanent
   }
 `;
 

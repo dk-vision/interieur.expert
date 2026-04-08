@@ -17,7 +17,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import type { Article } from "@/lib/content/types";
 import { calculateReadingTime } from "@/lib/utils/reading-time";
-import { buildArticleJsonLd, buildMetadata } from "@/lib/seo";
+import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 
 interface PageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -46,6 +46,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     path: `/${article.category || category}/${article.slug}`,
     image,
     type: "article",
+    publishedTime: article.publishedAt,
+    section: article.category,
+    tags: article.tags,
   });
 }
 
@@ -92,13 +95,33 @@ export default async function ArtikelPage({ params }: PageProps) {
     publishedAt: article.publishedAt,
     image: imageUrl,
     author: article.author,
+    section: article.category,
+    tags: article.tags,
+    wordCount: article.body
+      ? article.body
+          .filter((b: any) => b._type === "block")
+          .map((b: any) => b.children?.map((c: any) => c.text).join("") || "")
+          .join(" ")
+          .split(/\s+/).length
+      : undefined,
   });
+
+  const categoryLabel =
+    article.category?.charAt(0).toUpperCase() + article.category?.slice(1);
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: categoryLabel || category, path: `/${article.category || category}` },
+    { name: article.title, path: `/${article.category || category}/${article.slug}` },
+  ]);
 
   return (
     <article>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Hero Section */}
       <Section spacing="lg">

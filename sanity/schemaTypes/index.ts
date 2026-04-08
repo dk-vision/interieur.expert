@@ -4,6 +4,7 @@ import video from "./video";
 import dossier from "./dossier";
 import adCreative from "./adCreative";
 import adCampaign from "./adCampaign";
+import redirect from "./redirect";
 
 export const schemaTypes = [
   partner,
@@ -12,4 +13,5 @@ export const schemaTypes = [
   dossier,
   adCreative,
   adCampaign,
+  redirect,
 ];
