@@ -145,13 +145,13 @@ export const adCampaignQuery = groq`
 
 // Homepage queries
 export const featuredArticleQuery = groq`
-  *[_type == "article"] | order(select(pinned == true => 0, 1), pinnedAt desc, publishedAt desc) [0] {
+  *[_type == "article"] | order(select(pinned == true => 0, 1), publishedAt desc) [0] {
     ${articleFields}
   }
 `;
 
 export const latestArticlesQuery = groq`
-  *[_type == "article"] | order(select(pinned == true => 0, 1), pinnedAt desc, publishedAt desc) [1..7] {
+  *[_type == "article"] | order(select(pinned == true => 0, 1), publishedAt desc) [1..7] {
     ${articleFields}
   }
 `;
@@ -192,7 +192,7 @@ export const articlesListingQuery = groq`
   *[_type == "article" 
     ${`&& (!defined($category) || category == $category)`}
     ${`&& (!defined($tag) || $tag in tags)`}
-  ] | order(select(pinned == true => 0, 1), pinnedAt desc, publishedAt desc) {
+  ] | order(select(pinned == true => 0, 1), publishedAt desc) {
     ${articleFields}
   }
 `;

@@ -21,7 +21,7 @@ export const metadata: Metadata = buildMetadata({
 export const revalidate = 3600; // Revalidate every hour
 
 const adviesQuery = groq`
-  *[_type == "article" && category == "advies"] | order(select(pinned == true => 0, 1), pinnedAt desc, publishedAt desc) {
+  *[_type == "article" && category == "advies"] | order(select(pinned == true => 0, 1), publishedAt desc) {
     _id,
     _type,
     title,

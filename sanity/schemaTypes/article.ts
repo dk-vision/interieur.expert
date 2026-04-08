@@ -1,7 +1,7 @@
 import { defineType, defineField } from "sanity";
 import { FileText } from "lucide-react";
 import { TagAutocomplete } from "../components/TagAutocomplete";
-import { HtmlInput } from "../components/HtmlInput";
+import { BodyInput } from "../components/BodyInput";
 
 export default defineType({
   name: "article",
@@ -45,6 +45,7 @@ export default defineType({
       name: "body",
       title: "Inhoud",
       type: "array",
+      components: { input: BodyInput },
       of: [
         {
           type: "block",
@@ -94,30 +95,6 @@ export default defineType({
         {
           type: "image",
           options: { hotspot: true },
-        },
-        {
-          type: "object",
-          name: "rawHtml",
-          title: "HTML-broncode",
-          fields: [
-            {
-              name: "code",
-              title: "HTML",
-              type: "text",
-              components: { input: HtmlInput },
-            },
-          ],
-          preview: {
-            select: { code: "code" },
-            prepare({ code }: { code?: string }) {
-              return {
-                title: "HTML-blok",
-                subtitle: code
-                  ? code.substring(0, 80) + (code.length > 80 ? "…" : "")
-                  : "Leeg",
-              };
-            },
-          },
         },
       ],
       validation: (Rule) => Rule.required(),
@@ -198,7 +175,6 @@ export default defineType({
       description: "Wordt automatisch ingesteld wanneer je het artikel vastpint.",
       hidden: ({ document }) => !document?.pinned,
       readOnly: true,
-      initialValue: () => new Date().toISOString(),
     }),
     defineField({
       name: "sponsored",
