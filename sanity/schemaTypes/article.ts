@@ -1,6 +1,7 @@
 import { defineType, defineField } from "sanity";
 import { FileText } from "lucide-react";
 import { TagAutocomplete } from "../components/TagAutocomplete";
+import { HtmlInput } from "../components/HtmlInput";
 
 export default defineType({
   name: "article",
@@ -93,6 +94,30 @@ export default defineType({
         {
           type: "image",
           options: { hotspot: true },
+        },
+        {
+          type: "object",
+          name: "rawHtml",
+          title: "HTML-broncode",
+          fields: [
+            {
+              name: "code",
+              title: "HTML",
+              type: "text",
+              components: { input: HtmlInput },
+            },
+          ],
+          preview: {
+            select: { code: "code" },
+            prepare({ code }: { code?: string }) {
+              return {
+                title: "HTML-blok",
+                subtitle: code
+                  ? code.substring(0, 80) + (code.length > 80 ? "…" : "")
+                  : "Leeg",
+              };
+            },
+          },
         },
       ],
       validation: (Rule) => Rule.required(),

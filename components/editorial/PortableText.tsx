@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { urlForImage } from "@/lib/sanity/image";
 import { ReactNode } from "react";
+import sanitizeHtml from "sanitize-html";
 
 interface PortableTextProps {
   value: PortableTextBlock[];
@@ -253,6 +254,32 @@ const buildComponents = (fullImage = false): PortableTextComponents => {
             </div>
           )}
         </div>
+      );
+    },
+    rawHtml: ({ value }: { value?: { code?: string } }) => {
+      if (!value?.code) return null;
+
+      const clean = sanitizeHtml(value.code, {
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat([
+          "img", "iframe", "figure", "figcaption", "video", "source",
+          "details", "summary", "mark", "del", "ins", "sub", "sup",
+        ]),
+        allowedAttributes: {
+          ...sanitizeHtml.defaults.allowedAttributes,
+          img: ["src", "alt", "width", "height", "loading", "class"],
+          iframe: ["src", "width", "height", "frameborder", "allowfullscreen", "allow", "title", "class"],
+          video: ["src", "controls", "width", "height", "poster", "class"],
+          source: ["src", "type"],
+          "*": ["class", "id", "style"],
+        },
+        allowedIframeHostnames: ["www.youtube.com", "www.youtube-nocookie.com", "player.vimeo.com"],
+      });
+
+      return (
+        <div
+          className="my-8 prose max-w-none"
+          dangerouslySetInnerHTML={{ __html: clean }}
+        />
       );
     },
   },
