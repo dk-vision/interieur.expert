@@ -18,6 +18,8 @@ import type { Metadata } from "next";
 import type { Article } from "@/lib/content/types";
 import { calculateReadingTime } from "@/lib/utils/reading-time";
 import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildMetadata } from "@/lib/seo";
+import { draftMode } from "next/headers";
+import PreviewBanner from "@/components/ui/PreviewBanner";
 
 interface PageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -54,11 +56,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ArtikelPage({ params }: PageProps) {
   const { category, slug } = await params;
+  const { isEnabled: isPreview } = await draftMode();
   
   // Fetch article data
   const article = await sanityFetch<Article>({
     query: articleBySlugQuery,
     params: { slug },
+    preview: isPreview,
   });
 
   if (!article) {
@@ -115,6 +119,7 @@ export default async function ArtikelPage({ params }: PageProps) {
 
   return (
     <article>
+      {isPreview && <PreviewBanner />}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}

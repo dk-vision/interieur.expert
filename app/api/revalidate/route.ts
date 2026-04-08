@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
 
     // Parse webhook payload
     const body = await request.json();
-    const { _type, slug, _id, youtubeId, previewVideo } = body;
+    const { _type, slug, _id, youtubeId, previewVideo, category } = body;
 
     if (!_type) {
       return NextResponse.json(
@@ -54,13 +54,20 @@ export async function POST(request: NextRequest) {
     switch (_type) {
       case "article":
         if (slug?.current) {
-          revalidatePath(`/artikels/${slug.current}`);
-          console.log(`✅ Revalidated article: /artikels/${slug.current}`);
+          // Articles live at /{category}/{slug}
+          const cat = category || "artikels";
+          revalidatePath(`/${cat}/${slug.current}`);
+          // Also revalidate all possible category paths in case category changed
+          for (const c of ["inspiratie", "advies", "trends", "artikels"]) {
+            revalidatePath(`/${c}/${slug.current}`);
+          }
+          console.log(`✅ Revalidated article: /${cat}/${slug.current}`);
         }
         revalidatePath("/");
         revalidatePath("/inspiratie");
         revalidatePath("/advies");
         revalidatePath("/trends");
+        revalidatePath("/dossiers");
         break;
 
       case "video":

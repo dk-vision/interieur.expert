@@ -13,6 +13,8 @@ import type { Metadata } from "next";
 import { urlForImage } from "@/lib/sanity/image";
 import { buildMetadata, buildVideoJsonLd, buildBreadcrumbJsonLd } from "@/lib/seo";
 import Link from "next/link";
+import { draftMode } from "next/headers";
+import PreviewBanner from "@/components/ui/PreviewBanner";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -46,11 +48,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function VideoDetailPage({ params }: PageProps) {
   const { slug } = await params;
+  const { isEnabled: isPreview } = await draftMode();
   
   // Fetch video data
   const video = await sanityFetch<Video>({
     query: videoBySlugQuery,
     params: { slug },
+    preview: isPreview,
   });
 
   if (!video) {
@@ -92,6 +96,7 @@ export default async function VideoDetailPage({ params }: PageProps) {
 
   return (
     <article>
+      {isPreview && <PreviewBanner />}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(videoJsonLd) }}

@@ -17,6 +17,8 @@ import type { Video } from "@/lib/content/types";
 import { buildCollectionPageJsonLd, buildBreadcrumbJsonLd, buildMetadata } from "@/lib/seo";
 import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
+import { draftMode } from "next/headers";
+import PreviewBanner from "@/components/ui/PreviewBanner";
 
 const allArticleTagsQuery = groq`array::unique(*[_type == "article"].tags[])`;
 
@@ -56,8 +58,9 @@ export default async function DossierDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const { isEnabled: isPreview } = await draftMode();
   const [dossier, allTags] = await Promise.all([
-    getDossierBySlug(slug),
+    getDossierBySlug(slug, { draft: isPreview }),
     sanityFetch<string[]>({ query: allArticleTagsQuery }).catch(() => []),
   ]);
 
@@ -120,6 +123,7 @@ export default async function DossierDetailPage({
 
   return (
     <article>
+      {isPreview && <PreviewBanner />}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(dossierJsonLd) }}

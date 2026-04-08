@@ -6,6 +6,7 @@ import { schemaTypes } from "./sanity/schemaTypes";
 import { CampaignDashboard } from "./sanity/components/CampaignDashboard";
 import { GeneratePreviewAction } from "./sanity/components/GeneratePreviewAction";
 import { createAutoRedirectAction } from "./sanity/components/AutoRedirectAction";
+import { CopyPreviewLinkAction } from "./sanity/components/CopyPreviewLinkAction";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!;
@@ -47,8 +48,14 @@ export default defineConfig({
 
       // Add generate preview action for video documents
       if (context.schemaType === "video") {
-        return [...actions, GeneratePreviewAction];
+        return [...actions, GeneratePreviewAction, CopyPreviewLinkAction];
       }
+
+      // Add preview link action for articles and dossiers
+      if (["article", "dossier"].includes(context.schemaType)) {
+        return [...actions, CopyPreviewLinkAction];
+      }
+
       return actions;
     },
   },
