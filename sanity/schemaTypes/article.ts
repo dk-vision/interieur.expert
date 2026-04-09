@@ -124,9 +124,10 @@ export default defineType({
     }),
     defineField({
       name: "publishedAt",
-      title: "Gepubliceerd op",
+      title: "Publicatiedatum",
       type: "datetime",
-      validation: (Rule) => Rule.required(),
+      description:
+        "Het artikel is pas zichtbaar op de website vanaf deze datum. Laat leeg om het artikel verborgen te houden (preview-link werkt altijd).",
     }),
     defineField({
       name: "author",

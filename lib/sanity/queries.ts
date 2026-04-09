@@ -145,19 +145,19 @@ export const adCampaignQuery = groq`
 
 // Homepage queries
 export const featuredArticleQuery = groq`
-  *[_type == "article"] | order(select(pinned == true => 0, 1), publishedAt desc) [0] {
+  *[_type == "article" && defined(publishedAt) && publishedAt <= now()] | order(select(pinned == true => 0, 1), publishedAt desc) [0] {
     ${articleFields}
   }
 `;
 
 export const latestArticlesQuery = groq`
-  *[_type == "article"] | order(select(pinned == true => 0, 1), publishedAt desc) [1..7] {
+  *[_type == "article" && defined(publishedAt) && publishedAt <= now()] | order(select(pinned == true => 0, 1), publishedAt desc) [1..7] {
     ${articleFields}
   }
 `;
 
 export const latestVideosQuery = groq`
-  *[_type == "video"] | order(publishedAt desc) [0..2] {
+  *[_type == "video" && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) [0..2] {
     ${videoFields}
   }
 `;
@@ -190,6 +190,7 @@ export const dossierBySlugQuery = groq`
 // Listings
 export const articlesListingQuery = groq`
   *[_type == "article" 
+    && defined(publishedAt) && publishedAt <= now()
     ${`&& (!defined($category) || category == $category)`}
     ${`&& (!defined($tag) || $tag in tags)`}
   ] | order(select(pinned == true => 0, 1), publishedAt desc) {
@@ -199,6 +200,7 @@ export const articlesListingQuery = groq`
 
 export const videosListingQuery = groq`
   *[_type == "video"
+    && defined(publishedAt) && publishedAt <= now()
     ${`&& (!defined($category) || category == $category)`}
     ${`&& (!defined($tag) || $tag in tags)`}
   ] | order(publishedAt desc) {
@@ -207,7 +209,7 @@ export const videosListingQuery = groq`
 `;
 
 export const dossiersListingQuery = groq`
-  *[_type == "dossier"] | order(publishedAt desc) {
+  *[_type == "dossier" && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) {
     ${dossierFields}
   }
 `;
@@ -216,6 +218,7 @@ export const dossiersListingQuery = groq`
 export const relatedArticlesQuery = groq`
   *[_type == "article" 
     && _id != $currentId
+    && defined(publishedAt) && publishedAt <= now()
     && count((tags[])[@ in $tags]) > 0
   ] | order(count((tags[])[@ in $tags]) desc, publishedAt desc) [0..2] {
     ${articleFields}
@@ -226,6 +229,7 @@ export const relatedArticlesQuery = groq`
 export const relatedVideosQuery = groq`
   *[_type == "video"
     && _id != $currentId
+    && defined(publishedAt) && publishedAt <= now()
     && count((tags[])[@ in $tags]) > 0
   ] | order(count((tags[])[@ in $tags]) desc, publishedAt desc) [0..2] {
     ${videoFields}

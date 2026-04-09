@@ -90,9 +90,10 @@ export default defineType({
     }),
     defineField({
       name: "publishedAt",
-      title: "Gepubliceerd op",
+      title: "Publicatiedatum",
       type: "datetime",
-      validation: (Rule) => Rule.required(),
+      description:
+        "De video is pas zichtbaar op de website vanaf deze datum. Laat leeg om verborgen te houden (preview-link werkt altijd).",
     }),
     defineField({
       name: "duration",

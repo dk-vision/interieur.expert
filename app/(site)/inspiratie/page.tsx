@@ -21,7 +21,7 @@ export const metadata: Metadata = buildMetadata({
 export const revalidate = 3600;
 
 const inspiratieQuery = groq`
-  *[_type == "article" && category == "inspiratie"] | order(select(pinned == true => 0, 1), publishedAt desc) {
+  *[_type == "article" && category == "inspiratie" && defined(publishedAt) && publishedAt <= now()] | order(select(pinned == true => 0, 1), publishedAt desc) {
     _id,
     _type,
     title,

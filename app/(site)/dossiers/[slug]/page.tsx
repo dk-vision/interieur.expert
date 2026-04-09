@@ -69,6 +69,11 @@ export default async function DossierDetailPage({
     notFound();
   }
 
+  // Block access to unpublished/future dossiers unless in preview mode
+  if (!isPreview && (!dossier.publishedAt || new Date(dossier.publishedAt) > new Date())) {
+    notFound();
+  }
+
   const existingTags = new Set(
     allTags
       .filter((t): t is string => typeof t === "string" && t.length > 0)

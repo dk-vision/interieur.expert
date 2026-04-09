@@ -16,6 +16,7 @@ export async function GET(request: NextRequest) {
       `*[
         (
           _type in ["article", "video"] &&
+          defined(publishedAt) && publishedAt <= now() &&
           (
             title match $searchPattern ||
             coalesce(excerpt, "") match $searchPattern ||

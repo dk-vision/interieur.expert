@@ -25,16 +25,16 @@ interface SitemapData {
 
 const sitemapQuery = groq`
   {
-    "articles": *[_type == "article" && defined(slug.current)] {
+    "articles": *[_type == "article" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()] {
       "slug": slug.current,
       category,
       _updatedAt
     },
-    "videos": *[_type == "video" && defined(slug.current)] {
+    "videos": *[_type == "video" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()] {
       "slug": slug.current,
       _updatedAt
     },
-    "dossiers": *[_type == "dossier" && defined(slug.current)] {
+    "dossiers": *[_type == "dossier" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()] {
       "slug": slug.current,
       _updatedAt
     },

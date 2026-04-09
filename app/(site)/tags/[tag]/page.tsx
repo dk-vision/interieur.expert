@@ -11,7 +11,7 @@ import { notFound } from "next/navigation";
 import { buildMetadata } from "@/lib/seo";
 
 const tagQuery = groq`
-  *[_type == "article" && $tag in tags] | order(publishedAt desc) {
+  *[_type == "article" && $tag in tags && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) {
     _id,
     _type,
     title,

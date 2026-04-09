@@ -63,6 +63,11 @@ export default async function VideoDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  // Block access to unpublished/future videos unless in preview mode
+  if (!isPreview && (!video.publishedAt || new Date(video.publishedAt) > new Date())) {
+    notFound();
+  }
+
   const isSponsored = video.sponsored;
   const partnerName = video.partner?.name;
   const partnerUrl = video.partner?.website;

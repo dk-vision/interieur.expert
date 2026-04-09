@@ -71,9 +71,15 @@ export default async function ArtikelPage({ params }: PageProps) {
     notFound();
   }
 
-  // Verify the category matches (skip in preview mode for unpublished articles)
-  if (!isPreview && article.category && article.category !== category) {
-    notFound();
+  // Block access to unpublished/future articles unless in preview mode
+  if (!isPreview) {
+    if (!article.publishedAt || new Date(article.publishedAt) > new Date()) {
+      notFound();
+    }
+    // Verify the category matches
+    if (article.category && article.category !== category) {
+      notFound();
+    }
   }
 
   // Auto-calculate reading time if not set
