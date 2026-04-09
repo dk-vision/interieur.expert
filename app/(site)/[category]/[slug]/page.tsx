@@ -27,9 +27,11 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { category, slug } = await params;
+  const { isEnabled: isPreview } = await draftMode();
   const article = await sanityFetch<Article>({
     query: articleBySlugQuery,
     params: { slug },
+    preview: isPreview,
   });
 
   if (!article || (article.category && article.category !== category)) {
@@ -69,8 +71,8 @@ export default async function ArtikelPage({ params }: PageProps) {
     notFound();
   }
 
-  // Verify the category matches (redirect if wrong category)
-  if (article.category && article.category !== category) {
+  // Verify the category matches (skip in preview mode for unpublished articles)
+  if (!isPreview && article.category && article.category !== category) {
     notFound();
   }
 

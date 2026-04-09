@@ -22,10 +22,12 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+  const { isEnabled: isPreview } = await draftMode();
 
   const video = await sanityFetch<Video>({
     query: videoBySlugQuery,
     params: { slug },
+    preview: isPreview,
   });
 
   if (!video) {

@@ -32,7 +32,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const dossier = await getDossierBySlug(slug);
+  const { isEnabled: isPreview } = await draftMode();
+  const dossier = await getDossierBySlug(slug, { draft: isPreview });
 
   if (!dossier) {
     return {
