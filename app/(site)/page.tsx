@@ -7,9 +7,9 @@ import AdSlot from "@/components/ads/AdSlot";
 import StickyContainer from "@/components/ui/StickyContainer";
 import NewsletterCTA from "@/components/ui/NewsletterCTA";
 import { sanityFetch } from "@/lib/sanity/client";
-import { featuredArticleQuery, latestArticlesQuery, latestVideosQuery } from "@/lib/sanity/queries";
+import { featuredArticleQuery, latestArticlesQuery, latestVideosQuery, latestDossiersQuery } from "@/lib/sanity/queries";
 import { urlForImage } from "@/lib/sanity/image";
-import type { Article, Video } from "@/lib/content/types";
+import type { Article, Video, Dossier } from "@/lib/content/types";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = {
@@ -36,6 +36,10 @@ export default async function HomePage() {
 
   const latestVideos = await sanityFetch<Video[]>({
     query: latestVideosQuery,
+  });
+
+  const latestDossiers = await sanityFetch<Dossier[]>({
+    query: latestDossiersQuery,
   });
 
   return (
@@ -236,6 +240,41 @@ export default async function HomePage() {
           </div>
         </Container>
       </Section>
+
+      {/* Dossiers Section */}
+      {latestDossiers.length > 0 && (
+        <Section spacing="lg">
+          <Container>
+            <div className="space-y-12">
+              <div className="flex items-center justify-between">
+                <h2 className="text-h4 font-semibold text-text">Dossiers</h2>
+                <a
+                  href="/dossiers"
+                  className="text-sm text-accent hover:text-text transition-colors font-medium"
+                >
+                  Alle dossiers →
+                </a>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+                {latestDossiers.map((dossier) => (
+                  <ContentCard
+                    key={dossier._id}
+                    title={dossier.title}
+                    excerpt={dossier.excerpt}
+                    href={`/dossiers/${dossier.slug}`}
+                    type="dossier"
+                    publishedAt={new Date(dossier.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
+                    tags={dossier.tags}
+                    sponsors={dossier.sponsors?.map((s) => ({ name: s.name, slug: s.slug }))}
+                    image={dossier.featuredImage ? urlForImage(dossier.featuredImage).width(800).height(450).url() : undefined}
+                  />
+                ))}
+              </div>
+            </div>
+          </Container>
+        </Section>
+      )}
 
       {/* Ad Position: Above Newsletter (Super Leaderboard) */}
       <Section spacing="sm">

@@ -162,6 +162,28 @@ export const latestVideosQuery = groq`
   }
 `;
 
+// Homepage dossiers (thumbnail only, no contained articles)
+export const latestDossiersQuery = groq`
+  *[_type == "dossier" && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) [0..2] {
+    _id,
+    _type,
+    title,
+    "slug": slug.current,
+    excerpt,
+    featuredImage,
+    publishedAt,
+    tags,
+    themes,
+    "sponsors": sponsors[]->{
+      _id,
+      name,
+      "slug": slug.current,
+      website,
+      logo
+    }
+  }
+`;
+
 // Article detail
 export const articleBySlugQuery = groq`
   *[_type == "article" && slug.current == $slug][0] {
