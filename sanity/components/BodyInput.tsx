@@ -39,7 +39,7 @@ export function BodyInput(props: ArrayOfObjectsInputProps) {
               if (el.nodeType !== Node.ELEMENT_NODE) return undefined
               const elem = el as Element
               const tag = elem.tagName?.toUpperCase()
-              if (tag === 'TABLE' || tag === 'IFRAME') {
+              if (tag === 'TABLE' || tag === 'IFRAME' || tag === 'IMG') {
                 return {
                   _type: 'rawHtml',
                   _key: Math.random().toString(36).slice(2, 8),
