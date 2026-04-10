@@ -105,6 +105,7 @@ export default defineType({
       of: [
         {
           type: "reference",
+          weak: true,
           to: [{ type: "article" }, { type: "video" }],
         },
       ],

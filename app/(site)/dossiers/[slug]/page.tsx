@@ -99,8 +99,13 @@ export default async function DossierDetailPage({
     { name: dossier.title, path: `/dossiers/${dossier.slug}` },
   ]);
 
-  // Separate articles and videos (filter out null references)
-  const validContent = dossier.articles ? dossier.articles.filter((item) => item !== null) : [];
+  // Separate articles and videos (filter out null references and unpublished content in non-preview mode)
+  const now = new Date();
+  const validContent = (dossier.articles || []).filter((item) => {
+    if (!item) return false;
+    if (isPreview) return true;
+    return item.publishedAt && new Date(item.publishedAt) <= now;
+  });
   
   const articles = validContent.filter((item) => item._type === "article");
   const videos = validContent.filter((item): item is DossierVideo => item._type === "video");
