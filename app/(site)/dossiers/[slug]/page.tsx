@@ -5,6 +5,7 @@ import Link from "next/link";
 import Container from "@/components/layout/Container";
 import ContentWrapper from "@/components/layout/ContentWrapper";
 import Section from "@/components/layout/Section";
+import ArticleBody from "@/components/editorial/ArticleBody";
 import MetaRow from "@/components/editorial/MetaRow";
 import ContentCard from "@/components/editorial/ContentCard";
 import VideoThumbnail from "@/components/video/VideoThumbnail";
@@ -227,9 +228,9 @@ export default async function DossierDetailPage({
         <Section spacing="md">
           <Container size="content">
             <ContentWrapper>
-              <div className="prose max-w-none prose-headings:font-semibold prose-headings:text-text prose-h2:text-h4 prose-h3:text-h5 prose-p:text-body prose-p:text-text">
+              <ArticleBody>
                 <PortableText value={dossier.intro} />
-              </div>
+              </ArticleBody>
             </ContentWrapper>
           </Container>
         </Section>
