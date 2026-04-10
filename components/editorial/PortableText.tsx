@@ -109,11 +109,6 @@ const buildComponents = (fullImage = false): PortableTextComponents => {
     h3: ({ children }: BaseComponentProps) => (
       <h3 className="text-h5 font-semibold mt-8 mb-4 text-text">{children}</h3>
     ),
-    blockquote: ({ children }: BaseComponentProps) => (
-      <blockquote className="border-l-4 border-accent pl-6 my-8 italic text-body-lg text-text/80">
-        {children}
-      </blockquote>
-    ),
   },
   list: {
     bullet: ({ children }: BaseComponentProps) => (
