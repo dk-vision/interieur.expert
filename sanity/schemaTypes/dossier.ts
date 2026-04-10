@@ -1,5 +1,6 @@
 import { defineType, defineField } from "sanity";
 import { FolderOpen } from "lucide-react";
+import { BodyInput } from "../components/BodyInput";
 
 export default defineType({
   name: "dossier",
@@ -43,7 +44,58 @@ export default defineType({
       name: "intro",
       title: "Introductie",
       type: "array",
-      of: [{ type: "block" }],
+      components: { input: BodyInput },
+      of: [
+        {
+          type: "block",
+          styles: [
+            { title: "Normaal", value: "normal" },
+            { title: "H2", value: "h2" },
+            { title: "H3", value: "h3" },
+            { title: "Citaat", value: "blockquote" },
+          ],
+          marks: {
+            decorators: [
+              { title: "Vet", value: "strong" },
+              { title: "Cursief", value: "em" },
+              { title: "Markeren", value: "highlight" },
+            ],
+            annotations: [
+              {
+                name: "link",
+                type: "object",
+                title: "Externe URL",
+                fields: [
+                  {
+                    name: "href",
+                    type: "url",
+                    title: "URL",
+                    validation: (Rule) =>
+                      Rule.uri({ scheme: ["http", "https", "mailto"] }),
+                  },
+                ],
+              },
+              {
+                name: "internalArticleLink",
+                type: "object",
+                title: "Interne Artikel Link",
+                fields: [
+                  {
+                    name: "reference",
+                    type: "reference",
+                    title: "Artikel",
+                    to: [{ type: "article" }],
+                  },
+                ],
+              },
+            ],
+          },
+        },
+        {
+          type: "image",
+          options: { hotspot: true },
+        },
+      ],
       description: "Introductietekst voor het dossier",
     }),
     defineField({
@@ -95,9 +147,10 @@ export default defineType({
     }),
     defineField({
       name: "publishedAt",
-      title: "Gepubliceerd op",
+      title: "Publicatiedatum",
       type: "datetime",
-      validation: (Rule) => Rule.required(),
+      description:
+        "Het dossier is pas zichtbaar op de website vanaf deze datum. Laat leeg om het dossier verborgen te houden (preview-link werkt altijd).",
     }),
     defineField({
       name: "featured",
