@@ -35,13 +35,15 @@ export function BodyInput(props: ArrayOfObjectsInputProps) {
           new DOMParser().parseFromString(h, 'text/html'),
         rules: [
           {
-            deserialize(el: Element) {
-              const tag = el.tagName?.toUpperCase()
+            deserialize(el: Node) {
+              if (el.nodeType !== Node.ELEMENT_NODE) return undefined
+              const elem = el as Element
+              const tag = elem.tagName?.toUpperCase()
               if (tag === 'TABLE' || tag === 'IFRAME') {
                 return {
                   _type: 'rawHtml',
                   _key: Math.random().toString(36).slice(2, 8),
-                  code: el.outerHTML,
+                  code: elem.outerHTML,
                 }
               }
               return undefined

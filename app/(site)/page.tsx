@@ -266,7 +266,7 @@ export default async function HomePage() {
                     type="dossier"
                     publishedAt={new Date(dossier.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
                     tags={dossier.tags}
-                    sponsors={dossier.sponsors?.map((s) => ({ name: s.name, slug: s.slug }))}
+                    sponsors={dossier.sponsors?.map((s) => ({ name: s.name, slug: s.slug ?? '' }))}
                     image={dossier.featuredImage ? urlForImage(dossier.featuredImage).width(800).height(450).url() : undefined}
                   />
                 ))}
