@@ -153,14 +153,6 @@ export default defineType({
         "Het artikel is pas zichtbaar op de website vanaf deze datum. Laat leeg om het artikel verborgen te houden (preview-link werkt altijd).",
     }),
     defineField({
-      name: "showInTopicListings",
-      title: "Tonen in categoriepagina's",
-      type: "boolean",
-      description:
-        "Uit = dit artikel verschijnt niet op de overzichtspagina's (Advies, Inspiratie, Trends, Homepage). Het blijft wel bereikbaar via de eigen URL, dossiers, tags en zoekresultaten.",
-      initialValue: true,
-    }),
-    defineField({
       name: "author",
       title: "Auteur",
       type: "string",

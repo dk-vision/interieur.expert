@@ -21,7 +21,7 @@ export const metadata: Metadata = buildMetadata({
 export const revalidate = 3600; // Revalidate every hour
 
 const trendsQuery = groq`
-  *[_type == "article" && category == "trends" && defined(publishedAt) && publishedAt <= now() && showInTopicListings != false] | order(select(pinned == true => 0, 1), publishedAt desc) {
+  *[_type == "article" && category == "trends" && defined(publishedAt) && publishedAt <= now() && count(*[_type == "dossier" && references(^._id)]) == 0] | order(select(pinned == true => 0, 1), publishedAt desc) {
     _id,
     _type,
     title,

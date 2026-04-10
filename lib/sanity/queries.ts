@@ -145,13 +145,13 @@ export const adCampaignQuery = groq`
 
 // Homepage queries
 export const featuredArticleQuery = groq`
-  *[_type == "article" && defined(publishedAt) && publishedAt <= now() && showInTopicListings != false] | order(select(pinned == true => 0, 1), publishedAt desc) [0] {
+  *[_type == "article" && defined(publishedAt) && publishedAt <= now() && count(*[_type == "dossier" && references(^._id)]) == 0] | order(select(pinned == true => 0, 1), publishedAt desc) [0] {
     ${articleFields}
   }
 `;
 
 export const latestArticlesQuery = groq`
-  *[_type == "article" && defined(publishedAt) && publishedAt <= now() && showInTopicListings != false] | order(select(pinned == true => 0, 1), publishedAt desc) [1..7] {
+  *[_type == "article" && defined(publishedAt) && publishedAt <= now() && count(*[_type == "dossier" && references(^._id)]) == 0] | order(select(pinned == true => 0, 1), publishedAt desc) [1..7] {
     ${articleFields}
   }
 `;
@@ -224,7 +224,7 @@ export const dossierBySlugQuery = groq`
 export const articlesListingQuery = groq`
   *[_type == "article" 
     && defined(publishedAt) && publishedAt <= now()
-    && showInTopicListings != false
+    && count(*[_type == "dossier" && references(^._id)]) == 0
     ${`&& (!defined($category) || category == $category)`}
     ${`&& (!defined($tag) || $tag in tags)`}
   ] | order(select(pinned == true => 0, 1), publishedAt desc) {
