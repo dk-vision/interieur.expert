@@ -25,6 +25,7 @@ export function BodyInput(props: ArrayOfObjectsInputProps) {
       onChangeRef.current(unset())
       return
     }
+
     const blocks = htmlToBlocks(
       html,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,6 +33,21 @@ export function BodyInput(props: ArrayOfObjectsInputProps) {
       {
         parseHtml: (h: string) =>
           new DOMParser().parseFromString(h, 'text/html'),
+        rules: [
+          {
+            deserialize(el: Element) {
+              const tag = el.tagName?.toUpperCase()
+              if (tag === 'TABLE' || tag === 'IFRAME') {
+                return {
+                  _type: 'rawHtml',
+                  _key: Math.random().toString(36).slice(2, 8),
+                  code: el.outerHTML,
+                }
+              }
+              return undefined
+            },
+          },
+        ],
       },
     )
     onChangeRef.current(set(blocks))

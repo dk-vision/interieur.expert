@@ -95,6 +95,18 @@ export default defineType({
           type: "image",
           options: { hotspot: true },
         },
+        {
+          type: "object",
+          name: "rawHtml",
+          title: "HTML-broncode",
+          fields: [
+            {
+              name: "code",
+              title: "HTML",
+              type: "text",
+            },
+          ],
+        },
       ],
       description: "Introductietekst voor het dossier",
     }),

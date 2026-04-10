@@ -96,6 +96,29 @@ export default defineType({
           type: "image",
           options: { hotspot: true },
         },
+        {
+          type: "object",
+          name: "rawHtml",
+          title: "HTML-broncode",
+          fields: [
+            {
+              name: "code",
+              title: "HTML",
+              type: "text",
+            },
+          ],
+          preview: {
+            select: { code: "code" },
+            prepare({ code }: { code?: string }) {
+              return {
+                title: "HTML-blok",
+                subtitle: code
+                  ? code.substring(0, 80) + (code.length > 80 ? "\u2026" : "")
+                  : "Leeg",
+              };
+            },
+          },
+        },
       ],
       validation: (Rule) => Rule.required(),
     }),
