@@ -63,7 +63,8 @@
 /* Responsive tables inside prose / rawHtml */
 .prose table,
 .article-table-wrap table {
-  @apply w-full text-sm border-collapse;
+  @apply w-full border-collapse;
+  font-size: max(1rem, 16px);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 0.5rem;
   overflow: hidden;
@@ -73,7 +74,7 @@
 .prose th,
 .article-table-wrap thead th,
 .article-table-wrap th {
-  @apply bg-text text-white font-semibold text-left px-5 py-3.5 text-meta tracking-wide;
+  @apply bg-text text-white font-bold text-left px-5 py-3.5 text-meta tracking-wide;
 }
 
 .prose tbody td,
