@@ -37,7 +37,21 @@ export interface Article extends BaseContent {
   readingTime?: number;
   pinned?: boolean;
   pinnedAt?: string;
-  dossier?: { title: string; slug: string };
+  dossier?: {
+    title: string;
+    slug: string;
+    articles?: Array<{
+      _id: string;
+      _type: string;
+      title: string;
+      slug: string;
+      excerpt?: string;
+      category?: string;
+      featuredImage?: SanityImageSource;
+      publishedAt?: string;
+      readingTime?: number;
+    }>;
+  };
 }
 
 export interface Video extends BaseContent {

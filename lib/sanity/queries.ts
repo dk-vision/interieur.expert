@@ -190,7 +190,18 @@ export const articleBySlugQuery = groq`
     ${articleFields},
     "dossier": *[_type == "dossier" && references(^._id)][0] {
       title,
-      "slug": slug.current
+      "slug": slug.current,
+      "articles": articles[]->{
+        _id,
+        _type,
+        title,
+        "slug": slug.current,
+        excerpt,
+        category,
+        featuredImage,
+        publishedAt,
+        readingTime
+      }
     }
   }
 `;

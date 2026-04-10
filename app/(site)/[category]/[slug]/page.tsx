@@ -361,6 +361,62 @@ export default async function ArtikelPage({ params }: PageProps) {
           </Container>
         </Section>
       )}
+
+      {/* Dossier Articles */}
+      {article.dossier?.articles && article.dossier.articles.filter(a => a._id !== article._id && a.publishedAt && new Date(a.publishedAt) <= new Date()).length > 0 && (
+        <Section spacing="lg" background="accent">
+          <Container>
+            <div className="space-y-8">
+              <div className="flex items-center justify-between">
+                <h2 className="text-h4 font-semibold text-text">
+                  Meer in dossier: {article.dossier.title}
+                </h2>
+                <Link
+                  href={`/dossiers/${article.dossier.slug}`}
+                  className="text-sm text-accent hover:text-text transition-colors font-medium"
+                >
+                  Bekijk dossier →
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
+                {article.dossier.articles
+                  .filter(a => a._id !== article._id && a.publishedAt && new Date(a.publishedAt) <= new Date())
+                  .map((sibling) => (
+                    <Link
+                      key={sibling._id}
+                      href={`/${sibling.category || 'artikels'}/${sibling.slug}`}
+                      className="group block space-y-3"
+                    >
+                      {sibling.featuredImage && (
+                        <div className="aspect-video bg-background overflow-hidden rounded-sm">
+                          <img
+                            src={urlForImage(sibling.featuredImage).width(600).height(338).url()}
+                            alt={sibling.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                      )}
+                      <div className="space-y-2">
+                        {sibling.category && (
+                          <span className="text-meta text-accent font-medium uppercase tracking-wide">
+                            {sibling.category}
+                          </span>
+                        )}
+                        <h3 className="text-body font-semibold text-text group-hover:text-accent transition-colors line-clamp-2">
+                          {sibling.title}
+                        </h3>
+                        {sibling.readingTime && (
+                          <p className="text-meta text-text/50">{sibling.readingTime} min lezen</p>
+                        )}
+                      </div>
+                    </Link>
+                  ))}
+              </div>
+            </div>
+          </Container>
+        </Section>
+      )}
     </article>
   );
 }
