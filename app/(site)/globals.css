@@ -63,17 +63,18 @@
 /* Responsive tables inside prose / rawHtml */
 .prose table,
 .article-table-wrap table {
-  @apply w-full text-sm border-collapse;
+  @apply w-full text-sm border-collapse rounded-lg overflow-hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .prose thead th,
 .article-table-wrap thead th {
-  @apply bg-text text-white font-semibold text-left px-4 py-3 text-meta tracking-wide uppercase;
+  @apply bg-text/[0.06] text-text font-semibold text-left px-5 py-3.5 text-meta tracking-wide border-b border-black/10;
 }
 
 .prose tbody td,
 .article-table-wrap tbody td {
-  @apply px-4 py-3 border-b border-black/10 align-top;
+  @apply px-5 py-4 border-b border-black/[0.06] align-top text-text/80 leading-relaxed;
 }
 
 .prose tbody tr:last-child td,
@@ -83,7 +84,12 @@
 
 .prose tbody tr:nth-child(even),
 .article-table-wrap tbody tr:nth-child(even) {
-  @apply bg-black/[0.03];
+  @apply bg-black/[0.02];
+}
+
+.prose tbody tr,
+.article-table-wrap tbody tr {
+  @apply transition-colors duration-150 hover:bg-black/[0.04];
 }
 
 /* Horizontal scroll wrapper on mobile */
