@@ -29,6 +29,12 @@ export interface BaseContent {
   seoDescription?: string;
 }
 
+export interface FaqItem {
+  _key: string;
+  question: string;
+  answer: string;
+}
+
 export interface Article extends BaseContent {
   _type: "article";
   featuredImage: SanityImageSource;
@@ -37,6 +43,7 @@ export interface Article extends BaseContent {
   readingTime?: number;
   pinned?: boolean;
   pinnedAt?: string;
+  faq?: FaqItem[];
   dossier?: {
     title: string;
     slug: string;

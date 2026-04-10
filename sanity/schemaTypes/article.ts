@@ -223,6 +223,37 @@ export default defineType({
         }),
     }),
     defineField({
+      name: "faq",
+      title: "Veelgestelde vragen",
+      type: "array",
+      description: "FAQ-blok onderaan het artikel (verschijnt ook als gestructureerde data voor Google en AI)",
+      of: [
+        {
+          type: "object",
+          name: "faqItem",
+          title: "Vraag & Antwoord",
+          fields: [
+            defineField({
+              name: "question",
+              title: "Vraag",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "answer",
+              title: "Antwoord",
+              type: "text",
+              rows: 4,
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: { title: "question" },
+          },
+        },
+      ],
+    }),
+    defineField({
       name: "seoTitle",
       title: "SEO Titel",
       type: "string",

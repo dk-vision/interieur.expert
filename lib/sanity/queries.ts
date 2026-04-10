@@ -60,7 +60,8 @@ const articleFields = groq`
     }
   },
   author,
-  readingTime
+  readingTime,
+  faq
 `;
 
 // Video fields

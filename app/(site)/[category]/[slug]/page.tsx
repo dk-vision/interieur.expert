@@ -17,7 +17,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import type { Article } from "@/lib/content/types";
 import { calculateReadingTime } from "@/lib/utils/reading-time";
-import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildMetadata } from "@/lib/seo";
+import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildMetadata, buildFAQJsonLd } from "@/lib/seo";
 import { draftMode } from "next/headers";
 import PreviewBanner from "@/components/ui/PreviewBanner";
 
@@ -136,6 +136,12 @@ export default async function ArtikelPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      {article.faq && article.faq.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFAQJsonLd(article.faq)) }}
+        />
+      )}
       {/* Hero Section */}
       <Section spacing="lg">
         <Container size="layout">
@@ -358,6 +364,25 @@ export default async function ArtikelPage({ params }: PageProps) {
         <Section spacing="md">
           <Container size="content">
             <RelatedArticles articles={relatedArticles.slice(3)} />
+          </Container>
+        </Section>
+      )}
+
+      {/* FAQ Section */}
+      {article.faq && article.faq.length > 0 && (
+        <Section spacing="lg">
+          <Container size="content">
+            <div className="space-y-8">
+              <h2 className="text-h4 font-semibold text-text">Veelgestelde vragen</h2>
+              <dl className="space-y-6">
+                {article.faq.map((item, i) => (
+                  <div key={item._key || i} className="border-b border-text/10 pb-6 last:border-b-0">
+                    <dt className="text-body font-semibold text-text mb-2">{item.question}</dt>
+                    <dd className="text-body text-text/70 leading-relaxed">{item.answer}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
           </Container>
         </Section>
       )}
