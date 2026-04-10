@@ -63,13 +63,17 @@
 /* Responsive tables inside prose / rawHtml */
 .prose table,
 .article-table-wrap table {
-  @apply w-full text-sm border-collapse rounded-lg overflow-hidden;
+  @apply w-full text-sm border-collapse;
   border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0.5rem;
+  overflow: hidden;
 }
 
 .prose thead th,
-.article-table-wrap thead th {
-  @apply bg-text/[0.06] text-text font-semibold text-left px-5 py-3.5 text-meta tracking-wide border-b border-black/10;
+.prose th,
+.article-table-wrap thead th,
+.article-table-wrap th {
+  @apply bg-text text-white font-semibold text-left px-5 py-3.5 text-meta tracking-wide;
 }
 
 .prose tbody td,
@@ -82,25 +86,23 @@
   @apply border-b-0;
 }
 
-.prose tbody tr:nth-child(even),
-.article-table-wrap tbody tr:nth-child(even) {
+.prose tbody tr:nth-child(even):not(:first-child),
+.article-table-wrap tbody tr:nth-child(even):not(:first-child) {
   @apply bg-black/[0.02];
 }
 
-.prose tbody tr,
-.article-table-wrap tbody tr {
+.prose tbody tr:not(:first-child),
+.article-table-wrap tbody tr:not(:first-child) {
   @apply transition-colors duration-150 hover:bg-black/[0.04];
 }
 
 /* Horizontal scroll wrapper on mobile */
 .table-scroll {
-  @apply -mx-4 px-4 overflow-x-auto;
+  @apply overflow-x-auto -mx-4 px-4;
   -webkit-overflow-scrolling: touch;
 }
 
-@media (max-width: 640px) {
-  .prose table,
-  .article-table-wrap table {
-    @apply min-w-[560px];
-  }
+.prose table,
+.article-table-wrap table {
+  @apply min-w-[560px];
 }
