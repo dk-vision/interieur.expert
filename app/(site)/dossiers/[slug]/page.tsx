@@ -145,8 +145,8 @@ export default async function DossierDetailPage({
       />
       {/* Header */}
       <Section spacing="lg" className="pb-8 md:pb-10">
-        <Container size="content">
-          <div className="space-y-6">
+        <Container size="layout">
+          <div className="max-w-4xl mx-auto space-y-6 text-center">
             <MetaRow
               publishedAt={new Date(dossier.publishedAt).toLocaleDateString(
                 "nl-NL",
@@ -160,11 +160,11 @@ export default async function DossierDetailPage({
               centered
             />
 
-            <h1 className="text-h2 lg:text-h1 font-semibold text-text">
+            <h1 className="text-h2 lg:text-h1 font-semibold text-text tracking-tight">
               {dossier.title}
             </h1>
 
-            <p className="text-body-lg text-text/70">
+            <p className="text-body-lg text-text/70 max-w-3xl mx-auto">
               {dossier.excerpt}
             </p>
           </div>
