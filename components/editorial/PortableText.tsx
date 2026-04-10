@@ -270,15 +270,26 @@ const buildComponents = (fullImage = false): PortableTextComponents => {
           iframe: ["src", "width", "height", "frameborder", "allowfullscreen", "allow", "title", "class"],
           video: ["src", "controls", "width", "height", "poster", "class"],
           source: ["src", "type"],
+          td: ["colspan", "rowspan"],
+          th: ["colspan", "rowspan", "scope"],
           "*": ["class", "id", "style"],
         },
         allowedIframeHostnames: ["www.youtube.com", "www.youtube-nocookie.com", "player.vimeo.com"],
       });
 
+      // Wrap tables in a horizontal scroll container for mobile
+      const hasTable = clean.includes("<table");
+      const wrapped = hasTable
+        ? clean.replace(
+            /(<table[\s\S]*?<\/table>)/g,
+            '<div class="table-scroll"><div class="article-table-wrap">$1</div></div>',
+          )
+        : clean;
+
       return (
         <div
           className="my-8 prose max-w-none"
-          dangerouslySetInnerHTML={{ __html: clean }}
+          dangerouslySetInnerHTML={{ __html: wrapped }}
         />
       );
     },

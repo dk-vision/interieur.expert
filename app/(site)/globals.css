@@ -59,3 +59,42 @@
     font-family: var(--font-playfair), Georgia, serif;
   }
 }
+
+/* Responsive tables inside prose / rawHtml */
+.prose table,
+.article-table-wrap table {
+  @apply w-full text-sm border-collapse;
+}
+
+.prose thead th,
+.article-table-wrap thead th {
+  @apply bg-text text-white font-semibold text-left px-4 py-3 text-meta tracking-wide uppercase;
+}
+
+.prose tbody td,
+.article-table-wrap tbody td {
+  @apply px-4 py-3 border-b border-black/10 align-top;
+}
+
+.prose tbody tr:last-child td,
+.article-table-wrap tbody tr:last-child td {
+  @apply border-b-0;
+}
+
+.prose tbody tr:nth-child(even),
+.article-table-wrap tbody tr:nth-child(even) {
+  @apply bg-black/[0.03];
+}
+
+/* Horizontal scroll wrapper on mobile */
+.table-scroll {
+  @apply -mx-4 px-4 overflow-x-auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 640px) {
+  .prose table,
+  .article-table-wrap table {
+    @apply min-w-[560px];
+  }
+}
