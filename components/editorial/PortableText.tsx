@@ -112,10 +112,10 @@ const buildComponents = (fullImage = false): PortableTextComponents => {
   },
   list: {
     bullet: ({ children }: BaseComponentProps) => (
-      <ul className="mb-6 space-y-2 list-disc list-inside marker:text-accent/60 text-body">{children}</ul>
+      <ul className="mb-6 space-y-2 list-disc pl-6 marker:text-accent/60 text-body">{children}</ul>
     ),
     number: ({ children }: BaseComponentProps) => (
-      <ol className="mb-6 space-y-2 list-decimal list-inside marker:text-accent/60 text-body">{children}</ol>
+      <ol className="mb-6 space-y-2 list-decimal pl-6 marker:text-accent/60 text-body">{children}</ol>
     ),
   },
   listItem: {
