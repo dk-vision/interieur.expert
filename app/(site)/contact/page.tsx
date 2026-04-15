@@ -4,7 +4,7 @@ import ContactForm from "@/components/ui/ContactForm";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Contact | interieur.expert",
+  title: "Contact",
   description:
     "Neem contact op met interieur.expert voor vragen, samenwerkingen of suggesties.",
   path: "/contact",

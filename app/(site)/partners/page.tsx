@@ -10,7 +10,7 @@ import { buildMetadata } from "@/lib/seo";
 export const revalidate = 0; // Force dynamic rendering
 
 export const metadata = buildMetadata({
-  title: "Onze Partners | Interieur.Expert",
+  title: "Onze Partners",
   description:
     "Ontdek onze partners in interieur en design. Merken en showrooms voor al uw interieurvragen.",
   path: "/partners",

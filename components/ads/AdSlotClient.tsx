@@ -101,10 +101,26 @@ export default function AdSlotClient({
     },
   } as const;
 
+  /**
+   * Check whether a Sanity image asset is a GIF.
+   * Asset refs look like: image-<id>-<WxH>-gif
+   */
+  function isGif(image: NonNullable<Campaign["creative"]["image"]>): boolean {
+    const ref =
+      (image.asset as { _ref?: string })?._ref ??
+      (image.asset as { _id?: string })?._id ??
+      "";
+    return ref.endsWith("-gif");
+  }
+
   function getImageUrl(
     image: NonNullable<Campaign["creative"]["image"]>,
     dims: { w: number; h: number }
   ) {
+    // GIFs: serve the original asset so animation is preserved.
+    if (isGif(image)) {
+      return urlForImage(image).url();
+    }
     return urlForImage(image).width(dims.w).height(dims.h).fit("max").url();
   }
 

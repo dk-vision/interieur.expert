@@ -31,9 +31,10 @@ export default defineType({
       title: "Afbeelding",
       type: "image",
       description:
-        "Upload exact volgens de vaste IAB-afmetingen van het gekozen ad slot (zie Advertising Guide).",
+        "Upload exact volgens de vaste IAB-afmetingen van het gekozen ad slot. JPG, PNG, WebP en GIF toegelaten. Max 150 KB.",
       options: {
         hotspot: true,
+        accept: "image/jpeg,image/png,image/webp,image/gif",
       },
       hidden: ({ document }) => document?.format !== "image",
       validation: (Rule) =>
@@ -65,8 +66,8 @@ export default defineType({
       name: "imageMobile",
       title: "Afbeelding (Mobile)",
       type: "image",
-      description: "Voor slots met een mobile formaat (bv. 320×100).",
-      options: { hotspot: true },
+      description: "Voor slots met een mobile formaat (bv. 320×100). Max 150 KB.",
+      options: { hotspot: true, accept: "image/jpeg,image/png,image/webp,image/gif" },
       hidden: ({ document }) => document?.format !== "image",
     }),
 
@@ -74,8 +75,8 @@ export default defineType({
       name: "imageTablet",
       title: "Afbeelding (Tablet)",
       type: "image",
-      description: "Voor slots met een tablet formaat (bv. 728×90).",
-      options: { hotspot: true },
+      description: "Voor slots met een tablet formaat (bv. 728×90). Max 150 KB.",
+      options: { hotspot: true, accept: "image/jpeg,image/png,image/webp,image/gif" },
       hidden: ({ document }) => document?.format !== "image",
     }),
 
@@ -83,8 +84,8 @@ export default defineType({
       name: "imageDesktop",
       title: "Afbeelding (Desktop)",
       type: "image",
-      description: "Voor slots met een desktop formaat (bv. 970×250 of 970×90).",
-      options: { hotspot: true },
+      description: "Voor slots met een desktop formaat (bv. 970×250 of 970×90). Max 150 KB.",
+      options: { hotspot: true, accept: "image/jpeg,image/png,image/webp,image/gif" },
       hidden: ({ document }) => document?.format !== "image",
     }),
     defineField({

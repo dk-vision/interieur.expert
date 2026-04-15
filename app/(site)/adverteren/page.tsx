@@ -4,7 +4,7 @@ import Section from "@/components/layout/Section";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Adverteren | interieur.expert",
+  title: "Adverteren",
   description:
     "Bereik een geengageerd publiek van interieurliefhebbers en professionals via interieur.expert.",
   path: "/adverteren",

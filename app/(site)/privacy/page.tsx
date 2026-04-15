@@ -3,7 +3,7 @@ import Section from "@/components/layout/Section";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Privacy & cookies | interieur.expert",
+  title: "Privacy & cookies",
   description:
     "Lees hoe interieur.expert omgaat met privacy, analytische cookies, marketingcookies en cookievoorkeuren.",
   path: "/privacy",

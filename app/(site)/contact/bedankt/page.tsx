@@ -4,7 +4,7 @@ import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 
 export const metadata: Metadata = {
-  title: "Bericht ontvangen | interieur.expert",
+  title: "Bericht ontvangen",
 };
 
 export default function BedanktPage() {

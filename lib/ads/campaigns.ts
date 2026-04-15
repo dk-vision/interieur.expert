@@ -37,11 +37,16 @@ const activeCampaignsQuery = groq`
 `;
 
 /**
- * Fraction of impressions reserved for house ads ("Jouw advertentie hier").
- * 0.35 = 35% house ad, 65% client campaign.
+ * Virtual priority for the house ad ("Jouw advertentie hier").
+ * Competes with real campaigns in weighted selection: 1 = lowest, 10 = highest.
  */
-const HOUSE_AD_RATIO = 0.35;
+const HOUSE_AD_PRIORITY = 1;
 
+/**
+ * Weighted random pick: each campaign's priority is its relative weight.
+ * The house ad participates with HOUSE_AD_PRIORITY so it naturally
+ * appears less when surrounded by higher-priority campaigns.
+ */
 export async function getActiveCampaign(
   slot: string,
   _category?: string,
@@ -55,11 +60,20 @@ export async function getActiveCampaign(
 
     if (!campaigns?.length) return null;
 
-    // Mix in house ads at the configured ratio.
-    if (Math.random() < HOUSE_AD_RATIO) return null;
+    // Build a weight pool: real campaigns + house ad.
+    const totalWeight =
+      campaigns.reduce((sum, c) => sum + (c.priority ?? 5), 0) +
+      HOUSE_AD_PRIORITY;
 
-    // Pick randomly from all active campaigns for this slot.
-    return campaigns[Math.floor(Math.random() * campaigns.length)];
+    let roll = Math.random() * totalWeight;
+
+    for (const campaign of campaigns) {
+      roll -= campaign.priority ?? 5;
+      if (roll <= 0) return campaign;
+    }
+
+    // Remaining weight belongs to the house ad → return null (fallback).
+    return null;
   } catch (err) {
     console.error("Failed to fetch ad campaign:", err);
     return null;
