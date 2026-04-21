@@ -10,11 +10,15 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
 import { urlForImage } from "@/lib/sanity/image";
 import type { Article } from "@/lib/content/types";
-import { buildMetadata } from "@/lib/seo";
+import { buildBreadcrumbJsonLd, buildCollectionPageJsonLd, buildMetadata } from "@/lib/seo";
+
+const PAGE_TITLE = "Trends";
+const PAGE_DESCRIPTION =
+  "Blijf op de hoogte van de nieuwste interieur trends. Van kleurtrends tot nieuwe materialen en designrichtingen.";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Trends",
-  description: "Blijf op de hoogte van de nieuwste interieur trends. Van kleurtrends tot nieuwe materialen en designrichtingen.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   path: "/trends",
 });
 
@@ -46,9 +50,27 @@ export default async function TrendsPage() {
 
   const featuredArticle = articles[0];
   const otherArticles = articles.slice(1);
+  const collectionJsonLd = buildCollectionPageJsonLd({
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    path: "/trends",
+    publishedAt: featuredArticle?.publishedAt,
+  });
+
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: PAGE_TITLE, path: "/trends" },
+  ]);
 
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Hero */}
       <Section spacing="lg">
         <Container>

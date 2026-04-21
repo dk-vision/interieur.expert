@@ -9,12 +9,15 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
 import { urlForImage } from "@/lib/sanity/image";
 import type { Article } from "@/lib/content/types";
-import { buildMetadata } from "@/lib/seo";
+import { buildBreadcrumbJsonLd, buildCollectionPageJsonLd, buildMetadata } from "@/lib/seo";
+
+const PAGE_TITLE = "Inspiratie";
+const PAGE_DESCRIPTION =
+  "Ontdek stijlen, kleuren en materialen die je interieur naar een hoger niveau tillen. Van tijdloze klassiekers tot verfrissende nieuwe trends.";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Inspiratie",
-  description:
-    "Ontdek stijlen, kleuren en materialen die je interieur naar een hoger niveau tillen. Van tijdloze klassiekers tot verfrissende nieuwe trends.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   path: "/inspiratie",
 });
 
@@ -44,8 +47,27 @@ export default async function InspiratiePage() {
     query: inspiratieQuery,
   });
 
+  const collectionJsonLd = buildCollectionPageJsonLd({
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    path: "/inspiratie",
+    publishedAt: articles[0]?.publishedAt,
+  });
+
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: PAGE_TITLE, path: "/inspiratie" },
+  ]);
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Section spacing="lg">
         <Container>
           <div className="space-y-4">

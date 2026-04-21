@@ -5,14 +5,17 @@ import Image from "next/image";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import { groq } from "next-sanity";
-import { buildMetadata } from "@/lib/seo";
+import { buildBreadcrumbJsonLd, buildCollectionPageJsonLd, buildMetadata } from "@/lib/seo";
+
+const PAGE_TITLE = "Onze Partners";
+const PAGE_DESCRIPTION =
+  "Ontdek onze partners in interieur en design. Merken en showrooms voor al uw interieurvragen.";
 
 export const revalidate = 0; // Force dynamic rendering
 
 export const metadata = buildMetadata({
-  title: "Onze Partners",
-  description:
-    "Ontdek onze partners in interieur en design. Merken en showrooms voor al uw interieurvragen.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   path: "/partners",
 });
 
@@ -35,9 +38,26 @@ export default async function PartnersPage() {
   ]);
 
   const nonFeaturedPartners = allPartners.filter((p) => !p.featured);
+  const collectionJsonLd = buildCollectionPageJsonLd({
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    path: "/partners",
+  });
+
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: PAGE_TITLE, path: "/partners" },
+  ]);
 
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Section>
         <Container>
           <div className="max-w-3xl mx-auto text-center mb-16">

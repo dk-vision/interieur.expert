@@ -8,7 +8,9 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { groq } from "next-sanity";
 import type { Article } from "@/lib/content/types";
 import { notFound } from "next/navigation";
-import { buildMetadata } from "@/lib/seo";
+import { buildBreadcrumbJsonLd, buildCollectionPageJsonLd, buildMetadata } from "@/lib/seo";
+
+const MIN_INDEXABLE_TAG_ARTICLES = 3;
 
 const tagQuery = groq`
   *[_type == "article" && $tag in tags && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) {
@@ -31,6 +33,10 @@ const allTagsQuery = groq`
   array::unique(*[_type == "article"].tags[])
 `;
 
+const tagArticleCountQuery = groq`
+  count(*[_type == "article" && $tag in tags && defined(publishedAt) && publishedAt <= now()])
+`;
+
 export async function generateMetadata({
   params,
 }: {
@@ -38,17 +44,44 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { tag: encodedTag } = await params;
   const tag = decodeURIComponent(encodedTag);
+  const articleCount = await sanityFetch<number>({
+    query: tagArticleCountQuery,
+    params: { tag },
+  });
+  const isIndexableTag = articleCount >= MIN_INDEXABLE_TAG_ARTICLES;
 
   return buildMetadata({
     title: `#${tag} — Artikelen`,
     description: `Alle artikelen over ${tag} op interieur.expert. Ontdek inspiratie, advies en trends.`,
     path: `/tags/${encodeURIComponent(tag)}`,
+    ...(isIndexableTag
+      ? {}
+      : {
+          robots: {
+            index: false,
+            follow: true,
+          },
+        }),
   });
 }
 
 export async function generateStaticParams() {
   const tags = await sanityFetch<string[]>({ query: allTagsQuery });
-  return tags.filter(tag => typeof tag === 'string').map((tag) => ({ tag: tag }));
+  const indexedTags = await Promise.all(
+    tags
+      .filter((tag): tag is string => typeof tag === "string" && tag.length > 0)
+      .map(async (tag) => ({
+        tag,
+        articleCount: await sanityFetch<number>({
+          query: tagArticleCountQuery,
+          params: { tag },
+        }),
+      }))
+  );
+
+  return indexedTags
+    .filter(({ articleCount }) => articleCount >= MIN_INDEXABLE_TAG_ARTICLES)
+    .map(({ tag }) => ({ tag }));
 }
 
 export default async function TagPage({
@@ -67,8 +100,30 @@ export default async function TagPage({
     notFound();
   }
 
+  const isIndexableTag = articles.length >= MIN_INDEXABLE_TAG_ARTICLES;
+  const collectionJsonLd = buildCollectionPageJsonLd({
+    title: `#${tag} — Artikelen`,
+    description: `Alle artikelen over ${tag} op interieur.expert. Ontdek inspiratie, advies en trends.`,
+    path: `/tags/${encodeURIComponent(tag)}`,
+    publishedAt: articles[0]?.publishedAt,
+  });
+
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: `#${tag}`, path: `/tags/${encodeURIComponent(tag)}` },
+  ]);
+
   return (
     <div>
+      {isIndexableTag && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+        />
+      )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Section spacing="lg">
         <Container>
           <div className="space-y-4">

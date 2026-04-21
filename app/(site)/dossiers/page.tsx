@@ -3,20 +3,40 @@ import Section from "@/components/layout/Section";
 import ContentCard from "@/components/editorial/ContentCard";
 import AdSlot from "@/components/ads/AdSlot";
 import { getDossiers } from "@/lib/content";
-import { buildMetadata } from "@/lib/seo";
+import { buildBreadcrumbJsonLd, buildCollectionPageJsonLd, buildMetadata } from "@/lib/seo";
+
+const PAGE_TITLE = "Dossiers";
+const PAGE_DESCRIPTION =
+  "Verdiep je in specifieke interieurthema's met onze uitgebreide dossiers. Van verlichting tot duurzaamheid, ontdek verzamelingen van gerelateerde artikelen en video's.";
 
 export const metadata = buildMetadata({
-  title: "Dossiers",
-  description:
-    "Verdiep je in specifieke interieurthema's met onze uitgebreide dossiers. Van verlichting tot duurzaamheid, ontdek verzamelingen van gerelateerde artikelen en video's.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   path: "/dossiers",
 });
 
 export default async function DossiersPage() {
   const dossiers = await getDossiers();
+  const collectionJsonLd = buildCollectionPageJsonLd({
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    path: "/dossiers",
+  });
+
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: PAGE_TITLE, path: "/dossiers" },
+  ]);
 
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Header */}
       <Section spacing="lg">
         <Container>

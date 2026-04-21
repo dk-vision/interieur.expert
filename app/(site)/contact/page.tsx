@@ -1,12 +1,33 @@
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
 import ContactForm from "@/components/ui/ContactForm";
-import { buildMetadata } from "@/lib/seo";
+import { buildContactPageJsonLd, buildFAQJsonLd, buildMetadata } from "@/lib/seo";
+
+const PAGE_TITLE = "Contact";
+const PAGE_DESCRIPTION =
+  "Neem contact op met interieur.expert voor vragen, samenwerkingen of suggesties.";
+
+const faqItems = [
+  {
+    question: "Kan ik mijn huis laten zien op interieur.expert?",
+    answer:
+      "Absoluut. We zijn altijd op zoek naar inspirerende interieurs om te delen. Mail enkele foto's en een korte beschrijving naar studio@interieur.expert.",
+  },
+  {
+    question: "Doen jullie productreviews?",
+    answer:
+      "We schrijven over producten en merken die we zelf gebruiken en waarderen. Voor reviews of productplaatsing neem je contact op via partnerships@interieur.expert.",
+  },
+  {
+    question: "Kan ik een artikel als gast schrijven?",
+    answer:
+      "We staan open voor gastbijdragen van experts. Pitch je idee met een korte outline naar studio@interieur.expert.",
+  },
+];
 
 export const metadata = buildMetadata({
-  title: "Contact",
-  description:
-    "Neem contact op met interieur.expert voor vragen, samenwerkingen of suggesties.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   path: "/contact",
 });
 
@@ -59,8 +80,22 @@ function ContactCard({
 }
 
 export default function ContactPage() {
+  const contactPageJsonLd = buildContactPageJsonLd({
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    path: "/contact",
+  });
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildFAQJsonLd(faqItems)) }}
+      />
       {/* Hero */}
       <Section spacing="lg" className="!pb-6">
         <Container size="content">

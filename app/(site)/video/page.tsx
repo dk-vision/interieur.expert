@@ -4,48 +4,52 @@ import AdSlot from "@/components/ads/AdSlot";
 import StickyContainer from "@/components/ui/StickyContainer";
 import VideoThumbnail from "@/components/video/VideoThumbnail";
 import { sanityFetch } from "@/lib/sanity/client";
-import { groq } from "next-sanity";
+import { videosListingQuery } from "@/lib/sanity/queries";
 import { urlForImage } from "@/lib/sanity/image";
 import type { Video } from "@/lib/content/types";
-import { buildMetadata } from "@/lib/seo";
+import { buildBreadcrumbJsonLd, buildCollectionPageJsonLd, buildMetadata } from "@/lib/seo";
+
+const PAGE_TITLE = "Video's";
+const PAGE_DESCRIPTION = "Inspirerende interieur tours, praktische DIY-projecten en advies van experts.";
 
 export const metadata = buildMetadata({
-  title: "Video's",
-  description: "Inspirerende interieur tours, praktische DIY-projecten en advies van experts.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   path: "/video",
 });
 
 export const revalidate = 3600;
 
-const videosQuery = groq`
-  *[_type == "video"] | order(publishedAt desc) {
-    _id,
-    _type,
-    title,
-    "slug": slug.current,
-    excerpt,
-    category,
-    publishedAt,
-    thumbnail,
-    "previewVideoUrl": previewVideo.asset->url,
-    duration,
-    sponsored,
-    "partner": partner->{
-      _id,
-      name,
-      "slug": slug.current,
-      website
-    }
-  }
-`;
-
 export default async function VideoPage() {
   const videos = await sanityFetch<Video[]>({
-    query: videosQuery,
+    query: videosListingQuery,
+    params: {
+      category: null,
+      tag: null,
+    },
   });
+
+  const collectionJsonLd = buildCollectionPageJsonLd({
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    path: "/video",
+    publishedAt: videos[0]?.publishedAt,
+  });
+
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
+    { name: PAGE_TITLE, path: "/video" },
+  ]);
 
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Header */}
       <Section spacing="lg">
         <Container>
@@ -77,7 +81,7 @@ export default async function VideoPage() {
                   <VideoThumbnail
                     href={`/video/${videos[0].slug}`}
                     title={videos[0].title}
-                    thumbnail={urlForImage(videos[0].thumbnail).width(1200).height(675).url()}
+                    thumbnail={urlForImage(videos[0].thumbnail).width(1920).height(1080).quality(90).url()}
                     previewVideo={(videos[0] as any).previewVideoUrl}
                     duration={videos[0].duration}
                     publishedAt={new Date(videos[0].publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
@@ -94,7 +98,7 @@ export default async function VideoPage() {
                           key={video._id}
                           href={`/video/${video.slug}`}
                           title={video.title}
-                          thumbnail={urlForImage(video.thumbnail).width(640).height(360).url()}
+                          thumbnail={urlForImage(video.thumbnail).width(960).height(540).quality(90).url()}
                           previewVideo={(video as any).previewVideoUrl}
                           duration={video.duration}
                           publishedAt={new Date(video.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}

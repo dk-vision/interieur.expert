@@ -22,6 +22,7 @@ type MetadataInput = {
   modifiedTime?: string;
   section?: string;
   tags?: string[];
+  robots?: Metadata["robots"];
 };
 
 function normalizePath(path: string) {
@@ -46,6 +47,7 @@ export function buildMetadata({
   modifiedTime,
   section,
   tags,
+  robots,
 }: MetadataInput): Metadata {
   const normalizedPath = normalizePath(path);
   const ogImage = image || absoluteUrl(DEFAULT_OG_IMAGE);
@@ -69,6 +71,7 @@ export function buildMetadata({
   return {
     title,
     description,
+    ...(robots && { robots }),
     alternates: {
       canonical: normalizedPath,
     },
@@ -192,9 +195,9 @@ export function buildArticleJsonLd({
     },
     image: image ? [image] : [absoluteUrl(DEFAULT_OG_IMAGE)],
     author: {
-      "@type": author ? "Person" : "Organization",
+      "@type": "Organization",
       name: author || SITE_NAME,
-      ...(author ? {} : { url: siteUrl }),
+      url: siteUrl,
     },
     publisher: publisherJsonLd,
     ...(section && { articleSection: section }),
@@ -259,7 +262,7 @@ type CollectionPageJsonLdInput = {
   title: string;
   description: string;
   path: string;
-  publishedAt: string;
+  publishedAt?: string;
   image?: string | null;
 };
 
@@ -276,7 +279,7 @@ export function buildCollectionPageJsonLd({
     name: title,
     description,
     url: absoluteUrl(path),
-    datePublished: publishedAt,
+    ...(publishedAt && { datePublished: publishedAt }),
     image: image ? [image] : [absoluteUrl(DEFAULT_OG_IMAGE)],
     inLanguage: "nl-BE",
     isPartOf: {
@@ -312,5 +315,53 @@ export function buildPartnerJsonLd({
     url: absoluteUrl(path),
     sameAs: [website, ...(socialLinks || [])].filter(Boolean),
     logo: logo || undefined,
+  };
+}
+
+type SimplePageJsonLdInput = {
+  title: string;
+  description: string;
+  path: string;
+};
+
+export function buildAboutPageJsonLd({
+  title,
+  description,
+  path,
+}: SimplePageJsonLdInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: title,
+    description,
+    url: absoluteUrl(path),
+    inLanguage: "nl-BE",
+    isPartOf: {
+      "@type": "WebSite",
+      name: SITE_NAME,
+      url: siteUrl,
+    },
+    about: publisherJsonLd,
+  };
+}
+
+export function buildContactPageJsonLd({
+  title,
+  description,
+  path,
+}: SimplePageJsonLdInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    name: title,
+    description,
+    url: absoluteUrl(path),
+    inLanguage: "nl-BE",
+    isPartOf: {
+      "@type": "WebSite",
+      name: SITE_NAME,
+      url: siteUrl,
+    },
+    about: publisherJsonLd,
   };
 }

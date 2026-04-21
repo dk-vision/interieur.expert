@@ -1,18 +1,36 @@
 import Container from "@/components/layout/Container";
 import ContentWrapper from "@/components/layout/ContentWrapper";
 import Section from "@/components/layout/Section";
-import { buildMetadata } from "@/lib/seo";
+import { buildAboutPageJsonLd, buildMetadata, buildOrganizationJsonLd } from "@/lib/seo";
+
+const PAGE_TITLE = "Over ons";
+const PAGE_DESCRIPTION =
+  "Eerlijk advies, inspiratie en trends voor een interieur dat bij je past. Zonder poespas, met respect voor vakmanschap en duurzaamheid.";
 
 export const metadata = buildMetadata({
-  title: "Over ons",
-  description:
-    "Eerlijk advies, inspiratie en trends voor een interieur dat bij je past. Zonder poespas, met respect voor vakmanschap en duurzaamheid.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
   path: "/over",
 });
 
 export default function OverPage() {
+  const aboutPageJsonLd = buildAboutPageJsonLd({
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    path: "/over",
+  });
+  const organizationJsonLd = buildOrganizationJsonLd();
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
       {/* Hero */}
       <Section spacing="lg" className="!pb-6">
         <Container size="content">

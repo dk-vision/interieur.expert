@@ -18,6 +18,7 @@ import type { Metadata } from "next";
 import type { Article } from "@/lib/content/types";
 import { calculateReadingTime } from "@/lib/utils/reading-time";
 import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildMetadata, buildFAQJsonLd } from "@/lib/seo";
+import { getDisplayAuthorName } from "@/lib/content/authors";
 import { draftMode } from "next/headers";
 import PreviewBanner from "@/components/ui/PreviewBanner";
 
@@ -100,13 +101,14 @@ export default async function ArtikelPage({ params }: PageProps) {
   const imageUrl = article.featuredImage
     ? urlForImage(article.featuredImage).width(1280).height(720).url()
     : null;
+  const authorName = getDisplayAuthorName();
   const articleJsonLd = buildArticleJsonLd({
     title: article.seoTitle || article.title,
     description: article.seoDescription || article.excerpt,
     path: `/${article.category || category}/${article.slug}`,
     publishedAt: article.publishedAt,
     image: imageUrl,
-    author: article.author,
+    author: authorName,
     section: article.category,
     tags: article.tags,
     wordCount: article.body
@@ -170,6 +172,7 @@ export default async function ArtikelPage({ params }: PageProps) {
                 type="article"
                 isSponsored={article.sponsored}
                 centered
+                authorName={authorName}
               />
 
               <h1 className="text-h2 lg:text-h1 font-semibold text-text tracking-tight">
@@ -246,7 +249,7 @@ export default async function ArtikelPage({ params }: PageProps) {
 
             {/* Sidebar Container */}
             <div className="lg:col-span-4">
-              <div className="space-y-8">
+              <div className="space-y-8 mb-8">
                 {/* Article Info Card */}
                 <div className="bg-background border border-text/10 rounded-sm p-6 space-y-4">
                     <h3 className="text-meta font-semibold uppercase tracking-wide text-text/60">
@@ -348,12 +351,12 @@ export default async function ArtikelPage({ params }: PageProps) {
                 )}
 
                 {/* Ad Slot in Sidebar - below related articles - only show if not sponsored */}
-                {!article.sponsored && (
-                  <StickyContainer offset={100}>
-                    <AdSlot position="article-sidebar" category={article.category} tags={article.tags} />
-                  </StickyContainer>
-                )}
               </div>
+              {!article.sponsored && (
+                <StickyContainer offset={100}>
+                  <AdSlot position="article-sidebar" category={article.category} tags={article.tags} />
+                </StickyContainer>
+              )}
             </div>
           </div>
         </Container>

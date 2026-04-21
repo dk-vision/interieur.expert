@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import PlayIcon from "@/components/ui/PlayIcon";
 
 interface VideoThumbnailProps {
@@ -34,6 +35,9 @@ export default function VideoThumbnail({
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const isFeatured = size === "featured";
+  const imageSizes = isFeatured
+    ? "(max-width: 1024px) 100vw, 900px"
+    : "(max-width: 768px) 100vw, 50vw";
 
   // Only activate preview if we have a preview video
   useEffect(() => {
@@ -73,9 +77,13 @@ export default function VideoThumbnail({
       <div className={isFeatured ? "space-y-3" : "space-y-3"}>
         <div className="aspect-video bg-text/5 rounded-sm overflow-hidden relative">
           {/* Static thumbnail */}
-          <img
+          <Image
             src={thumbnail}
             alt={title}
+            fill
+            sizes={imageSizes}
+            quality={88}
+            unoptimized={false}
             className={`w-full h-full object-cover transition-all duration-300 ${
               previewVideo && isHovering 
                 ? "opacity-0" 

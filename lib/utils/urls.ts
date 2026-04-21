@@ -27,3 +27,17 @@ export function getContentUrl(
       return `/${slug}`;
   }
 }
+
+export function getAuthorSlug(name: string): string {
+  return name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function getAuthorUrl(name: string): string {
+  return `/auteurs/${getAuthorSlug(name)}`;
+}

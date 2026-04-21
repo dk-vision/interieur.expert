@@ -4,7 +4,9 @@ import { sanityFetch } from "@/lib/sanity/client";
 import { getArticleUrl } from "@/lib/utils/urls";
 import { getSiteUrl } from "@/lib/site";
 
-export const revalidate = 0;
+export const revalidate = 3600;
+
+const MIN_INDEXABLE_TAG_ARTICLES = 3;
 
 interface SitemapDocument {
   slug: string;
@@ -20,7 +22,7 @@ interface SitemapData {
   videos: SitemapDocument[];
   dossiers: SitemapDocument[];
   partners: SitemapDocument[];
-  tags: string[];
+  tagCounts: Array<{ tag: string; articleCount: number }>;
 }
 
 const sitemapQuery = groq`
@@ -42,7 +44,10 @@ const sitemapQuery = groq`
       "slug": slug.current,
       _updatedAt
     },
-    "tags": array::unique(*[_type == "article"].tags[])
+    "tagCounts": array::unique(*[_type == "article" && defined(publishedAt) && publishedAt <= now()].tags[])[defined(@)]{
+      "tag": @,
+      "articleCount": count(*[_type == "article" && defined(publishedAt) && publishedAt <= now() && @ in tags])
+    }
   }
 `;
 
@@ -96,9 +101,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: 0.7,
     })),
-    ...data.tags
-      .filter((tag): tag is string => typeof tag === "string" && tag.length > 0)
-      .map((tag) => ({
+    ...data.tagCounts
+      .filter(
+        (entry): entry is { tag: string; articleCount: number } =>
+          typeof entry?.tag === "string" && entry.tag.length > 0 && entry.articleCount >= MIN_INDEXABLE_TAG_ARTICLES
+      )
+      .map(({ tag }) => ({
         url: new URL(`/tags/${encodeURIComponent(tag)}`, siteUrl).toString(),
         lastModified: now,
         changeFrequency: "weekly" as const,

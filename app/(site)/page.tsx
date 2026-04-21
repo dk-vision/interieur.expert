@@ -14,12 +14,11 @@ import { buildMetadata } from "@/lib/seo";
 
 export const metadata = {
   ...buildMetadata({
-    title: "Interieur Expert — Inspiratie, advies en trends voor je interieur",
+    title: "Inspiratie, advies en trends voor je interieur",
     description:
       "Ontdek inspiratie, praktisch advies en de laatste trends voor een interieur dat bij je past. Eerlijk, toegankelijk en zonder poespas.",
     path: "/",
   }),
-  title: "Interieur Expert — Inspiratie, advies en trends voor je interieur",
 };
 
 export const revalidate = 3600;
