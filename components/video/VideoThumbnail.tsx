@@ -10,6 +10,7 @@ interface VideoThumbnailProps {
   title: string;
   thumbnail: string;
   previewVideo?: string;
+  youtubeId?: string;
   duration?: number;
   publishedAt: string;
   size?: "featured" | "grid";
@@ -23,6 +24,7 @@ export default function VideoThumbnail({
   title,
   thumbnail,
   previewVideo,
+  youtubeId,
   duration,
   publishedAt,
   size = "grid",
@@ -39,17 +41,22 @@ export default function VideoThumbnail({
     ? "(max-width: 1024px) 100vw, 900px"
     : "(max-width: 768px) 100vw, 50vw";
 
-  // Only activate preview if we have a preview video
+  // Derive preview source: prefer uploaded Sanity file, fall back to YouTube animated thumbnail
+  const youtubePreviewUrl = youtubeId
+    ? `https://i.ytimg.com/an_webp/${youtubeId}/mqdefault.webp`
+    : undefined;
+  const hasPreview = !!(previewVideo || youtubePreviewUrl);
+  const isVideoPreview = !!previewVideo; // Sanity-uploaded file → <video>
+
+  // Only needed for <video> playback (Sanity-uploaded preview)
   useEffect(() => {
     if (isHovering && previewVideo && videoRef.current) {
       hoverTimeoutRef.current = setTimeout(() => {
         if (videoRef.current) {
           videoRef.current.currentTime = 0;
-          videoRef.current.play().catch(() => {
-            // Autoplay might be blocked, ignore
-          });
+          videoRef.current.play().catch(() => {});
         }
-      }, 400); // 400ms delay
+      }, 300);
     } else {
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current);
@@ -85,14 +92,14 @@ export default function VideoThumbnail({
             quality={88}
             unoptimized={false}
             className={`w-full h-full object-cover transition-all duration-300 ${
-              previewVideo && isHovering 
-                ? "opacity-0" 
+              hasPreview && isHovering
+                ? "opacity-0"
                 : "opacity-100 group-hover:scale-105"
             }`}
           />
 
-          {/* Preview video (only if exists) */}
-          {previewVideo && (
+          {/* Sanity-uploaded preview: use <video> element */}
+          {isVideoPreview && (
             <video
               ref={videoRef}
               src={previewVideo}
@@ -106,21 +113,34 @@ export default function VideoThumbnail({
             />
           )}
 
-          {/* Gradient overlay on hover (only if no preview video) */}
-          {!previewVideo && (
+          {/* YouTube animated WebP fallback: lightweight, no JS playback needed */}
+          {!isVideoPreview && youtubePreviewUrl && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={isHovering ? youtubePreviewUrl : undefined}
+              alt=""
+              aria-hidden="true"
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+                isHovering ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          )}
+
+          {/* Gradient overlay (only when no preview available) */}
+          {!hasPreview && (
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           )}
-          
+
           {/* Play button overlay */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className={`transition-all duration-300 ${
-              previewVideo && isHovering 
-                ? "opacity-0 scale-75" 
+              hasPreview && isHovering
+                ? "opacity-0 scale-75"
                 : "opacity-90 group-hover:opacity-100 group-hover:scale-110"
             }`}>
-              <PlayIcon 
-                size={isFeatured ? "lg" : "md"} 
-                className="text-white drop-shadow-2xl" 
+              <PlayIcon
+                size={isFeatured ? "lg" : "md"}
+                className="text-white drop-shadow-2xl"
               />
             </div>
           </div>

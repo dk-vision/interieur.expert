@@ -283,7 +283,7 @@ const buildComponents = (fullImage = false): PortableTextComponents => {
 
       return (
         <div
-          className="my-8"
+          className="article-rich-html my-8"
           dangerouslySetInnerHTML={{ __html: wrapped }}
         />
       );

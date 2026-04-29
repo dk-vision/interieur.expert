@@ -127,6 +127,16 @@ export default async function ArtikelPage({ params }: PageProps) {
     { name: article.title, path: `/${article.category || category}/${article.slug}` },
   ]);
 
+  const dossierSiblingArticles = (article.dossier?.articles || []).filter(
+    (item) =>
+      item &&
+      item._type === "article" &&
+      item._id !== article._id &&
+      item.publishedAt &&
+      new Date(item.publishedAt) <= new Date()
+  );
+  const dossierMeta = article.dossier;
+
   return (
     <article>
       {isPreview && <PreviewBanner />}
@@ -391,16 +401,16 @@ export default async function ArtikelPage({ params }: PageProps) {
       )}
 
       {/* Dossier Articles */}
-      {article.dossier?.articles && article.dossier.articles.filter(a => a._id !== article._id && a.publishedAt && new Date(a.publishedAt) <= new Date()).length > 0 && (
+      {dossierMeta && dossierSiblingArticles.length > 0 && (
         <Section spacing="lg" background="accent">
           <Container>
             <div className="space-y-8">
               <div className="flex items-center justify-between">
                 <h2 className="text-h4 font-semibold text-text">
-                  Meer in dossier: {article.dossier.title}
+                  Meer in dossier: {dossierMeta.title}
                 </h2>
                 <Link
-                  href={`/dossiers/${article.dossier.slug}`}
+                  href={`/dossiers/${dossierMeta.slug}`}
                   className="text-sm text-accent hover:text-text transition-colors font-medium"
                 >
                   Bekijk dossier →
@@ -408,9 +418,7 @@ export default async function ArtikelPage({ params }: PageProps) {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-10">
-                {article.dossier.articles
-                  .filter(a => a._id !== article._id && a.publishedAt && new Date(a.publishedAt) <= new Date())
-                  .map((sibling) => (
+                {dossierSiblingArticles.map((sibling) => (
                     <Link
                       key={sibling._id}
                       href={`/${sibling.category || 'artikels'}/${sibling.slug}`}
@@ -439,7 +447,7 @@ export default async function ArtikelPage({ params }: PageProps) {
                         )}
                       </div>
                     </Link>
-                  ))}
+                ))}
               </div>
             </div>
           </Container>

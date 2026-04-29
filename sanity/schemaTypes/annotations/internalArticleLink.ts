@@ -11,6 +11,7 @@ export default defineType({
       name: "reference",
       title: "Artikel",
       type: "reference",
+      weak: true,
       to: [{ type: "article" }],
       validation: (Rule) => Rule.required(),
     },

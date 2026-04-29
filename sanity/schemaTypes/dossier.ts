@@ -84,6 +84,7 @@ export default defineType({
                     name: "reference",
                     type: "reference",
                     title: "Artikel",
+                    weak: true,
                     to: [{ type: "article" }],
                   },
                 ],

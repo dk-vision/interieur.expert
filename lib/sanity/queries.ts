@@ -70,7 +70,8 @@ const videoFields = groq`
   thumbnail,
   youtubeId,
   transcript,
-  duration
+  duration,
+  "previewVideoUrl": previewVideo.asset->url
 `;
 
 // Dossier fields
@@ -146,13 +147,13 @@ export const adCampaignQuery = groq`
 
 // Homepage queries
 export const featuredArticleQuery = groq`
-  *[_type == "article" && defined(publishedAt) && publishedAt <= now() && count(*[_type == "dossier" && references(^._id)]) == 0] | order(select(pinned == true => 0, 1), publishedAt desc) [0] {
+  *[_type == "article" && defined(publishedAt) && publishedAt <= now() && !coalesce(hideFromHomepage, false) && count(*[_type == "dossier" && references(^._id)]) == 0] | order(select(pinned == true => 0, 1), publishedAt desc) [0] {
     ${articleFields}
   }
 `;
 
 export const latestArticlesQuery = groq`
-  *[_type == "article" && defined(publishedAt) && publishedAt <= now() && count(*[_type == "dossier" && references(^._id)]) == 0] | order(select(pinned == true => 0, 1), publishedAt desc) [1..7] {
+  *[_type == "article" && defined(publishedAt) && publishedAt <= now() && !coalesce(hideFromHomepage, false) && count(*[_type == "dossier" && references(^._id)]) == 0] | order(select(pinned == true => 0, 1), publishedAt desc) [1..7] {
     ${articleFields}
   }
 `;

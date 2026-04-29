@@ -2,28 +2,22 @@ import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { getSiteUrl } from "@/lib/site";
 
-// Import preview generation function
 async function generatePreviewInBackground(videoId: string, youtubeId: string) {
   try {
     const baseUrl = getSiteUrl();
-    
-    console.log(`🎬 Calling ${baseUrl}/api/generate-preview for video ${videoId}`);
-    
+
     const response = await fetch(`${baseUrl}/api/generate-preview`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ videoId, youtubeId }),
     });
-    
-    const result = await response.json();
-    
-    if (response.ok) {
-      console.log(`✅ Preview generation started for video: ${videoId}`);
-    } else {
-      console.error(`❌ Preview generation failed:`, result);
+
+    if (!response.ok) {
+      const result = await response.text();
+      console.error("❌ Preview generation failed:", result);
     }
   } catch (error) {
-    console.error(`❌ Failed to trigger preview generation:`, error);
+    console.error("❌ Failed to trigger preview generation:", error);
   }
 }
 
@@ -39,7 +33,7 @@ export async function POST(request: NextRequest) {
 
     // Parse webhook payload
     const body = await request.json();
-    const { _type, slug, _id, youtubeId, previewVideo, category } = body;
+    const { _type, slug, category, _id, youtubeId, previewVideo } = body;
 
     if (!_type) {
       return NextResponse.json(
@@ -77,16 +71,9 @@ export async function POST(request: NextRequest) {
         }
         revalidatePath("/");
         revalidatePath("/video");
-        
-        // Auto-generate preview if video has YouTube ID but no preview
+
         if (_id && youtubeId && !previewVideo) {
-          console.log(`🎬 Video needs preview: ${slug?.current} (ID: ${_id}, YouTube: ${youtubeId})`);
-          // Fire and forget - don't wait for completion
           generatePreviewInBackground(_id, youtubeId).catch(console.error);
-        } else if (previewVideo) {
-          console.log(`⏭️  Video already has preview: ${slug?.current}`);
-        } else if (!youtubeId) {
-          console.log(`⚠️  Video missing YouTube ID: ${slug?.current}`);
         }
         break;
 

@@ -5,13 +5,11 @@ import Link from "next/link";
 import Container from "@/components/layout/Container";
 import ContentWrapper from "@/components/layout/ContentWrapper";
 import Section from "@/components/layout/Section";
-import ArticleBody from "@/components/editorial/ArticleBody";
 import MetaRow from "@/components/editorial/MetaRow";
 import ContentCard from "@/components/editorial/ContentCard";
 import VideoThumbnail from "@/components/video/VideoThumbnail";
 import AdSlot from "@/components/ads/AdSlot";
 import StickyContainer from "@/components/ui/StickyContainer";
-import PortableText from "@/components/editorial/PortableText";
 import { getDossierBySlug } from "@/lib/content";
 import { urlForImage } from "@/lib/sanity/image";
 import type { Video } from "@/lib/content/types";
@@ -110,6 +108,34 @@ export default async function DossierDetailPage({
   
   const articles = validContent.filter((item) => item._type === "article");
   const videos = validContent.filter((item): item is DossierVideo => item._type === "video");
+
+  // Keep dossier intro concise: use only the first normal paragraph as a short teaser.
+  const introBlocks = Array.isArray(dossier.intro) ? dossier.intro : [];
+  const firstNormalBlock = introBlocks.find(
+    (block) =>
+      block &&
+      typeof block === "object" &&
+      "_type" in block &&
+      block._type === "block" &&
+      "style" in block &&
+      block.style === "normal"
+  );
+  const firstIntroText =
+    firstNormalBlock &&
+    typeof firstNormalBlock === "object" &&
+    "children" in firstNormalBlock &&
+    Array.isArray(firstNormalBlock.children)
+      ? firstNormalBlock.children
+          .map((child) =>
+            child && typeof child === "object" && "text" in child && typeof child.text === "string"
+              ? child.text
+              : ""
+          )
+          .join("")
+          .trim()
+      : "";
+  const introSnippet =
+    firstIntroText.length > 230 ? `${firstIntroText.slice(0, 227).trimEnd()}...` : firstIntroText;
 
   // Get content card data for articles
   const articleCards = articles.map((article) => ({
@@ -224,13 +250,13 @@ export default async function DossierDetailPage({
       )}
 
       {/* Introduction */}
-      {dossier.intro && (
+      {introSnippet && (
         <Section spacing="md">
           <Container size="content">
             <ContentWrapper>
-              <ArticleBody>
-                <PortableText value={dossier.intro} />
-              </ArticleBody>
+              <p className="text-body-lg text-text/80 max-w-3xl">
+                {introSnippet}
+              </p>
             </ContentWrapper>
           </Container>
         </Section>

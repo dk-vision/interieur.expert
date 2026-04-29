@@ -83,6 +83,7 @@ export default async function VideoPage() {
                     title={videos[0].title}
                     thumbnail={urlForImage(videos[0].thumbnail).width(1920).height(1080).quality(90).url()}
                     previewVideo={(videos[0] as any).previewVideoUrl}
+                    youtubeId={videos[0].youtubeId}
                     duration={videos[0].duration}
                     publishedAt={new Date(videos[0].publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
                     excerpt={videos[0].excerpt}
@@ -100,6 +101,7 @@ export default async function VideoPage() {
                           title={video.title}
                           thumbnail={urlForImage(video.thumbnail).width(960).height(540).quality(90).url()}
                           previewVideo={(video as any).previewVideoUrl}
+                          youtubeId={video.youtubeId}
                           duration={video.duration}
                           publishedAt={new Date(video.publishedAt).toLocaleDateString('nl-NL', { day: 'numeric', month: 'long', year: 'numeric' })}
                           isSponsored={video.sponsored || false}

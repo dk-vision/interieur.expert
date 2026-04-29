@@ -107,3 +107,17 @@
 .article-table-wrap table {
   @apply min-w-[560px];
 }
+
+.article-rich-html iframe,
+.article-rich-html video {
+  @apply block w-full max-w-full rounded-sm;
+}
+
+.article-rich-html iframe {
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+
+.article-rich-html video {
+  height: auto;
+}

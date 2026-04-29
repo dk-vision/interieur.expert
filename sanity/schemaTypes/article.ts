@@ -85,6 +85,7 @@ export default defineType({
                     name: "reference",
                     type: "reference",
                     title: "Artikel",
+                    weak: true,
                     to: [{ type: "article" }],
                   },
                 ],
@@ -151,6 +152,14 @@ export default defineType({
       type: "datetime",
       description:
         "Het artikel is pas zichtbaar op de website vanaf deze datum. Laat leeg om het artikel verborgen te houden (preview-link werkt altijd).",
+    }),
+    defineField({
+      name: "hideFromHomepage",
+      title: "Verberg op homepage",
+      type: "boolean",
+      description:
+        "Toon dit artikel niet op de homepage, ook niet wanneer het het meest recente artikel is.",
+      initialValue: false,
     }),
     defineField({
       name: "author",
