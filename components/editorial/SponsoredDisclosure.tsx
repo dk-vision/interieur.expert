@@ -11,18 +11,22 @@ export default function SponsoredDisclosure({
   partnerUrl,
   disclosure,
 }: SponsoredDisclosureProps) {
-  // Replace generic "dit merk" placeholder with the actual partner name
-  const rawDisclosure = disclosure
-    ? disclosure.replace(/dit merk/gi, partnerName)
-    : `Deze content is mogelijk gemaakt door ${partnerName}. Redactionele onafhankelijkheid blijft gegarandeerd.`;
+  const normalizedDisclosure = disclosure
+    ? disclosure
+        .replace(
+          /Deze inhoud is mogelijk gemaakt in samenwerking met/gi,
+          "Deze content is tot stand gekomen in samenwerking met"
+        )
+        .replace(/dit merk/gi, partnerName)
+    : `Deze content is tot stand gekomen in samenwerking met ${partnerName}. Redactionele onafhankelijkheid blijft gegarandeerd.`;
   
   return (
     <div className="border-l-2 border-brand/30 pl-4 py-3 bg-brand/5">
       <p className="text-sm text-text/70 leading-relaxed">
         <span className="font-semibold text-brand">Gesponsord</span> —{" "}
-        {rawDisclosure.includes(partnerName) ? (
+        {normalizedDisclosure.includes(partnerName) ? (
           // If partner name is in disclosure, linkify it
-          rawDisclosure.split(partnerName).map((part, i, arr) => (
+          normalizedDisclosure.split(partnerName).map((part, i, arr) => (
             <span key={i}>
               {part}
               {i < arr.length - 1 && partnerUrl ? (
@@ -40,7 +44,7 @@ export default function SponsoredDisclosure({
             </span>
           ))
         ) : (
-          rawDisclosure
+          normalizedDisclosure
         )}
       </p>
     </div>

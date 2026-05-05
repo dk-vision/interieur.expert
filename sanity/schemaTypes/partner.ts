@@ -88,7 +88,7 @@ export default defineType({
       title: "Standaard Sponsorvermelding",
       type: "text",
       rows: 2,
-      initialValue: "Deze inhoud is mogelijk gemaakt in samenwerking met dit merk.",
+      initialValue: "Deze content is tot stand gekomen in samenwerking met dit merk.",
       validation: (Rule) => Rule.required(),
       description: "Standaard vermelding. 'dit merk' wordt automatisch vervangen door de partnernaam.",
     }),
