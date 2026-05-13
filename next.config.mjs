@@ -29,13 +29,25 @@ const nextConfig = {
 
       if (!Array.isArray(result)) return [];
 
-      return result
-        .filter((r) => r.source && r.destination)
-        .map((r) => ({
-          source: r.source,
-          destination: r.destination,
-          permanent: r.permanent ?? true,
-        }));
+      const valid = result.filter((r) => r.source && r.destination && r.source !== r.destination);
+      const destinationMap = new Map(valid.map((r) => [r.source, r.destination]));
+
+      const acyclic = valid.filter((r) => {
+        const visited = new Set([r.source]);
+        let current = r.destination;
+        while (destinationMap.has(current)) {
+          if (visited.has(current)) return false;
+          visited.add(current);
+          current = destinationMap.get(current);
+        }
+        return true;
+      });
+
+      return acyclic.map((r) => ({
+        source: r.source,
+        destination: r.destination,
+        permanent: r.permanent ?? true,
+      }));
     } catch (e) {
       console.error("Failed to fetch redirects from Sanity:", e);
       return [];

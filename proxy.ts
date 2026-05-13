@@ -12,6 +12,22 @@ let cachedRedirects: Redirect[] | null = null;
 let cacheTimestamp = 0;
 const CACHE_TTL = 60_000; // 60 seconds
 
+function filterCyclicRedirects(redirects: Redirect[]): Redirect[] {
+  const destinationMap = new Map(redirects.map((r) => [r.source, r.destination]));
+
+  return redirects.filter((r) => {
+    const visited = new Set<string>([r.source]);
+    let current = r.destination;
+
+    while (destinationMap.has(current)) {
+      if (visited.has(current)) return false; // cycle detected
+      visited.add(current);
+      current = destinationMap.get(current)!;
+    }
+    return true;
+  });
+}
+
 async function getRedirects(): Promise<Redirect[]> {
   const now = Date.now();
   if (cachedRedirects && now - cacheTimestamp < CACHE_TTL) {
@@ -33,9 +49,8 @@ async function getRedirects(): Promise<Redirect[]> {
 
     if (!Array.isArray(result)) return cachedRedirects ?? [];
 
-    cachedRedirects = result.filter(
-      (r: Redirect) => r.source && r.destination
-    );
+    const valid = result.filter((r: Redirect) => r.source && r.destination && r.source !== r.destination);
+    cachedRedirects = filterCyclicRedirects(valid);
     cacheTimestamp = now;
     return cachedRedirects;
   } catch {
