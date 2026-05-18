@@ -15,6 +15,7 @@ interface SitemapDocument {
 
 interface SitemapArticleDocument extends SitemapDocument {
   category?: string;
+  tags?: string[];
 }
 
 interface SitemapData {
@@ -22,7 +23,6 @@ interface SitemapData {
   videos: SitemapDocument[];
   dossiers: SitemapDocument[];
   partners: SitemapDocument[];
-  tagCounts: Array<{ tag: string; articleCount: number }>;
 }
 
 const sitemapQuery = groq`
@@ -30,6 +30,7 @@ const sitemapQuery = groq`
     "articles": *[_type == "article" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()] {
       "slug": slug.current,
       category,
+      tags,
       _updatedAt
     },
     "videos": *[_type == "video" && defined(slug.current) && defined(publishedAt) && publishedAt <= now()] {
@@ -43,10 +44,6 @@ const sitemapQuery = groq`
     "partners": *[_type == "partner" && defined(slug.current)] {
       "slug": slug.current,
       _updatedAt
-    },
-    "tagCounts": array::unique(*[_type == "article" && defined(publishedAt) && publishedAt <= now()].tags[])[defined(@)]{
-      "tag": @,
-      "articleCount": count(*[_type == "article" && defined(publishedAt) && publishedAt <= now() && @ in tags])
     }
   }
 `;
@@ -60,6 +57,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/", changeFrequency: "daily" as const, priority: 1 },
     { path: "/adverteren", changeFrequency: "monthly" as const, priority: 0.7 },
     { path: "/advies", changeFrequency: "daily" as const, priority: 0.8 },
+    { path: "/afspraak", changeFrequency: "monthly" as const, priority: 0.6 },
     { path: "/contact", changeFrequency: "monthly" as const, priority: 0.6 },
     { path: "/dossiers", changeFrequency: "weekly" as const, priority: 0.8 },
     { path: "/inspiratie", changeFrequency: "daily" as const, priority: 0.8 },
@@ -69,6 +67,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/trends", changeFrequency: "daily" as const, priority: 0.8 },
     { path: "/video", changeFrequency: "daily" as const, priority: 0.8 },
   ];
+
+  const tagCounts = new Map<string, number>();
+  for (const article of data.articles) {
+    for (const tag of article.tags ?? []) {
+      if (!tag) continue;
+      tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+    }
+  }
+
+  const indexableTags = [...tagCounts.entries()]
+    .filter(([, articleCount]) => articleCount >= MIN_INDEXABLE_TAG_ARTICLES)
+    .map(([tag]) => tag)
+    .sort((a, b) => a.localeCompare(b, "nl"));
 
   return [
     ...staticRoutes.map((route) => ({
@@ -101,12 +112,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly" as const,
       priority: 0.7,
     })),
-    ...data.tagCounts
-      .filter(
-        (entry): entry is { tag: string; articleCount: number } =>
-          typeof entry?.tag === "string" && entry.tag.length > 0 && entry.articleCount >= MIN_INDEXABLE_TAG_ARTICLES
-      )
-      .map(({ tag }) => ({
+    ...indexableTags.map((tag) => ({
         url: new URL(`/tags/${encodeURIComponent(tag)}`, siteUrl).toString(),
         lastModified: now,
         changeFrequency: "weekly" as const,
