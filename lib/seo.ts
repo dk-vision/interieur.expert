@@ -25,6 +25,12 @@ type MetadataInput = {
   robots?: Metadata["robots"];
 };
 
+function normalizeTitle(title: string) {
+  return title
+    .replace(/\s*[|\-]\s*Interieur Expert\s*$/i, "")
+    .trim();
+}
+
 function normalizePath(path: string) {
   if (!path || path === "/") {
     return "/";
@@ -49,6 +55,7 @@ export function buildMetadata({
   tags,
   robots,
 }: MetadataInput): Metadata {
+  const normalizedTitle = normalizeTitle(title);
   const normalizedPath = normalizePath(path);
   const ogImage = image || absoluteUrl(DEFAULT_OG_IMAGE);
   const canonicalUrl = absoluteUrl(normalizedPath);
@@ -69,7 +76,7 @@ export function buildMetadata({
     locale: SITE_LOCALE,
     url: absoluteUrl(normalizedPath),
     siteName: SITE_NAME,
-    title,
+    title: normalizedTitle,
     description,
     images: [ogImage],
     ...(type === "article" && {
@@ -81,7 +88,7 @@ export function buildMetadata({
   };
 
   return {
-    title,
+    title: normalizedTitle,
     description,
     robots: robots || defaultRobots,
     alternates: {

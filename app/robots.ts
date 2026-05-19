@@ -10,7 +10,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/studio/"],
       },
     ],
-    sitemap: absoluteUrl("/sitemap.xml"),
-    host: absoluteUrl("/"),
+    sitemap: absoluteUrl("/sitemap-index.xml"),
+    host: absoluteUrl(),
   };
 }
