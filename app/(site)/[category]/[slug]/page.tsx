@@ -8,7 +8,11 @@ import RelatedArticles from "@/components/editorial/RelatedArticles";
 import AdSlot from "@/components/ads/AdSlot";
 import StickyContainer from "@/components/ui/StickyContainer";
 import { sanityFetch } from "@/lib/sanity/client";
-import { articleBySlugQuery, relatedArticlesQuery } from "@/lib/sanity/queries";
+import {
+  articleBySlugQuery,
+  fallbackRelatedArticlesQuery,
+  relatedArticlesQuery,
+} from "@/lib/sanity/queries";
 import { PortableText } from "@/components/editorial/PortableText";
 import { urlForImage } from "@/lib/sanity/image";
 import { notFound } from "next/navigation";
@@ -87,7 +91,7 @@ export default async function ArtikelPage({ params }: PageProps) {
   const readingTime = article.readingTime || calculateReadingTime(article.body);
 
   // Fetch related articles based on tags
-  const relatedArticles: Article[] =
+  let relatedArticles: Article[] =
     article.tags && article.tags.length > 0
       ? await sanityFetch<Article[]>({
           query: relatedArticlesQuery,
@@ -97,6 +101,16 @@ export default async function ArtikelPage({ params }: PageProps) {
           },
         })
       : [];
+
+  if (!relatedArticles || relatedArticles.length === 0) {
+    relatedArticles = await sanityFetch<Article[]>({
+      query: fallbackRelatedArticlesQuery,
+      params: {
+        currentId: article._id,
+        category: article.category,
+      },
+    });
+  }
 
   const imageUrl = article.featuredImage
     ? urlForImage(article.featuredImage).width(1280).height(720).url()

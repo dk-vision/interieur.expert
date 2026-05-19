@@ -256,7 +256,18 @@ export const relatedArticlesQuery = groq`
     && _id != $currentId
     && defined(publishedAt) && publishedAt <= now()
     && count((tags[])[@ in $tags]) > 0
-  ] | order(count((tags[])[@ in $tags]) desc, publishedAt desc) [0..2] {
+  ] | order(count((tags[])[@ in $tags]) desc, publishedAt desc) [0..5] {
+    ${articleFields}
+  }
+`;
+
+// Fallback for article detail pages when tag-based related results are empty
+export const fallbackRelatedArticlesQuery = groq`
+  *[_type == "article"
+    && _id != $currentId
+    && defined(publishedAt) && publishedAt <= now()
+    && (!defined($category) || category == $category)
+  ] | order(select(pinned == true => 0, 1), publishedAt desc) [0..5] {
     ${articleFields}
   }
 `;
@@ -267,7 +278,7 @@ export const relatedVideosQuery = groq`
     && _id != $currentId
     && defined(publishedAt) && publishedAt <= now()
     && count((tags[])[@ in $tags]) > 0
-  ] | order(count((tags[])[@ in $tags]) desc, publishedAt desc) [0..2] {
+  ] | order(count((tags[])[@ in $tags]) desc, publishedAt desc) [0..5] {
     ${videoFields}
   }
 `;
