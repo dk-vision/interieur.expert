@@ -10,6 +10,8 @@ import { groq } from "next-sanity";
 import { urlForImage } from "@/lib/sanity/image";
 import type { Article } from "@/lib/content/types";
 import { buildBreadcrumbJsonLd, buildCollectionPageJsonLd, buildMetadata } from "@/lib/seo";
+import Link from "next/link";
+import Image from "next/image";
 
 const PAGE_TITLE = "Advies";
 const PAGE_DESCRIPTION =
@@ -22,6 +24,7 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export const revalidate = 3600; // Revalidate every hour
+const DOSSIER_PREVIEW_COUNT = 10;
 
 const adviesQuery = groq`
   *[_type == "article" && category == "advies" && defined(publishedAt) && publishedAt <= now() && count(*[_type == "dossier" && references(^._id)]) == 0] | order(select(pinned == true => 0, 1), publishedAt desc) {
@@ -42,10 +45,39 @@ const adviesQuery = groq`
   }
 `;
 
+const dossierAdviesQuery = groq`
+  *[_type == "article" && category == "advies" && defined(publishedAt) && publishedAt <= now() && count(*[_type == "dossier" && references(^._id)]) > 0] | order(publishedAt desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    category,
+    publishedAt,
+    featuredImage,
+    "dossierTitle": *[_type == "dossier" && references(^._id)][0].title,
+    "dossierSlug": *[_type == "dossier" && references(^._id)][0].slug.current
+  }
+`;
+
+type DossierAdviesArticle = {
+  _id: string;
+  title: string;
+  slug: string;
+  category?: string;
+  publishedAt: string;
+  featuredImage?: unknown;
+  dossierTitle?: string;
+  dossierSlug?: string;
+};
+
 export default async function AdviesPage() {
   const articles = await sanityFetch<Article[]>({
     query: adviesQuery,
   });
+  const dossierArticles = await sanityFetch<DossierAdviesArticle[]>({
+    query: dossierAdviesQuery,
+  });
+  const dossierPreviewArticles = dossierArticles.slice(0, DOSSIER_PREVIEW_COUNT);
+  const dossierRemainingArticles = dossierArticles.slice(DOSSIER_PREVIEW_COUNT);
 
   const collectionJsonLd = buildCollectionPageJsonLd({
     title: PAGE_TITLE,
@@ -138,6 +170,61 @@ export default async function AdviesPage() {
                 </StickyContainer>
               </aside>
             </div>
+
+            {dossierArticles.length > 0 && (
+              <div className="border-t border-text/10 pt-10">
+                <div className="space-y-4 mb-8">
+                  <h2 className="text-h4 font-semibold text-text">Ook relevant uit dossiers</h2>
+                  <p className="text-body text-text/70 max-w-3xl">
+                    Zin om dieper te gaan? Deze geselecteerde artikelen uit onze dossiers geven extra context,
+                    voorbeelden en praktische keuzes per ruimte.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  {dossierPreviewArticles.map((article) => (
+                    <Link
+                      key={article._id}
+                      href={`/${article.category || "artikels"}/${article.slug}`}
+                      className="group flex items-start gap-4 rounded-sm border border-text/10 p-4 hover:border-accent/40 transition-colors"
+                    >
+                      <div className="h-16 w-16 shrink-0 overflow-hidden rounded-sm bg-text/5 mt-0.5">
+                        {article.featuredImage ? (
+                          <Image
+                            src={urlForImage(article.featuredImage).width(128).height(128).url()}
+                            alt={article.title}
+                            width={64}
+                            height={64}
+                            className="h-full w-full object-cover"
+                          />
+                        ) : (
+                          <div className="h-full w-full bg-text/10" />
+                        )}
+                      </div>
+                      <div className="min-w-0 space-y-1.5">
+                        <h3 className="text-body font-medium text-text group-hover:text-accent transition-colors line-clamp-2">
+                          {article.title}
+                        </h3>
+                        <p className="text-sm text-text/60 line-clamp-1">
+                          {new Date(article.publishedAt).toLocaleDateString("nl-NL", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                          })}
+                          {article.dossierTitle ? ` · ${article.dossierTitle}` : ""}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+
+                {dossierRemainingArticles.length > 0 && (
+                  <p className="mt-6 text-sm text-text/60">
+                    + {dossierRemainingArticles.length} extra dossierartikelen in het archief.
+                  </p>
+                )}
+              </div>
+            )}
           </div>
         </Container>
       </Section>
