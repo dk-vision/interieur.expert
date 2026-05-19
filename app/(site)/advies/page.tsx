@@ -227,7 +227,7 @@ export default async function AdviesPage() {
                 <div className="mt-6">
                   <Link
                     href="/dossiers"
-                    className="inline-flex items-center rounded-sm border border-text/15 px-4 py-2 text-sm font-medium text-text hover:border-accent/50 hover:text-accent transition-colors"
+                    className="inline-block px-8 py-3 bg-text text-background font-medium rounded-sm hover:bg-accent transition-colors"
                   >
                     Bekijk alle dossiers
                   </Link>
