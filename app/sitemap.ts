@@ -83,7 +83,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...staticRoutes.map((route) => ({
-      url: new URL(route.path, siteUrl).toString(),
+      url: route.path === "/" ? siteUrl : new URL(route.path, siteUrl).toString(),
       lastModified: now,
       changeFrequency: route.changeFrequency,
       priority: route.priority,

@@ -223,6 +223,15 @@ export default async function AdviesPage() {
                     + {dossierRemainingArticles.length} extra dossierartikelen in het archief.
                   </p>
                 )}
+
+                <div className="mt-6">
+                  <Link
+                    href="/dossiers"
+                    className="inline-flex items-center rounded-sm border border-text/15 px-4 py-2 text-sm font-medium text-text hover:border-accent/50 hover:text-accent transition-colors"
+                  >
+                    Bekijk alle dossiers
+                  </Link>
+                </div>
               </div>
             )}
           </div>

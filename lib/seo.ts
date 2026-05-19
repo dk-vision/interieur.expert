@@ -51,6 +51,18 @@ export function buildMetadata({
 }: MetadataInput): Metadata {
   const normalizedPath = normalizePath(path);
   const ogImage = image || absoluteUrl(DEFAULT_OG_IMAGE);
+  const canonicalUrl = absoluteUrl(normalizedPath);
+  const defaultRobots: Metadata["robots"] = {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  };
 
   const openGraph: Metadata["openGraph"] = {
     type,
@@ -71,9 +83,13 @@ export function buildMetadata({
   return {
     title,
     description,
-    ...(robots && { robots }),
+    robots: robots || defaultRobots,
     alternates: {
       canonical: normalizedPath,
+      languages: {
+        "nl-BE": canonicalUrl,
+        "x-default": canonicalUrl,
+      },
     },
     openGraph,
     twitter: {
