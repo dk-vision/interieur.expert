@@ -2,6 +2,7 @@ import Container from "@/components/layout/Container";
 import ContentWrapper from "@/components/layout/ContentWrapper";
 import Section from "@/components/layout/Section";
 import MetaRow from "@/components/editorial/MetaRow";
+import Breadcrumbs from "@/components/editorial/Breadcrumbs";
 import SponsoredDisclosure from "@/components/editorial/SponsoredDisclosure";
 import AdSlot from "@/components/ads/AdSlot";
 import { PortableText } from "@/components/editorial/PortableText";
@@ -91,15 +92,19 @@ export default async function VideoDetailPage({ params }: PageProps) {
     description: video.seoDescription || video.excerpt,
     path: `/video/${video.slug}`,
     publishedAt: video.publishedAt,
+    modifiedAt: video._updatedAt,
     youtubeId: video.youtubeId,
     thumbnail: thumbnailUrl,
     duration: video.duration,
   });
 
-  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
-    { name: "Video", path: "/video" },
-    { name: video.title, path: `/video/${video.slug}` },
-  ]);
+  const breadcrumbItems = [
+    { name: "Video", href: "/video" },
+    { name: video.title, href: `/video/${video.slug}` },
+  ];
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd(
+    breadcrumbItems.map(({ name, href }) => ({ name, path: href }))
+  );
 
   return (
     <article>
@@ -116,12 +121,15 @@ export default async function VideoDetailPage({ params }: PageProps) {
       <Section spacing="lg" className="pb-8 md:pb-10">
         <Container size="content">
           <div className="space-y-6">
+            <Breadcrumbs items={breadcrumbItems} />
+
             <MetaRow
               publishedAt={new Date(video.publishedAt).toLocaleDateString("nl-NL", {
                 day: "numeric",
                 month: "long",
                 year: "numeric",
               })}
+              publishedAtIso={video.publishedAt}
               readingTime={video.duration}
               type="video"
               isSponsored={isSponsored}

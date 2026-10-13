@@ -13,7 +13,12 @@ export default defineType({
       name: "title",
       title: "Titel",
       type: "string",
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) =>
+        Rule.required().custom((value) =>
+          !value || value.length <= 60
+            ? true
+            : `${value.length} tekens - overweeg in te korten zodat 'Titel | Interieur Expert' niet wordt afgekapt in zoekresultaten (richtlijn: max 60).`
+        ).warning(),
     }),
     defineField({
       name: "slug",
@@ -267,6 +272,12 @@ export default defineType({
       title: "SEO Titel",
       type: "string",
       description: "Overschrijf titel voor SEO (optioneel)",
+      validation: (Rule) =>
+        Rule.custom((value) =>
+          !value || value.length <= 60
+            ? true
+            : `${value.length} tekens - overweeg in te korten (richtlijn: max 60).`
+        ).warning(),
     }),
     defineField({
       name: "seoDescription",

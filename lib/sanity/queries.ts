@@ -28,6 +28,7 @@ const fullPartnerFragment = groq`
 const baseContentFields = groq`
   _id,
   _type,
+  _updatedAt,
   title,
   "slug": slug.current,
   excerpt,
@@ -78,6 +79,7 @@ const videoFields = groq`
 const dossierFields = groq`
   _id,
   _type,
+  _updatedAt,
   title,
   "slug": slug.current,
   excerpt,

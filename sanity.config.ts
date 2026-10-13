@@ -2,8 +2,10 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { dashboardTool } from "@sanity/dashboard";
+import { Search } from "lucide-react";
 import { schemaTypes } from "./sanity/schemaTypes";
 import { CampaignDashboard } from "./sanity/components/CampaignDashboard";
+import { GeoAuditTool } from "./sanity/components/GeoAuditTool";
 import { GeneratePreviewAction } from "./sanity/components/GeneratePreviewAction";
 import { createAutoRedirectAction } from "./sanity/components/AutoRedirectAction";
 import { CopyPreviewLinkAction } from "./sanity/components/CopyPreviewLinkAction";
@@ -31,6 +33,16 @@ export default defineConfig({
         },
       ],
     }),
+  ],
+
+  tools: (prev) => [
+    ...prev,
+    {
+      name: "geo-audit",
+      title: "GEO Audit",
+      icon: Search,
+      component: GeoAuditTool,
+    },
   ],
 
   schema: {

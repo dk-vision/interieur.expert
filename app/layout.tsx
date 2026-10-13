@@ -53,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="nl" className={`${spaceGrotesk.variable} ${inter.variable} ${playfairDisplay.variable}`} suppressHydrationWarning>
+    <html lang="nl-BE" className={`${spaceGrotesk.variable} ${inter.variable} ${playfairDisplay.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
         {liveSite && (
           <>

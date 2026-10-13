@@ -5,6 +5,7 @@ import SponsoredBadge from "./SponsoredBadge";
 
 interface MetaRowProps {
   publishedAt: string;
+  publishedAtIso?: string;
   readingTime?: number;
   type: "article" | "video" | "dossier";
   isSponsored?: boolean;
@@ -16,6 +17,7 @@ interface MetaRowProps {
 
 export default function MetaRow({
   publishedAt,
+  publishedAtIso,
   readingTime,
   type,
   isSponsored = false,
@@ -35,7 +37,7 @@ export default function MetaRow({
       
       <div className="flex items-center gap-1.5">
         <Calendar size={14} />
-        <time dateTime={publishedAt}>{publishedAt}</time>
+        <time dateTime={publishedAtIso || publishedAt}>{publishedAt}</time>
       </div>
 
       {readingTime && (

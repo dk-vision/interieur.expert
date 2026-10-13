@@ -6,6 +6,7 @@ import Container from "@/components/layout/Container";
 import ContentWrapper from "@/components/layout/ContentWrapper";
 import Section from "@/components/layout/Section";
 import MetaRow from "@/components/editorial/MetaRow";
+import Breadcrumbs from "@/components/editorial/Breadcrumbs";
 import ContentCard from "@/components/editorial/ContentCard";
 import VideoThumbnail from "@/components/video/VideoThumbnail";
 import AdSlot from "@/components/ads/AdSlot";
@@ -90,13 +91,17 @@ export default async function DossierDetailPage({
     description: dossier.seoDescription || dossier.excerpt,
     path: `/dossiers/${dossier.slug}`,
     publishedAt: dossier.publishedAt,
+    modifiedAt: dossier._updatedAt,
     image: imageUrl,
   });
 
-  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
-    { name: "Dossiers", path: "/dossiers" },
-    { name: dossier.title, path: `/dossiers/${dossier.slug}` },
-  ]);
+  const breadcrumbItems = [
+    { name: "Dossiers", href: "/dossiers" },
+    { name: dossier.title, href: `/dossiers/${dossier.slug}` },
+  ];
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd(
+    breadcrumbItems.map(({ name, href }) => ({ name, path: href }))
+  );
 
   // Separate articles and videos (filter out null references and unpublished content in non-preview mode)
   const now = new Date();
@@ -174,6 +179,8 @@ export default async function DossierDetailPage({
       <Section spacing="lg" className="pb-8 md:pb-10">
         <Container size="layout">
           <div className="max-w-4xl mx-auto space-y-6 text-center">
+            <Breadcrumbs items={breadcrumbItems} centered />
+
             <MetaRow
               publishedAt={new Date(dossier.publishedAt).toLocaleDateString(
                 "nl-NL",
@@ -183,6 +190,7 @@ export default async function DossierDetailPage({
                   year: "numeric",
                 }
               )}
+              publishedAtIso={dossier.publishedAt}
               type="dossier"
               centered
             />

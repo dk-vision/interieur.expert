@@ -17,6 +17,7 @@ export interface Partner {
 export interface BaseContent {
   _id: string;
   _type: string;
+  _updatedAt?: string;
   title: string;
   slug: string;
   excerpt: string;
@@ -72,6 +73,7 @@ export interface Video extends BaseContent {
 export interface Dossier {
   _id: string;
   _type: "dossier";
+  _updatedAt?: string;
   title: string;
   slug: string;
   excerpt: string;

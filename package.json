@@ -21,7 +21,8 @@
     "create-sponsored-dossier": "tsx scripts/create-sponsored-dossier.ts",
     "ads:rolfbenz-only": "tsx scripts/rolf-benz-only-ads.ts",
     "ads:qa-allowlist": "tsx scripts/qa-ads-allowlist.ts",
-    "ads:rolfbenz-assets": "tsx scripts/ensure-rolf-benz-image-creatives.ts"
+    "ads:rolfbenz-assets": "tsx scripts/ensure-rolf-benz-image-creatives.ts",
+    "geo-audit": "tsx scripts/geo-audit.ts"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
@@ -60,6 +61,7 @@
     "@types/sanitize-html": "^2.16.1",
     "autoprefixer": "^10.4.24",
     "babel-loader": "^10.0.0",
+    "cheerio": "^1.2.0",
     "dotenv": "^17.2.4",
     "eslint": "^9.39.2",
     "eslint-config-next": "16.1.6",

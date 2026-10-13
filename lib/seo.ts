@@ -131,6 +131,11 @@ export function buildOrganizationJsonLd() {
       "@type": "ImageObject",
       url: absoluteUrl("/icons/logo.svg"),
     },
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "studio@interieur.expert",
+      contactType: "editorial",
+    },
     sameAs: [
       "https://www.instagram.com/interieur.expert/",
       "https://www.facebook.com/de.interieur.expert/",
@@ -249,6 +254,7 @@ type VideoJsonLdInput = {
   description: string;
   path: string;
   publishedAt: string;
+  modifiedAt?: string;
   youtubeId: string;
   thumbnail?: string | null;
   duration?: number;
@@ -259,6 +265,7 @@ export function buildVideoJsonLd({
   description,
   path,
   publishedAt,
+  modifiedAt,
   youtubeId,
   thumbnail,
   duration,
@@ -269,6 +276,7 @@ export function buildVideoJsonLd({
     name: title,
     description,
     uploadDate: publishedAt,
+    ...(modifiedAt && { dateModified: modifiedAt }),
     url: absoluteUrl(path),
     contentUrl: `https://www.youtube.com/watch?v=${youtubeId}`,
     embedUrl: `https://www.youtube.com/embed/${youtubeId}`,
@@ -286,6 +294,7 @@ type CollectionPageJsonLdInput = {
   description: string;
   path: string;
   publishedAt?: string;
+  modifiedAt?: string;
   image?: string | null;
 };
 
@@ -294,6 +303,7 @@ export function buildCollectionPageJsonLd({
   description,
   path,
   publishedAt,
+  modifiedAt,
   image,
 }: CollectionPageJsonLdInput) {
   return {
@@ -303,6 +313,7 @@ export function buildCollectionPageJsonLd({
     description,
     url: absoluteUrl(path),
     ...(publishedAt && { datePublished: publishedAt }),
+    ...(modifiedAt && { dateModified: modifiedAt }),
     image: image ? [image] : [absoluteUrl(DEFAULT_OG_IMAGE)],
     inLanguage: "nl-BE",
     isPartOf: {

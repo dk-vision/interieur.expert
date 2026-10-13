@@ -3,6 +3,7 @@ import ContentWrapper from "@/components/layout/ContentWrapper";
 import Section from "@/components/layout/Section";
 import ArticleBody from "@/components/editorial/ArticleBody";
 import MetaRow from "@/components/editorial/MetaRow";
+import Breadcrumbs from "@/components/editorial/Breadcrumbs";
 import SponsoredDisclosure from "@/components/editorial/SponsoredDisclosure";
 import RelatedArticles from "@/components/editorial/RelatedArticles";
 import AdSlot from "@/components/ads/AdSlot";
@@ -121,6 +122,7 @@ export default async function ArtikelPage({ params }: PageProps) {
     description: article.seoDescription || article.excerpt,
     path: `/${article.category || category}/${article.slug}`,
     publishedAt: article.publishedAt,
+    modifiedAt: article._updatedAt,
     image: imageUrl,
     author: authorName,
     section: article.category,
@@ -136,10 +138,13 @@ export default async function ArtikelPage({ params }: PageProps) {
 
   const categoryLabel =
     article.category?.charAt(0).toUpperCase() + article.category?.slice(1);
-  const breadcrumbJsonLd = buildBreadcrumbJsonLd([
-    { name: categoryLabel || category, path: `/${article.category || category}` },
-    { name: article.title, path: `/${article.category || category}/${article.slug}` },
-  ]);
+  const breadcrumbItems = [
+    { name: categoryLabel || category, href: `/${article.category || category}` },
+    { name: article.title, href: `/${article.category || category}/${article.slug}` },
+  ];
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd(
+    breadcrumbItems.map(({ name, href }) => ({ name, path: href }))
+  );
 
   const dossierSiblingArticles = (article.dossier?.articles || []).filter(
     (item) =>
@@ -173,6 +178,8 @@ export default async function ArtikelPage({ params }: PageProps) {
         <Container size="layout">
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="space-y-6 text-center">
+              <Breadcrumbs items={breadcrumbItems} centered />
+
               {article.dossier && (
                 <div className="inline-flex items-center gap-2 text-sm text-text/60">
                   <Link href="/dossiers" className="hover:text-accent transition-colors">Dossiers</Link>
@@ -192,6 +199,7 @@ export default async function ArtikelPage({ params }: PageProps) {
                   month: "long",
                   year: "numeric",
                 })}
+                publishedAtIso={article.publishedAt}
                 readingTime={readingTime}
                 type="article"
                 isSponsored={article.sponsored}

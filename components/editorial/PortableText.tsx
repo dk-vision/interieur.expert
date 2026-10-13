@@ -34,6 +34,23 @@ interface ImageValueProps {
   caption?: string;
 }
 
+interface HeadingBlockValue {
+  children?: Array<{ text?: string }>;
+}
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function headingText(value?: HeadingBlockValue): string {
+  return (value?.children || []).map((span) => span.text || "").join("").trim();
+}
+
 interface CalloutValueProps {
   type: "info" | "warning" | "tip" | "danger";
   title?: string;
@@ -47,18 +64,34 @@ interface PullQuoteValueProps {
 }
 
 const buildComponents = (fullImage = false): PortableTextComponents => {
+  // Dedupe heading ids within a single rendered document (anchor-link targets).
+  const usedHeadingIds = new Set<string>();
+  const makeHeadingId = (value?: HeadingBlockValue): string | undefined => {
+    const text = headingText(value);
+    if (!text) return undefined;
+    const base = slugify(text) || "sectie";
+    let id = base;
+    let suffix = 2;
+    while (usedHeadingIds.has(id)) {
+      id = `${base}-${suffix++}`;
+    }
+    usedHeadingIds.add(id);
+    return id;
+  };
+
   const imageComponent = fullImage
     ? ({ value }: { value?: ImageValueProps }) => {
         if (!value?.asset) return null;
 
         const imageUrl = urlForImage(value).width(1200).url();
+        const alt = value.alt || value.caption || "";
 
         return (
-          <div className="my-8 -mx-4 md:mx-0">
+          <figure className="my-8 -mx-4 md:mx-0">
             <div className="relative rounded-sm overflow-hidden">
               <Image
                 src={imageUrl}
-                alt={value.alt || "Article image"}
+                alt={alt}
                 width={1200}
                 height={800}
                 className="w-full h-auto"
@@ -66,48 +99,49 @@ const buildComponents = (fullImage = false): PortableTextComponents => {
               />
             </div>
             {value.caption && (
-              <p className="text-meta text-text/60 mt-3 text-center">
+              <figcaption className="text-meta text-text/60 mt-3 text-center">
                 {value.caption}
-              </p>
+              </figcaption>
             )}
-          </div>
+          </figure>
         );
       }
     : ({ value }: { value?: ImageValueProps }) => {
         if (!value?.asset) return null;
 
         const imageUrl = urlForImage(value).width(1200).height(800).url();
+        const alt = value.alt || value.caption || "";
 
         return (
-          <div className="my-8 -mx-4 md:mx-0">
+          <figure className="my-8 -mx-4 md:mx-0">
             <div className="relative aspect-[3/2] rounded-sm overflow-hidden">
               <Image
                 src={imageUrl}
-                alt={value.alt || "Article image"}
+                alt={alt}
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 720px"
               />
             </div>
             {value.caption && (
-              <p className="text-meta text-text/60 mt-3 text-center">
+              <figcaption className="text-meta text-text/60 mt-3 text-center">
                 {value.caption}
-              </p>
+              </figcaption>
             )}
-          </div>
+          </figure>
         );
       };
 
   return {
   block: {
     normal: ({ children }: BaseComponentProps) => <p className="mb-6 text-body">{children}</p>,
-    h2: ({ children }: BaseComponentProps) => (
-      <h2 className="text-h4 font-semibold mt-12 mb-6 text-text">
+    h2: ({ children, value }: BaseComponentProps & { value?: HeadingBlockValue }) => (
+      <h2 id={makeHeadingId(value)} className="text-h4 font-semibold mt-12 mb-6 text-text scroll-mt-24">
         {children}
       </h2>
     ),
-    h3: ({ children }: BaseComponentProps) => (
-      <h3 className="text-h5 font-semibold mt-8 mb-4 text-text">{children}</h3>
+    h3: ({ children, value }: BaseComponentProps & { value?: HeadingBlockValue }) => (
+      <h3 id={makeHeadingId(value)} className="text-h5 font-semibold mt-8 mb-4 text-text scroll-mt-24">{children}</h3>
     ),
   },
   list: {
