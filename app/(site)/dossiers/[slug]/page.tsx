@@ -12,15 +12,12 @@ import VideoThumbnail from "@/components/video/VideoThumbnail";
 import AdSlot from "@/components/ads/AdSlot";
 import StickyContainer from "@/components/ui/StickyContainer";
 import { getDossierBySlug } from "@/lib/content";
+import { getIndexableTags } from "@/lib/content/tags";
 import { urlForImage } from "@/lib/sanity/image";
 import type { Video } from "@/lib/content/types";
 import { buildCollectionPageJsonLd, buildBreadcrumbJsonLd, buildMetadata } from "@/lib/seo";
-import { sanityFetch } from "@/lib/sanity/client";
-import { groq } from "next-sanity";
 import { draftMode } from "next/headers";
 import PreviewBanner from "@/components/ui/PreviewBanner";
-
-const allArticleTagsQuery = groq`array::unique(*[_type == "article"].tags[])`;
 
 type DossierVideo = Video & {
   previewVideoUrl?: string;
@@ -62,7 +59,7 @@ export default async function DossierDetailPage({
   const { isEnabled: isPreview } = await draftMode();
   const [dossier, allTags] = await Promise.all([
     getDossierBySlug(slug, { draft: isPreview }),
-    sanityFetch<string[]>({ query: allArticleTagsQuery }).catch(() => []),
+    getIndexableTags().catch(() => []),
   ]);
 
   if (!dossier) {
@@ -74,11 +71,7 @@ export default async function DossierDetailPage({
     notFound();
   }
 
-  const existingTags = new Set(
-    allTags
-      .filter((t): t is string => typeof t === "string" && t.length > 0)
-      .map((t) => t.toLowerCase())
-  );
+  const existingTags = new Set(allTags.map((t) => t.toLowerCase()));
 
   const imageUrl = dossier.featuredImage
     ? urlForImage(dossier.featuredImage)

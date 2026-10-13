@@ -9,8 +9,7 @@ import { groq } from "next-sanity";
 import type { Article } from "@/lib/content/types";
 import { notFound } from "next/navigation";
 import { buildBreadcrumbJsonLd, buildCollectionPageJsonLd, buildMetadata } from "@/lib/seo";
-
-const MIN_INDEXABLE_TAG_ARTICLES = 3;
+import { MIN_INDEXABLE_TAG_ARTICLES } from "@/lib/content/tags";
 
 const tagQuery = groq`
   *[_type == "article" && $tag in tags && defined(publishedAt) && publishedAt <= now()] | order(publishedAt desc) {

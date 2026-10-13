@@ -3,10 +3,9 @@ import { groq } from "next-sanity";
 import { sanityFetch } from "@/lib/sanity/client";
 import { getArticleUrl } from "@/lib/utils/urls";
 import { getSiteUrl } from "@/lib/site";
+import { MIN_INDEXABLE_TAG_ARTICLES } from "@/lib/content/tags";
 
 export const revalidate = 3600;
-
-const MIN_INDEXABLE_TAG_ARTICLES = 3;
 
 interface SitemapDocument {
   slug: string;

@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { groq } from "next-sanity";
 import Container from "./Container";
 import CookiePreferencesButton from "@/components/privacy/CookiePreferencesButton";
-import { sanityFetch } from "@/lib/sanity/client";
+import { getIndexableTags } from "@/lib/content/tags";
 
 const footerLinks = {
   content: [
@@ -40,10 +39,6 @@ const popularTags = [
   "interieur",
 ];
 
-const allTagsQuery = groq`
-  array::unique(*[_type == "article"].tags[])
-`;
-
 const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com/interieur.expert" },
   { label: "Facebook", href: "https://www.facebook.com/de.interieur.expert/" },
@@ -52,14 +47,8 @@ const socialLinks = [
 
 export default async function SiteFooter() {
   const currentYear = new Date().getFullYear();
-  const availableTags = await sanityFetch<string[]>({ query: allTagsQuery }).catch(
-    () => []
-  );
-  const existingTags = new Set(
-    availableTags
-      .filter((tag): tag is string => typeof tag === "string" && tag.length > 0)
-      .map((tag) => tag.toLowerCase())
-  );
+  const availableTags = await getIndexableTags().catch(() => []);
+  const existingTags = new Set(availableTags.map((tag) => tag.toLowerCase()));
   const doormatTags = popularTags.filter((tag) => existingTags.has(tag.toLowerCase()));
 
   return (

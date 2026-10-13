@@ -24,6 +24,7 @@ import type { Article } from "@/lib/content/types";
 import { calculateReadingTime } from "@/lib/utils/reading-time";
 import { buildArticleJsonLd, buildBreadcrumbJsonLd, buildMetadata, buildFAQJsonLd } from "@/lib/seo";
 import { getDisplayAuthorName } from "@/lib/content/authors";
+import { getIndexableTags } from "@/lib/content/tags";
 import { draftMode } from "next/headers";
 import PreviewBanner from "@/components/ui/PreviewBanner";
 
@@ -112,6 +113,9 @@ export default async function ArtikelPage({ params }: PageProps) {
       },
     });
   }
+
+  const indexableTags = new Set((await getIndexableTags().catch(() => [])).map((t) => t.toLowerCase()));
+  const displayableTags = (article.tags || []).filter((tag) => indexableTags.has(tag.toLowerCase()));
 
   const imageUrl = article.featuredImage
     ? urlForImage(article.featuredImage).width(1280).height(720).url()
@@ -313,10 +317,10 @@ export default async function ArtikelPage({ params }: PageProps) {
                     )}
                   </div>
 
-                  {article.tags && article.tags.length > 0 && (
+                  {displayableTags.length > 0 && (
                     <div className="pt-4 border-t border-text/10">
                       <div className="flex flex-wrap gap-2">
-                        {article.tags.map((tag) => (
+                        {displayableTags.map((tag) => (
                           <Link
                             key={tag}
                             href={`/tags/${encodeURIComponent(tag)}`}

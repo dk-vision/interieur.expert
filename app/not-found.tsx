@@ -1,18 +1,11 @@
 import Link from "next/link";
 import Container from "@/components/layout/Container";
 import Section from "@/components/layout/Section";
-import { sanityFetch } from "@/lib/sanity/client";
-import { groq } from "next-sanity";
-
-const allTagsQuery = groq`array::unique(*[_type == "article"].tags[])`;
+import { getIndexableTags } from "@/lib/content/tags";
 
 export default async function NotFound() {
-  const allTags = await sanityFetch<string[]>({ query: allTagsQuery }).catch(() => []);
-  const existingTags = new Set(
-    allTags
-      .filter((t): t is string => typeof t === "string" && t.length > 0)
-      .map((t) => t.toLowerCase())
-  );
+  const allTags = await getIndexableTags().catch(() => []);
+  const existingTags = new Set(allTags.map((t) => t.toLowerCase()));
   return (
     <div>
       <Section spacing="lg">
@@ -56,7 +49,7 @@ export default async function NotFound() {
               {["scandinavisch", "verlichting", "kleuren", "duurzaam", "minimalistisch", "woonkamer", "keuken", "slaapkamer"].filter((tag) => existingTags.has(tag)).map((tag) => (
                 <Link
                   key={tag}
-                  href={`/tags/${tag}`}
+                  href={`/tags/${encodeURIComponent(tag)}`}
                   className="inline-flex items-center rounded-full font-medium bg-text/5 text-text/70 hover:bg-text/10 hover:text-text transition-colors text-sm px-4 py-1.5"
                 >
                   #{tag}
