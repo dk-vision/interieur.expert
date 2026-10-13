@@ -47,8 +47,13 @@ function slugify(text: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-function headingText(value?: HeadingBlockValue): string {
-  return (value?.children || []).map((span) => span.text || "").join("").trim();
+function headingText(value: unknown): string {
+  const children = (value as HeadingBlockValue | undefined)?.children;
+  if (!Array.isArray(children)) return "";
+  return children
+    .map((span) => (typeof span?.text === "string" ? span.text : ""))
+    .join("")
+    .trim();
 }
 
 interface CalloutValueProps {
@@ -66,7 +71,7 @@ interface PullQuoteValueProps {
 const buildComponents = (fullImage = false): PortableTextComponents => {
   // Dedupe heading ids within a single rendered document (anchor-link targets).
   const usedHeadingIds = new Set<string>();
-  const makeHeadingId = (value?: HeadingBlockValue): string | undefined => {
+  const makeHeadingId = (value: unknown): string | undefined => {
     const text = headingText(value);
     if (!text) return undefined;
     const base = slugify(text) || "sectie";
@@ -135,12 +140,12 @@ const buildComponents = (fullImage = false): PortableTextComponents => {
   return {
   block: {
     normal: ({ children }: BaseComponentProps) => <p className="mb-6 text-body">{children}</p>,
-    h2: ({ children, value }: BaseComponentProps & { value?: HeadingBlockValue }) => (
+    h2: ({ children, value }: BaseComponentProps & { value?: unknown }) => (
       <h2 id={makeHeadingId(value)} className="text-h4 font-semibold mt-12 mb-6 text-text scroll-mt-24">
         {children}
       </h2>
     ),
-    h3: ({ children, value }: BaseComponentProps & { value?: HeadingBlockValue }) => (
+    h3: ({ children, value }: BaseComponentProps & { value?: unknown }) => (
       <h3 id={makeHeadingId(value)} className="text-h5 font-semibold mt-8 mb-4 text-text scroll-mt-24">{children}</h3>
     ),
   },
