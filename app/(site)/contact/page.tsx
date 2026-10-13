@@ -105,7 +105,7 @@ export default function ContactPage() {
             </h1>
             <p className="text-body-lg text-text/70">
               We horen graag van je. Of je nu een vraag hebt, feedback wilt geven,
-              of interesse hebt in samenwerking—neem gerust contact op.
+              of interesse hebt in samenwerking, neem gerust contact op.
             </p>
           </div>
         </Container>

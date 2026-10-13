@@ -105,7 +105,7 @@ export default function NewsletterCTA({
         {status === "already" && (
           <div className="flex items-center justify-center gap-2 text-blue-700 bg-blue-50 border border-blue-200 rounded-sm px-4 py-3" role="status" id={messageId}>
             <CheckCircleIcon size={18} />
-            <span className="font-medium">Je was al ingeschreven — welkom terug!</span>
+            <span className="font-medium">Je was al ingeschreven, welkom terug!</span>
           </div>
         )}
 

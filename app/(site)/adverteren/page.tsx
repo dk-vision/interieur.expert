@@ -102,7 +102,7 @@ export default function AdverterenPage() {
               </a>
             </div>
             <p className="text-body text-text/50 mt-4">
-              We bezorgen graag een voorstel op maat — reken op een antwoord binnen 2 werkdagen.
+              We bezorgen graag een voorstel op maat, reken op een antwoord binnen 2 werkdagen.
             </p>
           </div>
         </Container>

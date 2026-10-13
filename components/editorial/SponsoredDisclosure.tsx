@@ -23,7 +23,7 @@ export default function SponsoredDisclosure({
   return (
     <div className="border-l-2 border-brand/30 pl-4 py-3 bg-brand/5">
       <p className="text-sm text-text/70 leading-relaxed">
-        <span className="font-semibold text-brand">Gesponsord</span> —{" "}
+        <span className="font-semibold text-brand">Gesponsord</span>:{" "}
         {normalizedDisclosure.includes(partnerName) ? (
           // If partner name is in disclosure, linkify it
           normalizedDisclosure.split(partnerName).map((part, i, arr) => (

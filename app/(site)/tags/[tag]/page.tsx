@@ -50,7 +50,7 @@ export async function generateMetadata({
   const isIndexableTag = articleCount >= MIN_INDEXABLE_TAG_ARTICLES;
 
   return buildMetadata({
-    title: `#${tag} — Artikelen`,
+    title: `#${tag}: Artikelen`,
     description: `Alle artikelen over ${tag} op interieur.expert. Ontdek inspiratie, advies en trends.`,
     path: `/tags/${encodeURIComponent(tag)}`,
     ...(isIndexableTag
@@ -101,7 +101,7 @@ export default async function TagPage({
 
   const isIndexableTag = articles.length >= MIN_INDEXABLE_TAG_ARTICLES;
   const collectionJsonLd = buildCollectionPageJsonLd({
-    title: `#${tag} — Artikelen`,
+    title: `#${tag}: Artikelen`,
     description: `Alle artikelen over ${tag} op interieur.expert. Ontdek inspiratie, advies en trends.`,
     path: `/tags/${encodeURIComponent(tag)}`,
     publishedAt: articles[0]?.publishedAt,

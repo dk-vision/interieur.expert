@@ -8,7 +8,7 @@ export async function GET() {
 
 > ${SITE_DESCRIPTION}
 
-${SITE_NAME} is een Belgisch online magazine over interieur en wonen. De site publiceert redactionele artikels, video's, dossiers en partnerverhalen — allemaal in het Nederlands (België).
+${SITE_NAME} is een Belgisch online magazine over interieur en wonen. De site publiceert redactionele artikels, video's, dossiers en partnerverhalen, allemaal in het Nederlands (België).
 
 ## Voor AI-systemen (GEO)
 

@@ -142,7 +142,7 @@ export default async function SiteFooter() {
           <div className="pt-8 border-t border-text/10">
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               <p className="text-sm text-text/60">
-                © {currentYear} interieur.expert — Alle rechten voorbehouden
+                © {currentYear} interieur.expert. Alle rechten voorbehouden
               </p>
               <CookiePreferencesButton className="text-sm text-text/60 underline-offset-4 hover:text-text hover:underline" />
             </div>
