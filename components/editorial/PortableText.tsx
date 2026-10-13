@@ -190,11 +190,23 @@ const buildComponents = (fullImage = false): PortableTextComponents => {
     ),
     link: ({ children, value }: BaseComponentProps & { value?: LinkValueProps }) => {
       const href = value?.href || "";
+      const isOwnDomain = /^https?:\/\/(www\.)?interieur\.expert(\/|$)/i.test(href);
+      const className = "text-accent font-medium border-b border-accent hover:text-accent/70 hover:border-accent/70 transition-colors";
+
+      if (isOwnDomain) {
+        const relativeHref = href.replace(/^https?:\/\/(www\.)?interieur\.expert/i, "") || "/";
+        return (
+          <Link href={relativeHref} className={className}>
+            {children}
+          </Link>
+        );
+      }
+
       const isExternal = href.startsWith("http");
       return (
         <a
           href={href}
-          className="text-accent font-medium border-b border-accent hover:text-accent/70 hover:border-accent/70 transition-colors"
+          className={className}
           target={isExternal ? "_blank" : undefined}
           rel={isExternal ? "noopener noreferrer" : undefined}
         >
